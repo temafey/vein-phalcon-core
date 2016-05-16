@@ -11,12 +11,12 @@
  *
  * @author Nikita Vershinin <endeveit@gmail.com>
  */
-namespace Vein\Core\Mvc\View\Vein\Core\Twig;
+namespace Vein\Core\Mvc\View\Engine\Twig;
 
 use Phalcon\DiInterface;
 
 /**
- * \Phalcon\Mvc\View\Vein\Core\Twig\Environment
+ * \Phalcon\Mvc\View\Engine\Twig\Environment
  *
  * Twig environment that uses internal dependency injector.
  */

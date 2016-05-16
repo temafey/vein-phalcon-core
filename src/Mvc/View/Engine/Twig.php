@@ -2,13 +2,13 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Mvc\View\Vein\Core;
+namespace Vein\Core\Mvc\View\Engine;
 
-use Phalcon\Mvc\View\Vein\Core,
-    Phalcon\Mvc\View\Vein\CoreInterface;
+use Phalcon\Mvc\View\Engine,
+    Phalcon\Mvc\View\EngineInterface;
 
 /**
- * Phalcon\Mvc\View\Vein\Core\Twig
+ * Phalcon\Mvc\View\Engine\Twig
  *
  * Adapter to use Twig library as templating engine
  */
@@ -18,7 +18,7 @@ class Twig extends Vein\Core implements Vein\CoreInterface
     protected $_twig;
 
     /**
-     * Phalcon\Mvc\View\Vein\Core\Twig constructor
+     * Phalcon\Mvc\View\Engine\Twig constructor
      *
      * @param \Phalcon\Mvc\ViewInterface $view
      * @param \Phalcon\DiInterface $dependencyInjector

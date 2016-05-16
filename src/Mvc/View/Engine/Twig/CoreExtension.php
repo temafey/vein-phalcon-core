@@ -11,10 +11,10 @@
  *
  * @author Nikita Vershinin <endeveit@gmail.com>
  */
-namespace Vein\Core\Mvc\View\Vein\Core\Twig;
+namespace Vein\Core\Mvc\View\Engine\Twig;
 
 /**
- * \Phalcon\Mvc\View\Vein\Core\Twig\CoreExtension
+ * \Phalcon\Mvc\View\Engine\Twig\CoreExtension
  *
  * Core extension for Twig engine.
  * Currently supports only work with \Phalcon\Assets\Manager.
@@ -54,7 +54,7 @@ class CoreExtension extends \Twig_Extension
     /**
      * Returns string with CSS.
      *
-     * @param  \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     * @param  \Phalcon\Mvc\View\Engine\Twig\Environment $env
      * @return string
      */
     public function functionAssetsOutputCss(Environment $env)
@@ -65,7 +65,7 @@ class CoreExtension extends \Twig_Extension
     /**
      * Returns string with JS.
      *
-     * @param  \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     * @param  \Phalcon\Mvc\View\Engine\Twig\Environment $env
      * @return string
      */
     public function functionAssetsOutputJs(Environment $env)
@@ -88,7 +88,7 @@ class CoreExtension extends \Twig_Extension
     /**
      * Proxy method that handles return of assets instead of instant output.
      *
-     * @param  \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     * @param  \Phalcon\Mvc\View\Engine\Twig\Environment $env
      * @param  string                                    $method
      * @return string
      */

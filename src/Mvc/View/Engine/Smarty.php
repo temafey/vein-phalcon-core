@@ -2,13 +2,13 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Mvc\View\Vein\Core;
+namespace Vein\Core\Mvc\View\Engine;
 
-use Phalcon\Mvc\View\Vein\Core,
-    Phalcon\Mvc\View\Vein\CoreInterface;
+use Phalcon\Mvc\View\Engine,
+    Phalcon\Mvc\View\EngineInterface;
 
 /**
- * Phalcon\Mvc\View\Vein\Core\Smarty
+ * Phalcon\Mvc\View\Engine\Smarty
  *
  * Adapter to use Smarty library as templating engine
  */
@@ -20,7 +20,7 @@ class Smarty extends Vein\Core implements Vein\CoreInterface
     protected $_params;
 
     /**
-     * Phalcon\Mvc\View\Vein\Core\Twig constructor
+     * Phalcon\Mvc\View\Engine\Twig constructor
      *
      * @param \Phalcon\Mvc\ViewInterface $view
      * @param \Phalcon\DiInterface $dependencyInjector

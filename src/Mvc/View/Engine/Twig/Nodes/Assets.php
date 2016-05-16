@@ -11,10 +11,10 @@
  *
  * @author Nikita Vershinin <endeveit@gmail.com>
  */
-namespace Vein\Core\Mvc\View\Vein\Core\Twig\Nodes;
+namespace Vein\Core\Mvc\View\Engine\Twig\Nodes;
 
 /**
- * \Phalcon\Mvc\View\Vein\Core\Twig\Nodes\Assets
+ * \Phalcon\Mvc\View\Engine\Twig\Nodes\Assets
  *
  * Twig node object that compiles "assets" tag in template.
  */

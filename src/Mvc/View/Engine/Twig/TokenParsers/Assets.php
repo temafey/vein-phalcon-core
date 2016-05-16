@@ -11,12 +11,12 @@
  *
  * @author Nikita Vershinin <endeveit@gmail.com>
  */
-namespace Vein\Core\Mvc\View\Vein\Core\Twig\TokenParsers;
+namespace Vein\Core\Mvc\View\Engine\Twig\TokenParsers;
 
-use Phalcon\Mvc\View\Vein\Core\Twig\Nodes\Assets as Node;
+use Phalcon\Mvc\View\Engine\Twig\Nodes\Assets as Node;
 
 /**
- * \Phalcon\Mvc\View\Vein\Core\Twig\TokenParsers\Assets
+ * \Phalcon\Mvc\View\Engine\Twig\TokenParsers\Assets
  *
  * The "asset" tag realization.
  * Example of usage:
