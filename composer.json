@@ -14,8 +14,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Vein\\Core": "src/",
-            "Vein\\Core\\Test": "test/src/"
+            "Vein\\Core\\": "src/",
+            "Vein\\Core\\Test\\": "test/src/"
         }
     }
 }
