@@ -5,12 +5,12 @@
 namespace Vein\Core\Mvc\Model\Query;
 
 use Phalcon\Mvc\Model\Query\Builder as PhBuilder,
-    Engine\Mvc\Model\Query as EnQuery;
+    Vein\Core\Mvc\Model\Query as EnQuery;
 
 /**
  * Class Builder
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Mvc
  * @subcategory Model
  */
@@ -40,18 +40,18 @@ class Builder extends PhBuilder
     ];
 
     /**
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_model;
 
     /**
      * Set model
      *
-     * @param \Engine\Mvc\Model $model
+     * @param \Vein\Core\Mvc\Model $model
      * @param string $alias
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
-    public function setModel(\Engine\Mvc\Model $model, $alias = null)
+    public function setModel(\Vein\Core\Mvc\Model $model, $alias = null)
     {
         $this->_model = $model;
         if (!$alias) {
@@ -65,7 +65,7 @@ class Builder extends PhBuilder
     /**
      * Return model object
      *
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public function getModel()
     {
@@ -87,15 +87,15 @@ class Builder extends PhBuilder
     /**
      * Return alias from joined table
      *
-     * @param string|\Engine\Mvc\Model $model
+     * @param string|\Vein\Core\Mvc\Model $model
      * @return string
      */
     public function getJoinAlias($model)
     {
-        if ($model instanceof \Engine\Mvc\Model) {
+        if ($model instanceof \Vein\Core\Mvc\Model) {
             $model = get_class($model);
         } elseif (is_string($model) and !class_exists($model)) {
-            throw new \Engine\Exception("'{$model}' class not exists!");
+            throw new \Vein\Core\Exception("'{$model}' class not exists!");
         }
         $model = trim($model, "\\");
         foreach ($this->_joins as $join) {
@@ -115,12 +115,12 @@ class Builder extends PhBuilder
      * @param string $alias
      * @param boolean $useTableAlias
      * @param boolean $useCorrelationName
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function setColumn($column, $alias = null, $useTableAlias = true, $useCorrelationName = false)
     {
         if (!is_string($column)) {
-            throw new \Engine\Exception("Column value should be only string data type");
+            throw new \Vein\Core\Exception("Column value should be only string data type");
         }
         if ($alias == $column || is_numeric($alias)) {
             $alias = null;
@@ -139,7 +139,7 @@ class Builder extends PhBuilder
 
         if ($alias) {
             if (in_array($alias, self::$COLUMN_ALIAS_EXCEPTIONS)) {
-                throw new \Engine\Exception("Column alias name '{$alias}'' can not be reserved in SQL, please change the alias for column '{$column}'");
+                throw new \Vein\Core\Exception("Column alias name '{$alias}'' can not be reserved in SQL, please change the alias for column '{$column}'");
             }
             $this->_columns[$alias] = $column;
         } else {
@@ -153,7 +153,7 @@ class Builder extends PhBuilder
      * Include primary key to Query condition.
      *
      * @param string $alias
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsId($alias = "id")
     {
@@ -167,7 +167,7 @@ class Builder extends PhBuilder
      * Include column with name alias to Query condition.
      *
      * @param string $alias
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsName($alias = "name")
     {
@@ -181,7 +181,7 @@ class Builder extends PhBuilder
      * Sets the columns to be queried
      *
      * @param string|array $columns
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columns($columns)
     {
@@ -214,12 +214,12 @@ class Builder extends PhBuilder
      *
      * @param array|string $path
      * @param array|string $columns
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsJoinOne($path, $columns = null)
     {
         if (!$this->_model) {
-            throw new \Engine\Exception("Model class not set");
+            throw new \Vein\Core\Exception("Model class not set");
         }
         $relationPath = $this->_model->getRelationPath($path);
         if (is_array($relationPath)) {
@@ -237,12 +237,12 @@ class Builder extends PhBuilder
      * @param string $tableField
      * @param string $orderBy
      * @param string $separator
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsJoinMany($path, $fieldAlias = null, $tableField = null, $orderBy = null, $separator = null)
     {
         if (!$path) {
-            throw new \Engine\Exception("Non empty path is required, model '".get_class($this->_model)."'");
+            throw new \Vein\Core\Exception("Non empty path is required, model '".get_class($this->_model)."'");
         }
         if (!is_array($path)) {
             $path = [$path];
@@ -282,7 +282,7 @@ class Builder extends PhBuilder
     /*public function columnsJoinMany($path, $fieldAlias = null, $tableField = null, $orderBy = null, $separator = null)
     {
         if (!$path) {
-            throw new \Engine\Exception("Non empty path is required, model '".get_class($this->_model)."'");
+            throw new \Vein\Core\Exception("Non empty path is required, model '".get_class($this->_model)."'");
         }
         if (!is_array($path)) {
             $path = [$path];
@@ -335,7 +335,7 @@ class Builder extends PhBuilder
      * Join all models
      *
      * @param  array $joinPath
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function joinPath(array $joinPath, $columns = null)
     {
@@ -368,7 +368,7 @@ class Builder extends PhBuilder
             $joinConditions = [];
             foreach ($fields as $i => $field) {
                 if (!isset($refFields[$i])) {
-                    throw new \Engine\Exception("Incorect join rules for model '".$model."' and '".$refModel."''");
+                    throw new \Vein\Core\Exception("Incorect join rules for model '".$model."' and '".$refModel."''");
                 }
                 $joinConditions[] = $model.'.'.$field.' = '.$alias.'.'.$refFields[$i];
             }
@@ -406,14 +406,14 @@ class Builder extends PhBuilder
         }
         if (is_array($columns)) {
             foreach ($columns as $name => $column) {
-                if (!$column || $column === \Engine\Mvc\Model::NAME) {
+                if (!$column || $column === \Vein\Core\Mvc\Model::NAME) {
                     $column = $refModel->getNameExpr();
-                } elseif ($column === \Engine\Mvc\Model::ID) {
+                } elseif ($column === \Vein\Core\Mvc\Model::ID) {
                     $column = $refModel->getPrimary();
                 }
                 $column = $alias.".".$column;
                 if (isset($this->_columns[$name]) && $this->_columns[$name] !== $column) {
-                    throw new \Engine\Exception("Column with alias '".$name."' already exists in column list, exists column '".$this->_columns[$name]."', new column '".$column."'");
+                    throw new \Vein\Core\Exception("Column with alias '".$name."' already exists in column list, exists column '".$this->_columns[$name]."', new column '".$column."'");
                 }
                 $this->_columns[$name] = $column;
             }
@@ -459,7 +459,7 @@ class Builder extends PhBuilder
      * Set model default order to query
      *
      * @param bool $reverse
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function orderNatural($reverse = false)
     {
@@ -487,7 +487,7 @@ class Builder extends PhBuilder
      * Clear parts of the Query object, or an individual part.
      *
      * @param string $part OPTIONAL
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function reset($part = null)
     {
@@ -516,7 +516,7 @@ class Builder extends PhBuilder
     /**
      * Returns the query built
      *
-     * @return \Engine\Mvc\Model\Query
+     * @return \Vein\Core\Mvc\Model\Query
      */
     public function getQuery()
     {

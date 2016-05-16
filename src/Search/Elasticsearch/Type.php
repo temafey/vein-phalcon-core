@@ -9,7 +9,7 @@ use Elastica\Type as ElType;
 /**
  * Class Type
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Search
  * @subcategory Elasticsearch
  */
@@ -17,12 +17,12 @@ class Type extends ElType implements
     \Phalcon\Events\EventsAwareInterface,
     \Phalcon\DI\InjectionAwareInterface
 {
-    use \Engine\Tools\Traits\DIaware,
-        \Engine\Tools\Traits\EventsAware;
+    use \Vein\Core\Tools\Traits\DIaware,
+        \Vein\Core\Tools\Traits\EventsAware;
 
     /**
      * Model object
-     * @var \Engine\Search\Elasticsearch\ModelAdapter
+     * @var \Vein\Core\Search\Elasticsearch\ModelAdapter
      */
     protected $_model;
 
@@ -35,15 +35,15 @@ class Type extends ElType implements
     /**
      * Creates a new type object inside the given model.
      *
-     * @param \Engine\Search\Elasticsearch\ModelAdapter $index Index Object
+     * @param \Vein\Core\Search\Elasticsearch\ModelAdapter $index Index Object
      */
-    public function __construct(\Engine\Search\Elasticsearch\ModelAdapter $model)
+    public function __construct(\Vein\Core\Search\Elasticsearch\ModelAdapter $model)
     {
         $this->_model = $model;
         $this->_name = $model->getSearchSourceType();
         $this->setSource();
         if ($this->_name === null) {
-            throw new \Engine\Exception("Elastic type source name not set!");
+            throw new \Vein\Core\Exception("Elastic type source name not set!");
         }
     }
 
@@ -69,7 +69,7 @@ class Type extends ElType implements
      * Set elastic adapter name
      *
      * @param string $adapter
-     * @return \Engine\Search\Elasticsearch\Type
+     * @return \Vein\Core\Search\Elasticsearch\Type
      */
     public function setAdapter($adapter)
     {
@@ -81,7 +81,7 @@ class Type extends ElType implements
      * Set elastic type name
      *
      * @param string $source
-     * @return \Engine\Search\Elasticsearch\Type
+     * @return \Vein\Core\Search\Elasticsearch\Type
      */
     public function setSource()
     {

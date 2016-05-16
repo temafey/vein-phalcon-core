@@ -14,8 +14,8 @@ trait SimpleFormTemplater {
     public $templateSimpleFormExtends = 'Form';
 
     public $templateSimpleUseForm = array(
-        'Engine\Crud\Form',
-        'Engine\Crud\Form\Field'
+        'Vein\Core\Crud\Form',
+        'Vein\Core\Crud\Form\Field'
     );
 
     public $templateSimpleFormTitle = "

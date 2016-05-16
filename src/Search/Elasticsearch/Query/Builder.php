@@ -10,7 +10,7 @@ use Elastica\Query\BoolQuery,
 /**
  * Class Builder
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Search
  * @subcategory Elasticsearch
  */
@@ -18,7 +18,7 @@ class Builder
 {
 
     /**
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_model;
 
@@ -39,8 +39,8 @@ class Builder
      * Apply new filter condition to query
      *
      * @param \Elastica\Param $condition
-     * @throws \Engine\Exception
-     * @return \Engine\Search\Elasticsearch\Query\Builder
+     * @throws \Vein\Core\Exception
+     * @return \Vein\Core\Search\Elasticsearch\Query\Builder
      */
     public function apply($condition)
     {
@@ -51,7 +51,7 @@ class Builder
                 $this->apply($childCondition);
             }
         } else {
-            throw new \Engine\Exception('Filter condition not correct');
+            throw new \Vein\Core\Exception('Filter condition not correct');
         }
 
         return $this;
@@ -69,11 +69,11 @@ class Builder
     /**
      * Set model
      *
-     * @param \Engine\Mvc\Model $model
+     * @param \Vein\Core\Mvc\Model $model
      * @param string $alias
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
-    public function setModel(\Engine\Mvc\Model $model)
+    public function setModel(\Vein\Core\Mvc\Model $model)
     {
         $this->_model = $model;
 
@@ -83,7 +83,7 @@ class Builder
     /**
      * Return model object
      *
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public function getModel()
     {

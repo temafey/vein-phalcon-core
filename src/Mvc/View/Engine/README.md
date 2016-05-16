@@ -1,4 +1,4 @@
-Phalcon\Mvc\View\Engine
+Phalcon\Mvc\View\Vein\Core
 =======================
 
 Adapters to use other template engines with Phalcon
@@ -27,8 +27,8 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerEngines(
-		array(".mhtml" => 'Phalcon\Mvc\View\Engine\Mustache')
+    $view->registerVein\Cores(
+		array(".mhtml" => 'Phalcon\Mvc\View\Vein\Core\Mustache')
 	);
 
     return $view;
@@ -55,8 +55,8 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerEngines(
-		array(".twig" => 'Phalcon\Mvc\View\Engine\Twig')
+    $view->registerVein\Cores(
+		array(".twig" => 'Phalcon\Mvc\View\Vein\Core\Twig')
 	);
 
     return $view;
@@ -73,12 +73,12 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerEngines(
+    $view->registerVein\Cores(
         array(
             '.twig' => function($view, $di) {
                 //Setting up Twig Environment Options
                 $option = array('cache' => '../cache/');
-                $twig = new \Phalcon\Mvc\View\Engine\Twig($view, $di, $options);
+                $twig = new \Phalcon\Mvc\View\Vein\Core\Twig($view, $di, $options);
                 return $twig;
             }));
 
@@ -133,8 +133,8 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerEngines(
-		array(".tpl" => 'Phalcon\Mvc\View\Engine\Smarty')
+    $view->registerVein\Cores(
+		array(".tpl" => 'Phalcon\Mvc\View\Vein\Core\Smarty')
 	);
 
     return $view;
@@ -149,10 +149,10 @@ $di->set('view', function() use ($config) {
 	$view = new \Phalcon\Mvc\View();
 	$view->setViewsDir('../app/views/');
 
-	$view->registerEngines(
+	$view->registerVein\Cores(
 		array('.html' => function($view, $di) {
 
-				$smarty = new \Phalcon\Mvc\View\Engine\Smarty($view, $di);
+				$smarty = new \Phalcon\Mvc\View\Vein\Core\Smarty($view, $di);
 
 				$smarty->setOptions(array(
 					'template_dir'		=> $view->getViewsDir(),

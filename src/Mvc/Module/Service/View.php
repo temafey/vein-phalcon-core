@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService;
+use Vein\Core\Mvc\Module\Service\AbstractService;
 
 /**
  * Class View
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */
@@ -33,8 +33,8 @@ class View extends AbstractService
             $view->setViewsDir($moduleDirectory.'/View/');
             $view->setLayoutsDir('layouts/');
 
-            $view->registerEngines([
-                ".volt" => 'viewEngine'
+            $view->registerVein\Cores([
+                ".volt" => 'viewVein\Core'
             ]);
 
             // Attach a listener for type "view"

@@ -9,7 +9,7 @@ use Phalcon\CLI\Console as PhApplication;
 /**
  * Class Cli
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  */
 abstract class Cli extends PhApplication
@@ -38,7 +38,7 @@ abstract class Cli extends PhApplication
      * Application services namespace
      * @var string
      */
-    protected $_serviceNamespace = '\Engine\Application\Service';
+    protected $_serviceNamespace = '\Vein\Core\Application\Service';
 	
     /**
      * @var \Phalcon\Config
@@ -52,11 +52,11 @@ abstract class Cli extends PhApplication
     {
         if (empty($this->_configPath)) {
             $class = new \ReflectionClass($this);
-            throw new \Engine\Exception('Application has no config path: '.$class->getFileName());
+            throw new \Vein\Core\Exception('Application has no config path: '.$class->getFileName());
         }
 
         $loader = new \Phalcon\Loader();
-        $loader->registerNamespaces(['Engine' => ROOT_PATH.'/engine']);
+        $loader->registerNamespaces(['Vein\Core' => ROOT_PATH.'/engine']);
         $loader->register();
 
         // create default di
@@ -157,8 +157,8 @@ abstract class Cli extends PhApplication
         foreach ($this->_services as $serviceName) {
             $service = $this->_getService($serviceName);
             $service = new $service($dependencyInjector, $eventsManager, $config);
-            if (!($service instanceof \Engine\Application\Service\AbstractService)) {
-                throw new \Engine\Exception("Service '{$serviceName}' not instanceof AbstractService");
+            if (!($service instanceof \Vein\Core\Application\Service\AbstractService)) {
+                throw new \Vein\Core\Exception("Service '{$serviceName}' not instanceof AbstractService");
             }
             $service->init();
         }

@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Text
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Submit extends \Phalcon\Forms\Element\Submit implements \Engine\Forms\ElementInterface
+class Submit extends \Phalcon\Forms\Element\Submit implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -33,7 +33,7 @@ class Submit extends \Phalcon\Forms\Element\Submit implements \Engine\Forms\Elem
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\Text
+     * @return \Vein\Core\Forms\Element\Text
      */
     public function setDesc($desc)
     {

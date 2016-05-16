@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use \Engine\Mvc\Model\Query\Builder;
+use \Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  * Cache search filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */ 
@@ -53,7 +53,7 @@ class Cache extends Search
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -83,7 +83,7 @@ class Cache extends Search
             $alias = $dataSource->getCorrelationName($column);
         }
         if (!$alias) {
-            throw new \Engine\Exception('Field \''.$column.'\' not found in query builder');
+            throw new \Vein\Core\Exception('Field \''.$column.'\' not found in query builder');
         }
         $compare = $this->getCompareCriteria($this->_criteria, $this->_value);
 
@@ -99,7 +99,7 @@ class Cache extends Search
     /**
      * Return bound params array
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return array
      */
     public function getBoundParams(Builder $dataSource)

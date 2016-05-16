@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Password
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Password extends \Phalcon\Forms\Element\Password implements \Engine\Forms\ElementInterface
+class Password extends \Phalcon\Forms\Element\Password implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -33,7 +33,7 @@ class Password extends \Phalcon\Forms\Element\Password implements \Engine\Forms\
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\Password
+     * @return \Vein\Core\Forms\Element\Password
      */
     public function setDesc($desc)
     {

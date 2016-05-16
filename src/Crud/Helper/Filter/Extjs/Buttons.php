@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Helper\Filter\Extjs;
 
-use Engine\Crud\Grid\Filter;
+use Vein\Core\Crud\Grid\Filter;
 
 /**
  * Class form functions helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -18,7 +18,7 @@ class Buttons extends BaseHelper
 	/**
 	 * Generates form buttons objects
 	 *
-	 * @param \Engine\Crud\Grid\Filter $filter
+	 * @param \Vein\Core\Crud\Grid\Filter $filter
 	 * @return string
 	 */
 	static public function _(Filter $filter)

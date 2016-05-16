@@ -4,22 +4,22 @@
  */
 namespace Vein\Core\Crud\Helper\Grid\Standart;
 
-use Engine\Crud\Grid,
-    Engine\Crud\Grid\Column;
+use Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Grid\Column;
 
 /**
  * Class grid columns helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
-class Columns extends \Engine\Crud\Helper
+class Columns extends \Vein\Core\Crud\Helper
 {
 	/**
 	 * Generates grid table colums head
 	 *
-	 * @param \Engine\Crud\Grid $grid
+	 * @param \Vein\Core\Crud\Grid $grid
 	 * @return string
 	 */
 	static public function _(Grid $grid)
@@ -58,7 +58,7 @@ class Columns extends \Engine\Crud\Helper
     /**
      * Create column sortable link
      *
-     * @param \Engine\Crud\Grid\Column $column
+     * @param \Vein\Core\Crud\Grid\Column $column
      * @return string
      */
     static public function sortLink(Column $column)

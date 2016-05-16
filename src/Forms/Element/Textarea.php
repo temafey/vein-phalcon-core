@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Textarea
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Textarea extends \Phalcon\Forms\Element\Textarea implements \Engine\Forms\ElementInterface
+class Textarea extends \Phalcon\Forms\Element\Textarea implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -33,7 +33,7 @@ class Textarea extends \Phalcon\Forms\Element\Textarea implements \Engine\Forms\
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\TextArea
+     * @return \Vein\Core\Forms\Element\TextArea
      */
     public function setDesc($desc)
     {

@@ -11,12 +11,12 @@ use Phalcon\Acl as PhAcl,
 /**
  * Class Service
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Acl
  */
 class Service implements \Phalcon\DI\InjectionAwareInterface
 {
-    use \Engine\Tools\Traits\DIaware;
+    use \Vein\Core\Tools\Traits\DIaware;
 
     const ACL_CACHE_KEY = "acl_data.cache";
 
@@ -58,7 +58,7 @@ class Service implements \Phalcon\DI\InjectionAwareInterface
                 $aclAdapter->setDefaultAction(PhAcl::DENY);
 
                 if (!$aclAdapter instanceof \Phalcon\Acl\Adapter) {
-                    throw new \Engine\Exception('Acl adapter not instance of Phalcon\Acl\Adapter');
+                    throw new \Vein\Core\Exception('Acl adapter not instance of Phalcon\Acl\Adapter');
                 }
                 // prepare Roles
                 $aclAdapter->addRole(self::ROLE_TYPE_ADMIN);

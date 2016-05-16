@@ -4,18 +4,18 @@
  */
 namespace Vein\Core\Paginator\Adapter;
 
-use Engine\Mvc\Model\Query\Builder;
+use Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  * Class Grid
- * @package Engine\Paginator\Adapter
+ * @package Vein\Core\Paginator\Adapter
  */
 class Grid implements \Phalcon\Paginator\AdapterInterface
 {
     CONST MAX_LIMIT = 1000;
 
     /**
-     * @var \Engine\Mvc\Model\Query\Builder
+     * @var \Vein\Core\Mvc\Model\Query\Builder
      */
     protected $_queryBuilder;
 
@@ -57,7 +57,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
     public function __construct(array $config)
     {
         if (!isset($config['builder'])) {
-            throw new \Engine\Exception('Query builder not set!');
+            throw new \Vein\Core\Exception('Query builder not set!');
         }
         $this->_queryBuilder = $config['builder'];
 
@@ -79,13 +79,13 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set the current page number
      *
      * @param int $page
-     * @return \Engine\Paginator\Adapter\Grid
+     * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setCurrentPage($page)
     {
         $page = (int) $page;
         if ($page == 0) {
-            throw new \Engine\Exception('Page incorrect');
+            throw new \Vein\Core\Exception('Page incorrect');
         }
         if ($this->_page == $page) {
             return $this;
@@ -114,13 +114,13 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set the current page limit
      *
      * @param int $limit
-     * @return \Engine\Paginator\Adapter\Grid
+     * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setLimit($limit)
     {
         $limit = (int) $limit;
         if ($limit == 0) {
-            throw new \Engine\Exception('Limit incorrect');
+            throw new \Vein\Core\Exception('Limit incorrect');
         }
         if ($this->_limit == $limit) {
             return $this;
@@ -146,13 +146,13 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set extrapage limit
      *
      * @param int $limit
-     * @return \Engine\Paginator\Adapter\Grid
+     * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setExtraLimit($limit)
     {
         $limit = (int) $limit;
         if ($limit == 0) {
-            throw new \Engine\Exception('Limit incorrect');
+            throw new \Vein\Core\Exception('Limit incorrect');
         }
         if ($this->_extraLimit == $limit) {
             return $this;
@@ -272,7 +272,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set total items
      *
      * @param int $total
-     * @return \Engine\Paginator\Adapter\Grid
+     * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setTotal($total)
     {

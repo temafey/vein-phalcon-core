@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Grid;
 
-use Engine\Crud\Grid;
+use Vein\Core\Crud\Grid;
 
 /**
  * Class Extjs.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -165,14 +165,14 @@ abstract class Extjs extends Grid
      * Set grid params
      *
      * @param array $params
-     * @return \Engine\Crud\Grid
+     * @return \Vein\Core\Crud\Grid
      */
     public function setParams(array $params)
     {
         $sort = $this->getSortParamName();
         $dependencyInjectorrection = $this->getSortDirectionParamName();
         if (isset($params[$sort])) {
-            if (\Engine\Tools\Strings::isJson($params[$sort])) {
+            if (\Vein\Core\Tools\Strings::isJson($params[$sort])) {
                 $sortParams = json_decode($params[$sort])[0];
                 $params[$sort] = $sortParams->property;
                 $params[$dependencyInjectorrection] = $sortParams->direction;

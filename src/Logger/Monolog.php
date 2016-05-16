@@ -15,7 +15,7 @@ use \Monolog\Logger as MLogger,
 /**
  * Class Monolog
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Logger
  */
 class Monolog extends PAdapter implements PAdapterInterface
@@ -112,13 +112,13 @@ class Monolog extends PAdapter implements PAdapterInterface
      * @param string $name
      * @param array $arguments
      * @return mixed
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     public function __call(string $name , array $arguments)
     {
         $callable = [$this->_monolog, $name];
         if (!is_callable($callable)) {
-            throw new \Engine\Exception('The first argument to call() must be a valid callable.');
+            throw new \Vein\Core\Exception('The first argument to call() must be a valid callable.');
         }
 
         try {
@@ -126,7 +126,7 @@ class Monolog extends PAdapter implements PAdapterInterface
         }
         catch (\Exception $e) {
             //ob_end_clean();
-            throw new \Engine\Exception($e->getMessage(), $e->getCode());
+            throw new \Vein\Core\Exception($e->getMessage(), $e->getCode());
         }
     }
 }

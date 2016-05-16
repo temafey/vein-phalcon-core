@@ -7,7 +7,7 @@ namespace Vein\Core\Forms;
 /**
  * Interface ElementInterface
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  */
 interface ElementInterface
@@ -32,7 +32,7 @@ interface ElementInterface
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\ElementInterface
+     * @return \Vein\Core\Forms\ElementInterface
      */
     public function setDesc($desc);
 

@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Helper\Filter\Field\Extjs;
 
-use Engine\Crud\Grid\Filter as Filter,
-    Engine\Crud\Grid\Filter\Field as Field;
+use Vein\Core\Crud\Grid\Filter as Filter,
+    Vein\Core\Crud\Grid\Filter\Field as Field;
 
 /**
  * Class filter fields helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -19,7 +19,7 @@ class Numeric extends BaseHelper
     /**
      * Render extjs number filter field
      *
-     * @param \Engine\Crud\Grid\Filter\Field $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      * @return string
      */
     public static function _(Field\Numeric $field)

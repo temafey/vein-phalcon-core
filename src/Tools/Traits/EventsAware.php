@@ -7,7 +7,7 @@ namespace Vein\Core\Tools\Traits;
 /**
  * Trait events aware.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 trait EventsAware

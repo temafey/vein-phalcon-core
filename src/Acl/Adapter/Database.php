@@ -14,13 +14,13 @@ use Phalcon\Acl,
 /**
  * Class AbstractService
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Acl
  * @subpackage Adapter
  */
 class Database extends Adapter implements AdapterInterface
 {
-    use \Engine\Tools\Traits\DIaware;
+    use \Vein\Core\Tools\Traits\DIaware;
 
     /**
      * Options array
@@ -35,7 +35,7 @@ class Database extends Adapter implements AdapterInterface
     protected $_db;
 
 	/**
-	 * Engine\Acl\Adapter\Database
+	 * Vein\Core\Acl\Adapter\Database
 	 *
 	 * @param array $options
      * @param \Phalcon\DiInterface $dependencyInjector
@@ -45,11 +45,11 @@ class Database extends Adapter implements AdapterInterface
         $this->setDi($dependencyInjector);
 
 		if (!is_array($options)) {
-			throw new \Engine\Exception("Acl options must be an array");
+			throw new \Vein\Core\Exception("Acl options must be an array");
 		}
 
 		if (!isset($options['db'])) {
-			throw new \Engine\Exception("Parameter 'db' is required");
+			throw new \Vein\Core\Exception("Parameter 'db' is required");
 		} else {
             if (is_object($options['db'])) {
                 $this->_db = $options['db'];
@@ -59,23 +59,23 @@ class Database extends Adapter implements AdapterInterface
         }
 
 		if (!isset($options['roles'])) {
-			throw new \Engine\Exception("Parameter 'roles' is required");
+			throw new \Vein\Core\Exception("Parameter 'roles' is required");
 		}
 
 		if (!isset($options['resources'])) {
-			throw new \Engine\Exception("Parameter 'resources' is required");
+			throw new \Vein\Core\Exception("Parameter 'resources' is required");
 		}
 
 		if (!isset($options['resourcesAccesses'])) {
-			throw new \Engine\Exception("Parameter 'resourcesAccesses' is required");
+			throw new \Vein\Core\Exception("Parameter 'resourcesAccesses' is required");
 		}
 
 		if (!isset($options['accessList'])) {
-			throw new \Engine\Exception("Parameter 'accessList' is required");
+			throw new \Vein\Core\Exception("Parameter 'accessList' is required");
 		}
 
         if (!isset($options['rolesInherits'])) {
-            throw new \Engine\Exception("Parameter 'rolesInherits' is required");
+            throw new \Vein\Core\Exception("Parameter 'rolesInherits' is required");
         }
 
 		$this->_options = $options;
@@ -146,7 +146,7 @@ class Database extends Adapter implements AdapterInterface
 		$sql = 'SELECT id FROM '.$this->_options['roles']." WHERE name = ?";
 		$exists = $this->_db->fetchOne($sql, null, [$roleToInherit]);
 		if (!$exists[0]) {
-			throw new \Engine\Exception("Role '".$roleToInherit."' does not exist in the role list");
+			throw new \Vein\Core\Exception("Role '".$roleToInherit."' does not exist in the role list");
 		}
         $roleId = $exists[0];
 
@@ -248,7 +248,7 @@ class Database extends Adapter implements AdapterInterface
 	{
         $exists = $this->_db->fetchOne('SELECT id FROM '.$this->_options['resources']." WHERE name = ?", null, [$resourceName]);
         if (!$exists[0]) {
-			throw new \Engine\Exception("Resource '".$resourceName."' does not exist in ACL");
+			throw new \Vein\Core\Exception("Resource '".$resourceName."' does not exist in ACL");
 		}
         $resourceId = $exists[0];
 		$sql = 'SELECT COUNT(*) FROM '.$this->_options['resourcesAccesses']." WHERE resource_id = ? AND name = ?";
@@ -363,27 +363,27 @@ class Database extends Adapter implements AdapterInterface
          */
         $exists = $this->_db->fetchOne('SELECT id FROM '.$this->_options['roles']." WHERE name = ?", null, [$roleName]);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Role '".$roleName."' does not exist in ACL");
+            throw new \Vein\Core\Exception("Role '".$roleName."' does not exist in ACL");
         }
         $roleId = $exists[0];
 
         $exists = $this->_db->fetchOne('SELECT id FROM '.$this->_options['resources']." WHERE name = ?", null, [$resourceName]);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Resource '".$resourceName."' does not exist in ACL");
+            throw new \Vein\Core\Exception("Resource '".$resourceName."' does not exist in ACL");
         }
         $resourceId = $exists[0];
 
 		$sql = 'SELECT id FROM '.$this->_options['resourcesAccesses']." WHERE resource_id = ? AND name = ?";
 		$exists = $this->_db->fetchOne($sql, null, [$resourceId, $accessName]);
 		if (!$exists[0]) {
-			throw new \Engine\Exception("Access '".$accessName."' does not exist in resource '".$resourceName."' in ACL");
+			throw new \Vein\Core\Exception("Access '".$accessName."' does not exist in resource '".$resourceName."' in ACL");
 		}
         $accessId = $exists[0];
 
         $sql = 'SELECT id FROM '.$this->_options['resourcesAccesses']." WHERE resource_id = ? AND name = ?";
         $exists = $this->_db->fetchOne($sql, null, [$resourceId, '*']);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Access '*' does not exist in resource '".$resourceName."' in ACL");
+            throw new \Vein\Core\Exception("Access '*' does not exist in resource '".$resourceName."' in ACL");
         }
         $accessIdZero = $exists[0];
 
@@ -435,7 +435,7 @@ class Database extends Adapter implements AdapterInterface
 	protected function _allowOrDeny($roleName, $resourceName, $access, $action, $func = null)
 	{
 		if (!$this->isRole($roleName)) {
-			throw new \Engine\Exception('Role "'.$roleName.'" does not exist in the list');
+			throw new \Vein\Core\Exception('Role "'.$roleName.'" does not exist in the list');
 		}
 
 		if (is_array($access)) {
@@ -530,27 +530,27 @@ class Database extends Adapter implements AdapterInterface
 	{
         $exists = $this->_db->fetchOne('SELECT id FROM '.$this->_options['roles']." WHERE name = ?", null, [$roleName]);
         if (!array_key_exists(0, $exists)) {
-            throw new \Engine\Exception("Role '".$roleName."' does not exist in ACL");
+            throw new \Vein\Core\Exception("Role '".$roleName."' does not exist in ACL");
         }
         $roleId = $exists[0];
 
         $exists = $this->_db->fetchOne('SELECT id FROM '.$this->_options['resources']." WHERE name = ?", null, [$resourceName]);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Resource '".$resourceName."' does not exist in ACL");
+            throw new \Vein\Core\Exception("Resource '".$resourceName."' does not exist in ACL");
         }
         $resourceId = $exists[0];
 
         $sql = 'SELECT id FROM '.$this->_options['resourcesAccesses']." WHERE resource_id = ? AND name = ?";
         $exists = $this->_db->fetchOne($sql, null, [$resourceId, $access]);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Access '".$access."' does not exist in resource '".$resourceName."' in ACL");
+            throw new \Vein\Core\Exception("Access '".$access."' does not exist in resource '".$resourceName."' in ACL");
         }
         $accessId = $exists[0];
 
         $sql = 'SELECT id FROM '.$this->_options['resourcesAccesses']." WHERE resource_id = ? AND name = ?";
         $exists = $this->_db->fetchOne($sql, null, [$resourceId, '*']);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Access '*' does not exist in resource '".$resourceName."' in ACL");
+            throw new \Vein\Core\Exception("Access '*' does not exist in resource '".$resourceName."' in ACL");
         }
         $accessIdZero = $exists[0];
 
@@ -591,7 +591,7 @@ class Database extends Adapter implements AdapterInterface
 		 */
         $exists = $this->_db->fetchOne('SELECT id FROM '.$this->_options['resources']." WHERE name = ?", null, ['*']);
         if (!$exists[0]) {
-            throw new \Engine\Exception("Resource '*' does not exist in ACL");
+            throw new \Vein\Core\Exception("Resource '*' does not exist in ACL");
         }
         $resourceIdZero = $exists[0];
         $sql = 'SELECT allowed FROM '.$this->_options['accessList']." WHERE role_id = ? AND resource_id = ? AND access_id = ?";

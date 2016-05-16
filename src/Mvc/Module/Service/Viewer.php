@@ -4,16 +4,16 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService,
+use Vein\Core\Mvc\Module\Service\AbstractService,
     Phalcon\Mvc\Dispatcher as MvcDispatcher,
     Phalcon\Events\Manager as EventsManager,
     Phalcon\Mvc\Dispatcher\Exception as DispatchException,
-    Engine\Acl\Viewer as Service;
+    Vein\Core\Acl\Viewer as Service;
 
 /**
  * Class Viewer
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */

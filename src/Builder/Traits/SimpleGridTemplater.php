@@ -34,11 +34,11 @@ class %s extends %s
     public $templateSimpleGridExtends = 'Grid';
 
     public $templateSimpleUseGrid = [
-        'Engine\Crud\Grid',
-        'Engine\Crud\Grid\Column',
-        'Engine\Crud\Grid\Filter',
-        'Engine\Crud\Grid\Filter\Field',
-        'Criteria' => 'Engine\Filter\SearchFilterInterface'
+        'Vein\Core\Crud\Grid',
+        'Vein\Core\Crud\Grid\Column',
+        'Vein\Core\Crud\Grid\Filter',
+        'Vein\Core\Crud\Grid\Filter\Field',
+        'Criteria' => 'Vein\Core\Filter\SearchFilterInterface'
     ];
 
     public $templateSimpleGridInitColumns = "

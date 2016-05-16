@@ -7,7 +7,7 @@ namespace Vein\Core\Tools\Traits;
 /**
  * Trait dipendency injection aware.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 trait DIaware

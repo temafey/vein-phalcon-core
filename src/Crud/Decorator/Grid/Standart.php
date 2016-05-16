@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Crud\Decorator\Grid;
 
-use Engine\Crud\Decorator,
-	Engine\Crud\Grid,
-    Engine\Crud\Decorator\Helper;
+use Vein\Core\Crud\Decorator,
+	Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Decorator\Helper;
 
 /**
  * Class Extjs decorator for grid.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */

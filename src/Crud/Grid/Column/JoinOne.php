@@ -4,16 +4,16 @@
  */
 namespace Vein\Core\Crud\Grid\Column;
 
-use Engine\Crud\Grid\Column,
-    Engine\Mvc\Model;
+use Vein\Core\Crud\Grid\Column,
+    Vein\Core\Mvc\Model;
 
 /**
  * Join one column
  *
- * @uses       \Engine\Crud\Grid\Exception
- * @uses       \Engine\Crud\Grid\Filter
- * @uses       \Engine\Crud\Grid
- * @category   Engine
+ * @uses       \Vein\Core\Crud\Grid\Exception
+ * @uses       \Vein\Core\Crud\Grid\Filter
+ * @uses       \Vein\Core\Crud\Grid
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -57,7 +57,7 @@ class JoinOne extends Collection
 
     /**
      * Query builder for get value from referenced model
-     * @var \Engine\Mvc\Model\Query\Builder
+     * @var \Vein\Core\Mvc\Model\Query\Builder
      */
     protected $_joinQueryBuilder;
 
@@ -102,10 +102,10 @@ class JoinOne extends Collection
     /**
      * Update grid container
      *
-     * @param \Engine\Crud\Container\Grid\Adapter $container
-     * @return \Engine\Crud\Grid\Column
+     * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     * @return \Vein\Core\Crud\Grid\Column
      */
-    public function updateContainer(\Engine\Crud\Container\Grid\Adapter $container)
+    public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
     {
         //$container->setField($this->_key, $this->_name);
         return $this;
@@ -115,8 +115,8 @@ class JoinOne extends Collection
 	/**
 	 * Update container data source
 	 * 
-	 * @param \Engine\Crud\Container\Grid\Adapter $dataSource
-	 * @return \Engine\Crud\Grid\Column\JoinOne
+	 * @param \Vein\Core\Crud\Container\Grid\Adapter $dataSource
+	 * @return \Vein\Core\Crud\Grid\Column\JoinOne
 	 */
 	public function updateDataSource($dataSource)
 	{
@@ -127,11 +127,11 @@ class JoinOne extends Collection
             return $this;
         }
         if (null === $this->_column) {
-            $this->_column = \Engine\Mvc\Model::NAME;
+            $this->_column = \Vein\Core\Mvc\Model::NAME;
         }
 		$columns =  [
             $this->_key => $this->_column,
-            $this->_key.'_'.Model::JOIN_PRIMARY_KEY_PREFIX => \Engine\Mvc\Model::ID
+            $this->_key.'_'.Model::JOIN_PRIMARY_KEY_PREFIX => \Vein\Core\Mvc\Model::ID
         ];
 		if (!empty($this->_columns)) {
 		    $columns = (is_array($this->_columns)) ? array_merge($columns, $this->_columns) : array_merge($columns, [$this->_columns => $this->_columns]);
@@ -145,7 +145,7 @@ class JoinOne extends Collection
      * Return render value
      *
      * (non-PHPdoc)
-     * @see \Engine\Crud\Grid\Column::render()
+     * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
      * @return string
      */
@@ -188,7 +188,7 @@ class JoinOne extends Collection
      * Set null value
      *
      * @param string $na
-     * @return \Engine\Crud\Grid\Column\JoinOne
+     * @return \Vein\Core\Crud\Grid\Column\JoinOne
      */
     public function setNullValue($na)
     {
@@ -200,7 +200,7 @@ class JoinOne extends Collection
      * Set null value
      *
      * @param string $na
-     * @return \Engine\Crud\Grid\Column\JoinOne
+     * @return \Vein\Core\Crud\Grid\Column\JoinOne
      */
     public function setNoJoin()
     {
@@ -271,7 +271,7 @@ class JoinOne extends Collection
      * Return models relation object
      *
      * @return \Phalcon\Mvc\Model\Relation
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     protected function _getJoinRelation()
     {
@@ -283,7 +283,7 @@ class JoinOne extends Collection
         $mainModel = $this->_grid->getContainer()->getDataSource()->getModel();
         $relations = $mainModel->getRelationPath($joinModel);
         if (!$relations) {
-            throw new \Engine\Exception("Relations to model '".$joinModel."' by path '".implode(", ", $this->_path)."' not valid");
+            throw new \Vein\Core\Exception("Relations to model '".$joinModel."' by path '".implode(", ", $this->_path)."' not valid");
         }
 
         return array_pop($relations);

@@ -2,14 +2,14 @@
 /**
  * @namespace
  */
-namespace Engine;
+namespace Vein\Core;
 
 use Phalcon\Mvc\Application as PhApplication;
 
 /**
  * Class Application
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  */
 abstract class Application extends PhApplication
@@ -38,7 +38,7 @@ abstract class Application extends PhApplication
      * Application services namespace
      * @var string
      */
-    protected $_serviceNamespace = '\Engine\Application\Service';
+    protected $_serviceNamespace = '\Vein\Core\Application\Service';
 	
     /**
      * @var \Phalcon\Config
@@ -52,11 +52,11 @@ abstract class Application extends PhApplication
     {
         if (empty($this->_configPath)) {
             $class = new \ReflectionClass($this);
-            throw new \Engine\Exception('Application has no config path: '.$class->getFileName());
+            throw new \Vein\Core\Exception('Application has no config path: '.$class->getFileName());
         }
 
         $loader = new \Phalcon\Loader();
-        $loader->registerNamespaces(['Engine' => ROOT_PATH.'/engine']);
+        $loader->registerNamespaces(['Vein\Core' => VENDOR_PATH.'/vein/phalcon-core/src']);
         $loader->register();
 
         // create default di
@@ -144,7 +144,7 @@ abstract class Application extends PhApplication
                 $moduleName = ucfirst($module);
                 $enabledModules[$module] = [
                     'className' => $moduleName.'\Module',
-                    'path' => ROOT_PATH.'/apps/modules/'.$moduleName.'/Module.php',
+                    'path' => ROOT_PATH.'/app/modules/'.$moduleName.'/Module.php',
                 ];
             }
 
@@ -157,8 +157,8 @@ abstract class Application extends PhApplication
         foreach ($this->_services as $serviceName) {
             $service = $this->_getService($serviceName);
             $service = new $service($dependencyInjector, $eventsManager, $config);
-            if (!($service instanceof \Engine\Application\Service\AbstractService)) {
-                throw new \Engine\Exception("Service '{$serviceName}' not instanceof AbstractService");
+            if (!($service instanceof \Vein\Core\Application\Service\AbstractService)) {
+                throw new \Vein\Core\Exception("Service '{$serviceName}' not instanceof AbstractService");
             }
             $service->init();
         }

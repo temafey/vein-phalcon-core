@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService,
-    Engine\Acl\Authorizer;
+use Vein\Core\Mvc\Module\Service\AbstractService,
+    Vein\Core\Acl\Authorizer;
 
 /**
  * Class Acl
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */

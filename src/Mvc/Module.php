@@ -9,7 +9,7 @@ use Phalcon\Mvc\ModuleDefinitionInterface;
 /**
  * Class Base Module
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Mvc
  */
 abstract class Module implements ModuleDefinitionInterface
@@ -46,7 +46,7 @@ abstract class Module implements ModuleDefinitionInterface
      * Application services namespace
      * @var string
      */
-    protected $_serviceNamespace = '\Engine\Mvc\Module\Service';
+    protected $_serviceNamespace = '\Vein\Core\Mvc\Module\Service';
 
     /**
      * Constructor
@@ -93,8 +93,8 @@ abstract class Module implements ModuleDefinitionInterface
         foreach ($this->_services as $serviceName) {
             $service = $this->_getService($serviceName);
             $service = new $service($this, $dependencyInjector, $eventsManager, $this->_config);
-            if (!($service instanceof \Engine\Mvc\Module\Service\AbstractService)) {
-                throw new \Engine\Exception("Service '{$serviceName}' not instance of AbstractService");
+            if (!($service instanceof \Vein\Core\Mvc\Module\Service\AbstractService)) {
+                throw new \Vein\Core\Exception("Service '{$serviceName}' not instance of AbstractService");
             }
             $service->register();
         }
@@ -103,8 +103,8 @@ abstract class Module implements ModuleDefinitionInterface
         //  Initialize dispatcher
         /*************************************************/
         if (!$this->_config->application->debug) {
-            //$eventsManager->attach("dispatch:beforeException", new \Engine\Plugin\NotFound());
-            //$eventsManager->attach('dispatch:beforeExecuteRoute', new \Engine\Plugin\CacheAnnotation());
+            //$eventsManager->attach("dispatch:beforeException", new \Vein\Core\Plugin\NotFound());
+            //$eventsManager->attach('dispatch:beforeExecuteRoute', new \Vein\Core\Plugin\CacheAnnotation());
         }
 
         return $eventsManager;
@@ -148,14 +148,14 @@ abstract class Module implements ModuleDefinitionInterface
     /**
      * Check and normalize module name
      *
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      * @return void
      */
     protected function _checkModuleName()
     {
         if (empty($this->_moduleName)) {
             $class = new \ReflectionClass($this);
-            throw new \Engine\Exception('Module class has no module name: '.$class->getFileName());
+            throw new \Vein\Core\Exception('Module class has no module name: '.$class->getFileName());
         } else {
             $this->_moduleName = ucfirst($this->_moduleName);
         }

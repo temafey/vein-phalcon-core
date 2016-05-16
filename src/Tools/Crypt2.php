@@ -7,7 +7,7 @@ namespace Vein\Core\Tools;
 /**
  * Class Crypt2
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 class Crypt2 extends \Phalcon\Crypt implements \Phalcon\CryptInterface

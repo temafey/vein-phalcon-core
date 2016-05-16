@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Mvc;
 
-use Engine\Mvc\Model\Query\Builder;
+use Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  * Class Model
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Mvc
  */
 class Model extends \Phalcon\Mvc\Model
@@ -89,7 +89,7 @@ class Model extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param array $parameters
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     /*public static function findFirst($parameters=null)
     {
@@ -127,7 +127,7 @@ class Model extends \Phalcon\Mvc\Model
         $primary = $model->getPrimary();
         $db = $model->getWriteConnection();
         if (is_array($ids)) {
-            $ids = \Engine\Tools\Strings::quote($ids);
+            $ids = \Vein\Core\Tools\Strings::quote($ids);
             $credential = $primary." IN (:".$primary.":)";
             return static::find([$credential, 'bind' => [$primary => $ids]]);
         } else {
@@ -148,7 +148,7 @@ class Model extends \Phalcon\Mvc\Model
         $model = new static();
         $db = $model->getWriteConnection();
         if (is_array($values)) {
-            $values = \Engine\Tools\Strings::quote($values);
+            $values = \Vein\Core\Tools\Strings::quote($values);
             $credential = $column." IN (:".$column.":)";
         } else {
             $credential = $column." = :".$column.":";
@@ -175,10 +175,10 @@ class Model extends \Phalcon\Mvc\Model
                 continue;
             }
             if (is_array($condition)) {
-                $condition = \Engine\Tools\Strings::quote($condition);
+                $condition = \Vein\Core\Tools\Strings::quote($condition);
                 $condition = $key." IN (".$condition.")";
             } else {
-                $condition = \Engine\Tools\Strings::quote($condition);
+                $condition = \Vein\Core\Tools\Strings::quote($condition);
                 $condition = $key." = ".$condition;
             }
             $normalizeConditions[] = $condition;
@@ -267,7 +267,7 @@ class Model extends \Phalcon\Mvc\Model
      *</code>
      *
      * @param array $attributes
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public function _skipAttributes(array $attributes)
     {
@@ -299,7 +299,7 @@ class Model extends \Phalcon\Mvc\Model
      * Create a criteria for a especific model
      *
      * @param string $alias
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function queryBuilder($alias = null)
     {
@@ -345,8 +345,8 @@ class Model extends \Phalcon\Mvc\Model
         } else {
             $refName = get_class($refModel);
         }
-        if (!$refModel instanceof \Engine\Mvc\Model) {
-            throw new \Engine\Exception("Model class '$refName' does not extend Engine\Mvc\Model");
+        if (!$refModel instanceof \Vein\Core\Mvc\Model) {
+            throw new \Vein\Core\Exception("Model class '$refName' does not extend Vein\Core\Mvc\Model");
         }
         $refName = trim($refName, "\\");
         $relations = $this->getModelsManager()->getBelongsTo($this);
@@ -381,11 +381,11 @@ class Model extends \Phalcon\Mvc\Model
             $path = [$path];
         }
         $rule = array_shift($path);
-        if ($rule instanceof \Engine\Mvc\Model) {
+        if ($rule instanceof \Vein\Core\Mvc\Model) {
             $rule = get_class($rule);
         }
         if (!$relation = $this->getReferenceRelation($rule)) {
-            throw new \Engine\Exception("Relation between '".get_class($this)."' and '".$rule."' not found!");
+            throw new \Vein\Core\Exception("Relation between '".get_class($this)."' and '".$rule."' not found!");
         }
         $relationPath[$rule] = $relation;
         if (!$path) {

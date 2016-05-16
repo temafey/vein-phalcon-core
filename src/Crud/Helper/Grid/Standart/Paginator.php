@@ -4,21 +4,21 @@
  */
 namespace Vein\Core\Crud\Helper\Grid\Standart;
 
-use Engine\Crud\Grid;
+use Vein\Core\Crud\Grid;
 
 /**
  * Class grid paginator helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
-class Paginator extends \Engine\Crud\Helper
+class Paginator extends \Vein\Core\Crud\Helper
 {
     /**
      * Generates grid paginate code
      *
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @return string
      */
     static public function _(Grid $grid)

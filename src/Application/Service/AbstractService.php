@@ -7,14 +7,14 @@ namespace Vein\Core\Application\Service;
 /**
  * Class AbstractService
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
 abstract class AbstractService implements \Phalcon\DI\InjectionAwareInterface, \Phalcon\Events\EventsAwareInterface
 {
-	use \Engine\Tools\Traits\DIaware,
-		\Engine\Tools\Traits\EventsAware;
+	use \Vein\Core\Tools\Traits\DIaware,
+		\Vein\Core\Tools\Traits\EventsAware;
 
     /**
      * Config object

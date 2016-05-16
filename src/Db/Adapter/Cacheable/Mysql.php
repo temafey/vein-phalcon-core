@@ -4,7 +4,7 @@
  */
 namespace Vein\Core\Db\Adapter\Cacheable;
 
-use Engine\Db\Result\Serializable;
+use Vein\Core\Db\Result\Serializable;
 
 /**
  * Phalcon\Adapter\Cacheable\Mysql
@@ -51,7 +51,7 @@ class Mysql extends \Phalcon\Db\Adapter\Pdo\Mysql
 	 * @param string $sqlStatement
 	 * @param array $bindParams
 	 * @param array $bindTypes
-	 * @return \Engine\Db\Result\Serializable
+	 * @return \Vein\Core\Db\Result\Serializable
 	 */
 	public function query($sqlStatement, $bindParams=null, $bindTypes=null)
 	{

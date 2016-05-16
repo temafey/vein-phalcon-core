@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Field;
 
-use Engine\Filter\SearchFilterInterface as Criteria,
-    Engine\Crud\Container\AbstractContainer as Container;
+use Vein\Core\Filter\SearchFilterInterface as Criteria,
+    Vein\Core\Crud\Container\AbstractContainer as Container;
 
 /**
  * Grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */

@@ -7,7 +7,7 @@ namespace Vein\Core\Tools;
 /**
  * Class Crypt
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crypt
  */
 class IpCheck 
@@ -72,7 +72,7 @@ class IpCheck
 	 * Add file with allow ips
 	 * 
 	 * @param string $filepath
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addFileAllow($filepath, $namespace = 0)
 	{
@@ -90,7 +90,7 @@ class IpCheck
 	 * Add file with deny ips
 	 * 
 	 * @param string $filepath
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addFileDeny($filepath, $namespace = 0)
 	{
@@ -108,7 +108,7 @@ class IpCheck
 	 * Add line with allow ip rule
 	 * 
 	 * @param string $ip
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addIpAllow($ip, $namespace = 0)
 	{
@@ -124,7 +124,7 @@ class IpCheck
 	 * Add line with deny ip rule
 	 * 
 	 * @param string $ip
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addIpDeny($ip, $namespace = 0)
 	{
@@ -139,7 +139,7 @@ class IpCheck
 	/**
 	 * Clear allow ip rules
 	 * 
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function clearIpAllow()
 	{
@@ -151,7 +151,7 @@ class IpCheck
 	/**
 	 * Clear deny ip rules
 	 * 
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function clearIpDeny()
 	{
@@ -163,7 +163,7 @@ class IpCheck
 	/**
 	 * Clear all ip datas
 	 * 
-	 * @return Engine_Crud_Tools_IpCheck
+	 * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function clearIpData()
 	{

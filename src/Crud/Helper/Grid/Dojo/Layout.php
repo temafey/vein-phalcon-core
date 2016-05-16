@@ -7,19 +7,19 @@ namespace Vein\Core\Crud\Helper\Grid\Dojo;
 /**
  * Class dojo layuot helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
-class Layout extends \Engine\Crud\Helper
+class Layout extends \Vein\Core\Crud\Helper
 {
     /**
      * Generates a widget to show a dojo grid layout
      *
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @return string
      */
-    static public function _(\Engine\Crud\Grid $grid)
+    static public function _(\Vein\Core\Crud\Grid $grid)
     {
         $code = '
         /*set up layout*/
@@ -29,7 +29,7 @@ class Layout extends \Engine\Crud\Helper
         $columns = [];
         foreach ($grid->getColumns() as $column) {
             $columnData = [];
-            if ($column instanceof \Engine\Crud\Grid\Column) {
+            if ($column instanceof \Vein\Core\Crud\Grid\Column) {
                 $columnData['name'] = $column->getTitle();
                 $columnData['field'] = $column->getKey();
                 $columnData['width'] = $column->getWidth()."px";

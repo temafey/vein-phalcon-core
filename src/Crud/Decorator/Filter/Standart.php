@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Crud\Decorator\Filter;
 
-use Engine\Crud\Decorator as Decorator,
-	Engine\Crud\Grid\Filter,
-    Engine\Crud\Decorator\Helper;
+use Vein\Core\Crud\Decorator as Decorator,
+	Vein\Core\Crud\Grid\Filter,
+    Vein\Core\Crud\Decorator\Helper;
 
 /**
  * Class Extjs decorator for grid.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
@@ -65,10 +65,10 @@ class Standart extends Decorator
     /**
      * Render filter form field
      *
-     * @param \Engine\Crud\Form\Field $field
+     * @param \Vein\Core\Crud\Form\Field $field
      * @return string
      */
-    public function renderField(\Engine\Crud\Grid\Filter\Field $field)
+    public function renderField(\Vein\Core\Crud\Grid\Filter\Field $field)
     {
         $helpers = $field->getHelpers();
         foreach ($helpers as $i => $helper) {

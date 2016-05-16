@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Search\Elasticsearch\Filter;
 
-use \Engine\Search\Elasticsearch\Query\Builder;
+use \Vein\Core\Search\Elasticsearch\Query\Builder;
 
 /**
  *  Between filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */
@@ -55,7 +55,7 @@ class Between extends Standart
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Search\Elasticsearch\Query\Builder $dataSource
+     * @param \Vein\Core\Search\Elasticsearch\Query\Builder $dataSource
      * @return string
      */
     public function filter(Builder $dataSource)

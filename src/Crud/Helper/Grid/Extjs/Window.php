@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Helper\Grid\Extjs;
 
-use Engine\Crud\Grid\Extjs as Grid;
+use Vein\Core\Crud\Grid\Extjs as Grid;
 
 /**
  * Class grid window helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -24,7 +24,7 @@ class Window extends BaseHelper
 	/**
 	 * Generates grid functions object
 	 *
-	 * @param \Engine\Crud\Grid\Extjs $grid
+	 * @param \Vein\Core\Crud\Grid\Extjs $grid
 	 * @return string
 	 */
 	static public function _(Grid $grid)

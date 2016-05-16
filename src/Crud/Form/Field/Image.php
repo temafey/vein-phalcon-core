@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Form\Field;
 /**
  * Text field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
@@ -79,12 +79,12 @@ class Image extends File
 		$value = $this->getValue();
 			
 		$values = $this->_form->getData();
-		$source = \Engine\Tools\Strings::generateStringTemplate($this->_renderTemplate, $values, '{', '}');
+		$source = \Vein\Core\Tools\Strings::generateStringTemplate($this->_renderTemplate, $values, '{', '}');
 		if ($source === false) {
 			return $value;
 		}
 		$values = $this->_form->getRenderData();
-		$label = \Engine\Tools\Strings::generateStringTemplate($this->_labelTemplate, $values, '{'.'}');
+		$label = \Vein\Core\Tools\Strings::generateStringTemplate($this->_labelTemplate, $values, '{'.'}');
         $class = $this->getAttrib('class');
 		$xhtml = $this->createImage($source, $label, $class);
 		

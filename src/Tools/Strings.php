@@ -7,7 +7,7 @@ namespace Vein\Core\Tools;
 /**
  * Class resource.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 class Strings
@@ -179,7 +179,7 @@ class Strings
 	 * @param string $conditionIn
 	 * @param integer $valueType
 	 * @return bool|string
-	 * @throws \Engine\Exception
+	 * @throws \Vein\Core\Exception
 	 *
 	 * @return string
 	 */
@@ -263,7 +263,7 @@ class Strings
 			return '0';
 		}
 		if (is_object($value)) {
-			throw new \Engine\Exception('Value data type incorrect');
+			throw new \Vein\Core\Exception('Value data type incorrect');
 		}
 		if (is_numeric($value)) {
 			if (self::isFloat($value)) {
@@ -875,7 +875,7 @@ class Strings
 		}
 
 		if (null !== $error) {
-			throw new \Engine\Exception($error);
+			throw new \Vein\Core\Exception($error);
 		}
 	}
 

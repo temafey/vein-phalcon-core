@@ -4,7 +4,7 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService,
+use Vein\Core\Mvc\Module\Service\AbstractService,
     Phalcon\Mvc\Dispatcher as MvcDispatcher,
     Phalcon\Events\Manager as EventsManager,
     Phalcon\Mvc\Dispatcher\Exception as DispatchException;
@@ -12,7 +12,7 @@ use Engine\Mvc\Module\Service\AbstractService,
 /**
  * Class Acl
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */
@@ -27,7 +27,7 @@ class Acl extends AbstractService
         $eventsManager = $this->getEventsManager();
 
         $dependencyInjector->set('acl', function () use ($dependencyInjector) {
-            $acl = new \Engine\Acl\Service($dependencyInjector);
+            $acl = new \Vein\Core\Acl\Service($dependencyInjector);
             return $acl;
         });
 
@@ -35,13 +35,13 @@ class Acl extends AbstractService
         $aclAdapter = $this->_getAclAdapter($options['adapter']);
         $dependencyInjector->set('aclAdapter', function () use ($aclAdapter, $options, $dependencyInjector) {
             if (!$aclAdapter) {
-                throw new \Engine\Exception("Acl adapter '{$options['adapter']}' not exists!");
+                throw new \Vein\Core\Exception("Acl adapter '{$options['adapter']}' not exists!");
             }
             $adapter = new $aclAdapter($options, $dependencyInjector);
             return $adapter;
         });
 
-        $aclDispatcher = new \Engine\Acl\Dispatcher($dependencyInjector);
+        $aclDispatcher = new \Vein\Core\Acl\Dispatcher($dependencyInjector);
         $eventsManager->attach('dispatch:beforeDispatch', $aclDispatcher);
 
         if (isset($options['adminModule'])) {
@@ -58,7 +58,7 @@ class Acl extends AbstractService
      */
     protected function _getAclAdapter($name)
     {
-        $adapter = '\Engine\Acl\Adapter\\'.ucfirst($name);
+        $adapter = '\Vein\Core\Acl\Adapter\\'.ucfirst($name);
         if (!class_exists($adapter)) {
             return false;
         }

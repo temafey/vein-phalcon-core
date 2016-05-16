@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Select
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Select extends \Phalcon\Forms\Element\Select implements \Engine\Forms\ElementInterface
+class Select extends \Phalcon\Forms\Element\Select implements \Vein\Core\Forms\ElementInterface
 {
     protected $_value;
 
@@ -58,7 +58,7 @@ class Select extends \Phalcon\Forms\Element\Select implements \Engine\Forms\Elem
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\Select
+     * @return \Vein\Core\Forms\Element\Select
      */
     public function setDesc($desc)
     {

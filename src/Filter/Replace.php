@@ -7,7 +7,7 @@ namespace Vein\Core\Filter;
 /**
  * Filter Replace
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Filter
  */
 class Replace implements FilterInterface

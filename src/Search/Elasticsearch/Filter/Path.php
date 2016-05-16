@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Search\Elasticsearch\Filter;
 
-use Engine\Search\Elasticsearch\Query\Builder,
-    Engine\Crud\Grid\Filter\Field;
+use Vein\Core\Search\Elasticsearch\Query\Builder,
+    Vein\Core\Crud\Grid\Filter\Field;
 
 /**
  * Join path filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */
@@ -25,7 +25,7 @@ class Path extends AbstractFilter
 
     /**
      * Filter
-     * @var \Engine\Search\Elasticsearch\Filter\AbstractFilter
+     * @var \Vein\Core\Search\Elasticsearch\Filter\AbstractFilter
      */
     protected $_filter;
 
@@ -39,8 +39,8 @@ class Path extends AbstractFilter
      * Constructor
      *
      * @param string|array $path
-     * @param \Engine\Crud\Grid\Filter\Field $filterField
-     * @param \Engine\Search\Elasticsearch\Filter\AbstractFilter $filter
+     * @param \Vein\Core\Crud\Grid\Filter\Field $filterField
+     * @param \Vein\Core\Search\Elasticsearch\Filter\AbstractFilter $filter
      * @param string $pathCategory
      */
     public function __construct($path, Field $filterField, AbstractFilter $filter, $pathCategory = false)
@@ -54,7 +54,7 @@ class Path extends AbstractFilter
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Search\Elasticsearch\Query\Builder $dataSource
+     * @param \Vein\Core\Search\Elasticsearch\Query\Builder $dataSource
      * @return string
      */
     public function filter(Builder $dataSource)
@@ -76,12 +76,12 @@ class Path extends AbstractFilter
             $refModel = array_shift($path);
             $relationsRefModel = $workingModel->getRelationPath($refModel);
             if (!$relationsRefModel) {
-                throw new \Engine\Exception("Did not find relations between '".get_class($workingModel)."' and '".$refModel."' for filter field '".$this->_filterField->getKey()."'");
+                throw new \Vein\Core\Exception("Did not find relations between '".get_class($workingModel)."' and '".$refModel."' for filter field '".$this->_filterField->getKey()."'");
             }
             $mainModel = $dataSource->getModel();
             $relationsMainModel = $workingModel->getRelationPath($mainModel);
             if (!$relationsMainModel) {
-                throw new \Engine\Exception("Did not find relations between '".get_class($workingModel)."' and '".get_class($mainModel)."' for filter field '".$this->_filterField->getKey()."'");
+                throw new \Vein\Core\Exception("Did not find relations between '".get_class($workingModel)."' and '".get_class($mainModel)."' for filter field '".$this->_filterField->getKey()."'");
             }
             $refKey = array_shift($relationsRefModel)->getFields();
             $keyParent = array_shift($relationsMainModel)->getFields();
@@ -130,7 +130,7 @@ class Path extends AbstractFilter
                         (isset($gridColums[$key]) && $column = $gridColums[$key]) ||
                         $column = $this->_filterField->getGridFilter()->getGrid()->getColumnByName($name)
                     ) &&
-                    ($column instanceof \Engine\Crud\Grid\Column\JoinOne)
+                    ($column instanceof \Vein\Core\Crud\Grid\Column\JoinOne)
                 ) {
                     $name .= "_id";
                 }

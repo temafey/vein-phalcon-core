@@ -14,11 +14,11 @@ trait ExtJsGridTemplater {
     public $templateExtJsGridExtends = 'Grid';
 
     public $templateSimpleUseGridExtjs = array(
-        'Grid' => 'Engine\Crud\Grid\Extjs',
-        'Engine\Crud\Grid\Column',
-        'Filter' => 'Engine\Crud\Grid\Filter\Extjs',
-        'Engine\Crud\Grid\Filter\Field',
-        'Criteria' => 'Engine\Filter\SearchFilterInterface'
+        'Grid' => 'Vein\Core\Crud\Grid\Extjs',
+        'Vein\Core\Crud\Grid\Column',
+        'Filter' => 'Vein\Core\Crud\Grid\Filter\Extjs',
+        'Vein\Core\Crud\Grid\Filter\Field',
+        'Criteria' => 'Vein\Core\Filter\SearchFilterInterface'
     );
 
     public $templateExtJsGridModulePrefix = "

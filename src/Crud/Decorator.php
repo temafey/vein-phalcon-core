@@ -7,7 +7,7 @@ namespace Vein\Core\Crud;
 /**
  * Class decorator.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
@@ -26,7 +26,7 @@ abstract class Decorator
     protected $_placement = 'APPEND';
 
     /**
-     * @var \Engine\Crud\Form\Field|\Engine\Crud\Form|\Engine\Crud\Grid
+     * @var \Vein\Core\Crud\Form\Field|\Vein\Core\Crud\Form|\Vein\Core\Crud\Grid
      */
     protected $_element;
 
@@ -59,7 +59,7 @@ abstract class Decorator
      * Set options
      *
      * @param  array $options
-     * @return \Engine\Crud\Decorator
+     * @return \Vein\Core\Crud\Decorator
      */
     public function setOptions(array $options)
     {
@@ -72,7 +72,7 @@ abstract class Decorator
      *
      * @param  string $key
      * @param  mixed $value
-     * @return \Engine\Crud\Decorator
+     * @return \Vein\Core\Crud\Decorator
      */
     public function setOption($key, $value)
     {
@@ -125,7 +125,7 @@ abstract class Decorator
     /**
      * Clear all options
      *
-     * @return \Engine\Crud\Decorator\Decorator
+     * @return \Vein\Core\Crud\Decorator\Decorator
      */
     public function clearOptions()
     {
@@ -136,17 +136,17 @@ abstract class Decorator
     /**
      * Set current form element
      *
-     * @param  \Engine\Crud\Form\Field|\Egnine\Crud\Form|\Engine\Crud\Grid $element
-     * @return \Engine\Crud\Decorator\Decorator
+     * @param  \Vein\Core\Crud\Form\Field|\Egnine\Crud\Form|\Vein\Core\Crud\Grid $element
+     * @return \Vein\Core\Crud\Decorator\Decorator
      * @throws \InvalidArgumentException on invalid element type
      */
     public function setElement($element)
     {
         if (
-                !$element instanceof \Engine\Crud\Grid
-            &&  !$element instanceof \Engine\Crud\Grid\Filter
-            &&  !$element instanceof \Engine\Crud\Form
-            &&  !$element instanceof \Engine\Crud\Form\Field
+                !$element instanceof \Vein\Core\Crud\Grid
+            &&  !$element instanceof \Vein\Core\Crud\Grid\Filter
+            &&  !$element instanceof \Vein\Core\Crud\Form
+            &&  !$element instanceof \Vein\Core\Crud\Form\Field
         ) {
             throw new \InvalidArgumentException('Invalid element type passed to decorator');
         }
@@ -158,11 +158,11 @@ abstract class Decorator
     /**
      * Retrieve current element
      *
-     * @return  \Engine\Crud\Grid
-     *          \Engine\Crud\Grid\Filter
-     *          \Engine\Crud\Grid\Filter\Field
-     *          \Engine\Crud\Form
-     *          \Engine\Crud\Form\Field
+     * @return  \Vein\Core\Crud\Grid
+     *          \Vein\Core\Crud\Grid\Filter
+     *          \Vein\Core\Crud\Grid\Filter\Field
+     *          \Vein\Core\Crud\Form
+     *          \Vein\Core\Crud\Form\Field
      */
     public function getElement()
     {

@@ -4,7 +4,7 @@
  */
 namespace Vein\Core\UnitTest\Service;
 
-use Engine\UnitTest\Generator\TestGenerator;
+use Vein\Core\UnitTest\Generator\TestGenerator;
 
 /**
  * Class TestClass

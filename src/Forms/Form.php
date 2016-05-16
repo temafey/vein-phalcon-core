@@ -7,7 +7,7 @@ namespace Vein\Core\Forms;
 /**
  * Class Form
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  */
 class Form extends \Phalcon\Forms\Form
@@ -52,13 +52,13 @@ class Form extends \Phalcon\Forms\Form
      * @param array $data
      * @param bool $validate
      *
-     * @return \Engine\Forms\Form
-     * @throws \Engine\Exception
+     * @return \Vein\Core\Forms\Form
+     * @throws \Vein\Core\Exception
      */
     public function setData(array $data, $validate = true)
     {
         if ($validate && !$this->isValid($data)) {
-            throw new \Engine\Exception('Data invalid');
+            throw new \Vein\Core\Exception('Data invalid');
         }
         $this->_data = $data;
 

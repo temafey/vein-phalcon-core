@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Helper\Grid\Extjs;
 
-use Engine\Crud\Grid\Extjs as Grid;
+use Vein\Core\Crud\Grid\Extjs as Grid;
 
 /**
  * Class grid paginator helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -18,7 +18,7 @@ class Paginator extends BaseHelper
     /**
      * Generates grid paginate object
      *
-     * @param \Engine\Crud\Grid\Extjs $grid
+     * @param \Vein\Core\Crud\Grid\Extjs $grid
      * @return string
      */
     static public function _(Grid $grid)

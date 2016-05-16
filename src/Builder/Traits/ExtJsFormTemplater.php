@@ -14,8 +14,8 @@ trait ExtJsFormTemplater {
     public $templateExtJsFormExtends = 'Form';
 
     public $templateSimpleUseFormExtjs = array(
-        'Form' => 'Engine\Crud\Form\Extjs',
-        'Engine\Crud\Form\Field'
+        'Form' => 'Vein\Core\Crud\Form\Extjs',
+        'Vein\Core\Crud\Form\Field'
     );
 
     public $templateExtJsFormModulePrefix = "

@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Hidden
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Hidden extends \Phalcon\Forms\Element\Hidden implements \Engine\Forms\ElementInterface
+class Hidden extends \Phalcon\Forms\Element\Hidden implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description

@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Form;
 /**
  * Interface of grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */

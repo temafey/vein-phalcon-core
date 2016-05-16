@@ -7,18 +7,18 @@ namespace Vein\Core\Mvc\Module\Service;
 /**
  * Class AbstractService
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Module
  */
 abstract class AbstractService implements \Phalcon\DI\InjectionAwareInterface, \Phalcon\Events\EventsAwareInterface
 {
-    use \Engine\Tools\Traits\DIaware,
-        \Engine\Tools\Traits\EventsAware;
+    use \Vein\Core\Tools\Traits\DIaware,
+        \Vein\Core\Tools\Traits\EventsAware;
 
     /**
      * Module
-     * @var \Engine\Mvc\Module\Base
+     * @var \Vein\Core\Mvc\Module\Base
      */
     protected $_module;
 
@@ -31,12 +31,12 @@ abstract class AbstractService implements \Phalcon\DI\InjectionAwareInterface, \
 	/**
 	 * Constructor
 	 *
-     * @param \Engine\Mvc\Module\Base $module
+     * @param \Vein\Core\Mvc\Module\Base $module
 	 * @param \Phalcon\DiInterface $dependencyInjector
 	 * @param \Phalcon\Events\ManagerInterface $eventManager
      * @param \Phalcon\Config $config
 	 */
-	public function __construct(\Engine\Mvc\Module $module, \Phalcon\DiInterface $dependencyInjector, \Phalcon\Events\ManagerInterface $eventsManager, \Phalcon\Config $config)
+	public function __construct(\Vein\Core\Mvc\Module $module, \Phalcon\DiInterface $dependencyInjector, \Phalcon\Events\ManagerInterface $eventsManager, \Phalcon\Config $config)
 	{
         $this->_module = $module;
 		$this->setDi($dependencyInjector);

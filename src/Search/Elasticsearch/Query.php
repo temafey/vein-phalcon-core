@@ -11,7 +11,7 @@ use Elastica\Query as ElQuery,
 /**
  * Class Builder
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Search
  * @subcategory Elasticsearch
  */
@@ -71,7 +71,7 @@ class Query extends ElQuery
             if (is_object($value)) {
                 if ($value instanceof \stdClass) {
                     $value = (array) $value;
-                    //throw new \Engine\Exception('Incorect object value');
+                    //throw new \Vein\Core\Exception('Incorect object value');
                 } else {
                     $value = $value->toArray();
                 }

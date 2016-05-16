@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class Cache
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
@@ -26,7 +26,7 @@ class Cache extends AbstractService
         if (!$this->_config->application->debug || $this->_config->application->useCachingInDebugMode) {
             $cacheAdapter = $this->_getBackendCacheAdapter($this->_config->application->cache->data->adapter);
             if (!$cacheAdapter) {
-                throw new \Engine\Exception("Cache adapter '{$this->_config->application->cache->data->adapter}' not exists!");
+                throw new \Vein\Core\Exception("Cache adapter '{$this->_config->application->cache->data->adapter}' not exists!");
             }
             $frontEndOptions = ['lifetime' => $this->_config->application->cache->data->lifetime];
             $backEndOptions = $this->_config->application->cache->data->toArray();
@@ -46,7 +46,7 @@ class Cache extends AbstractService
 
             $cacheAdapter = $this->_getBackendCacheAdapter($this->_config->application->cache->output->adapter);
             if (!$cacheAdapter) {
-                throw new \Engine\Exception("Cache adapter '{$this->_config->application->cache->output->adapter}' not exists!");
+                throw new \Vein\Core\Exception("Cache adapter '{$this->_config->application->cache->output->adapter}' not exists!");
             }
             $frontEndOptions = ['lifetime' => $this->_config->application->cache->output->lifetime];
             $backEndOptions = $this->_config->application->cache->output->toArray();
@@ -62,7 +62,7 @@ class Cache extends AbstractService
         } else {
             // Create a dummy cache for system.
             // System will work correctly and the data will be always current for all adapters
-            $dummyCache = new \Engine\Cache\Dummy(null);
+            $dummyCache = new \Vein\Core\Cache\Dummy(null);
             $dependencyInjector->set('viewCache', $dummyCache);
             $dependencyInjector->set('cacheOutput', $dummyCache);
             $dependencyInjector->set('cacheData', $dummyCache);
@@ -156,7 +156,7 @@ class Cache extends AbstractService
         if (class_exists($name)) {
             $adapter = $name;
         } else {
-            $adapter = '\Engine\Cache\Backend\\' . ucfirst($name);
+            $adapter = '\Vein\Core\Cache\Backend\\' . ucfirst($name);
             if (!class_exists($adapter)) {
                 $adapter = '\Phalcon\Cache\Backend\\' . ucfirst($name);
                 if (!class_exists($adapter)) {

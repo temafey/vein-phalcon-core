@@ -11,7 +11,7 @@ trait User
      * Return user by auth credentials
      *
      * @param array $credentials
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public static function findByCredentials(array $credentials)
     {
@@ -34,7 +34,7 @@ trait User
         }
 
         if (!$login || !$password) {
-            throw new \Engine\Exception('Auth credentials not correct!');
+            throw new \Vein\Core\Exception('Auth credentials not correct!');
         }
 
         return static::findFirst([
@@ -52,7 +52,7 @@ trait User
      * Return user by id
      *
      * @param integer $id
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public static function findUserById($id)
     {

@@ -4,15 +4,15 @@
  */
 namespace Vein\Core\Crud\Grid\Column;
 
-use Engine\Crud\Grid\Column;
+use Vein\Core\Crud\Grid\Column;
 
 /**
  * Join many column
  *
- * @uses       \Engine\Crud\Grid\Exception
- * @uses       \Engine\Crud\Grid\Filter
- * @uses       \Engine\Crud\Grid
- * @category   Engine
+ * @uses       \Vein\Core\Crud\Grid\Exception
+ * @uses       \Vein\Core\Crud\Grid\Filter
+ * @uses       \Vein\Core\Crud\Grid
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -56,7 +56,7 @@ class JoinMany extends Column
     protected $_noJoin = true;
 
     /**
-     * @var \Engine\Mvc\Model\Query\Builder
+     * @var \Vein\Core\Mvc\Model\Query\Builder
      */
     protected $_queryBuilder;
 	
@@ -103,8 +103,8 @@ class JoinMany extends Column
 	/**
 	 * Update container data source
 	 * 
-	 * @param \Engine\Crud\Container\Grid\Adapter $dataSource
-	 * @return \Engine\Crud\Grid\Column\JoinMany
+	 * @param \Vein\Core\Crud\Container\Grid\Adapter $dataSource
+	 * @return \Vein\Core\Crud\Grid\Column\JoinMany
 	 */
 	public function updateDataSource($dataSource)
 	{
@@ -118,10 +118,10 @@ class JoinMany extends Column
     /**
      * Update grid container
      *
-     * @param \Engine\Crud\Container\Grid\Adapter $container
-     * @return \Engine\Crud\Grid\Column
+     * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     * @return \Vein\Core\Crud\Grid\Column
      */
-    public function updateContainer(\Engine\Crud\Container\Grid\Adapter $container)
+    public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
     {
         //$container->setColumn($this->_key, $this->_name);
         return $this;
@@ -130,7 +130,7 @@ class JoinMany extends Column
     /**
      * Return render value
      * (non-PHPdoc)
-     * @see \Engine\Crud\Grid\Column::render()
+     * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
      * @return string
      */
@@ -185,7 +185,7 @@ class JoinMany extends Column
      */
     protected function _getManyValues($id)
     {
-        $name = ($this->_column) ? $this->_column : \Engine\Mvc\Model::NAME;
+        $name = ($this->_column) ? $this->_column : \Vein\Core\Mvc\Model::NAME;
         if (!$this->_queryBuilder) {
             $path = $this->_path;
             if (!is_array($path)) {
@@ -203,7 +203,7 @@ class JoinMany extends Column
             $mainModel = $this->_grid->getContainer()->getDataSource()->getModel();
             $relations = $mainModel->getRelationPath($workedModel);
             if (!$relations) {
-                throw new \Engine\Exception("Relations to model '".get_class($model)."' by path '".implode(", ", $path)."' not valid");
+                throw new \Vein\Core\Exception("Relations to model '".get_class($model)."' by path '".implode(", ", $path)."' not valid");
             }
             $relation = array_pop($relations);
             $field = $relation->getReferencedFields();
@@ -249,7 +249,7 @@ class JoinMany extends Column
 	 * 
 	 * @param string $left
 	 * @param string $right
-	 * @return \Engine\Crud\Grid\Column\JoinMany
+	 * @return \Vein\Core\Crud\Grid\Column\JoinMany
 	 */
 	public function setLeftRightTag($left, $right) 
 	{
@@ -262,7 +262,7 @@ class JoinMany extends Column
 	 * Set empty value
 	 * 
 	 * @param string $na
-	 * @return \Engine\Crud\Grid\Column\JoinMany
+	 * @return \Vein\Core\Crud\Grid\Column\JoinMany
 	 */
 	public function setEmptyValue($na)
 	{

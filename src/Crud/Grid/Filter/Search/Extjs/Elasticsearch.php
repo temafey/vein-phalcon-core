@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Search\Extjs;
 
-use Engine\Crud\Grid\Filter\Search\Elasticsearch as Filter;
+use Vein\Core\Crud\Grid\Filter\Search\Elasticsearch as Filter;
 
 /**
  * Class filter grid.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */

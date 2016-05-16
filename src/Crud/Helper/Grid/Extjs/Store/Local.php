@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Helper\Grid\Extjs\Store;
 
-use Engine\Crud\Grid\Extjs as Grid,
-    Engine\Crud\Helper\Grid\Extjs\BaseHelper;
+use Vein\Core\Crud\Grid\Extjs as Grid,
+    Vein\Core\Crud\Helper\Grid\Extjs\BaseHelper;
 
 /**
  * Class grid filter helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -25,7 +25,7 @@ class Local extends BaseHelper
     /**
      * Generates a widget to show a html grid
      *
-     * @param \Engine\Crud\Grid\Extjs $grid
+     * @param \Vein\Core\Crud\Grid\Extjs $grid
      * @return string
      */
     static public function _(Grid $grid)

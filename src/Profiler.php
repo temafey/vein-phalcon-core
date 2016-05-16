@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Engine;
+namespace Vein\Core;
 
 class Profiler
 {

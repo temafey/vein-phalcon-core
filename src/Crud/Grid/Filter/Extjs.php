@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Grid\Filter;
 
-use Engine\Crud\Grid\Filter;
+use Vein\Core\Crud\Grid\Filter;
 
 /**
  * Class filter grid.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */

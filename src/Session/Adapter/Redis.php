@@ -11,7 +11,7 @@ use Phalcon\Session\Adapter as BaseAdapter,
 /**
  * Class Redis
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Session
  * @subpackege  Adapter
  */

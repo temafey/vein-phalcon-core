@@ -4,25 +4,25 @@
  */
 namespace Vein\Core\Crud\Grid;
 
-use Engine\Forms\Form,
-    Engine\Crud\Grid\Filter\FieldInterface,
-    Engine\Crud\Grid\Filter\Field;
+use Vein\Core\Forms\Form,
+    Vein\Core\Crud\Grid\Filter\FieldInterface,
+    Vein\Core\Crud\Grid\Filter\Field;
 
 /**
  * Class filter grid.
  *
- * @uses       \Engine\Crud\Grid\Exception
- * @uses       \Engine\Crud\Grid\Filter
- * @uses       \Engine\Crud\Grid\Field
- * @category   Engine
+ * @uses       \Vein\Core\Crud\Grid\Exception
+ * @uses       \Vein\Core\Crud\Grid\Filter
+ * @uses       \Vein\Core\Crud\Grid\Field
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
 class Filter
 {	
-	use \Engine\Tools\Traits\Resource,
-		\Engine\Crud\Tools\Renderer,
-        \Engine\Crud\Tools\Attributes;
+	use \Vein\Core\Tools\Traits\Resource,
+		\Vein\Core\Crud\Tools\Renderer,
+        \Vein\Core\Crud\Tools\Attributes;
 
     /**
      * Default decorator
@@ -31,13 +31,13 @@ class Filter
 
 	/**
 	 * Phalcon form
-	 * @var \Engine\Forms\Form
+	 * @var \Vein\Core\Forms\Form
 	 */
 	protected $_form;
 
     /**
      * Crud grid
-     * @var \Engine\Crud\Grid
+     * @var \Vein\Core\Crud\Grid
      */
     protected $_grid;
 
@@ -67,7 +67,7 @@ class Filter
 
 	/**
 	 * Data container object
-	 * @var \Engine\Crud\Container\AbstractContainer
+	 * @var \Vein\Core\Crud\Container\AbstractContainer
 	 */
 	protected $_container;
 	
@@ -109,7 +109,7 @@ class Filter
 
     /**
      * Primary field object
-     * @var \Engine\Crud\Grid\Filter\Field\Primary
+     * @var \Vein\Core\Crud\Grid\Filter\Field\Primary
      */
     protected $_primaryField;
 	
@@ -134,10 +134,10 @@ class Filter
     /**
      * Initialaize filter
      *
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @return void
      */
-    public function init(\Engine\Crud\Grid $grid)
+    public function init(\Vein\Core\Crud\Grid $grid)
     {
         $this->_grid = $grid;
         $this->_autoloadInitMethods();
@@ -184,7 +184,7 @@ class Filter
      * Add multiple elements at once
      *
      * @param  array $elements
-     * @return \Engine\Crud\Grid\Filter
+     * @return \Vein\Core\Crud\Grid\Filter
      */
     public function addFields(array $fields)
     {
@@ -246,16 +246,16 @@ class Filter
      * @param  string $type
      * @param  string $key
      * @param  array $options
-     * @return \Engine\Crud\Grid\Filter\Field
+     * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function createField($type, $key, $options = null)
     {
         if (!is_string($type)) {
-            throw new \Engine\Exception('Field type must be a string indicating type');
+            throw new \Vein\Core\Exception('Field type must be a string indicating type');
         }
 
         if (!is_string($key)) {
-            throw new \Engine\Exception('Field name must be a string');
+            throw new \Vein\Core\Exception('Field name must be a string');
         }
         $class = $this->getFieldClass($type);
 		$rc = new \ReflectionClass($class);
@@ -272,13 +272,13 @@ class Filter
 	 */
 	public function getFieldClass($type)
 	{
-		return '\Engine\Crud\Grid\Filter\Field\\'.ucfirst($type);
+		return '\Vein\Core\Crud\Grid\Filter\Field\\'.ucfirst($type);
 	}
     
     /**
      * Add new field
      * 
-     * @param \Engine\Crud\Grid\Filter\Field|string $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field|string $field
      * @param string $key
      * @param array $options
      */
@@ -286,7 +286,7 @@ class Filter
     {
     	if (is_string($field)) {
     		if (null === $key) {
-                throw new \Engine\Exception('Fields specified by string must have an accompanying name');
+                throw new \Vein\Core\Exception('Fields specified by string must have an accompanying name');
             }
     		$field = $this->createField($field, $key, $options);
     	}
@@ -295,7 +295,7 @@ class Filter
 		}
         if ($field instanceof Field\Primary) {
             if ($this->_primaryField) {
-                throw new \Engine\Exception("Primary field already exists '".$this->_primaryField->getKey()."'");
+                throw new \Vein\Core\Exception("Primary field already exists '".$this->_primaryField->getKey()."'");
             }
             $this->_primaryField = $field;
         }
@@ -316,7 +316,7 @@ class Filter
      * Return if exists Field by form field key
      *
      * @param string $name
-     * @return \Engine\Crud\Grid\Filter\Field
+     * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function getFieldByKey($key)
     {
@@ -331,7 +331,7 @@ class Filter
      * Return if exists form field by field name
      *
      * @param string $name
-     * @return \Engine\Crud\Grid\Filter\Field
+     * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function getFieldByName($name)
     {
@@ -388,7 +388,7 @@ class Filter
     /**
      * Return grid
      *
-     * @return \Engine\Crud\Grid
+     * @return \Vein\Core\Crud\Grid
      */
     public function getGrid()
     {
@@ -398,10 +398,10 @@ class Filter
     /**
      * Set grid container adapter
      * 
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Crud\Grid\Filter
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Crud\Grid\Filter
      */
-    public function setContainer(\Engine\Crud\Container\AbstractContainer $container)
+    public function setContainer(\Vein\Core\Crud\Container\AbstractContainer $container)
     {
     	$this->_container = $container;
     	return $this;
@@ -410,7 +410,7 @@ class Filter
     /**
      * Return grid container adapter
      *
-     * @return \Engine\Crud\Container\AbstractContainer
+     * @return \Vein\Core\Crud\Container\AbstractContainer
      */
     public function getContainer()
     {
@@ -421,7 +421,7 @@ class Filter
      * Set params
      * 
      * @param array $params
-     * @return \Engine\Crud\Grid\Filter
+     * @return \Vein\Core\Crud\Grid\Filter
      */
     public function setParams(array $params) 
     {
@@ -431,7 +431,7 @@ class Filter
 
         foreach ($this->_fields as $key => $field) {
             if (!$field instanceof FieldInterface) {
-                throw new \Engine\Exception("Filter field '".$key."' not instance of FieldInterface");
+                throw new \Vein\Core\Exception("Filter field '".$key."' not instance of FieldInterface");
             }
             if ($field instanceof Field\Compound) {
                 $field->setValue($this->_params);
@@ -447,7 +447,7 @@ class Filter
     /**
      * Nulled filter params
      *
-     * @return \Engine\Crud\Grid\Filter
+     * @return \Vein\Core\Crud\Grid\Filter
      */
     public function clearParams()
     {
@@ -549,7 +549,7 @@ class Filter
 	 * Apply filters to grid data source object.
 	 * 
 	 * @param object $dataSource
-	 * @return \Engine\Crud\Grid\Filter
+	 * @return \Vein\Core\Crud\Grid\Filter
 	 */
 	public function applyFilters($dataSource)
 	{
@@ -563,7 +563,7 @@ class Filter
 	/**
 	 * Initialize form elements
 	 * 
-	 * @return \Engine\Crud\Grid\Filter
+	 * @return \Vein\Core\Crud\Grid\Filter
 	 */
 	public function initForm()
 	{
@@ -582,7 +582,7 @@ class Filter
 		$this->_fieldNames = [];
     	foreach ($this->_fields as $key => $field) {
             if (!$field instanceof FieldInterface) {
-                throw new \Engine\Exception("Filter field '".$key."' not instance of FieldInterface");
+                throw new \Vein\Core\Exception("Filter field '".$key."' not instance of FieldInterface");
             }
             if ($field instanceof Field\Compound) {
                 $field->initForm($this->_form);
@@ -610,7 +610,7 @@ class Filter
 	/**
 	 * Return phalcon form object
 	 * 
-	 * @return \Engine\Forms\Form
+	 * @return \Vein\Core\Forms\Form
 	 */
 	public function getForm()
 	{
@@ -679,7 +679,7 @@ class Filter
 	public function isValid($params)
 	{
 		if ($this->_formCreated === false) {
-	        throw new \Engine\Exception('Form not created!');
+	        throw new \Vein\Core\Exception('Form not created!');
 	    }
 	    
 	    return $this->_form->isValid($params);
@@ -693,7 +693,7 @@ class Filter
 	public function getMessages()
 	{
 		if ($this->_formCreated === false) {
-	        throw new \Engine\Exception('Form not created!');
+	        throw new \Vein\Core\Exception('Form not created!');
 	    }
 	    
 	    return $this->_form->getMessages();
@@ -703,13 +703,13 @@ class Filter
      * Return filter field
      *
      * @param  string $key The filter field key.
-     * @return \Engine\Crud\Grid\Filter\Field
+     * @return \Vein\Core\Crud\Grid\Filter\Field
      * @throws \Exception if the $key is not a field in the filter.
      */
     public function __get($key)
     {
         if (!isset($this->_fields[$key])) {
-            throw new \Engine\Exception("Field \"$key\" is not in the filter");
+            throw new \Vein\Core\Exception("Field \"$key\" is not in the filter");
         }
         return $this->_fields[$key];
     }

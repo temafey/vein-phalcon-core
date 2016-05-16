@@ -7,7 +7,7 @@ namespace Vein\Core\Tools;
 /**
  * Class Image
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 class Image

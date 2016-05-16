@@ -2,12 +2,12 @@
 /**
  * @namespace
  */
-namespace Engine;
+namespace Vein\Core;
 
 /**
  * Class Tag
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tag
  */
 class Tag extends \Phalcon\Tag

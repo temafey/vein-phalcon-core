@@ -7,7 +7,7 @@ namespace Vein\Core\Filter;
 /**
  * Interface FilterInterface
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Filter
  */
 interface FilterInterface

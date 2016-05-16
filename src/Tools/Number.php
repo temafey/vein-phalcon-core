@@ -3,7 +3,7 @@
 namespace Vein\Core\Tools;
 
 
-use Engine\Exception;
+use Vein\Core\Exception;
 
 class Number {
 

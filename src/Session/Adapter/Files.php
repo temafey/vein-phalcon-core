@@ -11,7 +11,7 @@ use Phalcon\Session\Adapter\Files as Adapter,
 /**
  * Class Files
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Session
  * @subpackege  Adapter
  */

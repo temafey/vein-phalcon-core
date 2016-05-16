@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Numeric
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Numeric extends \Phalcon\Forms\Element\Numeric implements \Engine\Forms\ElementInterface
+class Numeric extends \Phalcon\Forms\Element\Numeric implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -33,7 +33,7 @@ class Numeric extends \Phalcon\Forms\Element\Numeric implements \Engine\Forms\El
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\Text
+     * @return \Vein\Core\Forms\Element\Text
      */
     public function setDesc($desc)
     {

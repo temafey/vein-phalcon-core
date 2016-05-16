@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Grid\Column;
 /**
  * class Primary
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -48,7 +48,7 @@ class Primary extends Base
      * Primary column can't be editable
      *
      * @param bool $editable
-     * @return \Engine\Crud\Grid\Column
+     * @return \Vein\Core\Crud\Grid\Column
      */
     public function setEditable($editable)
     {

@@ -7,19 +7,19 @@ namespace Vein\Core\Crud\Helper\Grid;
 /**
  * Class html grid helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
-class Standart extends \Engine\Crud\Helper
+class Standart extends \Vein\Core\Crud\Helper
 {
 	/**
 	 * Generates a widget to show a html grid
 	 *
-	 * @param \Engine\Crud\Grid $grid
+	 * @param \Vein\Core\Crud\Grid $grid
 	 * @return string
 	 */
-	static public function _(\Engine\Crud\Grid $grid)
+	static public function _(\Vein\Core\Crud\Grid $grid)
 	{
         $code = '
         <h1>'.$grid->getTitle().'</h1>

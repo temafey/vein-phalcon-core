@@ -4,16 +4,16 @@
  */
 namespace Vein\Core\Search\Elasticsearch;
 
-use Engine\Exception,
-    Engine\Tools\Traits\DIaware,
-    Engine\Search\Elasticsearch\Query\Builder,
-    Engine\Search\Elasticsearch\Type,
-    Engine\Search\Elasticsearch\Query,
-    Engine\Search\Elasticsearch\Filter\AbstractFilter,
-    Engine\Crud\Grid,
-    Engine\Crud\Grid\Filter,
-    Engine\Crud\Grid\Filter\Field,
-    Engine\Tools\Strings;
+use Vein\Core\Exception,
+    Vein\Core\Tools\Traits\DIaware,
+    Vein\Core\Search\Elasticsearch\Query\Builder,
+    Vein\Core\Search\Elasticsearch\Type,
+    Vein\Core\Search\Elasticsearch\Query,
+    Vein\Core\Search\Elasticsearch\Filter\AbstractFilter,
+    Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Grid\Filter,
+    Vein\Core\Crud\Grid\Filter\Field,
+    Vein\Core\Tools\Strings;
 
 /**
  * Class Elasticsearch
@@ -27,7 +27,7 @@ class Indexer
 
     /**
      * Mvc model object
-     * @var \Engine\Search\Elasticsearch\ModelAdapter
+     * @var \Vein\Core\Search\Elasticsearch\ModelAdapter
      */
     protected $_model;
 
@@ -58,7 +58,7 @@ class Indexer
     public function __construct($grid, $adapter = 'elastic', array $params = [])
     {
         $this->_grid = $grid;
-        $grid = ($this->_grid instanceof \Engine\Crud\Grid) ? $this->_grid : new $this->_grid($this->_params, $this->getDi());
+        $grid = ($this->_grid instanceof \Vein\Core\Crud\Grid) ? $this->_grid : new $this->_grid($this->_params, $this->getDi());
         $this->_model = $grid->getContainer()->getModel();
 
         $this->_adapter = $adapter;
@@ -102,7 +102,7 @@ class Indexer
     /**
      * Initialize and return search adapter by name
      *
-     * @return \Engine\Search\Elasticsearch\Client
+     * @return \Vein\Core\Search\Elasticsearch\Client
      */
     public function getClient()
     {
@@ -112,7 +112,7 @@ class Indexer
     /**
      * Initialize and return search index
      *
-     * @return\Engine\Search\Elasticsearch\Index
+     * @return\Vein\Core\Search\Elasticsearch\Index
      */
     public function getIndex()
     {
@@ -146,7 +146,7 @@ class Indexer
 
         // Set mapping
         $properties = [];
-        $grid = ($this->_grid instanceof \Engine\Crud\Grid) ? $this->_grid : new $this->_grid($this->_params, $this->getDi());
+        $grid = ($this->_grid instanceof \Vein\Core\Crud\Grid) ? $this->_grid : new $this->_grid($this->_params, $this->getDi());
         $filterFields = $grid->getFilter()->getFields();
         $gridColums = $grid->getColumns();
         foreach ($filterFields as $key => $field) {
@@ -158,7 +158,7 @@ class Indexer
             if ((isset($gridColums[$key]) && $column = $gridColums[$key]) || $column = $grid->getColumnByName($name)) {
                 $sortable = $column->isSortable();
                 $store = true;
-                if ($column instanceof \Engine\Crud\Grid\Column\JoinOne) {
+                if ($column instanceof \Vein\Core\Crud\Grid\Column\JoinOne) {
                     $joinType = true;
                     if (!$column->isUseJoin()) {
                         $sortable = true;
@@ -185,7 +185,7 @@ class Indexer
     /**
      *  Build and return field map property for mapping using grid filter object
      *
-     * @param \Engine\Crud\Grid\Filter\Field $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      * @param bool $sortable
      * @param bool $store
      * @param bool $joinType
@@ -397,7 +397,7 @@ class Indexer
         if (!$type->exists()) {
             $this->setMapping();
         }
-        $grid = ($this->_grid instanceof \Engine\Crud\Grid) ? $this->_grid : new $this->_grid([], $this->getDi());
+        $grid = ($this->_grid instanceof \Vein\Core\Crud\Grid) ? $this->_grid : new $this->_grid([], $this->getDi());
 
         $config = [];
         $config['model'] = $grid->getModel();
@@ -407,7 +407,7 @@ class Indexer
         if ($modelAdapter) {
             $config['modelAdapter'] = $modelAdapter;
         }
-        $container = new \Engine\Crud\Container\Grid\Mysql($grid, $config);
+        $container = new \Vein\Core\Crud\Container\Grid\Mysql($grid, $config);
         $container->separateQuery(true);
 
         $columns = $grid->getColumns();
@@ -448,8 +448,8 @@ class Indexer
      * Add new item to index
      *
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
-     * @throws \Engine\Exception
+     * @param \Vein\Core\Crud\Grid $grid
+     * @throws \Vein\Core\Exception
      */
     public function addItem(array $data, $grid = null)
     {
@@ -468,8 +468,8 @@ class Indexer
      * Check if item exist in search index
      *
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
-     * @throws \Engine\Exception
+     * @param \Vein\Core\Crud\Grid $grid
+     * @throws \Vein\Core\Exception
      */
     public function existItem(array $data, $grid = null)
     {
@@ -494,7 +494,7 @@ class Indexer
      * Check if item exist in search index
      *
      * @param mixed $id
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     public function existItemById($id)
     {
@@ -511,8 +511,8 @@ class Indexer
      * Update document in index
      *
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
-     * @throws \Engine\Exception
+     * @param \Vein\Core\Crud\Grid $grid
+     * @throws \Vein\Core\Exception
      */
     public function updateItem($data, $grid = null)
     {
@@ -528,8 +528,8 @@ class Indexer
      * Delete document from index
      *
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
-     * @throws \Engine\Exception
+     * @param \Vein\Core\Crud\Grid $grid
+     * @throws \Vein\Core\Exception
      */
     public function deleteItem($data, $grid = null)
     {
@@ -555,11 +555,11 @@ class Indexer
      * Build elastica document
      *
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @return \Elastica\Document
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
-    protected function _processItemData(array $data, \Engine\Crud\Grid $grid)
+    protected function _processItemData(array $data, \Vein\Core\Crud\Grid $grid)
     {
         $primaryKey = $grid->getPrimaryColumn()->getName();
         $filterFields = $grid->getFilter()->getFields();
@@ -609,7 +609,7 @@ class Indexer
             } elseif (Strings::isInt($value)) {
                 $value = (int) $value;
             } elseif (is_string($value)) {
-                $value = \Engine\Tools\Strings::replaceInvalidByteSequence5($value);
+                $value = \Vein\Core\Tools\Strings::replaceInvalidByteSequence5($value);
             }
         }
     }
@@ -619,9 +619,9 @@ class Indexer
      *
      * @param array $item
      * @param string $key
-     * @param \Engine\Crud\Grid\Filter\Field $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @throws \Exception
      * @return void
      */
@@ -629,11 +629,11 @@ class Indexer
     {
         $name = $field->getName();
         if (!$column = $grid->getColumnByName($name)) {
-            throw new \Engine\Exception('Column with name \''.$name.'\' was not found in the grid \''.get_class($grid).'\'');
+            throw new \Vein\Core\Exception('Column with name \''.$name.'\' was not found in the grid \''.get_class($grid).'\'');
         }
         $dataKey = $grid->getColumnByName($name)->getKey();
         if (!array_key_exists($dataKey, $data)) {
-            throw new \Engine\Exception("Value by filter key '".$dataKey."' not found in data from grid '".get_class($grid)."'");
+            throw new \Vein\Core\Exception("Value by filter key '".$dataKey."' not found in data from grid '".get_class($grid)."'");
         }
         if (null !== $data[$dataKey]) {
             $item[$key] = $data[$dataKey];
@@ -645,9 +645,9 @@ class Indexer
      *
      * @param array $item
      * @param string $key
-     * @param \Engine\Crud\Grid\Filter\Field $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @throws \Exception
      * @return void
      */
@@ -665,9 +665,9 @@ class Indexer
      *
      * @param array $item
      * @param string $key
-     * @param \Engine\Crud\Grid\Filter\Field $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      * @param array $data
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @throws \Exception
      * @return void
      */
@@ -683,7 +683,7 @@ class Indexer
             $adapter = $mainModel->getReadConnectionService();
 
             $workingModelClass = array_shift($path);
-            /* @var $workingModel \Engine\Mvc\Model */
+            /* @var $workingModel \Vein\Core\Mvc\Model */
             $workingModel = new $workingModelClass;
             $workingModel->setReadConnectionService($adapter);
             $queryBuilder = $workingModel->queryBuilder();
@@ -708,26 +708,26 @@ class Indexer
             $savedData =  $queryBuilder->getQuery()->execute([$keyParent => $data[$primaryKey]])->toArray();
             //$savedData = (($result = $queryBuilder->getQuery()->execute()) === null) ? [] : $result->toArray();
             if ($savedData) {
-                $item[$key] = \Engine\Tools\Arrays::assocToLinearArray($savedData, $name);
-                $item[$key . "_id"] = \Engine\Tools\Arrays::assocToLinearArray($savedData, $refKey);
-                //$item[$key] = \Engine\Tools\Arrays::resultArrayToJsonType($savedData);
+                $item[$key] = \Vein\Core\Tools\Arrays::assocToLinearArray($savedData, $name);
+                $item[$key . "_id"] = \Vein\Core\Tools\Arrays::assocToLinearArray($savedData, $refKey);
+                //$item[$key] = \Vein\Core\Tools\Arrays::resultArrayToJsonType($savedData);
             }
         } elseif (count($path) == 2) {
             $mainModel = $grid->getContainer()->getModel();
             $adapter = $mainModel->getReadConnectionService();
 
             $workingModelClass = array_shift($path);
-            /* @var $workingModel \Engine\Mvc\Model */
+            /* @var $workingModel \Vein\Core\Mvc\Model */
             $workingModel = new $workingModelClass;
             $refModelClass = array_shift($path);
-            /* @var $refModel \Engine\Mvc\Model */
+            /* @var $refModel \Vein\Core\Mvc\Model */
             $refModel = new $refModelClass;
             $relationsRefModel = $workingModel->getRelationPath($refModel);
             $workingModel->setReadConnectionService($adapter);
 
             $relationsMainModel = $workingModel->getRelationPath($mainModel);
             if (!$relationsMainModel) {
-                throw new \Engine\Exception("Did not find relations between '".get_class($workingModel)."' and '".get_class($mainModel)."' for filter field '".$key."'");
+                throw new \Vein\Core\Exception("Did not find relations between '".get_class($workingModel)."' and '".get_class($mainModel)."' for filter field '".$key."'");
             }
             $refKey = array_shift($relationsRefModel)->getFields();
             $keyParent = array_shift($relationsMainModel)->getFields();
@@ -769,19 +769,19 @@ class Indexer
             } else {
                 $queryBuilder->andWhere($keyParent." = :".$keyParent.":");
                 if (
-                    $name == \Engine\Mvc\Model::ID ||
+                    $name == \Vein\Core\Mvc\Model::ID ||
                     $name == $refKey
                 ) {
-                    $name = \Engine\Mvc\Model::NAME;
+                    $name = \Vein\Core\Mvc\Model::NAME;
                 }
-                $queryBuilder->columnsJoinOne($refModel, ['name' => $name, 'id' => \Engine\Mvc\Model::ID]);
+                $queryBuilder->columnsJoinOne($refModel, ['name' => $name, 'id' => \Vein\Core\Mvc\Model::ID]);
                 $queryBuilder->orderBy('name');
                 $savedData = $queryBuilder->getQuery()->execute([$keyParent => $data[$primaryKey]])->toArray();
                 //$savedData = (($result = $queryBuilder->getQuery()->execute()) === null) ? [] : $result->toArray();
                 if ($savedData) {
-                    $item[$key] = \Engine\Tools\Arrays::assocToLinearArray($savedData, 'name');
-                    $item[$key . "_id"] = \Engine\Tools\Arrays::assocToLinearArray($savedData, 'id');
-                    //$item[$key] = \Engine\Tools\Arrays::resultArrayToJsonType($savedData);
+                    $item[$key] = \Vein\Core\Tools\Arrays::assocToLinearArray($savedData, 'name');
+                    $item[$key . "_id"] = \Vein\Core\Tools\Arrays::assocToLinearArray($savedData, 'id');
+                    //$item[$key] = \Vein\Core\Tools\Arrays::resultArrayToJsonType($savedData);
                 }
             }
         } else {
@@ -790,13 +790,13 @@ class Indexer
                     (isset($gridColums[$key]) && $column = $gridColums[$key]) ||
                     $column = $grid->getColumnByName($name)
                 ) &&
-                ($column instanceof \Engine\Crud\Grid\Column\JoinOne)
+                ($column instanceof \Vein\Core\Crud\Grid\Column\JoinOne)
             ) {
                 if ($column->isUseJoin()) {
                     if (null !== $data[$key]) {
                         $item[$key] = [];
                         $item[$key] = $data[$key];
-                        $item[$key . "_id"] = $data[$key . "_" . \Engine\Mvc\Model::JOIN_PRIMARY_KEY_PREFIX];
+                        $item[$key . "_id"] = $data[$key . "_" . \Vein\Core\Mvc\Model::JOIN_PRIMARY_KEY_PREFIX];
                     }
                 } else {
                     $item[$key] = $column->getValue((object) $data);

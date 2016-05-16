@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Field;
 
-use Engine\Filter\SearchFilterInterface as Criteria,
-    Engine\Db\Filter\Compound,
-    Engine\Crud\Container\AbstractContainer as Container;
+use Vein\Core\Filter\SearchFilterInterface as Criteria,
+    Vein\Core\Db\Filter\Compound,
+    Vein\Core\Crud\Container\AbstractContainer as Container;
 
 /**
  * Grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -25,7 +25,7 @@ class Join extends ArrayToSelect
 
     /**
      * Parent model
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_model;
 
@@ -43,7 +43,7 @@ class Join extends ArrayToSelect
 
     /**
      * Options category model
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     public $category;
 
@@ -98,7 +98,7 @@ class Join extends ArrayToSelect
      * Constructor
      *
      * @param string $title
-     * @param string|\Engine\Mvc\Model $model
+     * @param string|\Vein\Core\Mvc\Model $model
      * @param string|array $path
      * @param string $optionName
      * @param string $desc
@@ -142,12 +142,12 @@ class Join extends ArrayToSelect
         parent::_init();
         $this->_path = ($this->_path) ? $this->_path : $this->_model;
         if (!$this->_name) {
-            //$this->_name = \Engine\Mvc\Model::NAME;
+            //$this->_name = \Vein\Core\Mvc\Model::NAME;
             //If counf of path more then 1 working incorect in Search Indexer on line 766
             $mainModel = $this->_gridFilter->getContainer()->getModel();
             $relations = $mainModel->getRelationPath($this->_path);
             if (!$relations) {
-                throw new \Engine\Exception("Relations for model '".get_class($mainModel)."' by path '".implode(", ", $this->_path)."' not valid");
+                throw new \Vein\Core\Exception("Relations for model '".get_class($mainModel)."' by path '".implode(", ", $this->_path)."' not valid");
             }
             $relation = array_pop($relations);
             $this->_name = $relation->getFields();
@@ -159,8 +159,8 @@ class Join extends ArrayToSelect
      * Apply field filter value to dataSource
      *
      * @param mixed $dataSource
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Crud\Grid\Filter\Field\Join
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Crud\Grid\Filter\Field\Join
      */
     public function applyFilter($dataSource, Container $container)
     {
@@ -180,8 +180,8 @@ class Join extends ArrayToSelect
     /**
      * Return datasource filters
      *
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Filter\SearchFilterInterface
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)
     {
@@ -248,12 +248,12 @@ class Join extends ArrayToSelect
     /**
      *
      *
-     * @param \Engine\Filter\SearchFilterInterface $filter
-     * @param \Engine\Mvc\Model $model
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Filter\SearchFilterInterface
+     * @param \Vein\Core\Filter\SearchFilterInterface $filter
+     * @param \Vein\Core\Mvc\Model $model
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Filter\SearchFilterInterface
      */
-    protected function _getSeparateFilters($filter, \Engine\Mvc\Model $model, Container $container)
+    protected function _getSeparateFilters($filter, \Vein\Core\Mvc\Model $model, Container $container)
     {
         $values = $this->getValue();
 
@@ -328,7 +328,7 @@ class Join extends ArrayToSelect
         }
         $queryBuilder = $this->_model->queryBuilder();
 
-        $this->_options = \Engine\Crud\Tools\Multiselect::prepareOptions($queryBuilder, $this->_optionName, $this->category, $this->categoryName, $this->where, $this->emptyCategory, $this->emptyItem, $this->fields);
+        $this->_options = \Vein\Core\Crud\Tools\Multiselect::prepareOptions($queryBuilder, $this->_optionName, $this->category, $this->categoryName, $this->where, $this->emptyCategory, $this->emptyItem, $this->fields);
     }
 
     /**
@@ -345,7 +345,7 @@ class Join extends ArrayToSelect
      * Set flag for exclude joins from query builder
      *
      * @param bool $flag
-     * @return \Engine\Crud\Grid\Filter\Field\Join
+     * @return \Vein\Core\Crud\Grid\Filter\Field\Join
      */
     public function setSeparatedQueriesFlag($flag = true)
     {

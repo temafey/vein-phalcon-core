@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService;
+use Vein\Core\Mvc\Module\Service\AbstractService;
 
 /**
  * Class Crypt
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */
@@ -29,7 +29,7 @@ class Crypt extends AbstractService
         }
 
         $dependencyInjector->set('crypt', function () use ($key) {
-            //$crypt = new \Engine\Tools\Crypt2();
+            //$crypt = new \Vein\Core\Tools\Crypt2();
             $crypt = new \Phalcon\Crypt();
             $crypt->setCipher('blowfish');
             $crypt->setKey(substr($key, 0, 8));

@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Search;
 
-use Engine\Crud\Grid\Filter;
+use Vein\Core\Crud\Grid\Filter;
 
 /**
  * Class filter grid.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -17,7 +17,7 @@ class Elasticsearch extends Filter
 {
     /**
      * Data container object
-     * @var \Engine\Crud\Container\Grid\Mysql\Elasticsearch
+     * @var \Vein\Core\Crud\Container\Grid\Mysql\Elasticsearch
      */
     protected $_container;
 
@@ -25,7 +25,7 @@ class Elasticsearch extends Filter
      * Apply filters to grid data source object.
      *
      * @param $dataSource
-     * @return \Engine\Crud\Grid\Filter
+     * @return \Vein\Core\Crud\Grid\Filter
      */
     public function applyFilters($dataSource)
     {

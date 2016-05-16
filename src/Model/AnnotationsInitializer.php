@@ -10,7 +10,7 @@ use Phalcon\Events\Event,
 /**
  * Class AnnotationsInitializer
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Model
  */
 class AnnotationsInitializer extends \Phalcon\Mvc\User\Plugin

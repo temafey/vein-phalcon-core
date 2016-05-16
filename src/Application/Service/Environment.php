@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class Environment
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
@@ -22,12 +22,12 @@ class Environment extends AbstractService
     {
         $dependencyInjector = $this->getDi();
 
-        set_error_handler(array('\Engine\Error', 'normal'));
-        register_shutdown_function(array('\Engine\Error', 'shutdown'));
-        set_exception_handler(array('\Engine\Error', 'exception'));
+        set_error_handler(array('\Vein\Core\Error', 'normal'));
+        register_shutdown_function(array('\Vein\Core\Error', 'shutdown'));
+        set_exception_handler(array('\Vein\Core\Error', 'exception'));
 
         if ($this->_config->application->debug && $this->_config->application->profiler) {
-            $profiler = new \Engine\Profiler();
+            $profiler = new \Vein\Core\Profiler();
             $dependencyInjector->set('profiler', $profiler);
 
             $debug = new \Phalcon\Debug();

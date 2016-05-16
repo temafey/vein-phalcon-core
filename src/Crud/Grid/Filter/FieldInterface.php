@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Grid\Filter;
 /**
  * Interface of grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -17,10 +17,10 @@ interface FieldInterface
 	 * Apply field filter to grid dataSource object
 	 * 
 	 * @param mixed $dataSource
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Crud\Grid\Filter\FieldInterface
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Crud\Grid\Filter\FieldInterface
 	 */
-	public function applyFilter($dataSource, \Engine\Crud\Container\AbstractContainer $container);
+	public function applyFilter($dataSource, \Vein\Core\Crud\Container\AbstractContainer $container);
 
     /**
      * Set field value

@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use Engine\Mvc\Model\Query\Builder;
+use Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  * Compound filters
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */ 
@@ -45,7 +45,7 @@ class Compound extends AbstractFilter
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -73,7 +73,7 @@ class Compound extends AbstractFilter
     /**
      * Return bound params array
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return array
      */
     public function getBoundParams(Builder $dataSource)
@@ -89,7 +89,7 @@ class Compound extends AbstractFilter
                 foreach ($filterParams as $key => $value) {
                     if (isset($params[$key])) {
                         if ($value != $params[$key]) {
-                            throw new \Engine\Exception("Filter '{$filter->getKey()}' with bound param '{$key}' has more then one value '{$params[$key]}' and '{$value}'");
+                            throw new \Vein\Core\Exception("Filter '{$filter->getKey()}' with bound param '{$key}' has more then one value '{$params[$key]}' and '{$value}'");
                         }
                     } else {
                         $params[$key] = $value;

@@ -5,7 +5,7 @@
 namespace Vein\Core\Db\Result;
 
 /**
- * Engine\Adapter\Result\Serializable
+ * Vein\Core\Adapter\Result\Serializable
  *
  * Fetches all the data in a result providing a serializable resultset
  */

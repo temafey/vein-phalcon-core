@@ -30,7 +30,7 @@ namespace Vein\Core\Builder;
  * @copyright   Copyright (c) 2011-2013 Phalcon Team (team@phalconphp.com)
  * @license 	New BSD License
  */
-class BuilderException extends \Engine\Exception {
+class BuilderException extends \Vein\Core\Exception {
 
 }
 

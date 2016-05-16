@@ -8,7 +8,7 @@ trait ModelTemplater {
     public $templateSimpleModelExtends = 'Model';
 
     public $templateSimpleUseModel = array(
-        'Engine\Mvc\Model'
+        'Vein\Core\Mvc\Model'
     );
 
     public $templateModelRelation = "\t\t\$this->%s('%s', '%s', '%s', %s);\n";

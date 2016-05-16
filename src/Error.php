@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Engine;
+namespace Vein\Core;
 
 use \Phalcon\DI\FactoryDefault as Di,
     \Phalcon\Exception as PhException;
@@ -10,7 +10,7 @@ use \Phalcon\DI\FactoryDefault as Di,
 /**
  * Class Exception
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Error
  */
 class Error

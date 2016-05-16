@@ -2,17 +2,17 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Mvc\View\Engine;
+namespace Vein\Core\Mvc\View\Vein\Core;
 
-use Phalcon\Mvc\View\Engine,
-    Phalcon\Mvc\View\EngineInterface;
+use Phalcon\Mvc\View\Vein\Core,
+    Phalcon\Mvc\View\Vein\CoreInterface;
 
 /**
- * Phalcon\Mvc\View\Engine\Mustache
+ * Phalcon\Mvc\View\Vein\Core\Mustache
  *
  * Adapter to use Mustache library as templating engine
  */
-class Mustache extends Engine implements EngineInterface
+class Mustache extends Vein\Core implements Vein\CoreInterface
 {
 
     protected $_mustache;
@@ -20,14 +20,14 @@ class Mustache extends Engine implements EngineInterface
     protected $_params;
 
     /**
-     * Phalcon\Mvc\View\Engine\Mustache constructor
+     * Phalcon\Mvc\View\Vein\Core\Mustache constructor
      *
      * @param \Phalcon\Mvc\ViewInterface $view
      * @param \Phalcon\DiInterface $dependencyInjector
      */
     public function __construct($view, $dependencyInjector = null)
     {
-        $this->_mustache = new \Mustache_Engine();
+        $this->_mustache = new \Mustache_Vein\Core();
         parent::__construct($view, $dependencyInjector);
     }
 

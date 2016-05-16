@@ -29,7 +29,7 @@ class %s implements %s
 
     public $templateSimpleUseService = [
         'Phalcon\DI\InjectionAwareInterface',
-        'Engine\Tools\Traits\DIaware'
+        'Vein\Core\Tools\Traits\DIaware'
     ];
 
 

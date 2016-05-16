@@ -4,7 +4,7 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService,
+use Vein\Core\Mvc\Module\Service\AbstractService,
     Phalcon\Mvc\Dispatcher as MvcDispatcher,
     Phalcon\Events\Manager as EventsManager,
     Phalcon\Mvc\Dispatcher\Exception as DispatchException;
@@ -12,7 +12,7 @@ use Engine\Mvc\Module\Service\AbstractService,
 /**
  * Class Dispatcher
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */

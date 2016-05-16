@@ -7,7 +7,7 @@ namespace Vein\Core\Tools;
 /**
  * Class Arrays
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 class Arrays

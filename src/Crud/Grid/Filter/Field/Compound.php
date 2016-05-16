@@ -4,15 +4,15 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Field;
 
-use Engine\Crud\Grid\Filter\FieldInterface,
-    Engine\Filter\SearchFilterInterface as Criteria,
-    Engine\Crud\Container\AbstractContainer as Container,
-    Engine\Crud\Grid\Filter\Field as BaseField;
+use Vein\Core\Crud\Grid\Filter\FieldInterface,
+    Vein\Core\Filter\SearchFilterInterface as Criteria,
+    Vein\Core\Crud\Container\AbstractContainer as Container,
+    Vein\Core\Crud\Grid\Filter\Field as BaseField;
 
 /**
  * Grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -63,7 +63,7 @@ class Compound extends Standart
     {
         foreach ($this->_fields as $key => $field) {
             if (!$field instanceof BaseField) {
-                throw new \Engine\Exception('Compound filter field '.$key.' not instance of Field');
+                throw new \Vein\Core\Exception('Compound filter field '.$key.' not instance of Field');
             }
             $field->init($this->_gridFilter, $key);
             if (is_array($this->_default) && isset($this->_default[$key])) {
@@ -98,8 +98,8 @@ class Compound extends Standart
     /**
      * Return datasource filters
      *
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Filter\SearchFilterInterface
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)
     {
@@ -122,8 +122,8 @@ class Compound extends Standart
     /**
      * Return datasource filters
      *
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Filter\SearchFilterInterface
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getValue()
     {
@@ -153,7 +153,7 @@ class Compound extends Standart
         }
         foreach ($this->_fields as $key => $field) {
             if (!$field instanceof BaseField) {
-                throw new \Engine\Exception('Compound filter field '.$key.' not instance of Field');
+                throw new \Vein\Core\Exception('Compound filter field '.$key.' not instance of Field');
             }
             if ($field instanceof Compound) {
                 $field->setValue($params);
@@ -167,15 +167,15 @@ class Compound extends Standart
     /**
      * Initialize form elements
      *
-     * @param \Engine\Forms\Form $form
-     * @throws \Engine\Exception
+     * @param \Vein\Core\Forms\Form $form
+     * @throws \Vein\Core\Exception
      * @return void
      */
-    public function initForm(\Engine\Forms\Form $form)
+    public function initForm(\Vein\Core\Forms\Form $form)
     {
         foreach ($this->_fields as $key => $field) {
             if (!$field instanceof BaseField) {
-                throw new \Engine\Exception('Compound filter field '.$key.' not instance of Field');
+                throw new \Vein\Core\Exception('Compound filter field '.$key.' not instance of Field');
             }
             if ($field instanceof Compound) {
                 $field->initForm($form);

@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use Engine\Mvc\Model\Query\Builder,
-    Engine\Crud\Grid\Filter\Field,
+use Vein\Core\Mvc\Model\Query\Builder,
+    Vein\Core\Crud\Grid\Filter\Field,
     Phalcon\Mvc\Model\Relation;
 
 /**
  * Join path filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */
@@ -25,13 +25,13 @@ class Path extends AbstractFilter
 
     /**
      * Filter
-     * @var \Engine\Crud\Grid\Filter\Field
+     * @var \Vein\Core\Crud\Grid\Filter\Field
      */
     protected $_filterField;
 
     /**
      * Filter
-     * @var \Engine\Db\Filter\AbstractFilter
+     * @var \Vein\Core\Db\Filter\AbstractFilter
      */
     protected $_filter;
 
@@ -57,8 +57,8 @@ class Path extends AbstractFilter
      * Constructor
      *
      * @param string|array $path
-     * @param \Engine\Crud\Grid\Filter\Field $filterField
-     * @param \Engine\Search\Elasticsearch\Filter\AbstractFilter $filter
+     * @param \Vein\Core\Crud\Grid\Filter\Field $filterField
+     * @param \Vein\Core\Search\Elasticsearch\Filter\AbstractFilter $filter
      * @param string $pathCategory
      */
     public function __construct($path, Field $filterField, AbstractFilter $filter, $pathCategory = false)
@@ -72,7 +72,7 @@ class Path extends AbstractFilter
     /**
      * Apply filter to table select object
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @param mixed $value
      */
     public function applyFilter($dataSource)
@@ -97,17 +97,17 @@ class Path extends AbstractFilter
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
-    public function filterWhere(\Engine\Mvc\Model\Query\Builder $dataSource)
+    public function filterWhere(\Vein\Core\Mvc\Model\Query\Builder $dataSource)
     {
         //$dataSource->columnsJoinOne($this->_path);
         $model = $dataSource->getModel();
         $joinPath = $model->getRelationPath($this->_path);
 
         if (!$joinPath) {
-            throw new \Engine\Exception('Relations to model \''.get_class($model).'\' by path \''.implode(', ', $this->_path).'\' not valid');
+            throw new \Vein\Core\Exception('Relations to model \''.get_class($model).'\' by path \''.implode(', ', $this->_path).'\' not valid');
         }
 
         if ($this->_fullJoin) {
@@ -134,10 +134,10 @@ class Path extends AbstractFilter
     /**
      * Return bound params array
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return array
      */
-    public function getBoundParams(\Engine\Mvc\Model\Query\Builder $dataSource)
+    public function getBoundParams(\Vein\Core\Mvc\Model\Query\Builder $dataSource)
     {
         if ($this->_fullJoin) {
             return $this->_filter->getBoundParams($dataSource);
@@ -158,7 +158,7 @@ class Path extends AbstractFilter
      * Set key for bound param value
      *
      * @param string $key
-     * @return \Engine\Db\Filter\AbstractFilter
+     * @return \Vein\Core\Db\Filter\AbstractFilter
      */
     public function setBoundParamKey($key)
     {

@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Container\Grid;
 /**
  * Grid Container Adapter interface.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Container
  */
@@ -17,7 +17,7 @@ interface Adapter
     /**
      * Return database model
      *
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public function getModel();
 
@@ -39,21 +39,21 @@ interface Adapter
 	/**
 	 * Return data source obejct
 	 * 
-	 * @return \Engine\Mvc\Model\Query\Builder $dataSource
+	 * @return \Vein\Core\Mvc\Model\Query\Builder $dataSource
 	 */
 	public function getDataSource();
 
 	/**
 	 * Nulled data source object
 	 *
-	 * @return \Engine\Crud\Container\Grid\Adapter
+	 * @return \Vein\Core\Crud\Container\Grid\Adapter
 	 */
 	public function clearDataSource();
 	
 	/**
 	 * Return data source filter object by params
 	 *
-     * @return \Engine\Filter\SearchFilterInterface
+     * @return \Vein\Core\Filter\SearchFilterInterface
 	 */
 	public function getFilter();
 	
@@ -62,7 +62,7 @@ interface Adapter
 	 * 
 	 * @param string $key
 	 * @param string $name
-	 * @return \Engine\Crud\Container\Grid\Adapter
+	 * @return \Vein\Core\Crud\Container\Grid\Adapter
 	 */
 	public function setColumn($key, $name);
 	

@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class the logger
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
@@ -28,7 +28,7 @@ class Logger extends AbstractService
             $dependencyInjector->set('logger', function () use ($config) {
                 $logger = new \Phalcon\Logger\Adapter\File($config->application->logger->path.'/main.log');
                 if (isset($config->application->logger->formatter) && $config->application->logger->formatter == 'logstash') {
-                    $formatter = new \Engine\Logger\Formatter\Logstash($config->application->logger->project, 'general', gethostname());
+                    $formatter = new \Vein\Core\Logger\Formatter\Logstash($config->application->logger->project, 'general', gethostname());
                 } else {
                     $formatter = new \Phalcon\Logger\Formatter\Line($config->application->logger->format);
                 }

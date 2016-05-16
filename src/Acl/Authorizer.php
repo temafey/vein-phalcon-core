@@ -5,12 +5,12 @@
 namespace Vein\Core\Acl;
 
 use Phalcon\Mvc\User\Component,
-    Engine\Tools\Crypt;
+    Vein\Core\Tools\Crypt;
 
 /**
  * Class Dispatcher
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Acl
  */
 class Authorizer extends Component
@@ -21,7 +21,7 @@ class Authorizer extends Component
     CONST CRYPT_SALT    = 'cryptSalt';
 
     /**
-     * @var \Engine\Acl\Viewer
+     * @var \Vein\Core\Acl\Viewer
      */
     protected $_viewer;
 
@@ -48,7 +48,7 @@ class Authorizer extends Component
      *
      * @param array $options
      * @param \Phalcon\DiInterface $dependencyInjector
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     public function __construct(array $options, \Phalcon\DiInterface $dependencyInjector)
     {
@@ -57,10 +57,10 @@ class Authorizer extends Component
         $this->_viewer = $this->{static::AUTH_EDENTITY};
 
         if (!isset($options[static::AUTH_MODEL])) {
-            throw new \Engine\Exception("Auth model not set");
+            throw new \Vein\Core\Exception("Auth model not set");
         }
         if (!new $options[static::AUTH_MODEL] instanceof AuthModelInterface) {
-            throw new \Engine\Exception("Auth model '".$options[static::AUTH_MODEL]."' not instance of 'AuthModelInterface'");
+            throw new \Vein\Core\Exception("Auth model '".$options[static::AUTH_MODEL]."' not instance of 'AuthModelInterface'");
         }
         $this->_model = $options[static::AUTH_MODEL];
         $this->_key = $options[static::AUTH_KEY];
@@ -130,7 +130,7 @@ class Authorizer extends Component
     /**
      * Creates the remember me environment settings the related cookies and generating tokens
      *
-     * @param \Engine\Acl\AuthModelInterface $authModel
+     * @param \Vein\Core\Acl\AuthModelInterface $authModel
      */
     public function createRememberEnviroment(AuthModelInterface $authModel)
     {
@@ -175,7 +175,7 @@ class Authorizer extends Component
     /**
      * Checks if the user is banned/inactive/suspended
      *
-     * @param Engine\Acl\AuthModelInterface $user
+     * @param Vein\Core\Acl\AuthModelInterface $user
      */
     public function checkUserFlags(AuthModelInterface $user)
     {
@@ -223,7 +223,7 @@ class Authorizer extends Component
     /**
      * Get the entity related to user in the active identity
      *
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     public function getUser()
     {

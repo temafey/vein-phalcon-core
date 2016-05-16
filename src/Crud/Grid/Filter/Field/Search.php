@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Field;
 
-use Engine\Filter\SearchFilterInterface as Criteria,
-    Engine\Crud\Container\AbstractContainer as Container;
+use Vein\Core\Filter\SearchFilterInterface as Criteria,
+    Vein\Core\Crud\Container\AbstractContainer as Container;
 
 /**
  * Grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -57,8 +57,8 @@ class Search extends Standart
     /**
      * Return datasource filters
      *
-     * @param \Engine\Crud\Container\AbstractContainer $container
-     * @return \Engine\Filter\SearchFilterInterface
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     * @return \Vein\Core\Filter\SearchFilterInterface
      */
 	public function getFilter(Container $container)
 	{

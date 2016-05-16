@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Tools;
 /**
  * Class Multiselect
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Crud
  * @subcategory Tools
  */
@@ -17,7 +17,7 @@ class Multiselect
     const EMPTY_ITEM = "n/a";
 
     /**
-     * @param \Engine\Mvc\Model\Query\Builder $queryBuilder
+     * @param \Vein\Core\Mvc\Model\Query\Builder $queryBuilder
      * @param string $name
      * @param string $category
      * @param string $categoryName
@@ -30,7 +30,7 @@ class Multiselect
      * @return array
      */
     static function prepareOptions(
-        \Engine\Mvc\Model\Query\Builder $queryBuilder,
+        \Vein\Core\Mvc\Model\Query\Builder $queryBuilder,
         $name = null,
         $category = null,
         $categoryName = null,
@@ -117,7 +117,7 @@ class Multiselect
         return $options;
     }
 
-    static function prepareOptionsAll(\Engine\Mvc\Model\Query\Builder $queryBuilder, $name = null, $category = null, $categoryName = null, $where = null, $emptyCategory = "n/a", $emptyItem = "n/a", $multiselect = false, &$fields = null, $category_order = null)
+    static function prepareOptionsAll(\Vein\Core\Mvc\Model\Query\Builder $queryBuilder, $name = null, $category = null, $categoryName = null, $where = null, $emptyCategory = "n/a", $emptyItem = "n/a", $multiselect = false, &$fields = null, $category_order = null)
     {
         if ($emptyCategory === null) {
             $emptyCategory = self::EMPTY_CATEGORY;

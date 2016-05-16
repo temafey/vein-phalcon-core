@@ -4,23 +4,23 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use \Engine\Mvc\Model\Query\Builder,
-    \Engine\Filter\SearchFilterInterface,
-    \Engine\Crud\Grid\Filter\Field as FilterField,
+use \Vein\Core\Mvc\Model\Query\Builder,
+    \Vein\Core\Filter\SearchFilterInterface,
+    \Vein\Core\Crud\Grid\Filter\Field as FilterField,
     \Phalcon\Events\EventsAwareInterface,
     \Phalcon\DI\InjectionAwareInterface;
 
 /**
  * Class database filters
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */ 
 abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInterface, InjectionAwareInterface
 {
-    use \Engine\Tools\Traits\DIaware,
-        \Engine\Tools\Traits\EventsAware;
+    use \Vein\Core\Tools\Traits\DIaware,
+        \Vein\Core\Tools\Traits\EventsAware;
 
     /**
      * Key for bound param
@@ -30,14 +30,14 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
 
     /**
      * Crud grid filter field object
-     * @var \Engine\Crud\Grid\Filter\Field
+     * @var \Vein\Core\Crud\Grid\Filter\Field
      */
     protected $_filterField;
 
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
 	abstract public function filterWhere(Builder $dataSource);
@@ -45,7 +45,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
     abstract public function getBoundParams(Builder $dataSource);
@@ -53,7 +53,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
 	/**
 	 * Apply filter to table select object
 	 * 
-	 * @param \Engine\Mvc\Model\Query\Builder $dataSource
+	 * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
 	 * @param mixed $value
 	 */
 	public function applyFilter($dataSource)
@@ -73,7 +73,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
      * Set key for bound param value
      *
      * @param string $key
-     * @return \Engine\Db\Filter\AbstractFilter
+     * @return \Vein\Core\Db\Filter\AbstractFilter
      */
     public function setBoundParamKey($key)
     {
@@ -150,9 +150,9 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
     /**
      * Set crud grid filter field
      *
-     * @param \Engine\Crud\Grid\Filter\Field $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      *
-     * @return \Engine\Search\Elasticsearch\Filter\AbstractFilter
+     * @return \Vein\Core\Search\Elasticsearch\Filter\AbstractFilter
      */
     public function setFilterField(FilterField $field)
     {
@@ -163,7 +163,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
     /**
      * Return crud grid filter field
      *
-     * @return \Engine\Crud\Grid\Filter\Field
+     * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function getFilterField()
     {

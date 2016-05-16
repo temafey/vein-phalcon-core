@@ -20,10 +20,10 @@
 
 namespace Vein\Core\Builder;
 
-use Engine\Builder\Script\Color,
-    Engine\Builder\BuilderException,
-    Engine\Tools\Inflector,
-    Engine\Tools\File;
+use Vein\Core\Builder\Script\Color,
+    Vein\Core\Builder\BuilderException,
+    Vein\Core\Tools\Inflector,
+    Vein\Core\Tools\File;
 
 /**
  * \Phalcon\Builder\Component
@@ -251,29 +251,29 @@ abstract class Component
 
         if (isset($config->builder)) {
             if (!isset($config->builder->modules)) {
-                throw new \Engine\Exception('Modules property not set in builder config section');
+                throw new \Vein\Core\Exception('Modules property not set in builder config section');
             }
             if (!isset($config->builder->modules->{$moduleName})) {
-                throw new \Engine\Exception('Module property not set in builder modules config section');
+                throw new \Vein\Core\Exception('Module property not set in builder modules config section');
             }
             if ($type === self::OPTION_MODEL) {
                 if (!isset($config->builder->modules->{$moduleName}->modelDir)) {
-                    throw new \Engine\Exception('ModelDir property not set in builder modules \''.$moduleName.'\' config section');
+                    throw new \Vein\Core\Exception('ModelDir property not set in builder modules \''.$moduleName.'\' config section');
                 }
                 $path = $config->builder->modules->{$moduleName}->modelDir;
             } elseif ($type === self::OPTION_FORM) {
                 if (!isset($config->builder->modules->{$moduleName}->formDir)) {
-                    throw new \Engine\Exception('FormDir property not set in builder modules \''.$moduleName.'\' config section');
+                    throw new \Vein\Core\Exception('FormDir property not set in builder modules \''.$moduleName.'\' config section');
                 }
                 $path = $config->builder->modules->{$moduleName}->formDir;
             } elseif ($type === self::OPTION_GRID) {
                 if (!isset($config->builder->modules->{$moduleName}->gridDir)) {
-                    throw new \Engine\Exception('GridDir property not set in builder modules \''.$moduleName.'\' config section');
+                    throw new \Vein\Core\Exception('GridDir property not set in builder modules \''.$moduleName.'\' config section');
                 }
                 $path = $config->builder->modules->{$moduleName}->gridDir;
             }  elseif ($type === self::OPTION_SERVICE) {
                 if (!isset($config->builder->modules->{$moduleName}->serviceDir)) {
-                    throw new \Engine\Exception('ServiceDir property not set in builder modules \''.$moduleName.'\' config section');
+                    throw new \Vein\Core\Exception('ServiceDir property not set in builder modules \''.$moduleName.'\' config section');
                 }
                 $path = $config->builder->modules->{$moduleName}->gridsDir;
             } else {
@@ -281,10 +281,10 @@ abstract class Component
             }
         } else {
             if (!isset($config->application)) {
-                throw new \Engine\Exception('Application property not set in config section');
+                throw new \Vein\Core\Exception('Application property not set in config section');
             }
             if (!isset($config->application->modulesDir)) {
-                throw new \Engine\Exception('Modules property not set in application config section');
+                throw new \Vein\Core\Exception('Modules property not set in application config section');
             }
             if ($type === self::OPTION_MODEL) {
                 $path = rtrim($config->application->modulesDir, '/').'/'.ucfirst($moduleName).'/Model';

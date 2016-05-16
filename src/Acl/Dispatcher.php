@@ -7,12 +7,12 @@ namespace Vein\Core\Acl;
 /**
  * Class Dispatcher
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Acl
  */
 class Dispatcher
 {
-    use \Engine\Tools\Traits\DIaware;
+    use \Vein\Core\Tools\Traits\DIaware;
 
     const ACL_ADMIN_MODULE = 'admin';
     const ACL_ADMIN_CONTROLLER = 'area';
@@ -59,8 +59,8 @@ class Dispatcher
                 return;
             }
             if (
-                $acl->isAllowed($viewer->getRole(), \Engine\Acl\Dispatcher::ACL_ADMIN_MODULE, \Engine\Acl\Dispatcher::ACL_ADMIN_CONTROLLER, '*') ||
-                $acl->isAllowed($viewer->getRole(), \Engine\Acl\Dispatcher::ACL_ADMIN_MODULE, \Engine\Acl\Dispatcher::ACL_ADMIN_CONTROLLER, 'read')
+                $acl->isAllowed($viewer->getRole(), \Vein\Core\Acl\Dispatcher::ACL_ADMIN_MODULE, \Vein\Core\Acl\Dispatcher::ACL_ADMIN_CONTROLLER, '*') ||
+                $acl->isAllowed($viewer->getRole(), \Vein\Core\Acl\Dispatcher::ACL_ADMIN_MODULE, \Vein\Core\Acl\Dispatcher::ACL_ADMIN_CONTROLLER, 'read')
             ) {
                 return;
             }

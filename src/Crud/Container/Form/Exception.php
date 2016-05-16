@@ -7,10 +7,10 @@ namespace Vein\Core\Crud\Container\Form;
 /**
  * Class Exception
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Container
  */
-class Exception extends \Engine\Exception
+class Exception extends \Vein\Core\Exception
 {
 }

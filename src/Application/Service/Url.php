@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class Url
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */

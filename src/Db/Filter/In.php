@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use \Engine\Mvc\Model\Query\Builder;
+use \Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  *  Match filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */
@@ -32,7 +32,7 @@ class In extends Standart
     /**
      * Apply filter to table select object
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @param mixed $value
      */
     public function applyFilter($dataSource)
@@ -64,7 +64,7 @@ class In extends Standart
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -81,7 +81,7 @@ class In extends Standart
             $alias = $dataSource->getCorrelationName($this->_column);
         }
         if (!$alias) {
-            throw new \Engine\Exception('Field \''.$this->_column.'\' not found in query builder');
+            throw new \Vein\Core\Exception('Field \''.$this->_column.'\' not found in query builder');
         }
         $compare = $this->getCompareCriteria($this->_criteria, $this->_value);
 
@@ -98,7 +98,7 @@ class In extends Standart
      * Set key for bound param value
      *
      * @param string $key
-     * @return \Engine\Db\Filter\AbstractFilter
+     * @return \Vein\Core\Db\Filter\AbstractFilter
      */
     public function setBoundParamKey($key)
     {
@@ -124,7 +124,7 @@ class In extends Standart
     /**
      * Return bound params array
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return array
      */
     public function getBoundParams(Builder $dataSource)

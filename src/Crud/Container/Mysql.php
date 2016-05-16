@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Container;
 
-use Engine\Mvc\Model,
-    Engine\Mvc\Model\Query\Builder;
+use Vein\Core\Mvc\Model,
+    Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  * Class container for Mysql
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Container
  */
@@ -18,7 +18,7 @@ abstract class Mysql extends AbstractContainer
 {
     /**
      * Datasource object
-     * @var \Engine\Mvc\Model\Query\Builder
+     * @var \Vein\Core\Mvc\Model\Query\Builder
      */
     protected $_dataSource = null;
 
@@ -33,7 +33,7 @@ abstract class Mysql extends AbstractContainer
      * Set model adapter
      *
      * @param string $adapter
-     * @return \Engine\Crud\Container\Mysql
+     * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setAdapter($adapter = null)
     {
@@ -55,7 +55,7 @@ abstract class Mysql extends AbstractContainer
     /**
      * Set model connection adapter
      *
-     * @param \Engine\Mvc\Model $model
+     * @param \Vein\Core\Mvc\Model $model
      */
     protected function _setModelAdapter($model)
     {
@@ -70,7 +70,7 @@ abstract class Mysql extends AbstractContainer
             $model->setReadConnectionService($this->_adapter);
             $model->setWriteConnectionService($this->_adapter);
         } else {
-            throw new \Engine\Exception("Mysql adpter is not a string or array type!");
+            throw new \Vein\Core\Exception("Mysql adpter is not a string or array type!");
         }
     }
 
@@ -78,21 +78,21 @@ abstract class Mysql extends AbstractContainer
      * Initialize container model
      *
      * @param string $model
-     * @throws \Engine\Exception
-     * @return \Engine\Crud\Container\Mysql
+     * @throws \Vein\Core\Exception
+     * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setModel($model = null)
     {
         if (null === $model) {
             if (null === $this->_model) {
-                throw new \Engine\Exception("Container model class not set");
+                throw new \Vein\Core\Exception("Container model class not set");
             }
             $model = $this->_model;
         }
         $joins = false;
         if (is_object($model)) {
             if (!$model instanceof Model) {
-                throw new \Engine\Exception("Container model class '$model' does not extend Engine\Mvc\Model");
+                throw new \Vein\Core\Exception("Container model class '$model' does not extend Vein\Core\Mvc\Model");
             }
             $this->_setModelAdapter($model);
             $this->_model = $model;
@@ -100,12 +100,12 @@ abstract class Mysql extends AbstractContainer
             $primaryModel = array_shift($model);
             $joins = $model;
             if (!class_exists($primaryModel)) {
-                throw new \Engine\Exception("Container model class '$primaryModel' does not exists");
+                throw new \Vein\Core\Exception("Container model class '$primaryModel' does not exists");
             }
             $this->_model = new $primaryModel;
         } else {
             if (!class_exists($model)) {
-                throw new \Engine\Exception("Container model class '$model' does not exists");
+                throw new \Vein\Core\Exception("Container model class '$model' does not exists");
             }
             $this->_model = new $model;
         }
@@ -137,7 +137,7 @@ abstract class Mysql extends AbstractContainer
      * Set join models
      *
      * @param array $models
-     * @return \Engine\Crud\Container\Mysql
+     * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setJoinModels($models)
     {
@@ -153,7 +153,7 @@ abstract class Mysql extends AbstractContainer
             if (!is_object($model)) {
                 $model = new $model;
                 if (!($model instanceof Model)) {
-                    throw new \Engine\Exception("Container model class '$model' does not extend Engine\Mvc\Model");
+                    throw new \Vein\Core\Exception("Container model class '$model' does not extend Vein\Core\Mvc\Model");
                 }
                 $this->_setModelAdapter($model);
             }
@@ -178,7 +178,7 @@ abstract class Mysql extends AbstractContainer
             $this->_setModelAdapter($model);
         }
         if (!($model instanceof Model)) {
-            throw new \Engine\Exception("Container model class '$model' does not extend Engine\Mvc\Model");
+            throw new \Vein\Core\Exception("Container model class '$model' does not extend Vein\Core\Mvc\Model");
         }
         $key = $model->getSource();
         if (isset($this->_joins[$key])) {
@@ -200,7 +200,7 @@ abstract class Mysql extends AbstractContainer
      * @param string $name
      * @param boolean $useTableAlias
      * @param boolean $useCorrelationTableName
-     * @return \Engine\Crud\Container\Mysql
+     * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setColumn($key, $name, $useTableAlias = true, $useCorrelationTableName = false)
     {
@@ -222,7 +222,7 @@ abstract class Mysql extends AbstractContainer
     /**
      * Return data source object
      *
-     * @return \Engine\Mvc\Model\Query\Builder
+     * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function getDataSource()
     {
@@ -235,7 +235,7 @@ abstract class Mysql extends AbstractContainer
     /**
      * Nulled data source object
      *
-     * @return \Engine\Crud\Container\Mysql
+     * @return \Vein\Core\Crud\Container\Mysql
      */
     public function clearDataSource()
     {

@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class Loader
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
@@ -34,7 +34,7 @@ class Loader extends AbstractService
         }
 
         if (isset($this->_config->application->engineDir)) {
-            $modulesNamespaces['Engine'] = $this->_config->application->engineDir;
+            $modulesNamespaces['Vein\Core'] = $this->_config->application->engineDir;
         }
         if (isset($this->_config->application->librariesDir)) {
             $modulesNamespaces['Library'] = $this->_config->application->librariesDir;

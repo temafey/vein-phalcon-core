@@ -4,17 +4,17 @@
  */
 namespace Vein\Core\Crud\Helper\Grid\Extjs;
 
-use Engine\Crud\Grid\Extjs as Grid,
-    Engine\Crud\Helper\Tools\Requires;
+use Vein\Core\Crud\Grid\Extjs as Grid,
+    Vein\Core\Crud\Helper\Tools\Requires;
 
 /**
  * Class html grid helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
-class BaseHelper extends \Engine\Crud\Helper
+class BaseHelper extends \Vein\Core\Crud\Helper
 {
     use Requires;
 
@@ -39,7 +39,7 @@ class BaseHelper extends \Engine\Crud\Helper
     /**
      * Init helper
      *
-     * @param \Engine\Crud\Grid\Extjs|\Engine\Crud\Form\Extjs $element
+     * @param \Vein\Core\Crud\Grid\Extjs|\Vein\Core\Crud\Form\Extjs $element
      * @return string
      */
     public static function init($element)

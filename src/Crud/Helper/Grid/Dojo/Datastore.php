@@ -7,19 +7,19 @@ namespace Vein\Core\Crud\Helper\Grid\Dojo;
 /**
  * Class dojo datastore helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
-class Datastore extends \Engine\Crud\Helper
+class Datastore extends \Vein\Core\Crud\Helper
 {
     /**
      * Generates a widget to show a dojo grid datastore
      *
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @return string
      */
-    static public function _(\Engine\Crud\Grid $grid)
+    static public function _(\Vein\Core\Crud\Grid $grid)
     {
         $code = '
         /*set up data store*/

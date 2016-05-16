@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Crud\Grid\Filter\Field;
 
-use Engine\Crud\Grid\Filter\Field,
-    Engine\Filter\SearchFilterInterface as Criteria,
-    Engine\Crud\Container\AbstractContainer as Container;
+use Vein\Core\Crud\Grid\Filter\Field,
+    Vein\Core\Filter\SearchFilterInterface as Criteria,
+    Vein\Core\Crud\Container\AbstractContainer as Container;
 
 /**
  * Grid filter field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -86,8 +86,8 @@ class Geo extends Compound
 	/**
 	 * Return datasource filters
 	 *
-     * @param \Engine\Crud\Container\AbstractContainer $container
-	 * @return \Engine\Filter\SearchFilterInterface
+     * @param \Vein\Core\Crud\Container\AbstractContainer $container
+	 * @return \Vein\Core\Filter\SearchFilterInterface
 	 */
     public function getFilter(Container $container)
     {
@@ -122,7 +122,7 @@ class Geo extends Compound
      * Set filter value delimeter
      *
      * @param string  $delimeter
-     * @return \Engine\Crud\Grid\Filter\Field\Standart
+     * @return \Vein\Core\Crud\Grid\Filter\Field\Standart
      */
     public function setDelimeter($delimeter)
     {

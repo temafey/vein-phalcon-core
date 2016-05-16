@@ -11,7 +11,7 @@ use \Phalcon\Cache\Backend as CacheService,
 /**
  * Trait Chacher
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Cache
  */
 trait Cacher
@@ -52,12 +52,12 @@ trait Cacher
      * @param array $arguments
      *
      * @return mixed
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     public function __call($name, array $arguments)
     {
         if (!strpos($name, 'Cache')) {
-            throw new \Engine\Exception('The first argument to call() must be a valid callable.');
+            throw new \Vein\Core\Exception('The first argument to call() must be a valid callable.');
         }
         $lock = false;
         $delete = false;
@@ -154,7 +154,7 @@ trait Cacher
      * @param array $arguments
      *
      * @return mixed|string
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     private function _get($key, array $callable, array $arguments)
     {
@@ -163,7 +163,7 @@ trait Cacher
             $data = $cacheService->get($key);
         } else {
             if (!is_callable($callable)) {
-                throw new \Engine\Exception('The first argument to call() must be a valid callable.');
+                throw new \Vein\Core\Exception('The first argument to call() must be a valid callable.');
             }
             $data = $this->_getOriginData($callable, $arguments);
 
@@ -182,7 +182,7 @@ trait Cacher
      * @param bool $update
      *
      * @return mixed
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     private function _getLock($key, array $callable, array $arguments, $update = false)
     {
@@ -207,10 +207,10 @@ trait Cacher
         }
 
         if (!$this->_isValidLockCache($data)) {
-            throw new \Engine\Exception('Cached lock data invalid');
+            throw new \Vein\Core\Exception('Cached lock data invalid');
         }
         if (!isset($data['_dc_cache'])) {
-            throw new \Engine\Exception('Cached lock data is empty');
+            throw new \Vein\Core\Exception('Cached lock data is empty');
         }
         //check lifetime
         if ($update || (time() > $data['_dc_life_end'])) {
@@ -276,12 +276,12 @@ trait Cacher
      * @param array $arguments
      *
      * @return mixed|string
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     private function _getOriginData(array $callable, array $arguments)
     {
         if (!is_callable($callable)) {
-            throw new \Engine\Exception('The first argument to call() must be a valid callable.');
+            throw new \Vein\Core\Exception('The first argument to call() must be a valid callable.');
         }
         //$data = [];
         $data = '';
@@ -295,7 +295,7 @@ trait Cacher
         }
         catch (\Exception $e) {
             //ob_end_clean();
-            throw new \Engine\Exception($e->getMessage(), $e->getCode());
+            throw new \Vein\Core\Exception($e->getMessage(), $e->getCode());
         }
 
         return $data;
@@ -353,7 +353,7 @@ trait Cacher
     public function setCacheService(CacheService $cacheService)
     {
         if (!$cacheService instanceof CacheService) {
-            throw new \Engine\Exception('Object not instance of CacheService');
+            throw new \Vein\Core\Exception('Object not instance of CacheService');
         }
         if (
             $cacheService instanceof LibmemcachedService ||
@@ -370,7 +370,7 @@ trait Cacher
      * Return article service object
      *
      * @return CacheService
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     public function getCacheService()
     {

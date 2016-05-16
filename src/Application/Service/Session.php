@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class Session
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
@@ -29,7 +29,7 @@ class Session extends AbstractService
         } else {
             $sessionAdapter = $this->_getSessioneAdapter($this->_config->application->session->adapter);
             if (!$sessionAdapter) {
-                throw new \Engine\Exception("Session adapter '{$this->_config->application->session->adapter}' not exists!");
+                throw new \Vein\Core\Exception("Session adapter '{$this->_config->application->session->adapter}' not exists!");
             }
             $sessionOptions = $this->_config->application->session->toArray();
         }
@@ -53,7 +53,7 @@ class Session extends AbstractService
         if (class_exists($name)) {
             $adapter = $name;
         } else {
-            $adapter = '\Engine\Session\Adapter\\' . ucfirst($name);
+            $adapter = '\Vein\Core\Session\Adapter\\' . ucfirst($name);
             if (!class_exists($adapter)) {
                 $adapter = '\Phalcon\Session\Adapter\\' . ucfirst($name);
                 if (!class_exists($adapter)) {

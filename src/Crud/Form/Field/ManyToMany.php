@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Form\Field;
 
-use Engine\Crud\Form\Field;
+use Vein\Core\Crud\Form\Field;
 
 /**
  * ManyToMany field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
@@ -41,13 +41,13 @@ class ManyToMany extends Field
 
     /**
      * Parent model
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_model;
 
     /**
      * many to many table for saving joins with categories.
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_workingModel;
 
@@ -66,7 +66,7 @@ class ManyToMany extends Field
 
     /**
      * Options category model
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_category;
 
@@ -236,18 +236,18 @@ class ManyToMany extends Field
         parent::_init();
 
         if ($this->_name) {
-            throw new \Engine\Exception("Outdated ManyToMany settings for ".get_class($this->_form)." - ".get_class($this->_model));
+            throw new \Vein\Core\Exception("Outdated ManyToMany settings for ".get_class($this->_form)." - ".get_class($this->_model));
         }
         if (!$this->_noTableReference) {
             $workingModel = $this->_getWorkModel();
             $relationsRefModel = $workingModel->getRelationPath($this->_model);
             if (!$relationsRefModel) {
-                throw new \Engine\Exception("Did not find relations between '".get_class($this->_workingModel)."' and '".get_class($this->_model)."'");
+                throw new \Vein\Core\Exception("Did not find relations between '".get_class($this->_workingModel)."' and '".get_class($this->_model)."'");
             }
             $mainModel = $this->_form->getContainer()->getModel();
             $relationsMainModel = $workingModel->getRelationPath($mainModel);
             if (!$relationsMainModel) {
-                throw new \Engine\Exception("Did not find relations between '".get_class($this->_workingModel)."' and '".get_class($mainModel)."'");
+                throw new \Vein\Core\Exception("Did not find relations between '".get_class($this->_workingModel)."' and '".get_class($mainModel)."'");
             }
             $this->_name = array_shift($relationsRefModel)->getFields();
             $this->_keyParent = array_shift($relationsMainModel)->getFields();
@@ -297,7 +297,7 @@ class ManyToMany extends Field
      */
     protected function selectedArray(array $selected)
     {
-        return \Engine\Tools\Arrays::assocToLinearArray($selected, $this->_name);
+        return \Vein\Core\Tools\Arrays::assocToLinearArray($selected, $this->_name);
     }
 
     /**
@@ -402,7 +402,7 @@ class ManyToMany extends Field
             }
             $db->commit();
 
-        } catch (\Engine\Exception $e) {
+        } catch (\Vein\Core\Exception $e) {
             $db->rollback();
             echo $e->getMessage();
             die();
@@ -454,7 +454,7 @@ class ManyToMany extends Field
             $id = $this->_id;
         }
         if ($id === null) {
-            throw new \Engine\Exception("Not set id for fetch saved data!");
+            throw new \Vein\Core\Exception("Not set id for fetch saved data!");
         }
 
         return $this->_getWorkModel()->find([$this->_keyParent." = :id:", 'bind' => ['id' => $id]])->toArray();
@@ -483,7 +483,7 @@ class ManyToMany extends Field
     public function getOptionIdsByNames(array $names)
     {
         $ids = [];
-        $names = \Engine\Tools\Strings::quote($names);
+        $names = \Vein\Core\Tools\Strings::quote($names);
         $queryBuilder = $this->_getModel()->queryBuilder();
         $queryBuilder->columnsId();
         $queryBuilder->andWhere("name IN (".$names.")");
@@ -510,7 +510,7 @@ class ManyToMany extends Field
     /**
      * Set param _loadOptions to false
      *
-     * @return \Engine\Crud\Form\Field\ManyToMany
+     * @return \Vein\Core\Crud\Form\Field\ManyToMany
      */
     public function notLoadOptions()
     {
@@ -522,7 +522,7 @@ class ManyToMany extends Field
      * Set onchange action
      *
      * @param string $onchange
-     * @return @return \Engine\Crud\Form\Field\ManyToMany
+     * @return @return \Vein\Core\Crud\Form\Field\ManyToMany
      */
     public function setOnchangeAction($onchange)
     {
@@ -556,7 +556,7 @@ class ManyToMany extends Field
             if (isset($params['name'])) {
                 $name = $params['name'];
                 $names = explode($this->_separator, $name);
-                $names = \Engine\Tools\Strings::quote($names);
+                $names = \Vein\Core\Tools\Strings::quote($names);
                 $queryBuilder->columnsName();
                 $queryBuilder->andWhere("name IN (". $names.")");
             } else {
@@ -578,7 +578,7 @@ class ManyToMany extends Field
         }
 
         $optionsFunction = (null !== $this->_fields) ? 'prepareOptionsAll' : 'prepareOptions';
-        $this->_options = \Engine\Crud\Tools\Multiselect::$optionsFunction(
+        $this->_options = \Vein\Core\Crud\Tools\Multiselect::$optionsFunction(
             $queryBuilder,
             $this->_optionName,
             $this->_category,
@@ -617,7 +617,7 @@ class ManyToMany extends Field
         if (isset($params['name'])) {
             $name = $params['name'];
             $names = explode($this->_separator, $name);
-            $names = \Engine\Tools\Strings::quote($names);
+            $names = \Vein\Core\Tools\Strings::quote($names);
             $queryBuilder->columnsName();
             $queryBuilder->andWhere("name IN (".$names.")");
         }
@@ -635,7 +635,7 @@ class ManyToMany extends Field
     }
 
     /**
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     protected function _getModel()
     {
@@ -643,7 +643,7 @@ class ManyToMany extends Field
     }
 
     /**
-     * @return \Engine\Mvc\Model
+     * @return \Vein\Core\Mvc\Model
      */
     protected function _getWorkModel()
     {

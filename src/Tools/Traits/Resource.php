@@ -7,7 +7,7 @@ namespace Vein\Core\Tools\Traits;
 /**
  * Trait resource.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Tools
  */
 trait Resource
@@ -87,7 +87,7 @@ trait Resource
      * Set $_autoloadMethodPrefix
      *
      * @param string $prefix
-     * @return \Engine\Tools\Traits\Resource
+     * @return \Vein\Core\Tools\Traits\Resource
      */
     public function setAutoloadMethodPrefix($prefix)
     {
@@ -98,7 +98,7 @@ trait Resource
      * Set $_autoloadMethodPrefixException
      *
      * @param array $prefixes
-     * @return \Engine\Tools\Traits\Resource
+     * @return \Vein\Core\Tools\Traits\Resource
      */
     public function setAutoloadMethodPrefixException($prefixes)
     {
@@ -115,7 +115,7 @@ trait Resource
      * Add prefix exception.
      *
      * @param string $prefix
-     * @return \Engine\Tools\Traits\Resource
+     * @return \Vein\Core\Tools\Traits\Resource
      */
     public function addAutoloadMethodPrefixException($prefix)
     {
@@ -138,7 +138,7 @@ trait Resource
      *
      * @param  string $resource
      * @return void
-     * @throws \Engine\Exception When resource not found
+     * @throws \Vein\Core\Exception When resource not found
      */
     protected function _executingResource($resource)
     {
@@ -149,7 +149,7 @@ trait Resource
         }
 
         if (!empty($this->_started[$resourceName])) {
-            throw new \Engine\Exception('Circular resource dependency detected ');
+            throw new \Vein\Core\Exception('Circular resource dependency detected ');
         }
 
         $classResources = $this->getClassResources();

@@ -11,7 +11,7 @@ use Phalcon\Session\Adapter,
 /**
  * Class Mongo
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Session
  * @subpackege  Adapter
  */

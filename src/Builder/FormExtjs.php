@@ -6,7 +6,7 @@ namespace Vein\Core\Builder;
 
 /**
  * Class FormExtjs
- * @package Engine\Builder
+ * @package Vein\Core\Builder
  */
 class FormExtjs extends Form
 {

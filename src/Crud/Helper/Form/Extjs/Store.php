@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Crud\Helper\Form\Extjs;
 
-use Engine\Crud\Form\Extjs as Form;
+use Vein\Core\Crud\Form\Extjs as Form;
 
 /**
  * Class form filter helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -24,7 +24,7 @@ class Store extends BaseHelper
     /**
      * Generates a widget to show a html form
      *
-     * @param \Engine\Crud\Form\Extjs $form
+     * @param \Vein\Core\Crud\Form\Extjs $form
      * @return string
      */
     static public function _(Form $form)

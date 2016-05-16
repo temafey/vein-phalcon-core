@@ -5,12 +5,12 @@
 namespace Vein\Core\Crud\Tools;
 
 use Phalcon\Filter,
-    Engine\Filter\FilterInterface;
+    Vein\Core\Filter\FilterInterface;
 
 /**
  * Trait Filters
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Crud
  * @subcategory Tools
  */
@@ -65,7 +65,7 @@ trait Filters
         array_walk($value, function (&$val) use ($filter, $sanitize) {
             foreach ($sanitize as $filterType) {
                 if (is_array($val)) {
-                    throw new \Engine\Exception('Can\'t sanitize array');
+                    throw new \Vein\Core\Exception('Can\'t sanitize array');
                 }
                 $val = $filter->sanitize($val, $filterType);
             }
@@ -77,8 +77,8 @@ trait Filters
     /**
      * Add a filter to the element
      *
-     * @param  string|\Engine\Filter\FilterInterface|array
-     * @return \Engine\Crud\Tools\Filters
+     * @param  string|\Vein\Core\Filter\FilterInterface|array
+     * @return \Vein\Core\Crud\Tools\Filters
      */
     public function addFilter($filter)
     {
@@ -108,7 +108,7 @@ trait Filters
                 $this->_filter->add($origName, $filter);
             }
         } else {
-            throw new \Engine\Exception("Invalid filter passed to addFilter");
+            throw new \Vein\Core\Exception("Invalid filter passed to addFilter");
         }
 
         $this->_sanitize[] = $origName;
@@ -120,7 +120,7 @@ trait Filters
      * Add filters to element
      *
      * @param  array $filters
-     * @return \Engine\Crud\Tools\Filters
+     * @return \Vein\Core\Crud\Tools\Filters
      */
     public function addFilters(array $filters)
     {
@@ -135,7 +135,7 @@ trait Filters
      * Add filters to element, overwriting any already existing
      *
      * @param  array $filters
-     * @return \Engine\Crud\Tools\Filters
+     * @return \Vein\Core\Crud\Tools\Filters
      */
     public function setFilters(array $filters)
     {
@@ -157,7 +157,7 @@ trait Filters
      * Remove a filter by name
      *
      * @param  string $name
-     * @return \Engine\Crud\Tools\Filters
+     * @return \Vein\Core\Crud\Tools\Filters
      */
     public function removeFilter($name)
     {
@@ -182,7 +182,7 @@ trait Filters
     /**
      * Clear all filters
      *
-     * @return \Engine\Crud\Tools\Filters
+     * @return \Vein\Core\Crud\Tools\Filters
      */
     public function clearFilters()
     {
@@ -198,7 +198,7 @@ trait Filters
      */
     public function getFilterClassName($name)
     {
-        $filter = '\Engine\Filter\\'.ucfirst($name);
+        $filter = '\Vein\Core\Filter\\'.ucfirst($name);
         if (!class_exists($filter)) {
             return false;
         }

@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Form\Field;
 /**
  * ManyToOne field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
@@ -15,7 +15,7 @@ class ManyToOne extends ArrayToSelect
 {
     /**
      * Parent model
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     protected $_model;
 
@@ -27,7 +27,7 @@ class ManyToOne extends ArrayToSelect
 
     /**
      * Options category model
-     * @var \Engine\Mvc\Model
+     * @var \Vein\Core\Mvc\Model
      */
     public $category;
 
@@ -88,7 +88,7 @@ class ManyToOne extends ArrayToSelect
 	 * Constructor
 	 *
      * @param string $label
-     * @param string|\Engine\Mvc\Model $model
+     * @param string|\Vein\Core\Mvc\Model $model
 	 * @param string $name
 	 * @param string $optionName
 	 * @param string $desc
@@ -184,7 +184,7 @@ class ManyToOne extends ArrayToSelect
         }
         $model->setReadConnectionService($adapter);
         $queryBuilder = $model->queryBuilder();
-        $options = \Engine\Crud\Tools\Multiselect::prepareOptions($queryBuilder, $this->_optionName, $this->category, $this->categoryName, $this->where, $this->emptyCategory, $this->emptyItem, $this->fields);
+        $options = \Vein\Core\Crud\Tools\Multiselect::prepareOptions($queryBuilder, $this->_optionName, $this->category, $this->categoryName, $this->where, $this->emptyCategory, $this->emptyItem, $this->fields);
         foreach ($options as $key => $value) {
             if (!is_numeric($key)) {
                 $this->_valueType = 'string';

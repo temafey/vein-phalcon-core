@@ -27,7 +27,7 @@ use Phalcon\Db,
 /**
  * Class Database
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Session
  * @subpackege  Adapter
  */

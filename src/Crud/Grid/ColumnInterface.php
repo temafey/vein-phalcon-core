@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Crud\Grid;
 
-use Engine\Crud\Grid,
-    Engine\Crud\Container\Grid as GridContainer,
+use Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Container\Grid as GridContainer,
 	Phalcon\Filter;
 	
 /**
  * Interface of grid column
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -28,8 +28,8 @@ interface ColumnInterface
 	/**
 	 * Update grid container
 	 * 
-	 * @param \Engine\Crud\Container\Grid\Adapter $container
-	 * @return \Engine\Crud\Grid\ColumnInterface
+	 * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+	 * @return \Vein\Core\Crud\Grid\ColumnInterface
 	 */
 	public function updateContainer(GridContainer\Adapter $container);
 	
@@ -37,7 +37,7 @@ interface ColumnInterface
 	 * Update container data source
 	 * 
 	 * @param mixed $dataSource
-	 * @return \Engine\Crud\Grid\ColumnInterface
+	 * @return \Vein\Core\Crud\Grid\ColumnInterface
 	 */
 	public function updateDataSource($dataSource);
 }

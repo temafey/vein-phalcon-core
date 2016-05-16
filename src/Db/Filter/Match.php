@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use \Engine\Mvc\Model\Query\Builder;
+use \Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  *  Match filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */
@@ -40,7 +40,7 @@ class Match extends AbstractFilter
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -59,7 +59,7 @@ class Match extends AbstractFilter
     /**
      * Return bound params array
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return array
      */
     public function getBoundParams(Builder $dataSource)

@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Date
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Date extends \Phalcon\Forms\Element\Date implements \Engine\Forms\ElementInterface
+class Date extends \Phalcon\Forms\Element\Date implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -33,7 +33,7 @@ class Date extends \Phalcon\Forms\Element\Date implements \Engine\Forms\ElementI
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\Text
+     * @return \Vein\Core\Forms\Element\Text
      */
     public function setDesc($desc)
     {

@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Grid\Column;
 /**
  * class Numeric
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -34,7 +34,7 @@ class Numeric extends Base
 	/**
 	 * Return render value
 	 *
-	 * @see \Engine\Crud\Grid\Column::render()
+	 * @see \Vein\Core\Crud\Grid\Column::render()
 	 * @param mixed $row
 	 *
 	 * @return integer||float
@@ -42,7 +42,7 @@ class Numeric extends Base
 	public function render($row)
 	{
 		$value = parent::render($row);
-		if (\Engine\Tools\Strings::isFloat($value)) {
+		if (\Vein\Core\Tools\Strings::isFloat($value)) {
 			$value = floatval($value);
 		} else {
 			$value = (int) $value;

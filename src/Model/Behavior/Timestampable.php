@@ -7,7 +7,7 @@ namespace Vein\Core\Model\Behavior;
 /**
  * Trait AnnotationsInitializer
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Model
  * @subpackage Behavior
  */

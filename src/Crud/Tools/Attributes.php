@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Tools;
 /**
  * Trait Attributes
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Crud
  * @subcategory Tools
  */
@@ -47,7 +47,7 @@ trait Attributes
      * Set element attributes
      *
      * @param array $attribs
-     * @return \Engine\Crud\Tools\Attributes
+     * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function setAttribs(array $attribs)
     {
@@ -63,7 +63,7 @@ trait Attributes
      * Set element attributes
      *
      * @param array $attribs
-     * @return \Engine\Crud\Tools\Attributes
+     * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function addAttribs(array $attribs)
     {
@@ -79,7 +79,7 @@ trait Attributes
      *
      * @param string $key
      * @param string $value
-     * @return \Engine\Crud\Tools\Attributes
+     * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function setAttrib($key, $value = null)
     {
@@ -91,7 +91,7 @@ trait Attributes
      * Remove element attribute
      *
      * @param string $key
-     * @return \Engine\Crud\Tools\Attributes
+     * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function removeAttrib($key)
     {
@@ -102,7 +102,7 @@ trait Attributes
     /**
      * Clear element attributes
      *
-     * @return \Engine\Crud\Tools\Attributes
+     * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function clearAttribs()
     {

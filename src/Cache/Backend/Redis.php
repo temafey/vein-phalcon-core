@@ -9,7 +9,7 @@ use Phalcon\Cache\Backend,
 	Phalcon\Cache\Exception;
 
 /**
- * \Engine\Cache\Backend\Redis
+ * \Vein\Core\Cache\Backend\Redis
  *
  * This backend uses redis as cache backend
  */
@@ -17,7 +17,7 @@ class Redis extends Backend implements BackendInterface
 {
 
     /**
-     * \Engine\Cache\Backend\Redis constructor
+     * \Vein\Core\Cache\Backend\Redis constructor
      *
      * @param \Phalcon\Cache\FrontendInterface $frontend
      * @param array $options

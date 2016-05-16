@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Select
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class MultiCheck extends \Engine\Forms\Element\Select implements \Engine\Forms\ElementInterface
+class MultiCheck extends \Vein\Core\Forms\Element\Select implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -46,7 +46,7 @@ class MultiCheck extends \Engine\Forms\Element\Select implements \Engine\Forms\E
      */
     public function render($attributes=null)
     {
-        $html = \Engine\Tag::multiCheckField($attributes);
+        $html = \Vein\Core\Tag::multiCheckField($attributes);
         return $html;
     }
 

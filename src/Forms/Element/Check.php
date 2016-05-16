@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Check
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Check extends \Phalcon\Forms\Element\Check implements \Engine\Forms\ElementInterface
+class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -51,7 +51,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Engine\Forms\Elemen
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\ElementInterface
+     * @return \Vein\Core\Forms\ElementInterface
      */
     public function setDesc($desc)
     {
@@ -74,7 +74,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Engine\Forms\Elemen
      * Set default value
      *
      * @param mixed $value
-     * @return \Engine\Forms\Element\Check
+     * @return \Vein\Core\Forms\Element\Check
      */
     public function setDefault($value)
     {

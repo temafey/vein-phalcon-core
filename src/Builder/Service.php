@@ -3,13 +3,13 @@
 namespace Vein\Core\Builder;
 
 use Phalcon\Db\Column,
-    Engine\Builder\Component,
-    Engine\Builder\BuilderException,
-    Engine\Builder\Script\Color,
+    Vein\Core\Builder\Component,
+    Vein\Core\Builder\BuilderException,
+    Vein\Core\Builder\Script\Color,
     Phalcon\Text as Utils,
-    Engine\Builder\Traits\BasicTemplater as TBasicTemplater,
-    Engine\Builder\Traits\SimpleServiceTemplater as TServiceTemplater,
-    Engine\Tools\Inflector;
+    Vein\Core\Builder\Traits\BasicTemplater as TBasicTemplater,
+    Vein\Core\Builder\Traits\SimpleServiceTemplater as TServiceTemplater,
+    Vein\Core\Tools\Inflector;
 
 /**
  * ModelBuilderComponent

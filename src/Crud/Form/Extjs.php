@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Form;
 
-use Engine\Crud\Form,
+use Vein\Core\Crud\Form,
     Phalcon\DiInterface as DiInterface;
 
 /**
  * Class Extjs.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
@@ -99,7 +99,7 @@ abstract class Extjs extends Form
         ];
 
         if (is_string($params)) {
-            if (!\Engine\Tools\Strings::isJson($params)) {
+            if (!\Vein\Core\Tools\Strings::isJson($params)) {
                 $result['error'][] = 'Params not valid';
                 return $result;
             }
@@ -156,7 +156,7 @@ abstract class Extjs extends Form
         ];
 
         if (is_string($row)) {
-            if (!\Engine\Tools\Strings::isJson($row)) {
+            if (!\Vein\Core\Tools\Strings::isJson($row)) {
                 $result['error'][] = 'Params not valid';
                 return $result;
             }
@@ -216,7 +216,7 @@ abstract class Extjs extends Form
         ];
 
         if (is_string($params)) {
-            if (!\Engine\Tools\Strings::isJson($params)) {
+            if (!\Vein\Core\Tools\Strings::isJson($params)) {
                 $result['error'][] = 'Params not valid';
                 return $result;
             }
@@ -247,18 +247,18 @@ abstract class Extjs extends Form
         }
         $primary = $form->getPrimaryField();
         if (!$primary) {
-            throw new \Engine\Exception('Primary field not found');
+            throw new \Vein\Core\Exception('Primary field not found');
         }
         $primaryKey = $primary->getKey();
         foreach ($rows as $id) {
             if (is_array($id)) {
                 if (!isset($id[$primaryKey])) {
-                    throw new \Engine\Exception('Primary key not found in params');
+                    throw new \Vein\Core\Exception('Primary key not found in params');
                 }
                 $id = $id[$primaryKey];
             } elseif (is_object($id)) {
                 if (!isset($id->{$primaryKey})) {
-                    throw new \Engine\Exception('Primary key not found in params');
+                    throw new \Vein\Core\Exception('Primary key not found in params');
                 }
                 $id = $id->{$primaryKey};
             }

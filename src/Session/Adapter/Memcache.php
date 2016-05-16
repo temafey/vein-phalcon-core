@@ -12,7 +12,7 @@ use Phalcon\Session\Adapter,
 /**
  * Class Memcache
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Session
  * @subpackege  Adapter
  */

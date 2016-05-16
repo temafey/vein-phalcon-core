@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Application\Service;
 
-use Engine\Application\Service\AbstractService;
+use Vein\Core\Application\Service\AbstractService;
 
 /**
  * Class Database
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Application
  * @subpackage Service
  */
@@ -26,7 +26,7 @@ class Database extends AbstractService
 
         $adapter = $this->_getDatabaseAdapter($config->database->adapter);
         if (!$adapter) {
-            throw new \Engine\Exception("Database adapter '{$config->database->adapter}' not exists!");
+            throw new \Vein\Core\Exception("Database adapter '{$config->database->adapter}' not exists!");
         }
         $connection = new $adapter([
             "host" => $this->_config->database->host,
@@ -48,7 +48,7 @@ class Database extends AbstractService
             // Attach logger & profiler
             $logger = new \Phalcon\Logger\Adapter\File($config->application->logger->path.'/db.log');
             if (isset($config->application->logger->formatter) && $config->application->logger->formatter == 'logstash') {
-                $formatter = new \Engine\Logger\Formatter\Logstash($config->application->logger->project, 'database', gethostname());
+                $formatter = new \Vein\Core\Logger\Formatter\Logstash($config->application->logger->project, 'database', gethostname());
             } else {
                 $formatter = new \Phalcon\Logger\Formatter\Line($config->application->logger->format);
             }
@@ -82,7 +82,7 @@ class Database extends AbstractService
                 $modelsManager->setEventsManager($eventsManager);
 
                 //Attach a listener to models-manager
-                $eventsManager->attach('modelsManager', new \Engine\Model\AnnotationsInitializer());
+                $eventsManager->attach('modelsManager', new \Vein\Core\Model\AnnotationsInitializer());
 
                 return $modelsManager;
             }, true);
@@ -97,14 +97,14 @@ class Database extends AbstractService
                 $metaDataConfig = $config->metadata;
                 $metadataAdapter = $service->_getMetaDataAdapter($metaDataConfig->adapter);
                 if (!$metadataAdapter) {
-                    throw new \Engine\Exception("MetaData adapter '{$metaDataConfig->adapter}' not exists!");
+                    throw new \Vein\Core\Exception("MetaData adapter '{$metaDataConfig->adapter}' not exists!");
                 }
                 $metaData = new $metadataAdapter($config->metadata->toArray());
             } else {
                 $metaData = new \Phalcon\Mvc\Model\MetaData\Memory();
             }
             if (isset($config->database->useAnnotations) && $config->database->useAnnotations) {
-                $metaData->setStrategy(new \Engine\Model\AnnotationsMetaDataInitializer());
+                $metaData->setStrategy(new \Vein\Core\Model\AnnotationsMetaDataInitializer());
             }
 
             return $metaData;
@@ -119,7 +119,7 @@ class Database extends AbstractService
      */
     protected function _getMetaDataAdapter($name)
     {
-        $adapter = '\Engine\Mvc\Model\MetaData\\'.ucfirst($name);
+        $adapter = '\Vein\Core\Mvc\Model\MetaData\\'.ucfirst($name);
         if (!class_exists($adapter)) {
             $adapter = '\Phalcon\Mvc\Model\MetaData\\'.ucfirst($name);
             if (!class_exists($adapter)) {
@@ -141,7 +141,7 @@ class Database extends AbstractService
         if (class_exists($name)) {
             $adapter = $name;
         } else {
-            $adapter = '\Engine\Db\Adapter\\' . ucfirst($name);
+            $adapter = '\Vein\Core\Db\Adapter\\' . ucfirst($name);
             if (!class_exists($adapter)) {
                 $adapter = '\Phalcon\Db\Adapter\\' . ucfirst($name);
                 if (!class_exists($adapter)) {

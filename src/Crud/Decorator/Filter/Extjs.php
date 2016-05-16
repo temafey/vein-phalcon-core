@@ -4,14 +4,14 @@
  */
 namespace Vein\Core\Crud\Decorator\Filter;
 
-use Engine\Crud\Decorator,
-    Engine\Crud\Grid\Filter,
-    Engine\Crud\Decorator\Helper;
+use Vein\Core\Crud\Decorator,
+    Vein\Core\Crud\Grid\Filter,
+    Vein\Core\Crud\Decorator\Helper;
 
 /**
  * Class Extjs decorator for grid filter.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
@@ -62,7 +62,7 @@ class Extjs extends Decorator
             }
             if ($endTag === false && $helper['createFile']) {
                 if (!file_put_contents($helper['createFile'], call_user_func_array([$helper['helper'], '_'], [$helper['element']]))) {
-                    throw new \Engine\Exception("File '".$helper['createFile']."' not save");
+                    throw new \Vein\Core\Exception("File '".$helper['createFile']."' not save");
                 }
             } else {
                 if ($continue) {
@@ -81,7 +81,7 @@ class Extjs extends Decorator
             $elementContent = implode("", $fileSections);
             $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag']);
             if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
-                throw new \Engine\Exception("File '".$helpers[$key]['createFile']."' not save");
+                throw new \Vein\Core\Exception("File '".$helpers[$key]['createFile']."' not save");
             }
         }
 

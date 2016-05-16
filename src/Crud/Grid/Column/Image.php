@@ -4,16 +4,16 @@
  */
 namespace Vein\Core\Crud\Grid\Column;
 
-use Engine\Crud\Grid,
-    Engine\Crud\Container\Grid as GridContainer;
+use Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Container\Grid as GridContainer;
 	
 /**
  * Image join column
  *
- * @uses       \Engine\Crud\Grid\Exception
- * @uses       \Engine\Crud\Grid\Filter
- * @uses       \Engine\Crud\Grid
- * @category   Engine
+ * @uses       \Vein\Core\Crud\Grid\Exception
+ * @uses       \Vein\Core\Crud\Grid\Filter
+ * @uses       \Vein\Core\Crud\Grid
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -86,14 +86,14 @@ class Image extends Base
     /**
      * Return render value
      * (non-PHPdoc)
-     * @see \Engine\Crud\Grid\Column::render()
+     * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
      * @return string
      */
 	public function render($row)
 	{	
 		if ($this->_template) {
-			$image = \Engine\Tools\Strings::generateStringTemplate($this->_template, $row, '{', '}');
+			$image = \Vein\Core\Tools\Strings::generateStringTemplate($this->_template, $row, '{', '}');
 		} else {
 		    $image = $this->_empty;
 		}

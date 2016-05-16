@@ -12,7 +12,7 @@ use Phalcon\Mvc\ModelInterface,
 /**
  * Class AnnotationsMetaDataInitializer
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Model
  */
 class AnnotationsMetaDataInitializer

@@ -9,7 +9,7 @@ use Elastica\Index as ElIndex;
 /**
  * Class Index
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Search
  * @subcategory Elasticsearch
  */
@@ -17,12 +17,12 @@ class Index extends ElIndex implements
     \Phalcon\Events\EventsAwareInterface,
     \Phalcon\DI\InjectionAwareInterface
 {
-    use \Engine\Tools\Traits\DIaware,
-        \Engine\Tools\Traits\EventsAware;
+    use \Vein\Core\Tools\Traits\DIaware,
+        \Vein\Core\Tools\Traits\EventsAware;
 
     /**
      * Model object
-     * @var \Engine\Search\Elasticsearch\ModelAdapter
+     * @var \Vein\Core\Search\Elasticsearch\ModelAdapter
      */
     protected $_model;
 
@@ -35,10 +35,10 @@ class Index extends ElIndex implements
     /**
      * Creates a new index object inside the given model.
      *
-     * @param \Engine\Search\Elasticsearch\ModelAdapter $model Mvc model Object
-     * @param \Engine\Search\Elasticsearch\Client
+     * @param \Vein\Core\Search\Elasticsearch\ModelAdapter $model Mvc model Object
+     * @param \Vein\Core\Search\Elasticsearch\Client
      */
-    public function __construct(\Engine\Search\Elasticsearch\ModelAdapter $model, Client $client = null)
+    public function __construct(\Vein\Core\Search\Elasticsearch\ModelAdapter $model, Client $client = null)
     {
         $this->_model = $model;
         $this->_client = $client;
@@ -66,7 +66,7 @@ class Index extends ElIndex implements
     /**
      * Returns index client.
      *
-     * @return \Engine\Search\Elasticsearch\Client Index client object
+     * @return \Vein\Core\Search\Elasticsearch\Client Index client object
      */
     public function getClient()
     {
@@ -85,7 +85,7 @@ class Index extends ElIndex implements
      * Set elastic adapter name
      *
      * @param string $adapter
-     * @return \Engine\Search\Elasticsearch\Index
+     * @return \Vein\Core\Search\Elasticsearch\Index
      */
     public function setAdapter($adapter)
     {

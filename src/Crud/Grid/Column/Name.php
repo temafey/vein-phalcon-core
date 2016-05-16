@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Grid\Column;
 /**
  * class Name
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */

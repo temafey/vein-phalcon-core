@@ -4,25 +4,25 @@
  */
 namespace Vein\Core\Crud\Decorator;
 
-use	Engine\Crud\Grid,
-    Engine\Crud\Grid\Filter,
-    Engine\Crud\Form;
+use	Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Grid\Filter,
+    Vein\Core\Crud\Form;
 
 /**
  * Class Factory for grid decorators.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
 class Decorator 
 {
     /**
-     * Factory for \Engine\Crud\Decorator classes.
+     * Factory for \Vein\Core\Crud\Decorator classes.
      *
-     * @param  \Engine\Crud\Form\Field|\Engine\Crud\Form|\Engine\Crud\Grid $element
+     * @param  \Vein\Core\Crud\Form\Field|\Vein\Core\Crud\Form|\Vein\Core\Crud\Grid $element
      * @param  mixed $config
-     * @return \Engine\Crud\Decorator
+     * @return \Vein\Core\Crud\Decorator
      */
     public static function factory($element, array $config = [])
     {
@@ -59,7 +59,7 @@ class Decorator
          * if the specified class cannot be loaded.
          */
         if (!class_exists($decoratorName)) {
-            throw new \Engine\Exception("FAILED TO FIND $decoratorName");
+            throw new \Vein\Core\Exception("FAILED TO FIND $decoratorName");
         }
 
         /*
@@ -72,7 +72,7 @@ class Decorator
         /*
          * Verify that the object created is a descendent of the abstract decorator type.
          */
-        if (!$decorator instanceof \Engine\Crud\Decorator) {
+        if (!$decorator instanceof \Vein\Core\Crud\Decorator) {
             throw new \RuntimeException("Decorator class '$decoratorName' does not implements Crud\Decorator\AbstractDecorator");
         }
 
@@ -88,13 +88,13 @@ class Decorator
     static function getDecoratorNamespace($object)
     {
     	if ($object instanceof Grid) {
-    		return '\Engine\Crud\Decorator\Grid';
+    		return '\Vein\Core\Crud\Decorator\Grid';
     	} elseif ($object instanceof Form) {
-    		return '\Engine\Crud\Decorator\Form';
+    		return '\Vein\Core\Crud\Decorator\Form';
     	} elseif ($object instanceof Filter) {
-            return '\Engine\Crud\Decorator\Filter';
+            return '\Vein\Core\Crud\Decorator\Filter';
         } else {
-    		throw new \Engine\Exception("Decorator object '".get_class($object)."' not instance");
+    		throw new \Vein\Core\Exception("Decorator object '".get_class($object)."' not instance");
     	}
     }
 }

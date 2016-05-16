@@ -2,12 +2,12 @@
 /**
  * @namespace
  */
-namespace Engine;
+namespace Vein\Core;
 
 /**
  * Class Exception
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Exception
  */
 class Exception extends \Exception

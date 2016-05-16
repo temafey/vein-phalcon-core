@@ -7,7 +7,7 @@ namespace Vein\Core\Cache;
 /**
  * Class Dummy
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Cache
  */
 class Dummy extends \Phalcon\Cache\Backend

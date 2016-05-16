@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Container;
 /**
  * Class AbstractContainer.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Container
  */
@@ -15,8 +15,8 @@ abstract class AbstractContainer implements
     \Phalcon\Events\EventsAwareInterface,
     \Phalcon\DI\InjectionAwareInterface
 {
-    use \Engine\Tools\Traits\DIaware,
-        \Engine\Tools\Traits\EventsAware;
+    use \Vein\Core\Tools\Traits\DIaware,
+        \Vein\Core\Tools\Traits\EventsAware;
 
 	const MODEL          = 'model';
     const ADAPTER	     = 'adapter';
@@ -25,7 +25,7 @@ abstract class AbstractContainer implements
 	
 	/**
 	 * Database model
-	 * @var \Engine\Mvc\Model
+	 * @var \Vein\Core\Mvc\Model
 	 */
 	protected $_model;
 
@@ -51,7 +51,7 @@ abstract class AbstractContainer implements
 	 * Set container options
 	 * 
 	 * @param array $options
-	 * @return \Engine\Crud\Container\AbstractContainer
+	 * @return \Vein\Core\Crud\Container\AbstractContainer
 	 */
 	public function setOptions(array $options)
 	{
@@ -77,7 +77,7 @@ abstract class AbstractContainer implements
 	/**
 	 * Return database model
 	 * 
-	 * @return \Engine\Mvc\Model
+	 * @return \Vein\Core\Mvc\Model
 	 */
 	public function getModel()
 	{
@@ -98,7 +98,7 @@ abstract class AbstractContainer implements
 	 * Set container conditions
 	 * 
 	 * @param array|string $conditions
-	 * @return \Engine\Crud\Container\AbstractContainer
+	 * @return \Vein\Core\Crud\Container\AbstractContainer
 	 */
 	public function setConditions($conditions)
 	{

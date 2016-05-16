@@ -7,7 +7,7 @@ namespace Vein\Core\Forms;
 /**
  * Class Element
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  */
 abstract class Element extends \Phalcon\Forms\Element implements ElementInterface
@@ -29,7 +29,7 @@ abstract class Element extends \Phalcon\Forms\Element implements ElementInterfac
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element
+     * @return \Vein\Core\Forms\Element
      */
     public function setDesc($desc)
     {

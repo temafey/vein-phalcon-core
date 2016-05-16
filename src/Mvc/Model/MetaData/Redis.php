@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Mvc\Model\MetaData;
 
-use Engine\Cache\Backend\Redis as CacheBackend;
+use Vein\Core\Cache\Backend\Redis as CacheBackend;
 use Phalcon\Cache\Frontend\Data as CacheFrontend;
 use Phalcon\Mvc\Model\Exception;
 
 /**
- * \Engine\Mvc\Model\MetaData\Redis
+ * \Vein\Core\Mvc\Model\MetaData\Redis
  *
  * Redis adapter for \Phalcon\Mvc\Model\MetaData
  */
@@ -19,7 +19,7 @@ class Redis extends Base
     /**
      * Redis backend instance.
      *
-     * @var \Engine\Cache\Backend\Redis
+     * @var \Vein\Core\Cache\Backend\Redis
      */
     protected $redis = null;
 
@@ -45,7 +45,7 @@ class Redis extends Base
     /**
      * {@inheritdoc}
      *
-     * @return \Engine\Cache\Backend\Redis
+     * @return \Vein\Core\Cache\Backend\Redis
      */
     protected function getCacheBackend()
     {

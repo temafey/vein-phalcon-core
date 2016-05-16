@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Mvc\Module\Service;
 
-use Engine\Mvc\Module\Service\AbstractService;
+use Vein\Core\Mvc\Module\Service\AbstractService;
 
 /**
  * Class Registry
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Mvc
  * @subpackage Moduler
  */

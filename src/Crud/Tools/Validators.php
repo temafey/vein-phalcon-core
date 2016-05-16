@@ -9,7 +9,7 @@ use Phalcon\Validation\ValidatorInterface;
 /**
  * Trait Validators
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Crud
  * @subcategory Tools
  */
@@ -18,7 +18,7 @@ trait Validators
 
     /**
      * Validation object
-     * @var \Engine\Validation
+     * @var \Vein\Core\Validation
      */
     protected $_validation;
 
@@ -48,7 +48,7 @@ trait Validators
      *
      * @param $validator
      * @return \Phalcon\Validation\ValidatorInterface
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      */
     public function createValidator($validator)
     {
@@ -74,7 +74,7 @@ trait Validators
                 $validator = new $class;
             }
         } else {
-            throw new \Engine\Exception("Validator '$validator' not exists");
+            throw new \Vein\Core\Exception("Validator '$validator' not exists");
         }
 
         return $validator;
@@ -83,8 +83,8 @@ trait Validators
     /**
      * Add a filter to the element
      *
-     * @param  string|\Engine\Filter\FilterInterface|array
-     * @return \Engine\Crud\Tools\Validators
+     * @param  string|\Vein\Core\Filter\FilterInterface|array
+     * @return \Vein\Core\Crud\Tools\Validators
      */
     public function addValidator($validator)
     {
@@ -97,7 +97,7 @@ trait Validators
      * Add Validators to element
      *
      * @param  array $validators
-     * @return \Engine\Crud\Tools\Validators
+     * @return \Vein\Core\Crud\Tools\Validators
      */
     public function addValidators(array $validators)
     {
@@ -112,7 +112,7 @@ trait Validators
      * Add Validators to element, overwriting any already existing
      *
      * @param  array $validators
-     * @return \Engine\Crud\Tools\Validators
+     * @return \Vein\Core\Crud\Tools\Validators
      */
     public function setValidators(array $validators)
     {
@@ -123,7 +123,7 @@ trait Validators
     /**
      * Clear all validators
      *
-     * @return \Engine\Crud\Tools\Validators
+     * @return \Vein\Core\Crud\Tools\Validators
      */
     public function clearValidators()
     {
@@ -138,7 +138,7 @@ trait Validators
      */
     public function getValidatorClassName($name)
     {
-        $validator = '\Engine\Validation\Validator\\'.ucfirst($name);
+        $validator = '\Vein\Core\Validation\Validator\\'.ucfirst($name);
         if (!class_exists($validator)) {
             $validator = '\Phalcon\Validation\Validator\\'.ucfirst($name);
             if (!class_exists($validator)) {

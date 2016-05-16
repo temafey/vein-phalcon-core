@@ -7,11 +7,11 @@ namespace Vein\Core\Forms\Element;
 /**
  * Class Radio
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Forms
  * @subcategory Element
  */
-class Radio extends \Phalcon\Forms\Element\Radio implements \Engine\Forms\ElementInterface
+class Radio extends \Phalcon\Forms\Element\Radio implements \Vein\Core\Forms\ElementInterface
 {
     /**
      * Form element description
@@ -49,8 +49,8 @@ class Radio extends \Phalcon\Forms\Element\Radio implements \Engine\Forms\Elemen
      * Sets the element description
      *
      * @param string $desc
-     * @return \Engine\Forms\Element\Radio
-     * @return \Engine\Forms\Element\Radio
+     * @return \Vein\Core\Forms\Element\Radio
+     * @return \Vein\Core\Forms\Element\Radio
      */
     public function setDesc($desc)
     {
@@ -74,7 +74,7 @@ class Radio extends \Phalcon\Forms\Element\Radio implements \Engine\Forms\Elemen
      *
      * @param array|string $attributes
      * @return string
-     * @throws \Engine\Exception
+     * @throws \Vein\Core\Exception
      * @return string
      */
     public function render($attributes = null)
@@ -94,7 +94,7 @@ class Radio extends \Phalcon\Forms\Element\Radio implements \Engine\Forms\Elemen
             }
         } else {
             if (!isset($attributes['using']) || !is_array($attributes['using']) || count($attributes['using']) != 2)
-                throw new \Engine\Exception("The 'using' parameter is required to be an array with 2 values.");
+                throw new \Vein\Core\Exception("The 'using' parameter is required to be an array with 2 values.");
             $keyAttribute = array_shift($attributes['using']);
             $valueAttribute = array_shift($attributes['using']);
             foreach ($options as $option) {

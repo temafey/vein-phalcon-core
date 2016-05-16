@@ -7,7 +7,7 @@ namespace Vein\Core\Search\Elasticsearch;
 /**
  * Elasticsearch model adapter interface.
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Container
  */

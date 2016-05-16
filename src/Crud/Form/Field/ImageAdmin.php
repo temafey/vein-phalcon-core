@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Form\Field;
 /**
  * Image field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
@@ -143,7 +143,7 @@ class ImageAdmin extends Image
                 $file = explode (".", $_FILES [$key] ['name']);
                 $this->_fileFullName = str_replace('{file_name}', str_replace(" ", "_", trim($file [0])), $this->_fileFullName);
             }
-            $this->_fileFullName = \Engine\Tools\Strings::generateStringTemplate($this->_fileFullName, $data);
+            $this->_fileFullName = \Vein\Core\Tools\Strings::generateStringTemplate($this->_fileFullName, $data);
 
             if ($this->_fileFullName === false) {
                 $file = explode(".", $_FILES [$key] ['name']);
@@ -189,7 +189,7 @@ class ImageAdmin extends Image
 			    $file_resize_middle = $this->_uploadDirectory.'/middle/'.$pathinfo['basename'];
 			    $file_resize_big    = $this->_uploadDirectory.'/big/'   .$pathinfo['basename'];
 			    $dependencyInjectorrs = ['big','middle','small'];
-			    \Engine\Tools\File::rarmdir($this->_uploadDirectory, $dependencyInjectorrs, 0755, true);
+			    \Vein\Core\Tools\File::rarmdir($this->_uploadDirectory, $dependencyInjectorrs, 0755, true);
 			    if (file_exists($file_resize_small))  unlink($file_resize_small);
 			    if (file_exists($file_resize_middle)) unlink($file_resize_middle);
 			    if (file_exists($file_resize_big))    unlink($file_resize_big);
@@ -223,9 +223,9 @@ class ImageAdmin extends Image
 			    }
 
 
-			    \Engine\Tools\Image::resize($this->_fileFullName, $file_resize_big, $this->_resizeSizes['big']['width'], $this->_resizeSizes['big']['height'], false, $watermark['big'], $this->_watermarkPosition);
-			    \Engine\Tools\Image::resize($this->_fileFullName, $file_resize_middle, $this->_resizeSizes['middle']['width'], $this->_resizeSizes['middle']['height'], true, $watermark['middle'], $this->_watermarkPosition);
-			    \Engine\Tools\Image::resize($this->_fileFullName, $file_resize_small, $this->_resizeSizes['small']['width'], $this->_resizeSizes['small']['height'], true, $watermark['small'], $this->_watermarkPosition);
+			    \Vein\Core\Tools\Image::resize($this->_fileFullName, $file_resize_big, $this->_resizeSizes['big']['width'], $this->_resizeSizes['big']['height'], false, $watermark['big'], $this->_watermarkPosition);
+			    \Vein\Core\Tools\Image::resize($this->_fileFullName, $file_resize_middle, $this->_resizeSizes['middle']['width'], $this->_resizeSizes['middle']['height'], true, $watermark['middle'], $this->_watermarkPosition);
+			    \Vein\Core\Tools\Image::resize($this->_fileFullName, $file_resize_small, $this->_resizeSizes['small']['width'], $this->_resizeSizes['small']['height'], true, $watermark['small'], $this->_watermarkPosition);
 			}
 			if ($this->_removeImgSource) {
 			    unlink($this->_fileFullName);
@@ -245,7 +245,7 @@ class ImageAdmin extends Image
 	/**
 	* Set no resize image.
 	* 
-	* @return \Engine\Crud\Form\Field\ImageAdmin
+	* @return \Vein\Core\Crud\Form\Field\ImageAdmin
 	*/
 	public function setNoResizeImage()
 	{

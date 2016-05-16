@@ -4,9 +4,9 @@
  */
 namespace Vein\Core\UnitTest\Service;
 
-use Engine\UnitTest\Generator\TestGenerator,
-    Engine\UnitTest\Generator\BaseTestGenerator,
-    Engine\UnitTest\Generator\RegularTestGenerator;
+use Vein\Core\UnitTest\Generator\TestGenerator,
+    Vein\Core\UnitTest\Generator\BaseTestGenerator,
+    Vein\Core\UnitTest\Generator\RegularTestGenerator;
 
 /**
  * Class TestProject

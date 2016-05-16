@@ -9,7 +9,7 @@ use Phalcon\Mvc\Model\Query as PhQuery;
 /**
  * Class Query
  *
- * @category    Engine
+ * @category    Vein\Core
  * @package     Mvc
  * @subcategory Model
  */

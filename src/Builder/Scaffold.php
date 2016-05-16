@@ -21,9 +21,9 @@
 namespace Vein\Core\Builder;
 
 use Phalcon\Text,
-    Engine\Builder\Script\Color,
-    Engine\Builder\Component,
-    Engine\Builder\Model as ModelBuilder,
+    Vein\Core\Builder\Script\Color,
+    Vein\Core\Builder\Component,
+    Vein\Core\Builder\Model as ModelBuilder,
 	Phalcon\DI\FactoryDefault,
 	Phalcon\Db\Field;
 
@@ -211,7 +211,7 @@ class Scaffold extends Component
 		//Build Controller
 		$this->_makeController($path, $options);
 
-		if (isset($options['templateEngine']) && $options['templateEngine'] == 'volt') {
+		if (isset($options['templateVein\Core']) && $options['templateVein\Core'] == 'volt') {
 			//View layouts
 			$this->_makeLayoutsVolt($path, $options);
 

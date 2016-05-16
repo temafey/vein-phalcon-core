@@ -4,12 +4,12 @@
  */
 namespace Vein\Core\Db\Filter;
 
-use \Engine\Mvc\Model\Query\Builder;
+use \Vein\Core\Mvc\Model\Query\Builder;
 
 /**
  *  Between filter
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Db
  * @subpackage Filter
  */
@@ -47,7 +47,7 @@ class Between extends Standart
     public function __construct($column, $min, $max, $criteria = null)
 	{
         if (!is_string($column)) {
-            throw new \Engine\Exception('Column name has incorect data type');
+            throw new \Vein\Core\Exception('Column name has incorect data type');
         }
 		$this->_column = $column;
 		$this->_min = $min;
@@ -58,7 +58,7 @@ class Between extends Standart
     /**
      * Apply filter to query builder
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -73,7 +73,7 @@ class Between extends Standart
     /**
      * Return bound params array
      *
-     * @param \Engine\Mvc\Model\Query\Builder $dataSource
+     * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
      * @return array
      */
     public function getBoundParams(Builder $dataSource)

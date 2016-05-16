@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Helper\Form\Field\Extjs;
 
-use Engine\Crud\Form\Extjs as Form,
-    Engine\Crud\Form\Field as Field;
+use Vein\Core\Crud\Form\Extjs as Form,
+    Vein\Core\Crud\Form\Field as Field;
 
 /**
  * Class form fields helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -19,7 +19,7 @@ class ManyToMany extends BaseHelper
     /**
      * Render extjs combobox form field
      *
-     * @param \Engine\Crud\Form\Field\ManyToMany $field
+     * @param \Vein\Core\Crud\Form\Field\ManyToMany $field
      * @return string
      */
     public static function _(Field\ManyToMany $field)

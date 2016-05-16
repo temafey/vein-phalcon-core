@@ -4,15 +4,15 @@
  */
 namespace Vein\Core\Crud\Grid\Column;
 
-use Engine\Crud\Grid\Column,
-    Engine\Crud\Grid,
-    Engine\Crud\Container\Grid as GridContainer,
+use Vein\Core\Crud\Grid\Column,
+    Vein\Core\Crud\Grid,
+    Vein\Core\Crud\Container\Grid as GridContainer,
     Phalcon\Filter;
 
 /**
  * Class Compound
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
  */
@@ -49,16 +49,16 @@ class Compound extends Column
     /**
      * Set grid object and init grid column key.
      *
-     * @param \Engine\Crud\Grid $grid
+     * @param \Vein\Core\Crud\Grid $grid
      * @param string $key
-     * @return \Engine\Crud\Grid\Column
+     * @return \Vein\Core\Crud\Grid\Column
      */
     public function init(Grid $grid, $key)
     {
         parent::init($grid, $key);
         foreach ($this->_columns as $k => $column) {
             if (!$column instanceof Column) {
-                throw new \Engine\Exception("Column '{$k}' not instance of Column");
+                throw new \Vein\Core\Exception("Column '{$k}' not instance of Column");
             }
             $column->init($grid, $k);
         }
@@ -68,7 +68,7 @@ class Compound extends Column
     /**
      * Return render value
      * (non-PHPdoc)
-     * @see \Engine\Crud\Grid\Column::render()
+     * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
      * @return string
      */
@@ -101,10 +101,10 @@ class Compound extends Column
     /**
      * Update grid container
      *
-     * @param \Engine\Crud\Container\Grid\Adapter $container
-     * @return \Engine\Crud\Grid\Column
+     * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     * @return \Vein\Core\Crud\Grid\Column
      */
-    public function updateContainer(\Engine\Crud\Container\Grid\Adapter $container)
+    public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
     {
         foreach ($this->_columns as $column) {
             $column->updateContainer($container);
@@ -126,7 +126,7 @@ class Compound extends Column
      * Return column by key
      *
      * @param string$key
-     * @return \Engine\Crud\Grid\Column
+     * @return \Vein\Core\Crud\Grid\Column
      */
     public function getColumn($key)
     {

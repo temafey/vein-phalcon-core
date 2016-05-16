@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Form\Field;
 
-use Engine\Crud\Form\Field,
+use Vein\Core\Crud\Form\Field,
     Phalcon\Forms\Element;
 
 /**
  * Checkbox field
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
@@ -100,7 +100,7 @@ class Checkbox extends Field
      *
      *
      * @param  mixed $value
-     * @return \Engine\Crud\Form\Field\Checkbox
+     * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setValue($value)
     {
@@ -130,7 +130,7 @@ class Checkbox extends Field
      * Set checked value
      *
      * @param  string $value
-     * @return \Engine\Crud\Form\Field\Checkbox
+     * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setCheckedValue($value)
     {
@@ -156,7 +156,7 @@ class Checkbox extends Field
      * Set unchecked value
      *
      * @param  string $value
-     * @return \Engine\Crud\Form\Field\Checkbox
+     * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setUncheckedValue($value)
     {
@@ -181,7 +181,7 @@ class Checkbox extends Field
      * Set checked flag
      *
      * @param  bool $flag
-     * @return \Engine\Crud\Form\Field\Checkbox
+     * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setChecked($flag)
     {

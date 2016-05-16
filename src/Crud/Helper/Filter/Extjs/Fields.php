@@ -4,13 +4,13 @@
  */
 namespace Vein\Core\Crud\Helper\Filter\Extjs;
 
-use Engine\Crud\Grid\Filter,
-    Engine\Crud\Grid\Filter\Field as Field;
+use Vein\Core\Crud\Grid\Filter,
+    Vein\Core\Crud\Grid\Filter\Field as Field;
 
 /**
  * Class form fields helper
  *
- * @category   Engine
+ * @category   Vein\Core
  * @package    Crud
  * @subpackage Helper
  */
@@ -19,7 +19,7 @@ class Fields extends BaseHelper
 	/**
 	 * Generates form fields object
 	 *
-	 * @param \Engine\Crud\Grid\Filter $filter
+	 * @param \Vein\Core\Crud\Grid\Filter $filter
 	 * @return string
 	 */
 	static public function _(Filter $filter)
