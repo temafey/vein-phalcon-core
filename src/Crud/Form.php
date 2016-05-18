@@ -4,7 +4,7 @@
  */
 namespace Vein\Core\Crud;
 
-use Vein\Core\Forms\Form as Vein\CoreForm,
+use Vein\Core\Forms\Form as CoreForm,
 	Vein\Core\Crud\Form\Field,
 	Vein\Core\Crud\Container\Container,
 	Vein\Core\Crud\Form\Exception,

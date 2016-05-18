@@ -144,7 +144,7 @@ abstract class Cli extends PhApplication
                 $moduleName = ucfirst($module);
                 $enabledModules[$module] = [
                     'className' => $moduleName.'\Module',
-                    'path' => ROOT_PATH.'/apps/modules/'.$moduleName.'/Module.php',
+                    'path' => ROOT_PATH.'/app/modules/'.$moduleName.'/Module.php',
                 ];
             }
 
