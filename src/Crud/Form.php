@@ -301,7 +301,7 @@ abstract class Form implements
             return $this;
         }
 
-		$this->_form = new Vein\CoreForm();
+		$this->_form = new CoreForm();
     	foreach ($this->_fields as $key => $field) {
             if ($this->_id === null) {
             }

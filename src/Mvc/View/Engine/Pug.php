@@ -4,19 +4,18 @@
  */
 namespace Vein\Core\Mvc\View\Engine;
 
-use Phalcon\Mvc\View,
-    Phalcon\Mvc\View\Engine,
+use Phalcon\Mvc\View\Engine,
     Phalcon\Mvc\View\EngineInterface;
 
 /**
  * Jade
  *
- * Adapter to use Jade library as templating engine
+ * Adapter to use Pug library as templating engine
  */
-class Jade extends Engine implements EngineInterface
+class Pug extends Engine implements EngineInterface
 {
 
-    protected $_jade;
+    protected $_pug;
     /**
      * Adapter constructor
      *
@@ -27,25 +26,18 @@ class Jade extends Engine implements EngineInterface
     public function __construct($view, $di, $options = array())
     {
         //Initialize here the adapter
-        $view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         parent::__construct($view, $di);
-        $this->_jade = new \Jade\Jade($options);
+        $this->_pug = new \Pug\Pug($options);
     }
     /**
      * Renders a view using the template engine
      *
      * @param string $path
      * @param array $params
-     * @param bool $mustClean
-     *
-     * @return void
      */
     public function render($path, $params, $mustClean = false)
     {
-        if (is_null($params)) {
-            $params= [];
-        }
-        $content = $this->_jade->render($path, $params);
+        $content = $this->_pug->render($path, $params);
         if($mustClean) {
             $this->_view->setContent($content);
         } else {

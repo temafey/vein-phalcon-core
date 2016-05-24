@@ -18,10 +18,11 @@ class Element extends \Vein\Core\Crud\Helper
 	/**
 	 * Generates a widget to show a html grid Form
 	 *
-	 * @param \Vein\Core\Crud\Form\Field $Form
+	 * @param \Vein\Core\Crud\Form\Field $field
+     *
 	 * @return string
 	 */
-	static public function _(Field\Field $field)
+	static public function _(Field $field)
 	{
         $element = $field->getElement();
         if ($field instanceof Field\Submit) {

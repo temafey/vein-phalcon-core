@@ -34,7 +34,6 @@ class Session extends AbstractService
             $sessionOptions = $this->_config->application->session->toArray();
         }
         //$session->start();
-
         $dependencyInjector->setShared('session', function() use ($sessionAdapter, $sessionOptions) {
             $session = new $sessionAdapter($sessionOptions);
             $session->start();
@@ -50,13 +49,14 @@ class Session extends AbstractService
      */
     private function _getSessioneAdapter($name)
     {
-        if (class_exists($name)) {
+        if (strpos($name, '\\') && class_exists($name)) {
             $adapter = $name;
         } else {
             $adapter = '\Vein\Core\Session\Adapter\\' . ucfirst($name);
             if (!class_exists($adapter)) {
                 $adapter = '\Phalcon\Session\Adapter\\' . ucfirst($name);
                 if (!class_exists($adapter)) {
+                    var_dump($adapter);die;
                     return false;
                 }
             }

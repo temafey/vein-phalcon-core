@@ -49,6 +49,13 @@ class Dispatcher extends AbstractService
                     $logger->error($exception->getMessage());
                 }
 
+                if ($dependencyInjector->has('debug')) {
+                    $debug = $dependencyInjector->get('debug');
+                    if ($debug) {
+                        throw $exception;
+                    }
+                }
+
                 //Handle 404 exceptions
                 if ($exception instanceof DispatchException) {
                     $dispatcher->forward([

@@ -102,6 +102,10 @@ abstract class Application extends PhApplication
 
         // Store config in the Di container
         $dependencyInjector->setShared('config', $globalConfig);
+
+        if ($globalConfig->application->debug) {
+            $dependencyInjector->setShared('debug', function() {return true;});
+        }
     }
 
     /**

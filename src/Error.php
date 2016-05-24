@@ -60,8 +60,10 @@ class Error
      * Log exception
      *
      * @param \Exception $exception
+     *
+     * @return void
      */
-    public static function exception($exception)
+    public static function exception(\Exception $exception)
     {
         // Log the error
         self::logError(
@@ -71,7 +73,15 @@ class Error
             $exception->getLine(),
             $exception->getTraceAsString()
         );
-        // Display it
+
+        //Display it
+        $dependencyInjector = Di::getDefault();
+        if ($dependencyInjector->has('debug')) {
+            $debug = $dependencyInjector->get('debug');
+            if ($debug) {
+                throw $exception;
+            }
+        }
     }
 
     /**
@@ -102,16 +112,11 @@ class Error
         } else {
             $logMessage .= PHP_EOL;
         }
-
         if ($dependencyInjector->has('logger')) {
             $logger = $dependencyInjector->get('logger');
             if ($logger) {
                 $logger->error($logMessage);
-            } else {
-                throw new PhException($logMessage);
             }
-        } else {
-            throw new PhException($logMessage);
         }
     }
 }

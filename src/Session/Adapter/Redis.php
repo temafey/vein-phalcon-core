@@ -41,14 +41,14 @@ class Redis extends BaseAdapter implements AdapterInterface
                 $path = 'tcp://';
                 $path .= $val['host'];
                 unset($val['host']);
-                $path .= ":".$val['port'];
+                $path .= ':'.$val['port'];
                 unset($val['port']);
                 if (!empty($val)) {
-                    $path .= "?".http_build_query($val);
+                    $path .= '?'.http_build_query($val);
                 }
                 $paths[] = $path;
             }
-            $options['path'] = implode(", ", $paths);
+            $options['path'] = implode(', ', $paths);
         }
 		ini_set('session.save_path', $options['path']);
 		
