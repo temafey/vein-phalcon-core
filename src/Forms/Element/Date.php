@@ -33,14 +33,14 @@ class Date extends \Phalcon\Forms\Element\Date implements \Vein\Core\Forms\Eleme
      * Sets the element description
      *
      * @param string $desc
-     * @return \Vein\Core\Forms\Element\Text
+     *
+     * @return \Vein\Core\Forms\Element\Date
      */
     public function setDesc($desc)
     {
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

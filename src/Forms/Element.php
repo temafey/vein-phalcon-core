@@ -29,6 +29,7 @@ abstract class Element extends \Phalcon\Forms\Element implements ElementInterfac
      * Sets the element description
      *
      * @param string $desc
+     * 
      * @return \Vein\Core\Forms\Element
      */
     public function setDesc($desc)
@@ -36,7 +37,6 @@ abstract class Element extends \Phalcon\Forms\Element implements ElementInterfac
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

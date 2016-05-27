@@ -42,6 +42,7 @@ class MultiCheck extends \Vein\Core\Forms\Element\Select implements \Vein\Core\F
      * Render multi checkbox field
      *
      * @param array $attributes
+     * 
      * @return string
      */
     public function render($attributes=null)

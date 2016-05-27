@@ -20,19 +20,10 @@ class Html extends \Vein\Core\Forms\Element\Text implements \Vein\Core\Forms\Ele
     protected $_html = '';
 
     /**
-     * If element is need to be rendered in default layout
-     *
-     * @return bool
-     */
-    public function useDefaultLayout() {
-        return false;
-    }
-
-    /**
      * @param string $name
      * @param array $attributes
      */
-    public function __construct($name, $attributes=null)
+    public function __construct($name, array $attributes=null)
     {
         if (isset($attributes['html']) ) {
             $this->_html = $attributes['html'];
@@ -42,7 +33,23 @@ class Html extends \Vein\Core\Forms\Element\Text implements \Vein\Core\Forms\Ele
         parent::__construct($name, $attributes);
     }
 
-    public function render($attributes = null)
+    /**
+     * If element is need to be rendered in default layout
+     *
+     * @return bool
+     */
+    public function useDefaultLayout() {
+        return false;
+    }
+
+    /**
+     * Render form element
+     *
+     * @param array $attributes
+     *
+     * @return string
+     */
+    public function render(array $attributes = null)
     {
         return $this->_html;
     }

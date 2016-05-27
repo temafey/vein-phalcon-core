@@ -33,6 +33,7 @@ class Text extends \Phalcon\Forms\Element\Text implements \Vein\Core\Forms\Eleme
      * Sets the element description
      *
      * @param string $desc
+     * 
      * @return \Vein\Core\Forms\Element\Text
      */
     public function setDesc($desc)
@@ -40,7 +41,6 @@ class Text extends \Phalcon\Forms\Element\Text implements \Vein\Core\Forms\Eleme
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

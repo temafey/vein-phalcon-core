@@ -74,7 +74,7 @@ class Form extends \Phalcon\Forms\Form
      *
      * @return mixed
      */
-    public function getCustomValue($name, $entity, $data)
+    /*public function getCustomValue($name, $entity, $data)
     {
         if (is_array($data) && array_key_exists($name, $data)) {
             return $data[$name];
@@ -82,7 +82,7 @@ class Form extends \Phalcon\Forms\Form
         if (is_array($this->_data) && array_key_exists($name, $this->_data)) {
             return $this->_data[$name];
         }
-        return false;
-    }
+        return null;
+    }*/
 
 }

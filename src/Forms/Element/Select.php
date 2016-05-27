@@ -31,6 +31,7 @@ class Select extends \Phalcon\Forms\Element\Select implements \Vein\Core\Forms\E
             $attributes = [];
         }
         $options = array_merge($options, $attributes);
+
         parent::__construct($name, $optionsData, $options);
     }
 
@@ -39,6 +40,11 @@ class Select extends \Phalcon\Forms\Element\Select implements \Vein\Core\Forms\E
         $this->_value = $value;
     }
 
+    /**
+     * Return element value
+     *
+     * @return integer
+     */
     public function getValue()
     {
         return $this->_value;
@@ -58,6 +64,7 @@ class Select extends \Phalcon\Forms\Element\Select implements \Vein\Core\Forms\E
      * Sets the element description
      *
      * @param string $desc
+     * 
      * @return \Vein\Core\Forms\Element\Select
      */
     public function setDesc($desc)
@@ -65,7 +72,6 @@ class Select extends \Phalcon\Forms\Element\Select implements \Vein\Core\Forms\E
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

@@ -32,14 +32,14 @@ class File extends \Phalcon\Forms\Element\File implements \Vein\Core\Forms\Eleme
      * Sets the element description
      *
      * @param string $desc
-     * @return Form_ElementInterface
+     *
+     * @return \Vein\Core\Forms\Element\File
      */
     public function setDesc($desc)
     {
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

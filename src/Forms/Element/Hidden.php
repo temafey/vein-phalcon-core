@@ -32,14 +32,14 @@ class Hidden extends \Phalcon\Forms\Element\Hidden implements \Vein\Core\Forms\E
      * Sets the element description
      *
      * @param string $desc
-     * @return Form_ElementInterface
+     *
+     * @return \Vein\Core\Forms\Element\Hidden
      */
     public function setDesc($desc)
     {
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

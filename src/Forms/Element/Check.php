@@ -23,7 +23,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
      * @param string $name
      * @param array $attributes
      */
-    public function __construct($name, $attributes=null)
+    public function __construct($name, array $attributes=null)
     {
         if (isset($attributes['value']) && $attributes['value'] == true) {
             $attributes['checked'] = 'checked';
@@ -74,6 +74,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
      * Set default value
      *
      * @param mixed $value
+     *
      * @return \Vein\Core\Forms\Element\Check
      */
     public function setDefault($value)
@@ -86,7 +87,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
             $this->setAttributes($attributes);
         }
 
-        parent::setDefault($value);
+        return parent::setDefault($value);
     }
 
     /**
@@ -94,6 +95,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
      *
      * @param array $attributes
      * @param bool $useChecked
+     *
      * @return array
      */
     public function prepareAttributes($attributes = NULL, $useChecked = NULL)
@@ -102,6 +104,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
             $attributes = [];
         }
         $attributes = array_merge(array($this->_name), $attributes);
+
         return array_merge($attributes, $this->getAttributes());
     }
 

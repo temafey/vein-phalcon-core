@@ -5,7 +5,9 @@
 namespace Vein\Core\Crud\Form;
 
 use Vein\Core\Crud\Form,
-	Vein\Core\Tools\Strings;
+	Vein\Core\Tools\Strings,
+	Phalcon\Events\EventsAwareInterface,
+	Phalcon\DI\InjectionAwareInterface;
 
 /**
  * Form field
@@ -14,9 +16,11 @@ use Vein\Core\Crud\Form,
  * @package    Crud
  * @subpackage Form
  */
-abstract class Field implements FieldInterface
+abstract class Field implements FieldInterface, EventsAwareInterface, InjectionAwareInterface
 {
-    use \Vein\Core\Crud\Tools\Filters,
+    use \Vein\Core\Tools\Traits\DIaware,
+		\Vein\Core\Tools\Traits\EventsAware,
+		\Vein\Core\Crud\Tools\Filters,
         \Vein\Core\Crud\Tools\Validators,
         \Vein\Core\Crud\Tools\FormElements,
         \Vein\Core\Crud\Tools\Renderer,
@@ -161,9 +165,21 @@ abstract class Field implements FieldInterface
     {
         $this->_element->setAttributes($this->getAttribs());
     }
-	
+
 	/**
-	 * Filtering values
+	 * Validate field value
+	 *
+	 * @param string $value
+	 *
+	 * @return bool
+	 */
+	public function isValid($value)
+	{
+		return true;
+	}
+
+	/**
+	 * Fix values
 	 * 
 	 * @param array $values
 	 *

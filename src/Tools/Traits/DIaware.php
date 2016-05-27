@@ -37,6 +37,9 @@ trait DIaware
 	 */
 	public function getDi()
 	{
+		if (!$this->_di) {
+			$this->_di = \Phalcon\Di\FactoryDefault::getDefault();
+		}
 		return $this->_di;
 	}
 	

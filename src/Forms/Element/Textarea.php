@@ -33,6 +33,7 @@ class Textarea extends \Phalcon\Forms\Element\Textarea implements \Vein\Core\For
      * Sets the element description
      *
      * @param string $desc
+     * 
      * @return \Vein\Core\Forms\Element\TextArea
      */
     public function setDesc($desc)
@@ -40,7 +41,6 @@ class Textarea extends \Phalcon\Forms\Element\Textarea implements \Vein\Core\For
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

@@ -268,6 +268,9 @@ abstract class Form implements
     {
         $this->_fieldNames = [];
         foreach ($this->_fields as $key => $field) {
+			/* @var \Vein\Core\Crud\Form\Field $field */
+			$field->setDi($this->_di);
+			$field->setEventsManager($this->_eventsManager);
             $field->init($this, $key);
             if (!$field->isAddToContainer()) {
                 continue;
@@ -305,6 +308,7 @@ abstract class Form implements
     	foreach ($this->_fields as $key => $field) {
             if ($this->_id === null) {
             }
+			/* @var \Vein\Core\Crud\Form\Field */
     		$elements = $field->getElement();
     		$field->updateField();
     		if (!is_array($elements)) {
@@ -402,8 +406,7 @@ abstract class Form implements
 			} else {*/
             if ($field instanceof Field) {
 				$key = ($useFormFieldName) ? $field->getName() : $field->getKey();
-				$formFieldKey = $field->getKey();
-				if (isset($data[$key])) {
+				if (array_key_exists($key, $data)) {
 					$field->setValue($data[$key]);
 				}
 			}
@@ -569,6 +572,25 @@ abstract class Form implements
 	        throw new Exception('Form not init!');
 	    }
         $this->beforeValidate($data);
+
+		foreach ($this->_fields as $field) {
+			if ($field instanceof Field\Security) {
+				if (!$field->isValid($data)) {
+					throw new Exception('Form security invalid');
+				}
+			} else {
+				$key = $field->getKey();
+				$value = (array_key_exists($key, $data)) ? $data[$key] : null;
+				if (!$field->isValid($value)) {
+					if ($value === null) {
+						$value = 'null';
+					} elseif ($value === false) {
+						$value = 'false';
+					}
+					throw new Exception('Value \'' . $value . '\' for form field \'' . $key . '\' invalid');
+				}
+			}
+		}
         if (!$this->validate($data) || !$this->_form->isValid($data)) {
             return false;
         }
@@ -659,7 +681,8 @@ abstract class Form implements
      * Save form data to database
      * 
      * @params array $data
-     * @return integer|bool
+	 *
+     * @return integer
      */
 	final public function save(array $data = [], $validate = true)
 	{

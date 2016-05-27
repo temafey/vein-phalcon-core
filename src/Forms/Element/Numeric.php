@@ -33,6 +33,7 @@ class Numeric extends \Phalcon\Forms\Element\Numeric implements \Vein\Core\Forms
      * Sets the element description
      *
      * @param string $desc
+     *
      * @return \Vein\Core\Forms\Element\Text
      */
     public function setDesc($desc)
@@ -40,7 +41,6 @@ class Numeric extends \Phalcon\Forms\Element\Numeric implements \Vein\Core\Forms
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

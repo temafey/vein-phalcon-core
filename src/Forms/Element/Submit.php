@@ -33,6 +33,7 @@ class Submit extends \Phalcon\Forms\Element\Submit implements \Vein\Core\Forms\E
      * Sets the element description
      *
      * @param string $desc
+     * 
      * @return \Vein\Core\Forms\Element\Text
      */
     public function setDesc($desc)
@@ -40,7 +41,6 @@ class Submit extends \Phalcon\Forms\Element\Submit implements \Vein\Core\Forms\E
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

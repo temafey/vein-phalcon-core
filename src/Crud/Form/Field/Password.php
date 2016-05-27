@@ -5,7 +5,8 @@
 namespace Vein\Core\Crud\Form\Field;
 
 use Vein\Core\Crud\Form\Field,
-    Phalcon\Security;
+    Phalcon\Security,
+    Phalcon\Crypt;
 
 /**
  * Phone field
@@ -28,6 +29,11 @@ class Password extends Field
     protected $_security;
 
     /**
+     * @var \Phalcon\Crypt
+     */
+    protected $_crypt;
+
+    /**
      * Crypt type
      * @var string
      */
@@ -48,30 +54,31 @@ class Password extends Field
     /**
      * @param string $label
      * @param string $name
-     * @param \Phalcon\Security $security
+     * @param Security $security
+     * @param Crypt $crypt
      * @param string $keyTemplate
      * @param int $length
      * @param string $description
      * @param string $cryptType
      * @param bool $required
-     * @param bool $notEdit
      * @param int $width
      */
     public function __construct(
         $label = null,
         $name = null,
         Security $security = null,
+        Crypt $crypt = null,
         $keyTemplate = '{name}',
         $length = 8,
         $description = null,
         $cryptType = 'blowfish',
         $required = true,
-        $notEdit = false,
         $width = 280
     ) {
-		parent::__construct($label, $name, $description, $required, $notEdit, $width);
+		parent::__construct($label, $name, $description, $required, $width);
 
         $this->_security = $security;
+        $this->_crypt = $crypt;
         $this->_length = (int) $length;
 		$this->_keyTemplate = $keyTemplate;
 		$this->_cryptType = $cryptType;
@@ -118,7 +125,8 @@ class Password extends Field
         if ($this->_notSave) {
             return false;
         }
-        $value = ($this->_security) ? $this->getHashValue() : $this->getCryptValue();
+        //$value = ($this->_security) ? $this->getHashValue() : $this->getCryptValue();
+        $value = $this->getHashValue();
 
         return ['key' => $this->getName(), 'value' => $value];
     }
@@ -130,6 +138,16 @@ class Password extends Field
      */
     public function getHashValue()
     {
+        if (!$this->_security) {
+            $dependencyInjection = $this->getDi();
+            if ($dependencyInjection->has('security')) {
+                $this->_security = $dependencyInjection->get('security');
+            } else {
+                $this->_security = new Security();
+                $this->_security->setWorkFactor(12);
+            }
+        }
+
         return $this->_security->hash($this->_element->getValue());
     }
 
@@ -140,14 +158,20 @@ class Password extends Field
      */
     public function getCryptValue()
 	{
-        //Create an instance
-        $crypt = new \Phalcon\Crypt();
-        $crypt->setCipher($this->_cryptType);
+        if (!$this->_crypt) {
+            $dependencyInjection = $this->getDi();
+            if ($dependencyInjection->has('crypt')) {
+                $this->_crypt = $dependencyInjection->get('crypt');
+            } else {
+                $this->_crypt = new Crypt();
+                $this->_crypt->setCipher($this->_cryptType);
+            }
+        }
 
         $key = \Vein\Core\Tools\Strings::generateStringTemplate($this->_keyTemplate, $this->_form->getData(), '{', '}');
         $value = $this->_element->getValue();
 
-        return $crypt->encryptBase64($value, $key);
+        return $this->_crypt->encryptBase64($value, $key);
 	}
 
     /**
@@ -157,13 +181,19 @@ class Password extends Field
      */
     public function getDecryptValue()
     {
-        //Create an instance
-        $crypt = new \Phalcon\Crypt();
-        $crypt->setCipher($this->_cryptType);
+        if (!$this->_crypt) {
+            $dependencyInjection = $this->getDi();
+            if ($dependencyInjection->has('crypt')) {
+                $this->_crypt = $dependencyInjection->get('crypt');
+            } else {
+                $this->_crypt = new Crypt();
+                $this->_crypt->setCipher($this->_cryptType);
+            }
+        }
 
         $key = \Vein\Core\Tools\Strings::generateStringTemplate($this->_keyTemplate, $this->_form->getData(), '{', '}');
         $value = $this->_value;
 
-        return $crypt->decryptBase64($value, $key);
+        return $this->_crypt->decryptBase64($value, $key);
     }
 }

@@ -39,8 +39,9 @@ class Text extends Field
      * @param string $label
      * @param string $name
      * @param string $desc
-     * @param string $criteria
+     * @param boolean $required
      * @param int $width
+     * @param string $default
      * @param int $lengthMax
      * @param int $lengthMin
      */

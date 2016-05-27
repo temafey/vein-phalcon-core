@@ -33,6 +33,7 @@ class Password extends \Phalcon\Forms\Element\Password implements \Vein\Core\For
      * Sets the element description
      *
      * @param string $desc
+     *
      * @return \Vein\Core\Forms\Element\Password
      */
     public function setDesc($desc)
@@ -40,7 +41,6 @@ class Password extends \Phalcon\Forms\Element\Password implements \Vein\Core\For
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

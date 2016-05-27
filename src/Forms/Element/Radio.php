@@ -49,7 +49,7 @@ class Radio extends \Phalcon\Forms\Element\Radio implements \Vein\Core\Forms\Ele
      * Sets the element description
      *
      * @param string $desc
-     * @return \Vein\Core\Forms\Element\Radio
+     *
      * @return \Vein\Core\Forms\Element\Radio
      */
     public function setDesc($desc)
@@ -57,7 +57,6 @@ class Radio extends \Phalcon\Forms\Element\Radio implements \Vein\Core\Forms\Ele
         $this->_desc = $desc;
         return $this;
     }
-
 
     /**
      * Returns the element's description

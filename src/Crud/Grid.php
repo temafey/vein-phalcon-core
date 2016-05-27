@@ -1326,7 +1326,7 @@ abstract class Grid implements
 		$titles = [];	
 		foreach ($this->_columns as $key => $column) {
 			$title = $column->getTitle();
-			$titles[$key] = $column;
+			$titles[$key] = $title;
 		}
 		
 		return $titles;	
