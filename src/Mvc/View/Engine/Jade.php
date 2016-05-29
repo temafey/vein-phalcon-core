@@ -2,18 +2,18 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Mvc\View\Vein\Core;
+namespace Vein\Core\Mvc\View\Engine;
 
 use Phalcon\Mvc\View,
-    Phalcon\Mvc\View\Vein\Core,
-    Phalcon\Mvc\View\Vein\CoreInterface;
+    Phalcon\Mvc\View\Engine,
+    Phalcon\Mvc\View\EngineInterface;
 
 /**
  * Jade
  *
  * Adapter to use Jade library as templating engine
  */
-class Jade extends Vein\Core implements Vein\CoreInterface
+class Jade extends Engine implements EngineInterface
 {
 
     protected $_jade;

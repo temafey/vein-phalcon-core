@@ -23,7 +23,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
      * @param string $name
      * @param array $attributes
      */
-    public function __construct($name, array $attributes=null)
+    public function __construct($name, $attributes=null)
     {
         if (isset($attributes['value']) && $attributes['value'] == true) {
             $attributes['checked'] = 'checked';

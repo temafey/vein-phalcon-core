@@ -23,7 +23,7 @@ class Html extends \Vein\Core\Forms\Element\Text implements \Vein\Core\Forms\Ele
      * @param string $name
      * @param array $attributes
      */
-    public function __construct($name, array $attributes=null)
+    public function __construct($name, $attributes = null)
     {
         if (isset($attributes['html']) ) {
             $this->_html = $attributes['html'];
@@ -49,7 +49,7 @@ class Html extends \Vein\Core\Forms\Element\Text implements \Vein\Core\Forms\Ele
      *
      * @return string
      */
-    public function render(array $attributes = null)
+    public function render($attributes = null)
     {
         return $this->_html;
     }

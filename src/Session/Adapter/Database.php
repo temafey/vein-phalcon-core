@@ -172,7 +172,7 @@ class Database extends Adapter implements AdapterInterface
      *
      * @return boolean
      */
-    public function destroy()
+    public function destroy($removeData = NULL)
     {
         if (!$this->isStarted() || $this->isDestroyed) {
             return true;

@@ -5,7 +5,7 @@
 namespace Vein\Core\Mvc\Module\Service;
 
 use Vein\Core\Mvc\Module\Service\AbstractService,
-    \Phalcon\Mvc\View\Vein\Core\Volt as ViewVein\Core;
+    Phalcon\Mvc\View\Vein\Core\Volt as ViewEngine;
 
 /**
  * Class Volt
@@ -26,8 +26,8 @@ class Volt extends AbstractService
 
         $config = $this->_config;
 
-        $dependencyInjector->set('viewVein\Core', function ($view, $dependencyInjector) use ($config) {
-            $volt = new ViewVein\Core($view, $dependencyInjector);
+        $dependencyInjector->set('viewEngine', function ($view, $dependencyInjector) use ($config) {
+            $volt = new ViewEngine($view, $dependencyInjector);
             $volt->setOptions([
                 "compiledPath" => $config->application->view->compiledPath,
                 "compiledExtension" => $config->application->view->compiledExtension,

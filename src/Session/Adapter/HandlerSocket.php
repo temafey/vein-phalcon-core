@@ -289,9 +289,9 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * @param string $id
      * @return true
      */
-    public function destroy($id)
+    public function destroy($removeData = NULL)
     {
-        $this->_hs->executeDelete($this->_hsIndex, '=', array($id), 1, 0);
+        $this->_hs->executeDelete($this->_hsIndex, '=', [$removeData], 1, 0);
 
         return true;
     }

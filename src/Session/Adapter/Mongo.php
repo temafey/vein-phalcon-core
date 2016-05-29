@@ -105,7 +105,7 @@ class Mongo extends Adapter implements AdapterInterface
 	 * Destroyes the session
 	 *
 	 */
-	public function destroy()
+	public function destroy($removeData = NULL)
 	{
 		$options = $this->getOptions();
 		$sessionData = $options['collection']->findOne(array('session_id' => session_id()));

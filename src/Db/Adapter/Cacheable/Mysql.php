@@ -19,7 +19,7 @@ class Mysql extends \Phalcon\Db\Adapter\Pdo\Mysql
 	 *
 	 * @param array $descriptor
 	 */
-	public function __construct($descriptor)
+	public function __construct(array $descriptor)
 	{
 		$this->_descriptor = $descriptor;
 		$this->_dialect = new \Phalcon\Db\Dialect\Mysql();

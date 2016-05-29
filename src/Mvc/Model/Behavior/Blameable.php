@@ -26,19 +26,18 @@ class Blameable extends Behavior implements BehaviorInterface
 	/**
 	 * Receive notifications from the Models Manager
 	 *
-	 * @param string $eventType
+	 * @param string $type
 	 * @param \Phalcon\Mvc\ModelInterface $model
 	 */
-	public function notify($eventType, $model)
+	public function notify($type, \Phalcon\Mvc\ModelInterface $model)
 	{
-
 		//Fires 'logAfterUpdate' if the event is 'afterCreate'
-		if ($eventType == 'afterCreate') {
+		if ($type == 'afterCreate') {
 			return $this->auditAfterCreate($model);
 		}
 
 		//Fires 'logAfterUpdate' if the event is 'afterUpdate'
-		if ($eventType == 'auditUpdate') {
+		if ($type == 'auditUpdate') {
 			return $this->logAfterUpdate($model);
 		}
 	}
