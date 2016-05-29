@@ -109,20 +109,12 @@
 | public | <strong>__invoke(</strong><em>array</em> <strong>$data=null</strong>)</strong> : <em>void</em><br /><em>array_pop</em> |
 | public | <strong>_normalizeHelper(</strong><em>string</em> <strong>$helper</strong>)</strong> : <em>string</em><br /><em>Normalize helper name</em> |
 | public | <strong>addAdditional(</strong><em>string</em> <strong>$type</strong>, <em>string</em> <strong>$module</strong>, <em>string</em> <strong>$key</strong>, <em>string</em> <strong>$param</strong>)</strong> : <em>[\Vein\Core\Crud\Grid](#class-veincorecrudgrid-abstract)</em><br /><em>Add grid additional</em> |
-| public | <strong>addAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <em>\Vein\Core\Tools\Traits\DIaware,
-		\Vein\Core\Tools\Traits\EventsAware,
-		\Vein\Core\Tools\Traits\Resource,
-		\Vein\Core\Crud\Tools\Renderer,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Set element attributes</em> |
+| public | <strong>addAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <br /><em>Set element attributes</em> |
 | public | <strong>addAutoloadMethodPrefixException(</strong><em>string</em> <strong>$prefix</strong>)</strong> : <em>\Vein\Core\Tools\Traits\Resource</em><br /><em>Add prefix exception.</em> |
 | public | <strong>addHelper(</strong><em>string</em> <strong>$helper</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Renderer</em><br /><em>Add helper</em> |
 | public | <strong>addHelpers(</strong><em>array</em> <strong>$helpers</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Renderer</em><br /><em>Add helpers</em> |
 | public | <strong>bulkUpdate(</strong><em>array/string</em> <strong>$ids</strong>, <em>array</em> <strong>$data</strong>)</strong> : <em>bool/array</em><br /><em>Update column in rows by array of primary key values.</em> |
-| public | <strong>clearAttribs()</strong> : <em>\Vein\Core\Tools\Traits\DIaware,
-		\Vein\Core\Tools\Traits\EventsAware,
-		\Vein\Core\Tools\Traits\Resource,
-		\Vein\Core\Crud\Tools\Renderer,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Clear element attributes</em> |
+| public | <strong>clearAttribs()</strong> : <br /><em>Clear element attributes</em> |
 | public | <strong>clearData()</strong> : <em>[\Vein\Core\Crud\Grid](#class-veincorecrudgrid-abstract)</em><br /><em>Clear grid data</em> |
 | public | <strong>clearHelpers()</strong> : <em>\Vein\Core\Crud\Tools\Renderer</em><br /><em>Clear all helpers</em> |
 | public | <strong>count()</strong> : <em>integer</em><br /><em>Count elements of an object</em> |
@@ -132,8 +124,6 @@
 | public | <strong>getAdditionals()</strong> : <em>array</em><br /><em>Return grid additionals</em> |
 | public | <strong>getAttrib(</strong><em>string</em> <strong>$name</strong>)</strong> : <em>string</em><br /><em>Return element attribute</em> |
 | public | <strong>getAttribs()</strong> : <em>array</em><br /><em>Return element attributes</em> |
-| public | <strong>getAutoloadMethodPrefix()</strong> : <em>string</em><br /><em>Get $_autoloadMethodPrefix.</em> |
-| public | <strong>getAutoloadMethodPrefixException()</strong> : <em>string</em><br /><em>Get $_autoloadMethodPrefixException</em> |
 | public | <strong>getClassResourceNames()</strong> : <em>array</em><br /><em>Get class resource names</em> |
 | public | <strong>getClassResources()</strong> : <em>array</em><br /><em>Get class resources (as resource/method pairs) Uses get_class_methods() by default, reflection on prior to 5.2.6, as a bug prevents the usage of get_class_methods() there.</em> |
 | public | <strong>getColumnByName(</strong><em>string</em> <strong>$name</strong>)</strong> : <em>[\Vein\Core\Crud\Grid\Column](#class-veincorecrudgridcolumn-abstract)</em><br /><em>Return column by name</em> |
@@ -186,29 +176,13 @@
 | public | <strong>offsetGet(</strong><em>integer</em> <strong>$offset</strong>)</strong> : <em>mixed</em><br /><em>Offset to retrieve</em> |
 | public | <strong>offsetSet(</strong><em>integer</em> <strong>$offset</strong>, <em>string</em> <strong>$value</strong>)</strong> : <em>void</em><br /><em>Offset to set</em> |
 | public | <strong>offsetUnset(</strong><em>integer</em> <strong>$offset</strong>)</strong> : <em>void</em><br /><em>Offset to unset</em> |
-| public | <strong>removeAttrib(</strong><em>string</em> <strong>$key</strong>)</strong> : <em>\Vein\Core\Tools\Traits\DIaware,
-		\Vein\Core\Tools\Traits\EventsAware,
-		\Vein\Core\Tools\Traits\Resource,
-		\Vein\Core\Crud\Tools\Renderer,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Remove element attribute</em> |
+| public | <strong>removeAttrib(</strong><em>string</em> <strong>$key</strong>)</strong> : <br /><em>Remove element attribute</em> |
 | public | <strong>render(</strong><em>string</em> <strong>$content=`''`</strong>)</strong> : <em>string</em><br /><em>Render object</em> |
 | public | <strong>rewind()</strong> : <em>void</em><br /><em>Rewind the Iterator to the first element</em> |
 | public | <strong>serialize()</strong> : <em>string</em><br /><em>String representation of object</em> |
 | public | <strong>setAction(</strong><em>string</em> <strong>$action</strong>)</strong> : <em>[\Vein\Core\Crud\Grid](#class-veincorecrudgrid-abstract)</em><br /><em>Set action</em> |
-| public | <strong>setAttrib(</strong><em>string</em> <strong>$key</strong>, <em>mixed/string</em> <strong>$value=null</strong>)</strong> : <em>\Vein\Core\Tools\Traits\DIaware,
-		\Vein\Core\Tools\Traits\EventsAware,
-		\Vein\Core\Tools\Traits\Resource,
-		\Vein\Core\Crud\Tools\Renderer,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Add element attribute</em> |
-| public | <strong>setAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <em>\Vein\Core\Tools\Traits\DIaware,
-		\Vein\Core\Tools\Traits\EventsAware,
-		\Vein\Core\Tools\Traits\Resource,
-		\Vein\Core\Crud\Tools\Renderer,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Set element attributes</em> |
-| public | <strong>setAutoloadMethodPrefix(</strong><em>string</em> <strong>$prefix</strong>)</strong> : <em>\Vein\Core\Tools\Traits\Resource</em><br /><em>Set $_autoloadMethodPrefix</em> |
-| public | <strong>setAutoloadMethodPrefixException(</strong><em>array</em> <strong>$prefixes</strong>)</strong> : <em>\Vein\Core\Tools\Traits\Resource</em><br /><em>Set $_autoloadMethodPrefixException</em> |
-| public | <strong>setDi(</strong><em>\Phalcon\DiInterface</em> <strong>$dependencyInjector=null</strong>)</strong> : <em>void</em><br /><em>Sets the dependency injector</em> |
-| public | <strong>setEventsManager(</strong><em>\Phalcon\Events\ManagerInterface</em> <strong>$eventsManager=null</strong>)</strong> : <em>void</em><br /><em>Sets the events manager</em> |
+| public | <strong>setAttrib(</strong><em>string</em> <strong>$key</strong>, <em>mixed/string</em> <strong>$value=null</strong>)</strong> : <em>Add element attribute</em> |
+| public | <strong>setAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <br /><em>Set element attributes</em> |
 | public | <strong>setExtraLimitMoreTimes(</strong><em>int</em> <strong>$limit</strong>)</strong> : <em>[\Vein\Core\Crud\Grid](#class-veincorecrudgrid-abstract)</em><br /><em>Set limit that will use in container model query</em> |
 | public | <strong>setFilterParam(</strong><em>string</em> <strong>$name</strong>, <em>mixed</em> <strong>$value</strong>)</strong> : <em>[\Vein\Core\Crud\Grid](#class-veincorecrudgrid-abstract)</em><br /><em>Set filter param</em> |
 | public | <strong>setHelpers(</strong><em>array</em> <strong>$helpers</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Renderer</em><br /><em>Set helpers</em> |
@@ -229,21 +203,28 @@
 | public | <strong>valid()</strong> : <em>boolean</em><br /><em>Checks if current position is valid</em> |
 | protected | <strong>_beforeRender()</strong> : <em>string</em><br /><em>Do something before render</em> |
 | protected | <strong>_executingResource(</strong><em>string</em> <strong>$resource</strong>)</strong> : <em>void</em><br /><em>Execute a resource. Checks to see if the resource has already been run. If not, it searches first to see if a local method matches the resource, and executes that. If not, it checks to see if a plugin resource matches, and executes that if found. Finally, if not found, it throws an exception.</em> |
-| protected | <strong>abstract _initColumns()</strong> : <em>void</em><br /><em>Initialize columns</em> |
 | protected | <strong>_initContainer()</strong> : <em>void</em><br /><em>Initialize container</em> |
 | protected | <strong>_initDecorator()</strong> : <em>void</em><br /><em>Initialize decorator</em> |
-| protected | <strong>abstract _initFilters()</strong> : <em>void</em><br /><em>Initialize filters</em> |
 | protected | <strong>_initForm()</strong> : <em>void</em><br /><em>Initialize form</em> |
 | protected | <strong>_initResource()</strong> : <em>void</em><br /><em>Get all object method</em> |
 | protected | <strong>_markRun(</strong><em>string</em> <strong>$resource</strong>)</strong> : <em>void</em><br /><em>Mark a resource as having run</em> |
 | protected | <strong>_paginate(</strong><em>array</em> <strong>$data</strong>)</strong> : <em>void</em><br /><em>Paginate data array</em> |
-| protected | <strong>_runResourceMethods()</strong> : <em>void</em><br /><em>Execute all _setup* methods in class</em> |
 | protected | <strong>_setData()</strong> : <em>void</em><br /><em>Set grid data from Container object</em> |
 | protected | <strong>_setOptions(</strong><em>array</em> <strong>$options</strong>)</strong> : <em>void</em><br /><em>Set extra grid options before inititialize</em> |
 | protected | <strong>_setupContainer()</strong> : <em>void</em><br /><em>Setup container</em> |
 | protected | <strong>_setupFilter()</strong> : <em>void</em><br /><em>Setup filter</em> |
 | protected | <strong>_setupGrid()</strong> : <em>void</em><br /><em>Setup grid</em> |
 | protected | <strong>updateDataSource(</strong><em>mixed</em> <strong>$dataSource</strong>)</strong> : <em>void</em><br /><em>Update container data source</em> |
+| protected | <strong>abstract _initColumns()</strong> : <em>void</em><br /><em>Initialize columns</em> |
+| protected | <strong>abstract _initFilters()</strong> : <em>void</em><br /><em>Initialize filters</em> |
+| protected | <strong>_runResourceMethods()</strong> : <em>void</em><br /><em>Execute all _setup* methods in class</em> |
+| public | <strong>getAutoloadMethodPrefix()</strong> : <em>string</em><br /><em>Get $_autoloadMethodPrefix</em> |
+| public | <strong>getAutoloadMethodPrefixException()</strong> : <em>string</em><br /><em>Get $_autoloadMethodPrefixException</em> |
+| public | <strong>setAutoloadMethodPrefix(</strong><em>string</em> <strong>$prefix</strong>)</strong> : <em>\Vein\Core\Tools\Traits\Resource</em><br /><em>Set $_autoloadMethodPrefix</em> |
+| public | <strong>setAutoloadMethodPrefixException(</strong><em>array</em> <strong>$prefixes</strong>)</strong> : <em>\Vein\Core\Tools\Traits\Resource</em><br /><em>Set $_autoloadMethodPrefixException</em> |
+| public | <strong>setDi(</strong><em>\Phalcon\DiInterface</em> <strong>$dependencyInjector=null</strong>)</strong> : <em>void</em><br /><em>Sets the dependency injector</em> |
+| public | <strong>setEventsManager(</strong><em>\Phalcon\Events\ManagerInterface</em> <strong>$eventsManager=null</strong>)</strong> : <em>void</em><br /><em>Sets the events manager</em> |
+
 
 *This class implements \Phalcon\Events\EventsAwareInterface, \Phalcon\Di\InjectionAwareInterface, \ArrayAccess, \Countable, \Iterator, \Traversable, \Serializable*
 
@@ -440,16 +421,12 @@
 | Visibility | Function |
 |:-----------|:---------|
 | public | <strong>__construct(</strong><em>string</em> <strong>$title</strong>, <em>mixed/string</em> <strong>$name=null</strong>, <em>bool</em> <strong>$isSortable=true</strong>, <em>bool</em> <strong>$isHidden=false</strong>, <em>mixed/int</em> <strong>$width=160</strong>, <em>bool</em> <strong>$isEditable=true</strong>, <em>mixed/string</em> <strong>$fieldKey=null</strong>)</strong> : <em>void</em><br /><em>Constructor</em> |
-| public | <strong>addAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters,
-        \Vein\Core\Crud\Tools\Validators,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Set element attributes</em> |
+| public | <strong>addAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <br /><em>Set element attributes</em> |
 | public | <strong>addFilter(</strong><em>mixed</em> <strong>$filter</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters</em><br /><em>Add a filter to the element</em> |
 | public | <strong>addFilters(</strong><em>array</em> <strong>$filters</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters</em><br /><em>Add filters to element</em> |
 | public | <strong>addValidator(</strong><em>mixed</em> <strong>$validator</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Validators</em><br /><em>Add a filter to the element</em> |
 | public | <strong>addValidators(</strong><em>array</em> <strong>$validators</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Validators</em><br /><em>Add Validators to element</em> |
-| public | <strong>clearAttribs()</strong> : <em>\Vein\Core\Crud\Tools\Filters,
-        \Vein\Core\Crud\Tools\Validators,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Clear element attributes</em> |
+| public | <strong>clearAttribs()</strong> : <em>Clear element attributes</em> |
 | public | <strong>clearFilters()</strong> : <em>\Vein\Core\Crud\Tools\Filters</em><br /><em>Clear all filters</em> |
 | public | <strong>clearValidators()</strong> : <em>\Vein\Core\Crud\Tools\Validators</em><br /><em>Clear all validators</em> |
 | public | <strong>createValidator(</strong><em>mixed</em> <strong>$validator</strong>)</strong> : <em>\Phalcon\Validation\ValidatorInterface</em><br /><em>Create validator</em> |
@@ -478,18 +455,12 @@
 | public | <strong>isHidden()</strong> : <em>bool</em><br /><em>Is column hidden.</em> |
 | public | <strong>isSortable()</strong> : <em>bool</em><br /><em>Check is column sortable.</em> |
 | public | <strong>isSorted()</strong> : <em>bool</em><br /><em>Check is column sort</em> |
-| public | <strong>removeAttrib(</strong><em>string</em> <strong>$key</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters,
-        \Vein\Core\Crud\Tools\Validators,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Remove element attribute</em> |
+| public | <strong>removeAttrib(</strong><em>string</em> <strong>$key</strong>)</strong> : <br /><em>Remove element attribute</em> |
 | public | <strong>removeFilter(</strong><em>string</em> <strong>$name</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters</em><br /><em>Remove a filter by name</em> |
 | public | <strong>abstract render(</strong><em>mixed</em> <strong>$row</strong>)</strong> : <em>string</em><br /><em>Render column</em> |
 | public | <strong>setAction(</strong><em>string</em> <strong>$action</strong>, <em>bool/string</em> <strong>$actionParam=false</strong>)</strong> : <em>[\Vein\Core\Crud\Grid\Column](#class-veincorecrudgridcolumn-abstract)</em><br /><em>Set action to grid column, with post param key name. Set param key name without "=".</em> |
-| public | <strong>setAttrib(</strong><em>string</em> <strong>$key</strong>, <em>mixed/string</em> <strong>$value=null</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters,
-        \Vein\Core\Crud\Tools\Validators,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Add element attribute</em> |
-| public | <strong>setAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters,
-        \Vein\Core\Crud\Tools\Validators,
-        \Vein\Core\Crud\Tools\Attributes</em><br /><em>Set element attributes</em> |
+| public | <strong>setAttrib(</strong><em>string</em> <strong>$key</strong>, <em>mixed/string</em> <strong>$value=null</strong>)</strong> : <br /><em>Add element attribute</em> |
+| public | <strong>setAttribs(</strong><em>array</em> <strong>$attribs</strong>)</strong> : <br /><em>Set element attributes</em> |
 | public | <strong>setEditable(</strong><em>bool</em> <strong>$editable</strong>)</strong> : <em>[\Vein\Core\Crud\Grid\Column](#class-veincorecrudgridcolumn-abstract)</em><br /><em>Set if data by column can be edit</em> |
 | public | <strong>setFilters(</strong><em>array</em> <strong>$filters</strong>)</strong> : <em>\Vein\Core\Crud\Tools\Filters</em><br /><em>Add filters to element, overwriting any already existing</em> |
 | public | <strong>setHidden(</strong><em>bool</em> <strong>$hidden</strong>)</strong> : <em>[\Vein\Core\Crud\Grid\Column](#class-veincorecrudgridcolumn-abstract)</em><br /><em>Set if data by column is hidden</em> |
