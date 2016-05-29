@@ -68,7 +68,7 @@ class Indexer
     /**
      * Create elasticsearch index
      *
-     * @return array Server response
+     * @return array
      */
     public function createIndex()
     {
@@ -112,7 +112,7 @@ class Indexer
     /**
      * Initialize and return search index
      *
-     * @return\Vein\Core\Search\Elasticsearch\Index
+     * @return \Vein\Core\Search\Elasticsearch\Index
      */
     public function getIndex()
     {
@@ -190,7 +190,7 @@ class Indexer
      * @param bool $store
      * @param bool $joinType
      * @param bool|string $type
-     * @return array|bool
+     * @return array
      */
     public function getFieldMap(Field $field, $sortable = false, $store = false, $joinType = false, $type = false)
     {
@@ -353,7 +353,7 @@ class Indexer
     /**
      * Return field boost param value
      *
-     * $param Field $field
+     * @param Field $field
      *
      * @return string
      */
@@ -449,6 +449,8 @@ class Indexer
      *
      * @param array $data
      * @param \Vein\Core\Crud\Grid $grid
+     *
+     * @return \Elastica\Response
      * @throws \Vein\Core\Exception
      */
     public function addItem(array $data, $grid = null)
@@ -458,7 +460,7 @@ class Indexer
         }
         $itemDocument = $this->_processItemData($data, $grid);
         if (!$itemDocument) {
-            return;
+            return false;
         }
 
         return $this->getType()->addDocument($itemDocument);
@@ -469,6 +471,8 @@ class Indexer
      *
      * @param array $data
      * @param \Vein\Core\Crud\Grid $grid
+     *
+     * @return boolean
      * @throws \Vein\Core\Exception
      */
     public function existItem(array $data, $grid = null)
@@ -493,7 +497,9 @@ class Indexer
     /**
      * Check if item exist in search index
      *
-     * @param mixed $id
+     * @param integer $id
+     *
+     * @return boolean
      * @throws \Vein\Core\Exception
      */
     public function existItemById($id)
@@ -512,6 +518,8 @@ class Indexer
      *
      * @param array $data
      * @param \Vein\Core\Crud\Grid $grid
+     *
+     * @return \Elastica\Response
      * @throws \Vein\Core\Exception
      */
     public function updateItem($data, $grid = null)
@@ -529,6 +537,8 @@ class Indexer
      *
      * @param array $data
      * @param \Vein\Core\Crud\Grid $grid
+     *
+     * @return \Elastica\Response
      * @throws \Vein\Core\Exception
      */
     public function deleteItem($data, $grid = null)
@@ -544,7 +554,9 @@ class Indexer
     /**
      * Delete document from index
      *
-     * @param mixed $id
+     * @param integer $id
+     *
+     * @return \Elastica\Response
      */
     public function deleteItemById($id)
     {

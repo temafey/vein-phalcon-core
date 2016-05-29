@@ -395,6 +395,8 @@ class Builder extends PhBuilder
      * @param array $columns
      * @param string $refModel
      * @param string $alias
+     *
+     * @return void
      */
     public function joinColumns($columns, $refModel, $alias)
     {

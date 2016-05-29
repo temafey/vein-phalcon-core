@@ -35,7 +35,7 @@ class Logger extends AbstractService
                 $logger->setFormatter($formatter);
                 return $logger;
             });
-        } /*else {
+        } else {
             $dependencyInjector->set('logger', function () use ($config) {
                 $logger = new \Phalcon\Logger\Adapter\Syslog($config->application->logger->project, [
                     'option' => LOG_NDELAY,
@@ -43,6 +43,6 @@ class Logger extends AbstractService
                 ]);
                 return $logger;
             });
-        }*/
+        }
     }
 } 

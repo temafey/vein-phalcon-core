@@ -159,7 +159,10 @@ class JoinMany extends Column
 		        }
 		    }
 		}
-		
+
+		if (!$this->_separator) {
+			return $values;
+		}
 		$value = implode($this->_separator, $values);
 		if (($this->_count !== false) && ($this->_count !== null) && $count > $this->_count) {
 			$value .= $this->_separator."...";
@@ -198,7 +201,8 @@ class JoinMany extends Column
                 $model->setConnectionService($modelAdapter);
             }
             $this->_queryBuilder = $model->queryBuilder();
-            $this->_queryBuilder->columnsJoinOne($path, $name);
+			$column = ($name != \Vein\Core\Mvc\Model::NAME) ? [$name => $name] : $name;
+            $this->_queryBuilder->columnsJoinOne($path, $column);
 
             $mainModel = $this->_grid->getContainer()->getDataSource()->getModel();
             $relations = $mainModel->getRelationPath($workedModel);

@@ -32,9 +32,9 @@ class Base extends Column
 
     /**
      * Return render value
-     * (non-PHPdoc)
-     * @see \Vein\Core\Crud\Grid\Column::render()
-     * @param mixed $row
+     *
+     * @param array $row
+     *
      * @return string
      */
     public function render($row)

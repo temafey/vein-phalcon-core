@@ -278,9 +278,11 @@ class Filter
     /**
      * Add new field
      * 
-     * @param \Vein\Core\Crud\Grid\Filter\Field|string $field
+     * @param \Vein\Core\Crud\Grid\Filter\Field $field
      * @param string $key
      * @param array $options
+     *
+     * @return \Vein\Core\Crud\Grid\Filter
      */
     public function addField($field, $key = null, $options = null)
     {
@@ -300,6 +302,8 @@ class Filter
             $this->_primaryField = $field;
         }
 		$this->_fields[$key] = $field;
+
+        return $this;
     }
 
     /**

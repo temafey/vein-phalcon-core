@@ -61,6 +61,7 @@ class Password extends Field
      * @param string $description
      * @param string $cryptType
      * @param bool $required
+     * @param bool $notEdit
      * @param int $width
      */
     public function __construct(
@@ -73,9 +74,10 @@ class Password extends Field
         $description = null,
         $cryptType = 'blowfish',
         $required = true,
+        $notEdit = false,
         $width = 280
     ) {
-		parent::__construct($label, $name, $description, $required, $width);
+		parent::__construct($label, $name, $description, $required, $notEdit, $width);
 
         $this->_security = $security;
         $this->_crypt = $crypt;

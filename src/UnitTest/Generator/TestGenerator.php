@@ -11,9 +11,9 @@ namespace Vein\Core\UnitTest\Generator;
  */
 class TestGenerator extends AbstractGenerator
 {
-    public static $EXCLUDE_DECLARING_CLASES = ['Phalcon', 'Exception'];
+    public static $EXCLUDE_DECLARING_CLASSES = ['Exception'];
 
-    public static $EXCLUDE_DECLARING_CLASES_FOR_METHODS = ['Phalcon', 'Exception'];
+    public static $EXCLUDE_DECLARING_CLASSES_FOR_METHODS = ['Exception'];
 
     public static $EXCLUDE_DECLARING_METHODS = [
         'setdi',
@@ -30,12 +30,43 @@ class TestGenerator extends AbstractGenerator
         'getclassresources',
         'isexception',
         'getclassresourcenames',
+        'registerAutoloaders',
     ];
+
+    /**
+     * Parsed source namespaces
+     * @var array
+     */
+    protected $_namespaces = [];
 
     /**
      * @var array
      */
     protected $_methodNameCounter = [];
+
+    /**
+     * Method setter patterns
+     * @var array
+     */
+    protected $_setters = ['set', 'append', 'push', 'send', 'write'];
+
+    /**
+     * Method getter patterns
+     * @var array
+     */
+    protected $_getters = ['get', 'find', 'fetch', 'pop', 'read'];
+
+    /**
+     * Method checker patterns
+     * @var array
+     */
+    protected $_checkers = ['is', 'exist', 'has'];
+
+    /**
+     * Mocks generated code
+     * @var array
+     */
+    protected $_mocks = [];
 
     /**
      * Constructor.
@@ -149,6 +180,11 @@ class TestGenerator extends AbstractGenerator
             );
             return false;
         }
+        $traits =$class->getTraitNames();
+        foreach ($traits as $trait) {
+            $inSourceFile = realpath($trait);
+            include_once $inSourceFile;
+        }
 
         $methods           = '';
         $incompleteMethods = '';
@@ -169,7 +205,7 @@ class TestGenerator extends AbstractGenerator
                 !$method->isAbstract()
                 && $method->isPublic()
                 //&& $method->getDeclaringClass()->getName() == trim($this->_inClassName['fullyQualifiedClassName'], '\\')
-                && !in_array(explode('\\', trim($methodDeclaringClassName, '\\'))[0], self::$EXCLUDE_DECLARING_CLASES_FOR_METHODS)
+                && !in_array(explode('\\', trim($methodDeclaringClassName, '\\'))[0], self::$EXCLUDE_DECLARING_CLASSES_FOR_METHODS)
                 && !in_array(strtolower($methodName), self::$EXCLUDE_DECLARING_METHODS)
             ) {
                 $assertAnnotationFound = false;
@@ -205,6 +241,8 @@ class TestGenerator extends AbstractGenerator
             }
         }
 
+        $mocks = $this->_renderMocks();
+
         $classTemplate = new Template(
             sprintf(
                 '%s%stemplate%sTestClass.tpl',
@@ -224,6 +262,7 @@ class TestGenerator extends AbstractGenerator
                 'constructArgumentsInitialize' => $constructArgumentsInitialize,
                 'testClassName'      => $this->_outClassName['className'],
                 'methods'            => $methods . $incompleteMethods,
+                'mocks'              => $mocks,
                 'date'               => date('Y-m-d'),
                 'time'               => date('H:i:s')
             ]
@@ -242,6 +281,36 @@ class TestGenerator extends AbstractGenerator
     protected function _renderMethod(\ReflectionClass $class, \ReflectionMethod $method)
     {
         preg_match_all('/@return (.*)$/Um', $method->getDocComment(), $annotationReturn);
+        $phalconType = false;
+        if (explode('\\', trim($method->getDeclaringClass()->getName(), '\\'))[0] == 'Phalcon') {
+            $annotationParams[1] = null;
+            $phalconType = true;
+            foreach ($this->_setters as $setter) {
+                if (strpos($refMethodName, $setter) === 0) {
+                    $annotationReturn[1] = [0 => '$this'];
+                    break;
+                }
+            }
+
+            if (!$annotationReturn[1])
+                foreach ($this->_getters as $getter) {
+                    if (strpos($refMethodName, $getter) === 0) {
+                        $annotationReturn[1] = [0 => 'string'];
+                        break;
+                    }
+                }
+
+            if (!$annotationReturn[1])
+                foreach ($this->_checkers as $checker) {
+                    if (strpos($refMethodName, $checker) === 0) {
+                        $annotationReturn[1] = [0 => 'bool'];
+                        break;
+                    }
+                }
+
+            if (!$annotationReturn[1])
+                $annotationReturn[1] = [0 => 'string'];
+        }
         if (!$annotationReturn[1]) {
             throw new \RuntimeException(
                 sprintf(
@@ -350,7 +419,7 @@ class TestGenerator extends AbstractGenerator
     {
         $excludeConstructor = false;
         $methodDeclaringClass = $method->getDeclaringClass()->getName();
-        if (in_array(explode('\\', $methodDeclaringClass)[0], self::$EXCLUDE_DECLARING_CLASES)) {
+        if (in_array(explode('\\', $methodDeclaringClass)[0], self::$EXCLUDE_DECLARING_CLASSES)) {
             if ($method->isConstructor()) {
                $excludeConstructor = true;
             } else {
@@ -381,9 +450,9 @@ class TestGenerator extends AbstractGenerator
                     ($value === null || $value === false || $value === true) &&
                     @class_exists($annotationParams[1][$i])
                 ) {
-                    list($mockName, $mock) = $this->getMock($annotationParams[1][$i], $class, $method, $namespaces);
-                    $argumentName = $mockName;
-                    $argumentInitialize = $mockName.' = '.$mock;
+                    $mockName = $this->getMock($annotationParams[1][$i], $class, $method, $namespaces);
+                    $argumentName = '$'.$mockName;
+                    $argumentInitialize = '$'.$mockName.' = $this->_get'.ucfirst($mockName).'();';
                     $setEndColon = false;
                 } elseif ($value === null) {
                     $argumentInitialize .= 'null';
@@ -406,9 +475,14 @@ class TestGenerator extends AbstractGenerator
                 }
             } else {
                 if (!isset($annotationParams[1][$i]) &&
-                    in_array(explode('\\', $methodDeclaringClass)[0], self::$EXCLUDE_DECLARING_CLASES_FOR_METHODS)
+                    in_array(explode('\\', $methodDeclaringClass)[0], self::$EXCLUDE_DECLARING_CLASSES_FOR_METHODS)
                 ) {
                     $annotationParams[1][$i] = null;
+                }
+                $phalconType = false;
+                if (explode('\\', trim($method->getDeclaringClass()->getName(), '\\'))[0] == 'Phalcon') {
+                    $annotationParams[1][$i] = null;
+                    $phalconType = true;
                 }
                 if (!array_key_exists($i, $annotationParams[1])) {
                     throw new \RuntimeException(
@@ -456,7 +530,12 @@ class TestGenerator extends AbstractGenerator
                         break;
 
                     default:
-                        if (!$excludeConstructor && empty($annotationParams[1][$i])) {
+                        if (
+                            $phalconType === false &&
+                            $excludeConstructor === false &&
+                            empty($annotationParams[1][$i])
+
+                        ) {
                             throw new \RuntimeException(
                                 sprintf(
                                     'Could not find param type for param \'%s\' in method \'%s\' in \'%s\'.',
@@ -466,10 +545,14 @@ class TestGenerator extends AbstractGenerator
                                 )
                             );
                         }
-                        if (!$excludeConstructor) {
-                            list($mockName, $mock) = $this->getMock($annotationParams[1][$i], $class, $method, $namespaces);
-                            $argumentName = $mockName;
-                            $argumentInitialize = $mockName.' = '.$mock;
+                        if (
+                            (!$excludeConstructor && !$phalconType) ||
+                            (!$excludeConstructor && $phalconType && $param->getClass())
+                        ) {
+                            $className = ($param->getClass()) ? $param->getClass() : $annotationParams[1][$i];
+                            $mockName = $this->getMock($className, $class, $method, $namespaces);
+                            $argumentName = '$'.$mockName;
+                            $argumentInitialize = '$'.$mockName.' = $this->_get'.ucfirst($mockName).'();';
                             $setEndColon = false;
                         } else {
                             $argumentInitialize .= '\'test'.ucfirst($param->getName()).'\'';
@@ -486,6 +569,42 @@ class TestGenerator extends AbstractGenerator
         $argumentsInitialize = implode("\r\n\t\t", $argumentsInitialize);
 
         return [$arguments, $argumentsInitialize, $methodComment];
+    }
+
+    /**
+     * Render mock methods
+     *
+     * @return string
+     */
+    protected function _renderMocks()
+    {
+        $mocks = [];
+
+        foreach ($this->_mocks as $mockName => $mock) {
+
+            $mockTemplate = new Template(
+                sprintf(
+                    '%s%stemplate%s%s.tpl',
+                    __DIR__,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    'MethodMock'
+                )
+            );
+
+            $mockTemplate->setVar(
+                [
+                    'mockClassName' => $mock['className'],
+                    'mockName' => $mockName,
+                    'mockMethodName' => 'get'.ucfirst($mockName),
+                    'mock' => $mock['mock']
+                ]
+            );
+
+            $mocks[] = $mockTemplate->render();
+        }
+
+        return implode("", $mocks);
     }
 
     /**
@@ -506,8 +625,17 @@ class TestGenerator extends AbstractGenerator
         $level = 0
     ) {
         ++$level;
+
+        if ($className instanceof \ReflectionClass) {
+            $className = $className->getName();
+        }
         $className = trim($className);
-        $mockName = '$mock'.ucfirst(str_replace('\\', '', $className));
+        $mockName = 'mock'.ucfirst(str_replace('\\', '', $className));
+
+        if (isset($this->_mocks[$mockName])) {
+            return $mockName;
+        }
+
         try {
             $reflection = new \ReflectionClass($className);
         } catch (\Exception $e) {
@@ -522,27 +650,44 @@ class TestGenerator extends AbstractGenerator
             try {
                 $reflection = new \ReflectionClass($fullClassName);
             } catch (\Exception $e) {
-                throw new \RuntimeException(
-                    sprintf(
-                        'Class \'%s\' not exists, creating mock in parent class \'%s\' for method  \'%s\'.',
-                        $fullClassName,
-                        $parentClass->getName(),
-                        $parentMethod->getName()
-                    )
-                );
+                $parentNamespace = $parentClass->getNamespaceName();
+                $fullClassName = $parentNamespace.'\\'.$fullClassName;
+                $reflection = new \ReflectionClass($fullClassName);
+                try {
+                    $reflection = new \ReflectionClass($fullClassName);
+                } catch (\Exception $e) {
+                    throw new \RuntimeException(
+                        sprintf(
+                            'Class \'%s\' not exists, creating mock in parent class \'%s\' for method \'%s\'.',
+                            $fullClassName,
+                            $parentClass->getName(),
+                            $parentMethod->getName()
+                        )
+                    );
+                }
             }
         }
 
+        if (count(explode('\\', trim($className, '\\'))) === 1) {
+            $mock = 'new '.$className.';';
+
+            $this->_mocks[$mockName] = ['className' => $className, 'mock' => $mock];
+
+            return $mockName;
+        }
+
         if (
-            in_array(explode('\\', trim($className, '\\'))[0], self::$EXCLUDE_DECLARING_CLASES) ||
-            $reflection->isInterface() ||
-            $level > 1
+            in_array(explode('\\', trim($className, '\\'))[0], self::$EXCLUDE_DECLARING_CLASSES) ||
+            //$reflection->isInterface() ||
+            $level > 2
         ) {
-            $mock = $mockName.' = $this->getMockBuilder(\''.$className.'\')
+            $mock = '$this->getMockBuilder(\''.$className.'\')
            ->disableOriginalConstructor()
            ->getMock();';
 
-            return [$mockName, $mock];
+            $this->_mocks[$mockName] = ['className' => $className, 'mock' => $mock];
+
+            return $mockName;
         }
 
         list ($extendedClasses, $extendedTraits) = $this->getParentClassesAndTraits($reflection);
@@ -560,16 +705,47 @@ class TestGenerator extends AbstractGenerator
             $refMethodName = $refMethod->getName();
             $refMethodDeclaringClassName = $refMethod->getDeclaringClass()->getName();
             if (
-                in_array(explode('\\', trim($refMethodDeclaringClassName, '\\'))[0], self::$EXCLUDE_DECLARING_CLASES_FOR_METHODS) ||
+                in_array(explode('\\', trim($refMethodDeclaringClassName, '\\'))[0], self::$EXCLUDE_DECLARING_CLASSES_FOR_METHODS) ||
                 in_array(strtolower($refMethodName), self::$EXCLUDE_DECLARING_METHODS)
             ) {
                 continue;
             }
             preg_match_all('/@return (.*)$/Um', $refMethod->getDocComment(), $annotationReturn);
+            if (
+                explode('\\', trim($className, '\\'))[0] == 'Phalcon' ||
+                explode('\\', trim($refMethod->getDeclaringClass()->getName(), '\\'))[0] == 'Phalcon'
+            ) {
+                foreach ($this->_setters as $setter) {
+                    if (strpos($refMethodName, $setter) === 0) {
+                        $annotationReturn[1] = [0 => '$this'];
+                        break;
+                    }
+                }
+
+                if (!$annotationReturn[1])
+                foreach ($this->_getters as $getter) {
+                    if (strpos($refMethodName, $getter) === 0) {
+                        $annotationReturn[1] = [0 => 'string'];
+                        break;
+                    }
+                }
+
+                if (!$annotationReturn[1])
+                foreach ($this->_checkers as $checker) {
+                    if (strpos($refMethodName, $checker) === 0) {
+                        $annotationReturn[1] = [0 => 'bool'];
+                        break;
+                    }
+                }
+
+                if (!$annotationReturn[1])
+                $annotationReturn[1] = [0 => 'string'];
+            }
+
             if (!$annotationReturn[1]) {
                 throw new \RuntimeException(
                     sprintf(
-                        'In class \'%s\ could not find annotation comment for method \'%s\' in \'%s\' return annotation.',
+                        'In class \'%s\' could not find annotation comment for method \'%s\' in source \'%s\'.',
                         $className,
                         $refMethodName,
                         $reflection->getName()
@@ -577,87 +753,95 @@ class TestGenerator extends AbstractGenerator
                 );
             }
 
-            $annotationReturn[1][0] = trim($annotationReturn[1][0]);
+            $annotationReturn[1][0] = trim($annotationReturn[1][0], ' \\');
             if ($annotationReturn[1][0] === 'void') {
                 continue;
             }
+
             $expected = '';
             if (strpos($annotationReturn[1][0], '|') !== false) {
                 $annotationReturn[1][0] = explode('|', $annotationReturn[1][0])[0];
             }
+            $annotationReturn[1][0] = trim($annotationReturn[1][0]);
+            if (strpos($annotationReturn[1][0], ' ') !== false) {
+                $annotationReturn[1][0] = explode(' ', $annotationReturn[1][0])[0];
+            }
+
             switch ($annotationReturn[1][0]) {
                 case 'int':
                 case 'integer':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(1));';
                     break;
 
                 case 'float':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(1.5));';
                     break;
 
                 case 'string':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(\'testMock'.$refMethodName.'\'));';
                     break;
 
                 case 'bool':
                 case 'true':
                 case 'boolean':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(true));';
                     break;
 
                 case 'false':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(false));';
                     break;
 
                 case 'null':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(null));';
                     break;
 
                 case 'mixed':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(\'testMock'.$refMethodName.'\'));';
                     break;
 
                 case 'void':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(\'testMock'.$refMethodName.'\'));';
                     break;
 
                 case 'array':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue([\'test1\', \'test2\', \'test3\']));';
                     break;
 
                 case '\Closure':
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue(function () { return true; }));';
                     break;
 
                 case '$this':
                 case $className:
-                    $mockMethod = $mockName.
+                    $mockMethod = '$'.$mockName.
                         '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnSelf());';
                     break;
 
                 default:
                     if (
-                        in_array(trim($annotationReturn[1][0], ' \\'), $extendedClasses) ||
-                        in_array(trim($annotationReturn[1][0], ' \\'), $extendedTraits)
+                        in_array($annotationReturn[1][0], $extendedClasses) ||
+                        in_array($annotationReturn[1][0], $extendedTraits)
                     ) {
-                        $mockMethod = $mockName.
+                        $mockMethod = '$'.$mockName.
                             '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnSelf());';
                         break;
                     }
                     $refNamespaces = $this->getNamespacesFromSource($reflection->getFileName());
-                    list($refMockName, $refMock) = $this->getMock($annotationReturn[1][0], $reflection, $refMethod, $refNamespaces, $level);
-                    $mockMethod = "\r\n\t\t".$refMock."\r\n\t\t".$mockName.
-                        '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue('.$refMockName.'));';
+                    $namespacesFromParentClassesAndTraits = $this->getNamespacesFromParentClassesAndTraits($reflection);
+                    $namespaces = array_merge($parentNamespaces, $refNamespaces, $namespacesFromParentClassesAndTraits);
+                    $refMockName = $this->getMock($annotationReturn[1][0], $reflection, $refMethod, $namespaces, $level);
+                    $mockMethod = "\r\n\t\t$".$refMockName.' = $this->_get'.ucfirst($refMockName)."();\r\n\t\t$".$mockName.
+                        '->expects($this->any())->method(\''.$refMethodName.'\')->will($this->returnValue($'.$refMockName.'));';
                     break;
 
             }
@@ -672,7 +856,9 @@ class TestGenerator extends AbstractGenerator
 
         $mock .= "\r\n\r\n\t\t". implode("\r\n\t\t", $mockMethods)."\r\n";
 
-        return [$mockName, $mock];
+        $this->_mocks[$mockName] = ['className' => $className, 'mock' => $mock];
+
+        return $mockName;
     }
 
     /**
@@ -683,10 +869,14 @@ class TestGenerator extends AbstractGenerator
      */
     public function getNamespacesFromSource($sourceName)
     {
+        if (isset($this->_namespaces[$sourceName])) {
+            return $this->_namespaces[$sourceName];
+        }
         $namespaces = [];
-        $tokens = token_get_all(file_get_contents($this->_inSourceFile));
+        $tokens = token_get_all(file_get_contents($sourceName));
 
-        for ($i=0; $i<count($tokens); ++$i) {
+        $iMax = count($tokens);
+        for ($i=0; $i < $iMax; ++$i) {
             $token = $tokens[$i];
             if (is_array($token) && $token[0] === T_USE) {
                 $y = 0;
@@ -709,14 +899,14 @@ class TestGenerator extends AbstractGenerator
                         $useToken[1] = trim($useToken[1]);
                         if (!$namespaceFinish) {
                             $namespace[] = $useToken[1];
-                            if (!$alias) {
-                                $alias = $useToken[1];
-                            }
                         } else {
                             $alias = $useToken[1];
                         }
                     } elseif (is_string($useToken)) {
                         if ($useToken === ',') {
+                            if ($alias === false) {
+                                $alias = end($namespace);
+                            }
                             $namespace = implode('\\', $namespace);
                             $namespaces[$alias] = $namespace;
                             $namespace = [];
@@ -729,6 +919,9 @@ class TestGenerator extends AbstractGenerator
                         $namespaceFinish = true;
                     }
                 }
+                if ($alias === false) {
+                    $alias = end($namespace);
+                }
                 $namespace = implode('\\', $namespace);
                 $namespaces[$alias] = $namespace;
 
@@ -737,6 +930,32 @@ class TestGenerator extends AbstractGenerator
             if (is_array($token) && $token[0] === T_CLASS) {
                 break;
             }
+        }
+
+        $this->_namespaces[$sourceName] = $namespaces;
+
+        return $this->_namespaces[$sourceName];
+    }
+
+    /**
+     * Return all namespaces from parent classes and traits
+     *
+     * @param \ReflectionClass $reflection
+     *
+     * @return array
+     */
+    public function getNamespacesFromParentClassesAndTraits(\ReflectionClass $reflection)
+    {
+        $namespaces = [];
+        list ($extendedClasses, $extendedTraits) = $this->getParentClassesAndTraits($reflection);
+
+        /*foreach ($extendedClasses as $class) {
+            $reflection = new \ReflectionClass($class);
+            $namespaces = array_merge($namespaces, $this->getNamespacesFromSource($reflection->getFileName()));
+        }*/
+        foreach ($extendedTraits as $trait) {
+            $reflection = new \ReflectionClass($trait);
+            $namespaces = array_merge($namespaces, $this->getNamespacesFromSource($reflection->getFileName()));
         }
 
         return $namespaces;

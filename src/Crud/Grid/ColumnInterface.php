@@ -5,8 +5,7 @@
 namespace Vein\Core\Crud\Grid;
 
 use Vein\Core\Crud\Grid,
-    Vein\Core\Crud\Container\Grid as GridContainer,
-	Phalcon\Filter;
+    Vein\Core\Crud\Container\Grid as GridContainer;
 	
 /**
  * Interface of grid column

@@ -52,7 +52,7 @@ class TestClass
         if (!file_exists($this->_sourcePath)) {
             throw new \Exception("Source '{$this->_sourcePath}' doesn't exists!");
         }
-        $item = new \FilesystemIterator($this->_sourcePath);
+        $item = new \SplFileInfo($this->_sourcePath);
         $this->_generateTest($item);
     }
 
@@ -74,12 +74,23 @@ class TestClass
         list($testPath, $localTestPath) = $this->_getTestPathFromSource($sourcePath, $sourceClassName['namespace']);
 
         if (!file_exists($testPath)) {
-            mkdir($testPath, 0755, true);
+            if (!@mkdir($testPath, 0755, true) && !is_dir($testPath)) {
+                $mkdirErrorArray = error_get_last();
+                throw new \Vein\Core\Exception('Directory \''.$testPath.'\' was not created!');
+            }
         }
 
+        if ($sourceClassName['class'] === 'Module') {
+            echo $sourceFileName.' is a mvc module, will be excluded'.PHP_EOL;
+            return false;
+        }
         $tmp = explode('\\', $sourceClassName['namespace']);
         if (end($tmp) === 'Controller') {
             echo $sourceFileName.' is a mvc controller, will be excluded'.PHP_EOL;
+            return false;
+        }
+        if (end($tmp) === 'Task') {
+            echo $sourceFileName.' is a cli task, will be excluded'.PHP_EOL;
             return false;
         }
 
@@ -130,7 +141,7 @@ class TestClass
         if ($namespace) {
             $sourcePath = trim(str_replace('\\', '/', str_replace($namespace, '', $sourcePath)), '/');
         }
-        $treePath = explode('/', $sourcePath);
+        $treePath = explode('/', trim($sourcePath, '/'));
         $testPath = '';
         $localTestPath = '';
         $step = 1;

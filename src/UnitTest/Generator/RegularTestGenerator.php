@@ -19,14 +19,21 @@ class RegularTestGenerator extends AbstractGenerator
     protected $_modules = [];
 
     /**
+     * Source path
+     * @var string
+     */
+    protected $_sourcePath;
+
+    /**
      * Constructor.
      *
      * @param string $outClassName
      * @param string $outSourceFile
      * @param array $modules
+     * @param string $sourcePath
      * @throws \RuntimeException
      */
-    public function __construct($outClassName = '', $outSourceFile = '', array $modules = [])
+    public function __construct($outClassName = '', $outSourceFile = '', array $modules = [], $sourcePath = null)
     {
         $this->_outClassName = $this->_parseFullyQualifiedClassName(
             $outClassName
@@ -39,6 +46,7 @@ class RegularTestGenerator extends AbstractGenerator
         );
 
         $this->_modules = $modules;
+        $this->_sourcePath = $sourcePath;
     }
 
     /**
@@ -60,10 +68,13 @@ class RegularTestGenerator extends AbstractGenerator
         );
 
         $testsuites = $this->getTestsuites($this->_modules);
+        $modules = $this->getModules($this->_modules);
 
         $classTemplate->setVar(
             [
                 'testsuites'         => $testsuites,
+                'modules'            => $modules,
+                'moduleDir'          => $this->_sourcePath,
                 'testClassName'      => $this->_outClassName['className'],
                 'date'               => date('Y-m-d'),
                 'time'               => date('H:i:s')
@@ -95,5 +106,21 @@ class RegularTestGenerator extends AbstractGenerator
         }
 
         return implode("\r\n\t\t", $testsuiteModules);
+    }
+
+    /**
+     * Genereate modules array
+     *
+     * @param array $modules
+     * @return string
+     */
+    public function getModules(array $modules)
+    {
+        $testsuiteModules = [];
+        foreach ($modules as $module => $tests) {
+            $testsuiteModules[] = '\''.$module.'\'';
+        }
+
+        return implode(", ", $testsuiteModules);
     }
 }

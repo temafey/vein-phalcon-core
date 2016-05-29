@@ -112,6 +112,7 @@ class Error
         } else {
             $logMessage .= PHP_EOL;
         }
+
         if ($dependencyInjector->has('logger')) {
             $logger = $dependencyInjector->get('logger');
             if ($logger) {

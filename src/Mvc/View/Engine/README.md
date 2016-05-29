@@ -27,7 +27,7 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerVein\Cores(
+    $view->registerEngines(
 		array(".mhtml" => 'Phalcon\Mvc\View\Engine\Mustache')
 	);
 
@@ -55,7 +55,7 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerVein\Cores(
+    $view->registerEngines(
 		array(".twig" => 'Phalcon\Mvc\View\Engine\Twig')
 	);
 
@@ -73,7 +73,7 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerVein\Cores(
+    $view->registerEngines(
         array(
             '.twig' => function($view, $di) {
                 //Setting up Twig Environment Options
@@ -133,7 +133,7 @@ $di->set('view', function() {
 
     $view->setViewsDir('../app/views/');
 
-    $view->registerVein\Cores(
+    $view->registerEngines(
 		array(".tpl" => 'Phalcon\Mvc\View\Engine\Smarty')
 	);
 
@@ -149,7 +149,7 @@ $di->set('view', function() use ($config) {
 	$view = new \Phalcon\Mvc\View();
 	$view->setViewsDir('../app/views/');
 
-	$view->registerVein\Cores(
+	$view->registerEngines(
 		array('.html' => function($view, $di) {
 
 				$smarty = new \Phalcon\Mvc\View\Engine\Smarty($view, $di);

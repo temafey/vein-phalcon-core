@@ -31,7 +31,7 @@ class TestVendorModule extends TestClass
     public function generate()
     {
         if (!file_exists($this->_sourcePath)) {
-            throw new \Exception("Source file '{$this->_sourcePath}' doesn't exitsts!");
+            throw new \Vein\Core\Exception("Source file '{$this->_sourcePath}' doesn't exitsts!");
         }
         $this->_generateBase($this->_sourcePath);
         $this->_scanSources($this->_sourcePath);
@@ -76,7 +76,10 @@ class TestVendorModule extends TestClass
         $namespace = end($tmpPath);
         list($testPath, $localTestPath) = $this->_getTestPathFromSource($sourcePath, $namespace);
         if (!file_exists($testPath)) {
-            mkdir($testPath, 0755, true);
+            if (!@mkdir($testPath, 0755, true) && !is_dir($testPath)) {
+                $mkdirErrorArray = error_get_last();
+                throw new \Vein\Core\Exception('Directory \''.$testPath.'\' was not created!');
+            }
         }
         $testNamespace = $namespace.'Test';
         if ($this->_baseNamespace) {
@@ -113,7 +116,10 @@ class TestVendorModule extends TestClass
         $tmpPath[] = 'tests';
         $testPath = implode('/', $tmpPath);
         if (!file_exists($testPath)) {
-            mkdir($testPath, 0755, true);
+            if (!@mkdir($testPath, 0755, true) && !is_dir($testPath)) {
+                $mkdirErrorArray = error_get_last();
+                throw new \Vein\Core\Exception('Directory \''.$testPath.'\' was not created!');
+            }
         }
 
         $generator = new RegularTestGenerator(

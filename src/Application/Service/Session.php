@@ -56,7 +56,6 @@ class Session extends AbstractService
             if (!class_exists($adapter)) {
                 $adapter = '\Phalcon\Session\Adapter\\' . ucfirst($name);
                 if (!class_exists($adapter)) {
-                    var_dump($adapter);die;
                     return false;
                 }
             }

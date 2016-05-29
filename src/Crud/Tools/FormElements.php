@@ -252,7 +252,7 @@ trait FormElements
      *
      * @return string
      */
-    public function getwidth()
+    public function getWidth()
     {
         return $this->_width;
     }
@@ -287,7 +287,7 @@ trait FormElements
      * @param int $width
      * @return \Vein\Core\Crud\Form\Field
      */
-    public function setwidth($width)
+    public function setWidth($width)
     {
         $this->_width = $width;
         return $this;

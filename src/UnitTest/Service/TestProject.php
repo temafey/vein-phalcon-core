@@ -20,7 +20,7 @@ class TestProject extends TestVendorModule
      * Base test namespace
      * @var string
      */
-    protected $_baseNamespace = 'ModuleTest';
+    protected $_baseNamespace = false;
 
     /**
      * Generate tests
@@ -34,9 +34,11 @@ class TestProject extends TestVendorModule
             throw new \Exception("Source file '{$this->_sourcePath}' doesn't exitsts!");
         }
         list($testPath, $localTestPAth)  = $this->_getTestPathFromSource($this->_sourcePath);
-
         if (!file_exists($testPath)) {
-            mkdir($testPath, 0755, true);
+             if (!@mkdir($testPath, 0755, true) && !is_dir($testPath)) {
+                 $mkdirErrorArray = error_get_last();
+                 throw new \Vein\Core\Exception('Directory \''.$testPath.'\' was not created!');
+             }
         }
         $this->_autoloader($this->_sourcePath);
         $modules = $this->_scanModulesSources($this->_sourcePath);
@@ -63,7 +65,7 @@ class TestProject extends TestVendorModule
             if (!is_dir($moduleSourcePath)) {
                 continue;
             }
-            $this->_generateBase($moduleSourcePath);
+            //$this->_generateBase($moduleSourcePath);
             $this->_scanSources($moduleSourcePath);
             $modules[$folder] = $this->_localTestsPath;
             $this->_localTestsPath = [];
@@ -126,7 +128,8 @@ class TestProject extends TestVendorModule
         $generator = new RegularTestGenerator(
             '\\'.$namespace,
             $testPath.'/'.$filename,
-            $modules
+            $modules,
+            $this->_sourcePath
         );
         $generator->write();
 

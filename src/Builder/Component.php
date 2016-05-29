@@ -46,6 +46,8 @@ abstract class Component
 
     const OPTION_SERVICE = 6;
 
+    const OPTION_TRAIT = 7;
+
     const TYPE_SIMPLE = 4;
 
     const TYPE_EXTJS = 5;
@@ -271,11 +273,16 @@ abstract class Component
                     throw new \Vein\Core\Exception('GridDir property not set in builder modules \''.$moduleName.'\' config section');
                 }
                 $path = $config->builder->modules->{$moduleName}->gridDir;
-            }  elseif ($type === self::OPTION_SERVICE) {
+            } elseif ($type === self::OPTION_SERVICE) {
                 if (!isset($config->builder->modules->{$moduleName}->serviceDir)) {
                     throw new \Vein\Core\Exception('ServiceDir property not set in builder modules \''.$moduleName.'\' config section');
                 }
-                $path = $config->builder->modules->{$moduleName}->gridsDir;
+                $path = $config->builder->modules->{$moduleName}->serviceDir;
+            } elseif ($type === self::OPTION_TRAIT) {
+                if (!isset($config->builder->modules->{$moduleName}->traitDir)) {
+                    throw new \Vein\Core\Exception('TraitDir property not set in builder modules \''.$moduleName.'\' config section');
+                }
+                $path = $config->builder->modules->{$moduleName}->traitDir;
             } else {
                 throw new \InvalidArgumentException('Invalid build type');
             }
@@ -294,6 +301,8 @@ abstract class Component
                 $path = rtrim($config->application->modulesDir, '/').'/'.ucfirst($moduleName).'/Grid';
             } elseif ($type === self::OPTION_SERVICE) {
                 $path = rtrim($config->application->modulesDir, '/').'/'.ucfirst($moduleName).'/Service';
+            } elseif ($type === self::OPTION_TRAIT) {
+                $path = rtrim($config->application->modulesDir, '/').'/'.ucfirst($moduleName).'/Trait';
             }
         }
 

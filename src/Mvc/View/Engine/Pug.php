@@ -2,17 +2,17 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Mvc\View\Engine;
+namespace Vein\Core\Mvc\View\Vein\Core;
 
-use Phalcon\Mvc\View\Engine,
-    Phalcon\Mvc\View\EngineInterface;
+use Phalcon\Mvc\View\Vein\Core,
+    Phalcon\Mvc\View\Vein\CoreInterface;
 
 /**
  * Jade
  *
  * Adapter to use Pug library as templating engine
  */
-class Pug extends Engine implements EngineInterface
+class Pug extends Vein\Core implements Vein\CoreInterface
 {
 
     protected $_pug;

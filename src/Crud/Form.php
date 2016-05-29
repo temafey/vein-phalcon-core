@@ -4,7 +4,9 @@
  */
 namespace Vein\Core\Crud;
 
-use Vein\Core\Forms\Form as CoreForm,
+use	Phalcon\Events\EventsAwareInterface,
+	Phalcon\DI\InjectionAwareInterface,
+	Vein\Core\Forms\Form as CoreForm,
 	Vein\Core\Crud\Form\Field,
 	Vein\Core\Crud\Container\Container,
 	Vein\Core\Crud\Form\Exception,
@@ -22,8 +24,8 @@ use Vein\Core\Forms\Form as CoreForm,
  */
 abstract class Form implements
     \ArrayAccess,
-    \Phalcon\Events\EventsAwareInterface,
-    \Phalcon\DI\InjectionAwareInterface
+    EventsAwareInterface,
+    InjectionAwareInterface
 {
     use \Vein\Core\Tools\Traits\DIaware,
         \Vein\Core\Tools\Traits\EventsAware,
@@ -179,8 +181,8 @@ abstract class Form implements
     public function __construct(
         $id = null,
         array $params = [],
-        \Phalcon\DiInterface $dependencyInjector = null,
-        \Phalcon\Events\ManagerInterface $eventsManager = null
+        DiInterface $dependencyInjector = null,
+        ManagerInterface $eventsManager = null
     ) {
         if ($dependencyInjector) {
             $this->setDi($dependencyInjector);
@@ -1155,9 +1157,10 @@ abstract class Form implements
     /**
      * Add new field
      * 
-     * @param \Vein\Core\Crud\Form\Field|string $field
+     * @param \Vein\Core\Crud\Form\Field $field
      * @param string $key
      * @param array $options
+	 * 
      * @return \Vein\Core\Crud\Form
      */
     public function addField($field, $key = null, array $options = [])

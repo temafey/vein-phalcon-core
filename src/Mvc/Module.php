@@ -62,6 +62,8 @@ abstract class Module implements ModuleDefinitionInterface
      * Registers an autoloader related to the module
      *
      * @param \Phalcon\DiInterface $dependencyInjector
+     *
+     * @return void
      */
     public function registerAutoloaders(\Phalcon\DiInterface $dependencyInjector = null)
     {
@@ -82,6 +84,7 @@ abstract class Module implements ModuleDefinitionInterface
      * Registers an autoloader related to the module
      *
      * @param \Phalcon\DiInterface $dependencyInjector
+     *
      * @return \Phalcon\Events\Manager
      */
     public function registerServices(\Phalcon\DiInterface $dependencyInjector = null)
@@ -165,6 +168,7 @@ abstract class Module implements ModuleDefinitionInterface
      * Return module service full class name
      *
      * @param string $serviceName
+     * 
      * @return string
      */
     protected function _getService($serviceName)
