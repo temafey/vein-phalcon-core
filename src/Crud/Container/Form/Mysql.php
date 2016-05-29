@@ -191,7 +191,6 @@ class Mysql extends Container implements FormContainer
                     $messages[] = implode (", ", $result);*/
                     $messages[] = $message->getMessage();
                 }
-                $db->rollBack();
                 throw new Exception(implode(', ', $messages));
             }
 		} catch (\Vein\Core\Exception $e) {

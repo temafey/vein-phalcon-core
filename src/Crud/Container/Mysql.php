@@ -70,7 +70,7 @@ abstract class Mysql extends AbstractContainer
             $model->setReadConnectionService($this->_adapter);
             $model->setWriteConnectionService($this->_adapter);
         } else {
-            throw new \Vein\Core\Exception("Mysql adpter is not a string or array type!");
+            throw new \Vein\Core\Exception("Mysql adapter is not a string or array type!");
         }
     }
 
