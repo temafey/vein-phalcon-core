@@ -30,6 +30,7 @@ class Database extends AbstractService
         }
         $connection = new $adapter([
             "host" => $this->_config->database->host,
+            "port" => $this->_config->database->port,
             "username" => $this->_config->database->username,
             "password" => $this->_config->database->password,
             "dbname" => $this->_config->database->dbname,
