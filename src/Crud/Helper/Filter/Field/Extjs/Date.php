@@ -45,8 +45,8 @@ class Date extends BaseHelper
         $format = $field->getFormat();
         $minValue = $field->getMinValue();
         $maxValue = $field->getMaxValue();
-        $dependencyInjectorsabledDays = false;
-        $dependencyInjectorsabledDaysText = false;
+        $disabledDays = false;
+        $disabledDaysText = false;
 
         $fieldCode[] = "format: '".$format."'";
         if ($minValue !== null && $minValue !== false) {
@@ -55,11 +55,11 @@ class Date extends BaseHelper
         if ($maxValue !== null && $maxValue !== false) {
             $fieldCode[] = "maxValue: '".$maxValue."'";
         }
-        if ($dependencyInjectorsabledDays !== null && $dependencyInjectorsabledDays !== false) {
-            $fieldCode[] = "disabledDays: '".$dependencyInjectorsabledDays."'";
+        if ($disabledDays !== null && $disabledDays !== false) {
+            $fieldCode[] = "disabledDays: '".$disabledDays."'";
         }
-        if ($dependencyInjectorsabledDaysText !== null && $dependencyInjectorsabledDaysText !== false) {
-            $fieldCode[] = "disabledDaysText: '".$dependencyInjectorsabledDaysText."'";
+        if ($disabledDaysText !== null && $disabledDaysText !== false) {
+            $fieldCode[] = "disabledDaysText: '".$disabledDaysText."'";
         }
 
         return forward_static_call(['self', '_implode'], $fieldCode);

@@ -28,7 +28,7 @@ class Dispatcher extends AbstractService
 
         $config = $this->_config;
         $defaultModuleDir = $this->_module->getDefaultModuleDirectory();
-        $dependencyInjector->set('defualtModuleDir', function() use ($defaultModuleDir) {
+        $dependencyInjector->set('defaultModuleDir', function() use ($defaultModuleDir) {
             return $defaultModuleDir;
         });
 

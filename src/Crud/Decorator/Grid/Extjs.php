@@ -99,7 +99,7 @@ class Extjs extends Decorator
     }
 
     /**
-     * Return defualt helpers
+     * Return default helpers
      *
      * @return array
      */

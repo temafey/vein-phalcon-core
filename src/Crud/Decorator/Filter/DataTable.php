@@ -2,20 +2,20 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Crud\Decorator\Form;
+namespace Vein\Core\Crud\Decorator\Filter;
 
 use Vein\Core\Crud\Decorator,
-    Vein\Core\Crud\Form,
+    Vein\Core\Crud\Grid\Filter,
     Vein\Core\Crud\Decorator\Helper;
 
 /**
- * Class Extjs decorator for form.
+ * Class DataTable decorator for grid filter.
  *
  * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
-class Extjs extends Decorator
+class DataTable extends Decorator
 {
     /**
      * Render an element
@@ -33,7 +33,6 @@ class Extjs extends Decorator
         if (empty($helpers)) {
             $helpers = $this->getDefaultHelpers();
         }
-        $attribs['id'] = $element->getId();
 
         foreach ($helpers as $i => $helper) {
             $helpers[$i] = Helper::factory($helper, $element);
@@ -48,7 +47,7 @@ class Extjs extends Decorator
             if (call_user_func([$helper['helper'], 'createJs'])) {
                 $objectName = call_user_func([$helper['helper'], 'getName']);
                 $path = call_user_func_array([$helper['helper'], 'getJsFilePath'], [$objectName]);
-                $path = PUBLIC_PATH."/extjs/apps/".$path;
+                $path = PUBLIC_PATH."/dataTable/apps/".$path;
                 if (!$this->_checkFile($path)) {
                     if ($endTag) {
                         $continue = false;
@@ -106,13 +105,11 @@ class Extjs extends Decorator
     public function getDefaultHelpers()
     {
         $helpers = [
-            'extjs\Store',
-            'extjs\Model',
-            'extjs',
-            'extjs\Components',
-            'extjs\Fields',
-            'extjs\Buttons',
-            'extjs\Functions'
+            'dataTable',
+            'dataTable\Components',
+            'dataTable\Fields',
+            'dataTable\Buttons',
+            'dataTable\Functions'
         ];
 
         return $helpers;

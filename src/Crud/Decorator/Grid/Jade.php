@@ -15,7 +15,7 @@ use Vein\Core\Crud\Decorator,
  * @package    Crud
  * @subpackage Decorator
  */
-class Standart extends Decorator
+class Pug extends Decorator
 {	
 	/**
      * Render an element
@@ -61,18 +61,19 @@ class Standart extends Decorator
 	}
 	
 	/**
-	 * Return defualt helpers
+	 * Return default helpers
 	 * 
 	 * @return array
 	 */
 	public function getDefaultHelpers()
 	{
 		$helpers = [
-            'filter',
-            'standart',
-            'standart\Columns',
-            'standart\Datastore',
-            'standart\Paginator'
+            //'filter',
+            'pug',
+            'pug\ColumnsHead',
+            'pug\Datastore',
+            'pug\ColumnsFoot',
+            'pug\Paginator'
 		];
 
 		return $helpers;

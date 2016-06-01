@@ -9,18 +9,19 @@ use Vein\Core\Crud\Decorator,
     Vein\Core\Crud\Decorator\Helper;
 
 /**
- * Class Extjs decorator for form.
+ * Class DataTable decorator for form.
  *
  * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
-class Extjs extends Decorator
+class DataTable extends Decorator
 {
     /**
      * Render an element
      *
      * @param  string $content
+     * 
      * @return string
      * @throws \UnexpectedValueException if element or view are not registered
      */
@@ -48,7 +49,7 @@ class Extjs extends Decorator
             if (call_user_func([$helper['helper'], 'createJs'])) {
                 $objectName = call_user_func([$helper['helper'], 'getName']);
                 $path = call_user_func_array([$helper['helper'], 'getJsFilePath'], [$objectName]);
-                $path = PUBLIC_PATH."/extjs/apps/".$path;
+                $path = MODULE_PATH."/dataTable/apps/".$path;
                 if (!$this->_checkFile($path)) {
                     if ($endTag) {
                         $continue = false;
@@ -79,14 +80,16 @@ class Extjs extends Decorator
         }
 
         foreach ($sections as $key => $fileSections) {
-            $elementContent = implode("", $fileSections);
+            $elementContent = implode('', $fileSections);
             $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag']);
-            if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
+            /*if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
                 throw new \Vein\Core\Exception("File '".$helpers[$key]['createFile']."' not save");
-            }
+            }*/
         }
 
-        return;
+        $content .= $elementContent;
+
+        return $content;
 
         switch ($this->getPlacement()) {
             case self::APPEND:
@@ -106,13 +109,9 @@ class Extjs extends Decorator
     public function getDefaultHelpers()
     {
         $helpers = [
-            'extjs\Store',
-            'extjs\Model',
-            'extjs',
-            'extjs\Components',
-            'extjs\Fields',
-            'extjs\Buttons',
-            'extjs\Functions'
+            'dataTable',
+            'dataTable\Fields',
+            'dataTable\Functions'
         ];
 
         return $helpers;
@@ -122,6 +121,7 @@ class Extjs extends Decorator
      * Check file by path
      *
      * @param string $path
+     * 
      * @return bool
      */
     protected function _checkFile($path)

@@ -79,17 +79,17 @@ class Mysql extends Container implements GridContainer
         if (null === $sort) {
             $sort = $this->_model->getOrderExpr();
         }
-        $dependencyInjectorrection = $this->_grid->getSortDirection();
-        if (null === $dependencyInjectorrection) {
-            $dependencyInjectorrection = ($this->_model->getOrderAsc()) ? "ASC" : "DESC";
+        $direction = $this->_grid->getSortDirection();
+        if (null === $direction) {
+            $direction = ($this->_model->getOrderAsc()) ? "ASC" : "DESC";
         }
         if ($sort) {
             $alias = $this->_dataSource->getCorrelationName($sort);
             if ($alias) {
-                $sort = $alias.".".$sort;
+                $sort = $alias.'.'.$sort;
             }
-        	if ($dependencyInjectorrection) {
-        		$this->_dataSource->orderBy($sort.' '.$dependencyInjectorrection);
+        	if ($direction) {
+        		$this->_dataSource->orderBy($sort.' '.$direction);
         	} else {
         		$this->_dataSource->orderBy($sort);
         	}

@@ -23,7 +23,7 @@ class Pug extends Engine implements EngineInterface
      * @param \Phalcon\DI $di
      * @param array $options
      */
-    public function __construct($view, $di, $options = array())
+    public function __construct($view, $di, $options = [])
     {
         //Initialize here the adapter
         parent::__construct($view, $di);

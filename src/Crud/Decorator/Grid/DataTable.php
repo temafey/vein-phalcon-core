@@ -2,20 +2,20 @@
 /**
  * @namespace
  */
-namespace Vein\Core\Crud\Decorator\Form;
+namespace Vein\Core\Crud\Decorator\Grid;
 
 use Vein\Core\Crud\Decorator,
-    Vein\Core\Crud\Form,
+    Vein\Core\Crud\Grid,
     Vein\Core\Crud\Decorator\Helper;
 
 /**
- * Class Extjs decorator for form.
+ * Class DataTable decorator for grid.
  *
  * @category   Vein\Core
  * @package    Crud
  * @subpackage Decorator
  */
-class Extjs extends Decorator
+class DataTable extends Decorator
 {
     /**
      * Render an element
@@ -45,10 +45,10 @@ class Extjs extends Decorator
             $helper['createFile'] = false;
             call_user_func_array([$helper['helper'], 'init'], [$helper['element']]);
             $endTag = call_user_func([$helper['helper'], 'endTag']);
-            if (call_user_func([$helper['helper'], 'createJs'])) {
+            if (call_user_func([$helper['helper'], 'createFile'])) {
                 $objectName = call_user_func([$helper['helper'], 'getName']);
-                $path = call_user_func_array([$helper['helper'], 'getJsFilePath'], [$objectName]);
-                $path = PUBLIC_PATH."/extjs/apps/".$path;
+                $path = call_user_func_array([$helper['helper'], 'getFilePath'], [$objectName]);
+                $path = PUBLIC_PATH."/datatables/".$path;
                 if (!$this->_checkFile($path)) {
                     if ($endTag) {
                         $continue = false;
@@ -77,16 +77,19 @@ class Extjs extends Decorator
                 $sections[$key][] = call_user_func_array([$helper['helper'], '_'], [$helper['element']]);
             }
         }
-
+        
+        $content = [];
         foreach ($sections as $key => $fileSections) {
-            $elementContent = implode("", $fileSections);
+            $elementContent = implode('', $fileSections);
             $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag']);
-            if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
+            $content[] = $elementContent;
+
+            /*if (empty($elementContent) || !file_put_contents($helpers[$key]['createFile'], $elementContent)) {
                 throw new \Vein\Core\Exception("File '".$helpers[$key]['createFile']."' not save");
-            }
+            }*/
         }
 
-        return;
+        return $content;
 
         switch ($this->getPlacement()) {
             case self::APPEND:
@@ -106,13 +109,15 @@ class Extjs extends Decorator
     public function getDefaultHelpers()
     {
         $helpers = [
-            'extjs\Store',
-            'extjs\Model',
-            'extjs',
-            'extjs\Components',
-            'extjs\Fields',
-            'extjs\Buttons',
-            'extjs\Functions'
+            'pug',
+            'pug\ColumnsHead',
+            'pug\Body',
+            'pug\ColumnsFoot',
+            'dataTable',
+            //'dataTable\Filter',
+            'dataTable\Columns',
+            'dataTable\Functions',
+            'dataTable\Buttons'
         ];
 
         return $helpers;
@@ -133,7 +138,6 @@ class Extjs extends Decorator
                 mkdir($dependencyInjectorr, 0755, true);
             }
         }
-
         return $result;
     }
 }

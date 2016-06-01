@@ -61,7 +61,7 @@ class Standart extends Decorator
 	}
 	
 	/**
-	 * Return defualt helpers
+	 * Return default helpers
 	 * 
 	 * @return array
 	 */

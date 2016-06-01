@@ -9,11 +9,8 @@ use Vein\Core\Crud\Grid\Column,
     Vein\Core\Crud\Container\Container;
 
 /**
- * Class for manage datas.
+ * Class for manage data.
  *
- * @uses       \Vein\Core\Crud\Grid\Exception
- * @uses       \Vein\Core\Crud\Grid\Filter
- * @uses       \Vein\Core\Crud\Grid\Column
  * @category   Vein\Core
  * @package    Crud
  * @subpackage Grid
@@ -233,6 +230,7 @@ abstract class Grid implements
      * Constructor
      *
      * @param mixed $options
+	 *
      * @return void
      */
 	final public function __construct(
@@ -261,6 +259,7 @@ abstract class Grid implements
      * Set extra grid options before inititialize
      *
      * @param array $options
+	 *
      * @return void
      */
     protected function _setOptions(array $options)
@@ -483,6 +482,7 @@ abstract class Grid implements
      * Update container data source
      *
      * @param mixed $dataSource
+	 *
      * @return void
      */
     protected function updateDataSource($dataSource)
@@ -673,6 +673,7 @@ abstract class Grid implements
 	 * Paginate data array
 	 * 
 	 * @param array $data
+	 *
 	 * @return void
 	 */
 	protected function _paginate(array $data) 
@@ -882,7 +883,8 @@ abstract class Grid implements
 	/**
 	 * Set count query flag
 	 * 
-	 * @param bool $flag
+	 * @param integer $count
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setNoCountQuery($count)
@@ -932,6 +934,7 @@ abstract class Grid implements
      * Set id param
      *
      * @param string $id
+	 *
      * @return \Vein\Core\Crud\Grid
      */
     public function setId($id)
@@ -940,10 +943,21 @@ abstract class Grid implements
         return $this;
     }
 
+	/**
+	 * Get id param
+	 *
+	 * @return string
+	 */
+	public function getId()
+	{
+		return $this->_id;
+	}
+
     /**
      * Set grid params
      *
      * @param array $params
+	 *
      * @return \Vein\Core\Crud\Grid
      */
     public function setParams(array $params)
@@ -959,9 +973,9 @@ abstract class Grid implements
         if (isset($params[$sort])) {
             $this->_sortParamValue = $params[$sort];
         }
-        $dependencyInjectorrection = $this->getSortDirectionParamName();
-        if (isset($params[$dependencyInjectorrection])) {
-            $this->_directionParamValue = $params[$dependencyInjectorrection];
+        $direction = $this->getSortDirectionParamName();
+        if (isset($params[$direction])) {
+            $this->_directionParamValue = $params[$direction];
         }
         $limit = $this->getLimitParamName();
         if (isset($params[$limit])) {
@@ -989,7 +1003,8 @@ abstract class Grid implements
     /**
      * Return current sort params
      *
-     * @param bool $withFilterParams
+     * @param boolean $withFilterParams
+	 *
      * @return array
      */
     public function getSortParams($withFilterParams = true)
@@ -1000,6 +1015,7 @@ abstract class Grid implements
         if ($withFilterParams) {
             return $this->getFilterParams();
         }
+
         return [];
     }
 	
@@ -1007,11 +1023,13 @@ abstract class Grid implements
 	 * Set action
 	 * 
 	 * @param string $action
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setAction($action) 
 	{
 		$this->_action = $action;
+
 		return $this;
 	}
 	
@@ -1019,11 +1037,13 @@ abstract class Grid implements
 	 * Set title
 	 * 
 	 * @param string $title
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setTitle($title) 
 	{
 		$this->_title = $title;
+
 		return $this;
 	}
 	
@@ -1031,12 +1051,14 @@ abstract class Grid implements
 	 * Set sort param
 	 * 
 	 * @param string $sort
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setSort($sort) 
 	{
         $this->clearData();
         $this->_sortParamValue = $sort;
+
 		return $this;
 	}
 
@@ -1044,6 +1066,7 @@ abstract class Grid implements
      * Return default param by name
      *
      * @param string $name
+	 *
      * @return string
      */
     public function getDefaultParam($name)
@@ -1051,20 +1074,8 @@ abstract class Grid implements
         if (!isset($this->_defaultParams[$name])) {
             return false;
         }
-        return $this->_defaultParams[$name];
-    }
 
-    /**
-     * Get id param
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        if (null === $this->_sortParamValue) {
-            return $this->_defaultParams['sort'];
-        }
-        return $this->_sortParamValue;
+        return $this->_defaultParams[$name];
     }
 
     /**
@@ -1087,6 +1098,7 @@ abstract class Grid implements
         if (null === $this->_sortParamValue) {			
 			return $this->_defaultParams['sort'];
 		}
+
 		return $this->_sortParamValue;
 	}
 
@@ -1103,13 +1115,14 @@ abstract class Grid implements
 	/**
 	 * Set direction param
 	 * 
-	 * @param string $dependencyInjectorrection
+	 * @param string $direction
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
-	public function setSortDirection($dependencyInjectorrection)
+	public function setSortDirection($direction)
 	{
         $this->clearData();
-		$this->_directionParamValue = $dependencyInjectorrection;
+		$this->_directionParamValue = $direction;
 		return $this;
 	}
 	
@@ -1133,8 +1146,9 @@ abstract class Grid implements
      */
     public function toogleSortDirection()
     {
-        $dependencyInjectorrection = (null === $this->_directionParamValue) ? $this->_defaultParams['direction'] : $this->_directionParamValue;
-        return ($dependencyInjectorrection == static::DIRECTION_DESC) ? static::DIRECTION_ASC : static::DIRECTION_DESC;
+        $direction = (null === $this->_directionParamValue) ? $this->_defaultParams['direction'] : $this->_directionParamValue;
+
+        return ($direction === static::DIRECTION_DESC) ? static::DIRECTION_ASC : static::DIRECTION_DESC;
     }
 
     /**
@@ -1151,6 +1165,7 @@ abstract class Grid implements
 	 * Set limit param
 	 * 
 	 * @param int $limit
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setLimit($limit) 
@@ -1170,6 +1185,7 @@ abstract class Grid implements
 		if (null === $this->_limitParamValue) {			
 			return $this->_defaultParams['limit'];
 		}
+
 		return $this->_limitParamValue;
 	}
 
@@ -1177,6 +1193,7 @@ abstract class Grid implements
      * Set limit that will use in container model query
      *
      * @param int $limit
+	 *
      * @return \Vein\Core\Crud\Grid
      */
     public function setExtraLimitMoreTimes($limit)
@@ -1193,6 +1210,7 @@ abstract class Grid implements
     {
         $limit = $this->getLimit();
         $extraLimit = $limit*$this->_extraLimitMoreTimes;
+
         return ($limit > $extraLimit) ? $limit : $extraLimit;
     }
 
@@ -1216,6 +1234,7 @@ abstract class Grid implements
 	{
         $this->clearData();
 		$this->_pageParamValue = $page;
+
 		return $this;
 	}
 	
@@ -1229,6 +1248,7 @@ abstract class Grid implements
 		if (null === $this->_pageParamValue) {			
 			return $this->_defaultParams['page'];
 		}
+
 		return $this->_pageParamValue;
 	}
 
@@ -1257,11 +1277,13 @@ abstract class Grid implements
 	 * 
 	 * @param string $name
 	 * @param mixed $value
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setParam($name, $value)
 	{
 		$this->_params[$name] = $value;
+
 		return $this;
 	}
 	
@@ -1270,6 +1292,7 @@ abstract class Grid implements
 	 * 
 	 * @param string $name
 	 * @param mixed $value
+	 *
 	 * @return \Vein\Core\Crud\Grid
 	 */
 	public function setFilterParam($name, $value)
@@ -1277,6 +1300,7 @@ abstract class Grid implements
 		$prefix = $this->_filter->getPrefix();
 		if (null === $prefix) {
             $this->_filter->setParam($name, $value);
+
 			return $this->setParam($name, $value);
 		}
 		if (!isset($this->_params[$prefix])) {
@@ -1305,6 +1329,7 @@ abstract class Grid implements
 	 * Return filter param by name
 	 * 
 	 * @param string $name
+	 *
 	 * @return string|array|null
 	 */
 	public function getFilterParam($name)
@@ -1336,6 +1361,7 @@ abstract class Grid implements
 	 * Return column by name
 	 * 
 	 * @param string $name
+	 *
 	 * @return \Vein\Core\Crud\Grid\Column
 	 */
 	public function getColumnByName($name)
@@ -1357,18 +1383,19 @@ abstract class Grid implements
      * Delete rows from grid table by array of primary key values.
      * 
      * @param array|string $ids
+	 *
      * @return bool|array
      */
 	public function deleteAction($ids) 
 	{
 	    if (!is_array($ids)) {
 	        $ids = trim($ids);
-	        if ($ids == "") {
+	        if ($ids === "") {
 	            return false;
 	        }	            
 	        $ids = [$ids];
 	    }	    
-	    if (count($ids) == 0) {
+	    if (count($ids) === 0) {
 	        return false;
 	    }
 		
@@ -1381,18 +1408,19 @@ abstract class Grid implements
 	 * @param string $column
 	 * @param array|string $ids
 	 * @param array $value
+	 *
 	 * @return bool|array
 	 */
 	public function bulkUpdate($ids, array $data)
 	{
 		if (!is_array($ids)) {
 	        $ids = trim($ids);
-	        if ($ids == "") {
+	        if ($ids === "") {
 	            return false;
 	        }	            
 	        $ids = [$ids];
 	    }	    
-	    if (count($ids) == 0) {
+	    if (count($ids) === 0) {
 	        return false;
 	    }
 	    
@@ -1422,6 +1450,7 @@ abstract class Grid implements
 	 * Set flag to use columns name for getting  columns value from data
 	 *
 	 * @param boolean $useColumNameForKey
+	 *
 	 * @return \Vein\Core\Crud\Grid\Column
 	 */
 	public function useColumNameForKey($useColumNameForKey = true)
@@ -1434,6 +1463,7 @@ abstract class Grid implements
      * Return grid column
      *
      * @param string $key
+	 *
      * @return \Vein\Core\Crud\Grid\Column
      * @throws \Exception if the $key is not a column in the grid.
      */
@@ -1442,9 +1472,10 @@ abstract class Grid implements
         if (property_exists($this, $key)) {
             return null;
         }
-        if (!isset($this->_columns[$key])) {
+        if (!array_key_exists($key, $this->_columns)) {
             throw new \Vein\Core\Exception("Column \"$key\" is not in the grid");
         }
+
         return $this->_columns[$key];
     }
     
@@ -1452,6 +1483,7 @@ abstract class Grid implements
 	 * Whether a offset exists
 	 *
 	 * @param integer $offset
+	 *
 	 * @return boolean
      */
     public function offsetExists($offset)
@@ -1463,7 +1495,8 @@ abstract class Grid implements
 	 * Offset to retrieve
 	 *
 	 * @param integer $offset
-	 * @return mixed
+	 *
+	 * @return string
      */
     public function offsetGet($offset)
     {
@@ -1475,6 +1508,7 @@ abstract class Grid implements
 	 *
 	 * @param integer $offset
 	 * @param string $value
+	 *
 	 * @return void
      */
     public function offsetSet($offset, $value)
@@ -1490,6 +1524,7 @@ abstract class Grid implements
 	 * Offset to unset
 	 *
 	 * @param integer $offset
+	 *
 	 * @return void
      */
     public function offsetUnset($offset)
@@ -1547,6 +1582,7 @@ abstract class Grid implements
         if (null === $this->_data) {
             $this->_setData();
         }
+
     	return isset($this->_data['data'][$this->_position]);
     }
     
@@ -1574,6 +1610,7 @@ abstract class Grid implements
      * Constructs the object
      *
 	 * @param array $data
+	 *
      * @return void
      */
     public function unserialize($data)

@@ -8,33 +8,33 @@ use Vein\Core\Crud\Form,
     Phalcon\DiInterface as DiInterface;
 
 /**
- * Class Extjs.
+ * Class DataTable.
  *
  * @category   Vein\Core
  * @package    Crud
  * @subpackage Form
  */
-abstract class Extjs extends Form
+abstract class DataTable extends Form
 {
     /**
      * Default decorator
      */
-    const DEFAULT_DECORATOR = 'Extjs';
+    const DEFAULT_DECORATOR = 'DataTable';
 
     /**
      * Content managment system module router prefix
      * @var string
      */
-    protected $_modulePrefix = 'cms';
+    protected $_modulePrefix = 'admin';
 
     /**
-     * Extjs module name
+     * DataTable module name
      * @var string
      */
     protected $_module;
 
     /**
-     * Extjs form key
+     * DataTable form key
      * @var string
      */
     protected $_key;
@@ -79,7 +79,18 @@ abstract class Extjs extends Form
         if (!empty($this->_action)) {
             return $this->_action;
         }
+
         return '/'.$this->_modulePrefix.'/'.$this->getModuleName().'/'.$this->getKey();
+    }
+
+    /**
+     * Get form id
+     *
+     * @return string
+     */
+    public function getFormId()
+    {
+        return \Phalcon\Text::camelize($this->_module).'_'.\Phalcon\Text::camelize($this->_key).'Form';
     }
 
     /**
@@ -89,7 +100,7 @@ abstract class Extjs extends Form
      * @param string $key
      * @param \Phalcon\DiInterface $dependencyInjector
      * @param \Phalcon\Events\ManagerInterface $eventsManager
-     * 
+     *
      * @return array
      */
     public static function updateRows($params, $key, \Phalcon\DiInterface $dependencyInjector = null, \Phalcon\Events\ManagerInterface $eventsManager = null)
@@ -199,8 +210,6 @@ abstract class Extjs extends Form
 
         return $result;
     }
-
-
 
     /**
      * Delete rows by id values.

@@ -175,8 +175,8 @@ class Columns extends BaseHelper
             $format = $field->getFormat();
             $minValue = $field->getMinValue();
             $maxValue = $field->getMaxValue();
-            $dependencyInjectorsabledDays = false;
-            $dependencyInjectorsabledDaysText = false;
+            $disabledDays = false;
+            $disabledDaysText = false;
 
             $fieldCode = "field: {
                     xtype: 'datefield',
@@ -190,13 +190,13 @@ class Columns extends BaseHelper
                 $fieldCode .= ",
                     maxValue: '".$maxValue."' ";
             }
-            if ($dependencyInjectorsabledDays !== null && $dependencyInjectorsabledDays !== false) {
+            if ($disabledDays !== null && $disabledDays !== false) {
                     $fieldCode .= ",
-                    disabledDays: '".$dependencyInjectorsabledDays."'";
+                    disabledDays: '".$disabledDays."'";
             }
-            if ($dependencyInjectorsabledDaysText !== null && $dependencyInjectorsabledDaysText !== false) {
+            if ($disabledDaysText !== null && $disabledDaysText !== false) {
                         $fieldCode .= ",
-                    disabledDaysText: '".$dependencyInjectorsabledDaysText."' ";
+                    disabledDaysText: '".$disabledDaysText."' ";
             }
             $fieldCode .= "
                 }";
@@ -333,7 +333,7 @@ class Columns extends BaseHelper
                 $tooltip = $item['tooltip'];
             }
             if (isset($item['template'])) {
-                $handler = $item['tempalte'];
+                $handler = $item['template'];
             } elseif (isset($item['handler'])) {
                 $handler = $item['handler'];
             } elseif (isset($item['function'])) {
