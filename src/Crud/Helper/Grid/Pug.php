@@ -28,7 +28,11 @@ class Pug extends BaseHelper
 	.box-header
 		h3.box-title '.$grid->getTitle().'
 	.box-body
-		table#'.static::getGridName().'.table.table-bordered.table-striped.'.$grid->getAttrib('class');
+		table#'.static::getGridName().'.table.table-bordered.table-striped';
+
+		if ($class = $grid->getAttrib('class')) {
+			$code .= '.'.$class;
+		}
 
 		return $code;
 	}

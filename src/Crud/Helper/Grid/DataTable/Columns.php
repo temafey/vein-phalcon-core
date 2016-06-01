@@ -68,7 +68,7 @@ class Columns extends BaseHelper
     public static function _column(Column $column)
     {
         $columnCode = [];
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 
@@ -89,7 +89,7 @@ class Columns extends BaseHelper
     {
         $columnCode = [];
         $columnCode[] = '{';
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 
@@ -111,7 +111,7 @@ class Columns extends BaseHelper
     {
         $columnCode = [];
         $columnCode[] = '{';
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 
@@ -133,7 +133,7 @@ class Columns extends BaseHelper
     {
         $columnCode = [];
         $columnCode[] = '{';
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 
@@ -155,7 +155,7 @@ class Columns extends BaseHelper
     {
         $columnCode = [];
         $columnCode[] = '{';
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 
@@ -177,7 +177,7 @@ class Columns extends BaseHelper
     {
         $columnCode = [];
         $columnCode[] = '{';
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 
@@ -199,7 +199,7 @@ class Columns extends BaseHelper
     {
         $columnCode = [];
         $columnCode[] = '{';
-        $columnCode[] = 'data: '.$column->getKey();
+        $columnCode[] = 'data: \''.$column->getKey().'\'';
 
         $columnCode[] = $column->isSortable() ? 'orderable: true' : 'orderable: false';
 

@@ -30,12 +30,14 @@ class DataTable extends BaseHelper
 	 */
 	static public function _(Form $form)
 	{
+        $primary = $form->getPrimaryField()->getKey();
         $code = '
         '.static::getName().' = new $.fn.dataTable.Editor( {
             dom: \'Bfrtip\',
             display: \'bootstrap\',
-            table: \'#'.static::getName().'
-            ajax: \''.$form->getAction().'\',';
+            table: \'#'.static::getGridName().'\',
+            ajax: \''.$form->getAction().'\',
+            idSrc:  \''.$primary.'\',';
 
         return $code;
 	}

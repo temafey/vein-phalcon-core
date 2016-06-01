@@ -99,7 +99,7 @@ abstract class DataTable extends Grid
         if (!empty($this->_id)) {
             return $this->_id;
         }
-        
+
         return \Phalcon\Text::camelize($this->_module).'_'.\Phalcon\Text::camelize($this->_key).'Grid';
     }
 
@@ -144,7 +144,7 @@ abstract class DataTable extends Grid
         foreach ($data['data'] as $i => $row) {
             $values = [];
             foreach ($this->_columns as $key => $column) {
-                $values[] = $column->render($row);
+                $values[$key] = $column->render($row);
             }
             $data['data'][$i] = $values;
         }

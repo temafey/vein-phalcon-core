@@ -74,10 +74,10 @@ class Combobox extends BaseHelper
     {
         $options = [];
         $values = $field->getOptions();
-        $values = \Engine\Tools\Arrays::assocToArray($values, 'id', 'name');
+        $values = \Vein\Core\Tools\Arrays::assocToArray($values, 'id', 'name');
 
-        foreach ($values as $value => $name) {
-            $option = '{ label: \'' . $name . '\', value: \'' . $value . '\' }';
+        foreach ($values as $value) {
+            $option = '{ label: \''.$value['name'].'\', value: \''.value['id'].'\' }';
             $options[] = $option;
         }
 
