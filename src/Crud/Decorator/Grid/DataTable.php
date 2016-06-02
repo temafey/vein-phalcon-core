@@ -112,7 +112,6 @@ class DataTable extends Decorator
             'pug',
             'pug\ColumnsHead',
             'pug\Body',
-            'pug\ColumnsFoot',
             'dataTable',
             //'dataTable\Filter',
             'dataTable\Columns',

@@ -121,6 +121,20 @@ abstract class DataTable extends Grid
      *
      * @return array
      */
+    public function getOriginData()
+    {
+        if (null === $this->_data) {
+            $this->_setData();
+        }
+
+        return $this->_data;
+    }
+
+    /**
+     * Return grid fetching data
+     *
+     * @return array
+     */
     public function getData()
     {
         if (null === $this->_data) {

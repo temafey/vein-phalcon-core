@@ -649,7 +649,7 @@ abstract class Form implements
 	 * 
 	 * @return void
 	 */
-	private function _preSave() 
+	final protected function _preSave()
 	{
 		$this->preSave();
 		
@@ -686,7 +686,7 @@ abstract class Form implements
 	 *
      * @return integer
      */
-	final public function save(array $data = [], $validate = true)
+	public function save(array $data = [], $validate = true)
 	{
 		if (!$this->isFormCreated()) {
 	        throw new Exception('Form not init!');
@@ -781,7 +781,7 @@ abstract class Form implements
 	 * 
 	 * @return void
 	 */
-	private function _postSave() 
+	final protected function _postSave()
 	{
 		$data = $this->getData();
 		foreach ($this->_fields as $field) {

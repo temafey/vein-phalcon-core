@@ -25,15 +25,15 @@ class ColumnsHead extends BaseHelper
 	static public function _(Grid $grid)
 	{
         $code = '
-		    thead
-		        tr';
+		        thead
+		            tr';
 
         foreach ($grid->getColumns() as $column) {
             if ($column instanceof Column) {
                 /*$columnCode = '
                             th(style=\'width: '.$column->getWidth().') ';*/
                 $columnCode = '
-		            th ';
+		                th ';
                 if ($column->isHidden()) {
                     $columnCode .= '';
                 } else {
@@ -41,7 +41,7 @@ class ColumnsHead extends BaseHelper
                 }
             } else {
                 $columnCode = '
-		            th';
+		                th';
             }
             $code .= $columnCode;
         }

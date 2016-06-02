@@ -24,11 +24,11 @@ class Pug extends BaseHelper
 	 */
 	static public function _(Grid $grid)
 	{
-        $code = '.box
-	.box-header
-		h3.box-title '.$grid->getTitle().'
-	.box-body
-		table#'.static::getGridName().'.table.table-bordered.table-striped';
+        $code = '	.box
+		.box-header
+			h3.box-title '.$grid->getTitle().'
+		.box-body
+			table#'.static::getGridName().'.table.table-bordered.table-striped';
 
 		if ($class = $grid->getAttrib('class')) {
 			$code .= '.'.$class;

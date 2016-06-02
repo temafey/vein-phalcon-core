@@ -80,7 +80,7 @@ abstract class DataTable extends Form
             return $this->_action;
         }
 
-        return '/'.$this->_modulePrefix.'/'.$this->getModuleName().'/'.$this->getKey();
+        return '/'.$this->_modulePrefix.'/'.$this->getModuleName().'/'.$this->getKey().'/save';
     }
 
     /**
@@ -163,15 +163,16 @@ abstract class DataTable extends Form
      */
     public static function updateRow($row, \Phalcon\DiInterface $dependencyInjector = null, \Phalcon\Events\ManagerInterface $eventsManager = null)
     {
-        $result = [
+        $resultData = [
             'success' => false,
-            'error' => []
+            'fieldErrors' => []
         ];
 
         if (is_string($row)) {
             if (!\Vein\Core\Tools\Strings::isJson($row)) {
-                $result['error'][] = 'Params not valid';
-                return $result;
+                $resultData['fieldErrors'][] = 'Params not valid';
+
+                return json_encode($resultData);
             }
             $row = json_decode($row);
         }
@@ -179,8 +180,9 @@ abstract class DataTable extends Form
         if ($row instanceof \stdClass) {
             $row = (array) $row;
         } elseif (!is_array($row)) {
-            $result['error'][] = 'Params not valid';
-            return $result;
+            $resultData['fieldErrors'][] = 'Params not valid';
+
+            return json_encode($resultData);
         }
 
         $form = new static(null, [], $dependencyInjector, $eventsManager);
@@ -188,8 +190,10 @@ abstract class DataTable extends Form
         $primaryKey = $primary->getKey();
         if (isset($row[$primaryKey])) {
             $id = $row[$primaryKey];
-            $form->loadData($id);
             unset($row[$primaryKey]);
+            if ($id || $id === 0 || $id === '0') {
+                $form->loadData($id);
+            }
         }
         $form->initForm();
         foreach ($row as $key => $value) {
@@ -198,79 +202,98 @@ abstract class DataTable extends Form
             }
             $form->$key = $value;
         }
-
-        $rowResult = $form->save();
-        if (is_array($rowResult)) {
-            $result['error'] = array_merge($result['error'], $rowResult['error']);
+        if (!$form->isValid($row)) {
+            $messages = [];
+            foreach ($form->getForm()->getMessages() as $message) {
+                $result = [];
+                $result['status'] = $message->getMessage();
+                $result['name'] = $message->getField();
+                $messages[] = $result;
+            }
+            $resultData['fieldErrors'] = $messages;
         } else {
-            $result['success'] = true;
-            $result['id'] = $rowResult;
-            $result['msg'] = 'Saved';
+            $result = $form->save();
+            if (is_array($result) && isset($result['error'])) {
+                $resultData['fieldErrors'] = $result['error'];
+            }
+            elseif ($result) {
+                $resultData['success'] = true;
+                $resultData['data'][$result] = $form->getData();
+            }
         }
 
-        return $result;
+        return json_encode($resultData);
     }
 
     /**
      * Delete rows by id values.
      *
-     * @param string|array $ids
+     * @param string|array $params
      * @param \Phalcon\DiInterface $dependencyInjector
      * @param \Phalcon\Events\ManagerInterface $eventsManager
      *
      * @return string
      */
-    public static function deleteRows($params, $key, \Phalcon\DiInterface $dependencyInjector = null, \Phalcon\Events\ManagerInterface $eventsManager = null)
+    public static function deleteRows($params, \Phalcon\DiInterface $dependencyInjector = null, \Phalcon\Events\ManagerInterface $eventsManager = null)
     {
-        $result = [
+        $resultData = [
             'success' => false,
-            'error' => []
+            'fieldErrors' => [],
+            'data' => []
         ];
+
+        $key = 'data';
 
         if (is_string($params)) {
             if (!\Vein\Core\Tools\Strings::isJson($params)) {
-                $result['error'][] = 'Params not valid';
-                return $result;
+                $resultData['fieldErrors'][] = 'Params not valid';
+
+                return json_encode($resultData);
             }
             $params = json_decode($params);
         }
 
         if (is_array($params)) {
             if (!isset($params[$key]) && !is_array($params[$key])) {
-                $result['error'][] = 'Array params not valid';
-                return $result;
+                $resultData['fieldErrors'][] = 'Array params not valid';
+
+                return json_encode($resultData);
             }
-            $rows = (!isset($rows[0])) ? [$params[$key]] : $params[$key];
+            $rows = $params[$key];
         } elseif ($params instanceof \stdClass) {
             if (!isset($params->$key)) {
-                $result['error'][] = 'Object params not valid';
-                return $result;
+                $resultData['fieldErrors'][] = 'Object params not valid';
+
+                return json_encode($resultData);
             }
-            $rows = (is_object($params->$key)) ? [(array) $params->$key] : $params->$key;
+            $rows = (is_object($params->$key)) ? (array) $params->$key : $params->$key;
         } else {
-            $result['error'][] = 'Params not valid';
-            return $result;
+            $resultData['fieldErrors'][] = 'Params not valid';
+
+            return json_encode($resultData);
         }
 
         $false = false;
         $form = new static(null, [], $dependencyInjector, $eventsManager);
         if (!$form->isRemovable()) {
-            $result['error'][] = 'Data can\'t be remove from this form';
+            $resultData['fieldErrors'][] = 'Data can\'t be remove from this form';
+
+            return json_encode($resultData);
         }
         $primary = $form->getPrimaryField();
         if (!$primary) {
-            throw new \Vein\Core\Exception('Primary field not found');
+            $resultData['fieldErrors'][] = 'Primary field not found';
         }
         $primaryKey = $primary->getKey();
         foreach ($rows as $id) {
             if (is_array($id)) {
                 if (!isset($id[$primaryKey])) {
-                    throw new \Vein\Core\Exception('Primary key not found in params');
+                    $resultData['fieldErrors'][] = 'Primary key not found in params';
                 }
                 $id = $id[$primaryKey];
             } elseif (is_object($id)) {
                 if (!isset($id->{$primaryKey})) {
-                    throw new \Vein\Core\Exception('Primary key not found in params');
+                    $resultData['fieldErrors'][] = 'Primary key not found in params';
                 }
                 $id = $id->{$primaryKey};
             }
@@ -282,11 +305,10 @@ abstract class DataTable extends Form
         }
 
         if (!$false) {
-            $result['success'] = true;
-            $result['msg'] = 'Deleted';
+            $resultData['success'] = true;
         }
 
-        return $result;
+        return json_encode($resultData);
     }
 
     /**
@@ -320,4 +342,5 @@ abstract class DataTable extends Form
 
         return $this->_linkTemplate;
     }
+
 }

@@ -48,9 +48,11 @@ class ManyToMany extends BaseHelper
 
         $attribs = [];
         $fieldCode[] = 'attr:  {
-                '.forward_static_call(['self', '_implode'], $attribs).'
-            }
+                        '.implode(', ', $attribs).'
+                    }
         ';
+
+        return forward_static_call(['self', '_implode'], $fieldCode);
     }
 
     /**

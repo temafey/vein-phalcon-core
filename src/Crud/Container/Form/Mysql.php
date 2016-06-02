@@ -268,10 +268,9 @@ class Mysql extends Container implements FormContainer
                 foreach ($record->getMessages() as $message)  {
                     $messages[] = $message->getMessage();
                 }
-                $db->rollBack();
                 throw new Exception(implode(', ', $messages));
             }
-        } catch (\Vein\Core\Exception $e) {
+        } catch (\Exception $e) {
             $db->rollBack();
             throw $e;
         }
@@ -336,10 +335,9 @@ class Mysql extends Container implements FormContainer
             foreach ($records as $record) {
                 if (!$record->delete()) {
                     $messages = [];
-                    foreach ($record->getMessages() as $message)  {
+                    foreach ($record->getMessages() as $message) {
                         $messages[] = $message->getMessage();
                     }
-                    $db->rollBack();
                     throw new Exception(implode(', ', $messages));
                 }
             }

@@ -24,16 +24,16 @@ class Datastore extends BaseHelper
 	static public function _(Grid $grid)
 	{
         $code = '
-		    tbody';
+		        tbody';
         $columns = array_keys($grid->getColumns());
         $data = $grid->getDataWithRenderValues();
         foreach ($data['data'] as $row) {
             $rowCode = '
-		        tr';
+		            tr';
             foreach ($columns as $key) {
                 $rowCode .= '
-		            td
-		                '.$row[$key];
+		                td
+		                    '.$row[$key];
             }
             $code .= $rowCode;
         }

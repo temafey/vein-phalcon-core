@@ -24,7 +24,7 @@ class Body extends BaseHelper
 	static public function _(Grid $grid)
 	{
         $code = '
-		    tbody';
+		    	tbody';
 
         return $code;
 	}

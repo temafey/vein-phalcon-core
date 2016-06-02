@@ -56,8 +56,8 @@ class Date extends BaseHelper
             $attribs[] = ' maxlength: '.$maxValue;
         }
         $fieldCode[] = 'attr:  {
-                '.forward_static_call(['self', '_implode'], $attribs).'
-            }
+                        '.implode(', ', $attribs).'
+                    }
         ';
         $format = $field->getFormat();
 

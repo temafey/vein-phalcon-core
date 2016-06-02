@@ -207,7 +207,6 @@ class Mysql extends Container implements GridContainer
             $records = $this->_model->findByIds($ids);
             foreach ($records as $record) {
                 if (!$record->update($data)) {
-                    $db->rollBack();
                     $messages = [];
                     foreach ($record->getMessages() as $message)  {
                         $messages[] = $message->getMessage();
@@ -216,7 +215,7 @@ class Mysql extends Container implements GridContainer
                 }
             }
 			$results = $this->_updateJoins($ids, $data);
-		} catch (\Vein\Core\Exception $e) {
+		} catch (\Exception $e) {
             $db->rollBack();
 			throw $e;
 		}
@@ -268,7 +267,6 @@ class Mysql extends Container implements GridContainer
             $records = $this->_model->findByIds($ids);
             foreach ($records as $record) {
                 if (!$record->delete()) {
-                    $db->rollBack();
                     $messages = [];
                     foreach ($record->getMessages() as $message)  {
                         $messages[] = $message->getMessage();

@@ -57,8 +57,8 @@ class Combobox extends BaseHelper
             $attribs[] = ' maxlength: '.$maxValue;
         }
         $fieldCode[] = 'attr:  {
-                '.forward_static_call(['self', '_implode'], $attribs).'
-            }
+                        '.implode(', ', $attribs).'
+                    }
         ';*/
 
         return forward_static_call(['self', '_implode'], $fieldCode);
@@ -77,7 +77,7 @@ class Combobox extends BaseHelper
         $values = \Vein\Core\Tools\Arrays::assocToArray($values, 'id', 'name');
 
         foreach ($values as $value) {
-            $option = '{ label: \''.$value['name'].'\', value: \''.value['id'].'\' }';
+            $option = '{ label: \''.$value['name'].'\', value: \''.$value['id'].'\' }';
             $options[] = $option;
         }
 

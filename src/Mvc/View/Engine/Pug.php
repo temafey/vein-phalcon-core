@@ -29,6 +29,7 @@ class Pug extends Engine implements EngineInterface
         parent::__construct($view, $di);
         $this->_pug = new \Pug\Pug($options);
     }
+    
     /**
      * Renders a view using the template engine
      *
