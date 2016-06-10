@@ -13,10 +13,10 @@ trait SimpleFormTemplater {
 
     public $templateSimpleFormExtends = 'Form';
 
-    public $templateSimpleUseForm = array(
+    public $templateSimpleUseForm = [
         'Vein\Core\Crud\Form',
         'Vein\Core\Crud\Form\Field'
-    );
+    ];
 
     public $templateSimpleFormTitle = "
     protected \$_title = '%s';

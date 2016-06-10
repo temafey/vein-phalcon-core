@@ -103,22 +103,20 @@ class Form extends Component
         // build options
         $this->buildOptions($this->_options['table_name'], $config, Component::OPTION_FORM, $this->type);
 
-
         // Prepare DB connection
         if (!$this->prepareDbConnection($config)) {
             return false;
         }
 
-
         // Check if table exist in database
         $table = $this->_options['table_name'];
-        if ($this->db->tableExists($table, $config->database->dbname)) {
-            $fields = $this->db->describeColumns($table, $config->database->dbname);
-            $rows = $this->db->fetchAll("SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = '".$config->database->dbname."' and `table_name` = '".$table."'");
+        if ($this->_db->tableExists($table)) {
+            $fields = $this->_db->describeColumns($table);
+            //$rows = $this->_db->fetchAll("SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = '".$config->database->dbname."' and `table_name` = '".$table."'");
             $fullFields = [];
-            foreach ($rows as $row) {
+            /*foreach ($rows as $row) {
                 $fullFields[$row['COLUMN_NAME']] = $row;
-            }
+            }*/
         } else {
             throw new BuilderException('Table "' . $table . '" does not exists');
         }
@@ -144,16 +142,58 @@ class Form extends Component
             $action = '/'.$this->_builderOptions['moduleName'].'/form/'.Inflector::slug($nameSpace.'-'.$this->_builderOptions['className']);
         }
 
+        $manyToOneFields = [];
+        $tables = $this->_db->listTables();
+        foreach ($tables as $tableName) {
+            foreach ($this->_db->describeReferences($tableName) as $reference) {
+                if ($reference->getReferencedTable() != $table) {
+                    continue;
+                }
+
+                $refColumns = $reference->getReferencedColumns();
+                $columns = $reference->getColumns();
+
+                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+                $fieldName = $columns[0];
+
+                $manyToOneFields[$fieldName] = sprintf(
+                    $this->templateSimpleFormSimpleField,
+                    $fieldName,
+                    'ManyToOne',
+                    \Vein\Core\Tools\Inflector::humanize($fieldName),
+                    $classTableName
+                );
+            }
+        }
+
+        foreach ($this->_db->describeReferences($table) as $reference) {
+            $refColumns = $reference->getReferencedColumns();
+            $columns = $reference->getColumns();
+
+            $tableName = $reference->getReferencedTable();
+            $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+
+            $fieldName = $columns[0];
+            $manyToOneFields[$fieldName] = sprintf(
+                $this->templateSimpleFormSimpleField,
+                $fieldName,
+                'ManyToOne',
+                \Vein\Core\Tools\Inflector::humanize($fieldName),
+                $classTableName
+            );
+        }
 
         $initFields = '';
         foreach ($fields as $field) {
             $type = $this->getType($field->getType());
             $fieldName = $field->getName();
-            if ($fieldName == 'id' || $field->isPrimary()) {
+            if (array_key_exists($fieldName, $manyToOneFields)) {
+                $initFields .= $manyToOneFields[$fieldName];
+            } elseif ($fieldName == 'id' || $field->isPrimary()) {
                 $initFields .= sprintf($this->templateShortFormSimpleField, $fieldName, 'Primary', Inflector::humanize($fieldName));
             } elseif ($fieldName == 'title' || $fieldName == 'name') {
                 $initFields .= sprintf($this->templateShortFormSimpleField, $fieldName, 'Name', Inflector::humanize($fieldName));
-            } elseif ($this->isEnum($this->_options['table_name'], $fieldName)) {
+            } /*elseif ($this->isEnum($this->_options['table_name'], $fieldName)) {
                 $templateArray = "[%s]";
                 $templateArrayPair = "%s => '%s',";
                 $enumVals = $this->getEnumValues($this->_options['table_name'], $fieldName);
@@ -165,7 +205,7 @@ class Form extends Component
                 }
                 $templateArray = sprintf($templateArray, $enumValsContent);
                 $initFields .= sprintf($this->templateSimpleFormComplexField, $fieldName, 'ArrayToSelect', Inflector::humanize($fieldName), $fieldName, $templateArray);
-            } else {
+            }*/ else {
                 preg_match('/^(.*)\_i{1}d{1}$/', $fieldName, $matches);
                 if (!empty($matches)) {
                     $pieces = explode('_', $fieldName);
@@ -175,7 +215,7 @@ class Form extends Component
                     array_pop($pieces);
 
                     $camelize = function($pieces) {
-                        $c = array();
+                        $c = [];
                         foreach ($pieces as $piece) {
                             $c[] = ucfirst($piece);
                         }

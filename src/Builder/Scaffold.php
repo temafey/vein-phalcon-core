@@ -43,10 +43,10 @@ class Scaffold extends Component
 
 	private function _findDetailField($entity)
 	{
-		$posible = array('name');
+		$posible = ['name');
 		$attributes = $entity::getAttributes();
 		foreach ($attributes as $attribute) {
-			if (in_array($attribute, $posible)) {
+			if (in_[$attribute, $posible)) {
 				return $attribute;
 			}
 		}
@@ -162,7 +162,7 @@ class Scaffold extends Component
 		$modelPath = $config->application->modelsDir.'/'.$modelClass.'.php';
 		if (!file_exists($modelPath)) {
 
-			$modelBuilder = new ModelBuilder(array(
+			$modelBuilder = new ModelBuilder([
 				'name' => $name,
 				'schema' => $options['schema'],
 				'className' => $options['className'],
@@ -330,26 +330,26 @@ class Scaffold extends Component
 				"\t\t".'<td align="left">';
 
 		if (isset($relationField[$attribute])) {
-			$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->select(array("'.$attribute.'", $'.$selectDefinition[$attribute]['varName'] .
+			$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->select(["'.$attribute.'", $'.$selectDefinition[$attribute]['varName'] .
 				', "using" => "'.$selectDefinition[$attribute]['primaryKey'].','.$selectDefinition[$attribute]['detail'].'", "useDummy" => true)) ?>';
 		} else {
 
 			switch ($dataType) {
 				case Field::TYPE_CHAR:
-					$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->textField(array("'.$attribute.'")) ?>';
+					$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->textField(["'.$attribute.'")) ?>';
 					break;
 				case Field::TYPE_DECIMAL:
 				case Field::TYPE_INTEGER:
-					$code .= PHP_EOL."\t\t\t".'<?php echo $this->tag->textField(array("'.$attribute.'", "type" => "number")) ?>';
+					$code .= PHP_EOL."\t\t\t".'<?php echo $this->tag->textField(["'.$attribute.'", "type" => "number")) ?>';
 					break;
 				case Field::TYPE_DATE:
-					$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->textField(array("'.$attribute.'", "type" => "date")) ?>';
+					$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->textField(["'.$attribute.'", "type" => "date")) ?>';
 					break;
 				case Field::TYPE_TEXT:
-					$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->textField(array("'.$attribute.'", "type" => "date")) ?>';
+					$code .= PHP_EOL."\t\t\t\t".'<?php echo $this->tag->textField(["'.$attribute.'", "type" => "date")) ?>';
 					break;
 				default:
-					$code .= PHP_EOL."\t\t\t".'<?php echo $this->tag->textField(array("'.$attribute.'", "size" => 30)) ?>';
+					$code .= PHP_EOL."\t\t\t".'<?php echo $this->tag->textField(["'.$attribute.'", "size" => 30)) ?>';
 					break;
 			}
 		}

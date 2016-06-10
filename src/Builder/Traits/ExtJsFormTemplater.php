@@ -13,10 +13,10 @@ trait ExtJsFormTemplater {
 
     public $templateExtJsFormExtends = 'Form';
 
-    public $templateSimpleUseFormExtjs = array(
+    public $templateSimpleUseFormExtjs = [
         'Form' => 'Vein\Core\Crud\Form\Extjs',
         'Vein\Core\Crud\Form\Field'
-    );
+    ];
 
     public $templateExtJsFormModulePrefix = "
     /**

@@ -18,10 +18,10 @@ class Grid extends Component
     /**
      * Constructor
      *
-     * @param $options
+     * @param array $options
      * @throws BuilderException
      */
-    public function __construct($options)
+    public function __construct(array $options)
     {
         if (!isset($options['table_name']) || empty($options['table_name'])) {
             throw new BuilderException("Please, specify the model name");
@@ -84,7 +84,6 @@ class Grid extends Component
             throw new BuilderException("You must specify the table name");
         }
 
-
         // Get config
         $path = '';
         if (isset($this->_options['config_path'])) {
@@ -99,30 +98,26 @@ class Grid extends Component
         }
         $config = $this->_getConfig($path);
 
-
         // build options
         $this->buildOptions($this->_options['table_name'], $config, Component::OPTION_GRID, $this->type);
-
 
         // Prepare DB connection
         if (!$this->prepareDbConnection($config)) {
             return false;
         }
 
-
         // Check if table exist in database
         $table = $this->_options['table_name'];
-        if ($this->db->tableExists($table, $config->database->dbname)) {
-            $fields = $this->db->describeColumns($table, $config->database->dbname);
-            $rows = $this->db->fetchAll("SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = '".$config->database->dbname."' and `table_name` = '".$table."'");
+        if ($this->_db->tableExists($table)) {
+            $fields = $this->_db->describeColumns($table);
+            //$rows = $this->_db->fetchAll("SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = '".$config->database->dbname."' and `table_name` = '".$table."'");
             $fullFields = [];
-            foreach ($rows as $row) {
-                $fullFields[$row['COLUMN_NAME']] = $row;
-            }
+            //foreach ($rows as $row) {
+            //    $fullFields[$row['COLUMN_NAME']] = $row;
+            //}
         } else {
             throw new BuilderException('Table "' . $table . '" does not exists');
         }
-
 
         // Set $_title template
         $templateTitle = sprintf($this->templateSimpleGridTitle, $this->_builderOptions['className']);
@@ -142,12 +137,8 @@ class Grid extends Component
             break;
         }
 
-
         $templateInitColumns = $this->templateSimpleGridInitColumns;
-
-
         $templateInitFilters = $this->templateSimpleGridInitFilters;
-
 
         // Set action template
         $nameSpace = $this->_builderOptions['namespaceClear'];
@@ -164,6 +155,62 @@ class Grid extends Component
 ";
         }
 
+        $joinColumns = [];
+        $joinFilters = [];
+        $tables = $this->_db->listTables();
+        foreach ($tables as $tableName) {
+            foreach ($this->_db->describeReferences($tableName) as $reference) {
+                if ($reference->getReferencedTable() != $table) {
+                    continue;
+                }
+
+                $refColumns = $reference->getReferencedColumns();
+                $columns = $reference->getColumns();
+
+                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));                
+                $fieldName = $columns[0];
+                
+                $joinColumns[$fieldName] = sprintf(
+                    $this->templateSimpleGridColumn,
+                    $fieldName,
+                    'JoinMany',
+                    \Vein\Core\Tools\Inflector::humanize($fieldName),
+                    $classTableName
+                );
+                $joinFilters[$fieldName] = sprintf(
+                    $this->templateSimpleGridFilterColumn,
+                    $fieldName,
+                    'Join',
+                    \Vein\Core\Tools\Inflector::humanize($fieldName),
+                    $classTableName
+                );
+            }
+        }
+
+        foreach ($this->_db->describeReferences($table) as $reference) {
+            $refColumns = $reference->getReferencedColumns();
+            $columns = $reference->getColumns();
+
+            $tableName = $reference->getReferencedTable();
+            $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+
+            $fieldName = $columns[0];
+            $joinColumns[$fieldName] = sprintf(
+                $this->templateSimpleGridColumn,
+                $fieldName,
+                'Join',
+                \Vein\Core\Tools\Inflector::humanize($fieldName),
+                $classTableName
+            );
+            $joinFilters[$fieldName] = sprintf(
+                $this->templateSimpleGridFilterColumn,
+                $fieldName,
+                'Join',
+                \Vein\Core\Tools\Inflector::humanize($fieldName),
+                $classTableName
+            );
+        }
+
         $initColumns = '';
         $initFilters = '';
         foreach ($fields as $field) {
@@ -172,13 +219,16 @@ class Grid extends Component
                 continue;
             }
             $fieldName = $field->getName();
-            if ($fieldName == 'id' || $field->isPrimary()) {
+            if (array_key_exists($fieldName, $joinColumns)) {
+                $initColumns .= $joinColumns[$fieldName];
+                $initFilters .= $joinFilters[$fieldName];
+            } elseif ($fieldName == 'id' || $field->isPrimary()) {
                 $initColumns .= sprintf($this->templateShortGridColumn, $fieldName, 'Primary', Inflector::humanize($fieldName));
                 $initFilters .= sprintf($this->templateShortGridFilterColumn, $fieldName, 'Primary', Inflector::humanize($fieldName));
             } elseif ($fieldName == 'title' || $fieldName == 'name') {
                 $initColumns .= sprintf($this->templateShortGridColumn, $fieldName, 'Name', Inflector::humanize($fieldName));
                 $initFilters .= sprintf($this->templateShortGridFilterColumn, $fieldName, 'Standart', Inflector::humanize($fieldName));
-            } elseif ($this->isEnum($this->_options['table_name'], $fieldName)) {
+            } /*elseif ($this->isEnum($this->_options['table_name'], $fieldName)) {
                 $templateArray = "[%s]";
                 $templateArrayPair = "%s => '%s',";
                 $enumVals = $this->getEnumValues($this->_options['table_name'], $fieldName);
@@ -191,65 +241,41 @@ class Grid extends Component
                 $templateArray = sprintf($templateArray, $enumValsContent);
                 $initColumns .= sprintf($this->templateSimpleGridComplexColumn, $fieldName, 'Collection', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
                 $initFilters .= sprintf($this->templateSimpleGridComplexFilterColumn, $fieldName, 'ArrayToSelect', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
-            } else {
-                preg_match('/^(.*)\_i{1}d{1}$/', $fieldName, $matches);
-                if (!empty($matches)) {
-                    $pieces = explode('_', $fieldName);
-                    if (count($pieces) > 2) {
-                        array_shift($pieces);
-                    }
-                    array_pop($pieces);
-
-                    $camelize = function($pieces) {
-                        $c = array();
-                        foreach ($pieces as $piece) {
-                            $c[] = ucfirst($piece);
+            }*/ else {
+                $fieldComment = $fullFields[$fieldName]['COLUMN_COMMENT'];
+                $options = explode(';', $fieldComment);
+                if (count($options) < 2) {
+                    $options = explode(',', $fieldComment);
+                }
+                $vals = [];
+                $colectionType = false;
+                if (count($options) > 1) {
+                    foreach ($options as $option) {
+                        if (strpos($option, ':') === false) {
+                            $colectionType = false;
+                            break;
                         }
-
-                        return $c;
-                    };
-                    $modelName = implode('\\', $camelize($pieces));
-                    $fieldName = implode('_', $pieces);
-
-                    $initColumns .= sprintf($this->templateSimpleGridColumn, $fieldName, 'JoinOne', \Vein\Core\Tools\Inflector::humanize($fieldName), $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$modelName);
-                    $initFilters .= sprintf($this->templateSimpleGridFilterColumn, $fieldName, 'Join', \Vein\Core\Tools\Inflector::humanize($fieldName), $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$modelName);
+                        list($key, $value) = explode(':', $option);
+                        $vals[$key] = $value;
+                        $colectionType = true;
+                    }
+                }
+                if ($colectionType) {
+                    $templateArray = '[%s]';
+                    $templateArrayPair = "'%s' => '%s'";
+                    $valsContent = [];
+                    foreach ($vals as $key => $value) {
+                        $valsContent[] = sprintf($templateArrayPair, $key, $value);
+                    }
+                    $templateArray = sprintf($templateArray, implode(', ', $valsContent));
+                    $initColumns .= sprintf($this->templateSimpleGridComplexColumn, $fieldName, 'Collection', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
+                    $initFilters .= sprintf($this->templateSimpleGridComplexFilterColumn, $fieldName, 'ArrayToSelect', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
                 } else {
-                    $fieldComment = $fullFields[$fieldName]['COLUMN_COMMENT'];
-                    $options = explode(";", $fieldComment);
-                    if (count($options) < 2) {
-                        $options = explode(",", $fieldComment);
-                    }
-                    $vals = [];
-                    $colectionType = false;
-                    if (count($options) > 1) {
-                        foreach ($options as $option) {
-                            if (strpos($option, ":") === false) {
-                                $colectionType = false;
-                                break;
-                            }
-                            list($key, $value) = explode(":", $option);
-                            $vals[$key] = $value;
-                            $colectionType = true;
-                        }
-                    }
-                    if ($colectionType) {
-                        $templateArray = "[%s]";
-                        $templateArrayPair = "'%s' => '%s'";
-                        $valsContent = [];
-                        foreach ($vals as $key => $value) {
-                            $valsContent[] = sprintf($templateArrayPair, $key, $value);
-                        }
-                        $templateArray = sprintf($templateArray, implode(", ", $valsContent));
-                        $initColumns .= sprintf($this->templateSimpleGridComplexColumn, $fieldName, 'Collection', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
-                        $initFilters .= sprintf($this->templateSimpleGridComplexFilterColumn, $fieldName, 'ArrayToSelect', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
-                    } else {
-                        $initColumns .= sprintf($this->templateSimpleGridColumn, $fieldName, $type, \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName);
-                        $initFilters .= sprintf($this->templateSimpleGridFilterColumn, $fieldName, 'Standart', \Vein\Core\Tools\Inflector::humanize($fieldName),$fieldName);
-                    }
+                    $initColumns .= sprintf($this->templateSimpleGridColumn, $fieldName, $type, \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName);
+                    $initFilters .= sprintf($this->templateSimpleGridFilterColumn, $fieldName, 'Standart', \Vein\Core\Tools\Inflector::humanize($fieldName),$fieldName);
                 }
             }
         }
-
 
         // Set init fields method
         $templateInitColumns = sprintf($templateInitColumns, $initColumns);

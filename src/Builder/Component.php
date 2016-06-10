@@ -52,11 +52,14 @@ abstract class Component
 
     const TYPE_EXTJS = 5;
 
-    protected $db = null;
+    /**
+     * @var \Phalcon\Db\Adapter\Pdo
+     */
+    protected $_db = null;
 
 	protected $_options = [];
 
-    protected $_builderOptions = array();
+    protected $_builderOptions = [];
 
 	public function __construct($options)
 	{
@@ -73,14 +76,14 @@ abstract class Component
     protected function _getConfig($configPath)
 	{
         if ($configPath) {
-            $configPath = rtrim(trim($configPath), "/")."/";
+            $configPath = rtrim(trim($configPath), '/').'/';
         }
-		/*foreach (array('', 'config/', 'app/config/', '../config/') as $configPath) {
-			if (file_exists($path.$configPath."engine.ini")) {
-				return new \Phalcon\Config\Adapter\Ini($path.$configPath."/engine.ini");
+		/*foreach (['', 'config/', 'app/config/', '../config/'] as $configPath) {
+			if (file_exists($path.$configPath.'engine.ini')) {
+				return new \Phalcon\Config\Adapter\Ini($path.$configPath.'/engine.ini');
 			} else {
-				if (file_exists($path.$configPath."engine.php")) {
-					$config = include($path.$configPath."engine.php");
+				if (file_exists($path.$configPath.'engine.php')) {
+					$config = include($path.$configPath.'engine.php');
 					return $config;
 				}
 			}
@@ -132,7 +135,7 @@ abstract class Component
         // If no database configuration in config throw exception
         if (!isset($config->database)) {
             throw new BuilderException(
-                "Database configuration cannot be loaded from your config file"
+                'Database configuration cannot be loaded from your config file'
             );
         }
 
@@ -140,8 +143,8 @@ abstract class Component
         // if no adapter in database config throw exception
         if (!isset($config->database->adapter)) {
             throw new BuilderException(
-                "Adapter was not found in the config. " .
-                "Please specify a config variable [database][adapter]"
+                'Adapter was not found in the config. ' .
+                'Please specify a config variable [database][adapter]'
             );
         }
 
@@ -150,15 +153,15 @@ abstract class Component
             if (!array_key_exists('force', $this->_options) || !$this->_options['force']) {
                 if (array_key_exists('forceContinue', $this->_options) && $this->_options['forceContinue']) {
                     print Color::colorize(
-                            'The model file "' . $this->_builderOptions['path'] .
-                            '" already exists in models dir',
+                            'The model file \'' . $this->_builderOptions['path'] .
+                            '\' already exists in models dir',
                             Color::FG_YELLOW
                         ) . PHP_EOL;
                     return false;
                 }
                 throw new BuilderException(
-                    "The model file '" . $this->_builderOptions['path'] .
-                    "' already exists in models dir"
+                    'The model file \'' . $this->_builderOptions['path'] .
+                    '\' already exists in models dir'
                 );
             }
         }
@@ -181,9 +184,19 @@ abstract class Component
         $adapterName = 'Phalcon\Db\Adapter\\'.ucfirst($adapter);
         unset($configArray['adapter']);
         // Open Connection
-        $db = new $adapterName($configArray);
 
-        $this->db = $db;
+        $db = new $adapterName([
+            'host' => $configArray['host'],
+            'port' => $configArray['port'],
+            'username' => $configArray['username'],
+            'password' => $configArray['password'],
+            'dbname' => $configArray['dbname'],
+            'options' => [
+                \PDO::ATTR_EMULATE_PREPARES => false
+            ]
+        ]);
+
+        $this->_db = $db;
 
         return true;
     }
@@ -196,7 +209,7 @@ abstract class Component
      */
     public function isAbsolutePath($path)
 	{
-		if (PHP_OS == "WINNT") {
+		if (PHP_OS == 'WINNT') {
 			if (preg_match('/^[A-Z]:\\\\/', $path)) {
 				return true;
 			}
@@ -227,7 +240,7 @@ abstract class Component
 	public function isSupportedAdapter($adapter)
 	{
 		if (!class_exists('\Phalcon\Db\Adapter\\' . ucfirst($adapter))) {
-			throw new BuilderException("Adapter $adapter is not supported");
+			throw new BuilderException('Adapter $adapter is not supported');
 		}
 	}
 
@@ -308,7 +321,7 @@ abstract class Component
 
         $modelPath = $this->getPath($path, $table, $buildType);
 
-        $this->_builderOptions = array(
+        $this->_builderOptions = [
             'moduleName' => $moduleName,
             'className' => $className,
             'namespace' => $modelNamespace,
@@ -316,17 +329,17 @@ abstract class Component
             'head'      => $classHead,
             'namespaceClear' => $namespaceClear,
             'path' => $modelPath
-        );
+        ];
 
         return true;
     }
 
     /**
      * Return module name based on table name
-     * For example if table name is "front_category" return "front" <-- module name
+     * For example if table name is 'front_category' return 'front' <-- module name
      *
      * <code>
-     * $moduleName = $this->getModuleNameByTableName("front_category");
+     * $moduleName = $this->getModuleNameByTableName('front_category');
      * </code>
      *
      * @param $table
@@ -377,7 +390,7 @@ abstract class Component
         $pieces = explode('_', $table);
         array_shift($pieces);
 
-        $dependencyInjectorrPath = rtrim(trim($dependencyInjectorrPath), "/")."/";
+        $dependencyInjectorrPath = rtrim(trim($dependencyInjectorrPath), '/').'/';
         switch($buildType) {
             case self::TYPE_EXTJS: $dependencyInjectorrPath .= 'Extjs/';
                 break;
@@ -399,7 +412,7 @@ abstract class Component
             if (!file_exists($path)) {
                 File::rmkdir($path, 0755, true);
             }
-            $path = rtrim(trim($path), "/")."/";
+            $path = rtrim(trim($path), '/').'/';
             $modelsDirPath = $path . $modelName . '.php';
         } else {
             $modelsDirPath = $dependencyInjectorrPath . $this->getClassName($table) . '.php';
@@ -454,10 +467,10 @@ abstract class Component
 
         if ($namespace) {
             $namespaceClear = $namespace;
-            $namespace = "/**\n * @namespace\n */\nnamespace ".$namespace.";";
+            $namespace = "/**\n * @namespace\n */\nnamespace ".$namespace.';';
         }
 
-        return array($namespace, $namespaceClear);
+        return [$namespace, $namespaceClear];
     }
 
     /**
@@ -543,22 +556,22 @@ abstract class Component
 
         $use = [];
         foreach ($this->{$useProperty} as $alias => $namespace) {
-            $use[] = (!is_numeric($alias)) ? $namespace." as ".$alias : $namespace;
+            $use[] = (!is_numeric($alias)) ? $namespace.' as '.$alias : $namespace;
         }
 
         if (!$use) {
             return '';
         }
 
-        $delimeter = ",
-    ";
+        $delimeter = ',
+    ';
 
-        return "use ".implode($delimeter, $use).";";
+        return 'use '.implode($delimeter, $use).';';
     }
 
     protected function isEnum($table, $filed)
     {
-        $res = $this->db->fetchOne("SHOW COLUMNS FROM {$table} WHERE Field = '{$filed}'");
+        $res = $this->_db->fetchOne('SHOW COLUMNS FROM {$table} WHERE Field = \''.$filed.'\'');
         preg_match('/enum\((.*)\)$/', $res['Type'], $matches);
 
         $answer = false;
@@ -572,14 +585,14 @@ abstract class Component
 
     protected function getEnumValues($table, $filed)
     {
-        $res = $this->db->fetchOne("SHOW COLUMNS FROM {$table} WHERE Field = '{$filed}'");
+        $res = $this->_db->fetchOne('SHOW COLUMNS FROM {$table} WHERE Field = \''.$filed.'\'');
         preg_match('/enum\((.*)\)$/', $res['Type'], $matches);
 
-        $return = array();
+        $return = [];
 
         if (count($matches) > 0) {
             foreach (explode(',', $matches[1]) as $value) {
-                $return[] = trim($value, "'");
+                $return[] = trim($value, '\'');
             }
         }
 

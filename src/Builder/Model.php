@@ -59,6 +59,12 @@ class Model extends Component
         }
     }
 
+    /**
+     * Create model class
+     *
+     * @throws \Vein\Core\Builder\BuilderException
+     * @throws \Vein\Core\Exception
+     */
     public function build()
     {
         // Check name (table name)
@@ -83,17 +89,15 @@ class Model extends Component
         // build options
         $this->buildOptions($this->_options['table_name'], $config);
 
-
         // Prepare DB connection
         if (!$this->prepareDbConnection($config)) {
             return false;
         }
 
-
         // Check if table exist in database
         $table = $this->_options['table_name'];
-        if ($this->db->tableExists($table, $config->database->dbname)) {
-            $fields = $this->db->describeColumns($table, $config->database->dbname);
+        if ($this->_db->tableExists($table)) {
+            $fields = $this->_db->describeColumns($table);
         } else {
             throw new BuilderException('Table "' . $table . '" does not exists');
         }
@@ -107,8 +111,8 @@ class Model extends Component
         }
 
 
-        $attributes = array();
-        $belongsTo = array();
+        $attributes = [];
+        $belongsTo = [];
         foreach ($fields as $field) {
             $type = $this->getPHPType($field->getType());
             $attributes[] = sprintf(
@@ -118,9 +122,16 @@ class Model extends Component
             // Build belongsTo relations
             preg_match('/^(.*)\_i{1}d{1}$/', $field->getName(), $matches);
             if (!empty($matches)) {
-                $belongsTo[] = sprintf($this->templateModelRelation, 'belongsTo', $matches[0], ucfirst($this->_builderOptions['moduleName']).'\Model\\'.Inflector::modelize($matches[1]), 'id', $this->_buildRelationOptions([
-                    'alias' => $this->getAlias($matches[1])
-                ]));
+                $belongsTo[] = sprintf(
+                    $this->templateModelRelation,
+                    'belongsTo',
+                    $matches[0],
+                    ucfirst($this->_builderOptions['moduleName']).'\Model\\'.Inflector::modelize($matches[1]),
+                    'id',
+                    $this->_buildRelationOptions([
+                        'alias' => $this->getAlias($matches[1])
+                    ])
+                );
             }
 
             if ($field->getName() == 'id' || $field->isPrimary()) {
@@ -134,18 +145,61 @@ class Model extends Component
             }
         }
 
+        $tables = $this->_db->listTables();
+        foreach ($tables as $tableName) {
+            foreach ($this->_db->describeReferences($tableName) as $reference) {
+                if ($reference->getReferencedTable() != $table) {
+                    continue;
+                }
 
-        // Model::initialize() code
-        $initializeCode = "";
-        if (count($belongsTo) > 0) {
-            foreach ($belongsTo as $rel) {
-                $initializeCode .= $rel."\n";
+                $refColumns = $reference->getReferencedColumns();
+                $columns = $reference->getColumns();
+
+                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+                $initialize[] = sprintf(
+                    $this->templateModelRelation,
+                    'hasMany',
+                    $refColumns[0],
+                    $classTableName,
+                    $columns[0],
+                    $this->_buildRelationOptions([
+                        'alias' => Utils::camelize($tableName)
+                    ])
+                );
             }
         }
 
+        foreach ($this->_db->describeReferences($table) as $reference) {
+            $refColumns = $reference->getReferencedColumns();
+            $columns = $reference->getColumns();
+
+            $tableName = $reference->getReferencedTable();
+            $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+
+            $initialize[] = sprintf(
+                $this->templateModelRelation,
+                'belongsTo',
+                $columns[0],
+                $classTableName,
+                $refColumns[0],
+                $this->_buildRelationOptions([
+                    'alias' => $this->getAlias($tableName)
+                ])
+            );
+        }
+
+        // Model::initialize() code
+        $initializeCode = implode('', $initialize);
+        /*if (count($belongsTo) > 0) {
+            foreach ($belongsTo as $rel) {
+                $initializeCode .= $rel."\n";
+            }
+        }*/
+
+
 
         // Join attributes to content
-        $content = join('', $attributes);
+        $content = implode('', $attributes);
 
 
         // Join engine properties
@@ -211,6 +265,8 @@ class Model extends Component
                 'Model "' . $this->_builderOptions['className'] .
                 '" was successfully created.'
             ) . PHP_EOL;
+
+        return true;
     }
 
     /**
@@ -234,8 +290,7 @@ class Model extends Component
             $values[] = sprintf('\'%s\' => %s', $name, $val);
         }
 
-
-        $syntax = 'array('. implode(',', $values). ')';
+        $syntax = '['. implode(',', $values). ']';
 
         return $syntax;
     }
@@ -247,9 +302,9 @@ class Model extends Component
      * Independent Column Mapping.
      */
     public function columnMap() {
-        return array(
+        return [
             %s
-        );
+        ];
     }
 ';
         $contents = [];

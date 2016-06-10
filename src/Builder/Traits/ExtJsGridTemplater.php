@@ -13,13 +13,13 @@ trait ExtJsGridTemplater {
 
     public $templateExtJsGridExtends = 'Grid';
 
-    public $templateSimpleUseGridExtjs = array(
+    public $templateSimpleUseGridExtjs = [
         'Grid' => 'Vein\Core\Crud\Grid\Extjs',
         'Vein\Core\Crud\Grid\Column',
         'Filter' => 'Vein\Core\Crud\Grid\Filter\Extjs',
         'Vein\Core\Crud\Grid\Filter\Field',
         'Criteria' => 'Vein\Core\Filter\SearchFilterInterface'
-    );
+    ];
 
     public $templateExtJsGridModulePrefix = "
     /**
