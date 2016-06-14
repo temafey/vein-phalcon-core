@@ -1,11 +1,7 @@
 <?php
 /**
- * Created by Slava Basko.
- * Email: basko.slava@gmail.com
- * Date: 3/14/14
- * Time: 6:33 PM
+ * @namespace
  */
-
 namespace Vein\Core\Builder\Traits;
 
 /**

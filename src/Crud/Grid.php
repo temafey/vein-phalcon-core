@@ -93,7 +93,6 @@ abstract class Grid implements
 	
 	/**
 	 * Container model
-	 * 
 	 * @var string|object
 	 */
 	protected $_containerModel = null;

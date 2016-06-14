@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @namespace
+ */
 namespace Vein\Core\Builder\Traits;
 
 

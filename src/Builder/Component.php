@@ -52,6 +52,8 @@ abstract class Component
 
     const TYPE_EXTJS = 5;
 
+    const TYPE_DATATABLE = 6;
+
     /**
      * @var \Phalcon\Db\Adapter\Pdo
      */
@@ -551,6 +553,8 @@ abstract class Component
         }
         switch($builderType) {
             case self::TYPE_EXTJS: $useProperty .= 'Extjs';
+                break;
+            case self::TYPE_DATATABLE: $useProperty .= 'DataTable';
                 break;
         }
 

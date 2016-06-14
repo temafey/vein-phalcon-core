@@ -1,11 +1,7 @@
 <?php
 /**
- * Created by Slava Basko.
- * Email: basko.slava@gmail.com
- * Date: 3/14/14
- * Time: 6:33 PM
+ * @namespace
  */
-
 namespace Vein\Core\Builder\Traits;
 
 
@@ -24,10 +20,18 @@ class %s extends %s
 ';
     // Set $_title template
     public $templateSimpleGridTitle = "
+    /**
+	 * Grid title
+	 * @var string
+	 */
     protected \$_title = '%s';
 ";
 
     public $templateSimpleGridContainerModel = "
+    /**
+	 * Container model
+	 * @var string
+	 */
     protected \$_containerModel = '%s';
 ";
 

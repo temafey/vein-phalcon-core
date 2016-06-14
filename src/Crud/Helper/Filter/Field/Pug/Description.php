@@ -13,7 +13,7 @@ use Vein\Core\Crud\Grid\Filter\Field;
  * @package    Crud
  * @subpackage Helper
  */
-class Element extends \Vein\Core\Crud\Helper
+class Description extends \Vein\Core\Crud\Helper
 {
 	/**
 	 * Generates a widget to show a html grid filter
@@ -23,11 +23,12 @@ class Element extends \Vein\Core\Crud\Helper
 	 */
 	static public function _(Field $field)
 	{
-        if ($field instanceof Field\Submit) {
-            $field->getElement()->setAttribute('class', 'btn');
+        $code = '';
+        $desc = $field->getDesc();
+        if (!$desc) {
+            $code = 'span.help-block '.$field->getDesc();
         }
-        $code = $field->getElement()->render();
-
+		
 		return $code;
 	}
 }

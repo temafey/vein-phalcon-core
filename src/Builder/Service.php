@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @namespace
+ */
 namespace Vein\Core\Builder;
 
 use Phalcon\Db\Column,
@@ -82,9 +84,11 @@ class Service extends Component
         file_put_contents($this->_builderOptions['path'], $code);
 
         print Color::success(
-                'Service "' . $this->_builderOptions['className'] .
-                '" was successfully created.'
-            ) . PHP_EOL;
+            'Service "' . $this->_builderOptions['className'] .
+            '" was successfully created.'
+        ) . PHP_EOL;
+
+        return true;
     }
 
 }

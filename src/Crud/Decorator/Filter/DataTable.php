@@ -47,7 +47,7 @@ class DataTable extends Decorator
             if (call_user_func([$helper['helper'], 'createJs'])) {
                 $objectName = call_user_func([$helper['helper'], 'getName']);
                 $path = call_user_func_array([$helper['helper'], 'getJsFilePath'], [$objectName]);
-                $path = PUBLIC_PATH."/dataTable/apps/".$path;
+                $path = MODULE_PATH."/dataTable/apps/".$path;
                 if (!$this->_checkFile($path)) {
                     if ($endTag) {
                         $continue = false;
@@ -78,14 +78,16 @@ class DataTable extends Decorator
         }
 
         foreach ($sections as $key => $fileSections) {
-            $elementContent = implode("", $fileSections);
+            $elementContent = implode('', $fileSections);
             $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag']);
-            if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
+            /*if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
                 throw new \Vein\Core\Exception("File '".$helpers[$key]['createFile']."' not save");
-            }
+            }*/
         }
 
-        return;
+        $content .= $elementContent;
+
+        return $content;
 
         switch ($this->getPlacement()) {
             case self::APPEND:
@@ -106,9 +108,7 @@ class DataTable extends Decorator
     {
         $helpers = [
             'dataTable',
-            'dataTable\Components',
             'dataTable\Fields',
-            'dataTable\Buttons',
             'dataTable\Functions'
         ];
 

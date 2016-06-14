@@ -5,16 +5,16 @@
 namespace Vein\Core\Builder\Traits;
 
 
-trait ExtJsFormTemplater {
+trait DataTableFormTemplater {
 
-    public $templateExtJsFormExtends = 'Form';
+    public $templateDataTableFormExtends = 'Form';
 
-    public $templateSimpleUseFormExtjs = [
-        'Form' => 'Vein\Core\Crud\Form\Extjs',
+    public $templateSimpleUseFormDataTable = [
+        'Form' => 'Vein\Core\Crud\Form\DataTable',
         'Vein\Core\Crud\Form\Field'
     ];
 
-    public $templateExtJsFormModulePrefix = "
+    public $templateDataTableFormModulePrefix = "
     /**
      * Content managment system module router prefix
      * @var string
@@ -22,17 +22,17 @@ trait ExtJsFormTemplater {
     protected \$_modulePrefix = ADMIN_PREFIX;
 ";
 
-    public $templateExtJsFormModuleName = "
+    public $templateDataTableFormModuleName = "
     /**
-     * Extjs module name
+     * DataTable module name
      * @var string
      */
     protected \$_module = '%s';
 ";
 
-    public $templateExtJsFormKey = "
+    public $templateDataTableFormKey = "
     /**
-     * Extjs form key
+     * DataTable form key
      * @var string
      */
     protected \$_key = '%s';

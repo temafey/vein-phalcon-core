@@ -5,13 +5,14 @@ namespace Vein\Core\Builder;
 use Vein\Core\Builder\Traits\BasicTemplater as TBasicTemplater,
     Vein\Core\Builder\Traits\SimpleFormTemplater as TSimpleFormTemplater,
     Vein\Core\Builder\Traits\ExtJsFormTemplater as TExtJsFormTemplater,
+    Vein\Core\Builder\Traits\DataTableFormTemplater as TDataTableFormTemplater,
     Vein\Core\Tools\Inflector,
     Phalcon\Db\Column,
     Vein\Core\Builder\Script\Color;
 
 class Form extends Component
 {
-    use TBasicTemplater, TSimpleFormTemplater, TExtJsFormTemplater;
+    use TBasicTemplater, TSimpleFormTemplater, TExtJsFormTemplater, TDataTableFormTemplater;
 
     protected $type = self::TYPE_SIMPLE;
 
@@ -112,6 +113,7 @@ class Form extends Component
         $table = $this->_options['table_name'];
         if ($this->_db->tableExists($table)) {
             $fields = $this->_db->describeColumns($table);
+            $rows = [];
             //$rows = $this->_db->fetchAll("SELECT * FROM `information_schema`.`columns` WHERE `table_schema` = '".$config->database->dbname."' and `table_name` = '".$table."'");
             $fullFields = [];
             /*foreach ($rows as $row) {
@@ -127,13 +129,18 @@ class Form extends Component
                 break;
             case self::TYPE_EXTJS: $extends = $this->templateExtJsFormExtends;
                 break;
+            case self::TYPE_DATATABLE: $extends = $this->templateDataTableFormExtends;
+                break;
             default: $extends = $this->templateSimpleFormExtends;
             break;
         }
 
 
         // Set action template
-        if ($this->type !== self::TYPE_EXTJS) {
+        if (
+            $this->type !== self::TYPE_EXTJS &&
+            $this->type !== self::TYPE_DATATABLE
+        ) {
             $nameSpace = $this->_builderOptions['namespaceClear'];
             $pieces = explode('\\', $nameSpace);
             array_shift($pieces);
@@ -152,7 +159,9 @@ class Form extends Component
 
                 $refColumns = $reference->getReferencedColumns();
                 $columns = $reference->getColumns();
-
+                if (strpos('_', $tableName) === false) {
+                    $tableName .= '_'.$tableName;
+                }
                 $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
                 $fieldName = $columns[0];
 
@@ -171,6 +180,9 @@ class Form extends Component
             $columns = $reference->getColumns();
 
             $tableName = $reference->getReferencedTable();
+            if (strpos('_', $tableName) === false) {
+                $tableName .= '_'.$tableName;
+            }
             $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
 
             $fieldName = $columns[0];
@@ -227,31 +239,31 @@ class Form extends Component
                     $initFields .= sprintf($this->templateSimpleFormSimpleField, $fieldName, 'ManyToOne', Inflector::humanize($fieldName), $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$modelName);
                   } else {
                     $fieldComment = $fullFields[$fieldName]['COLUMN_COMMENT'];
-                    $options = explode(";", $fieldComment);
+                    $options = explode(';', $fieldComment);
                     if (count($options) < 2) {
-                        $options = explode(",", $fieldComment);
+                        $options = explode(',', $fieldComment);
                     }
                     $vals = [];
                     $colectionType = false;
                     if (count($rows) > 1) {
                         foreach ($options as $option) {
-                            if (strpos($option, ":") === false) {
+                            if (strpos($option, ':') === false) {
                                 $colectionType = false;
                                 break;
                             }
-                            list($key, $value) = explode(":", $option);
+                            list($key, $value) = explode(':', $option);
                             $vals[$key] = $value;
                             $colectionType = true;
                         }
                     }
                     if ($colectionType) {
-                        $templateArray = "[%s]";
+                        $templateArray = '[%s]';
                         $templateArrayPair = "'%s' => '%s'";
                         $valsContent = [];
                         foreach ($vals as $key => $value) {
                             $valsContent[] = sprintf($templateArrayPair, $key, $value);
                         }
-                        $templateArray = sprintf($templateArray, implode(", ", $valsContent));
+                        $templateArray = sprintf($templateArray, implode(', ', $valsContent));
                         $initFields .= sprintf($this->templateSimpleFormComplexField, $fieldName, 'ArrayToSelect', Inflector::humanize($fieldName), $fieldName, $templateArray);
                     } else {
                         $initFields .= sprintf($this->templateSimpleFormSimpleField, $fieldName, $type, Inflector::humanize($fieldName), $fieldName);
@@ -278,6 +290,14 @@ class Form extends Component
                 $content .= sprintf($this->templateExtJsFormKey, Inflector::underscore($this->_builderOptions['className']));
                 $content .= $this->templateExtJsFormModulePrefix;
                 $content .= sprintf($this->templateExtJsFormModuleName, $this->_builderOptions['moduleName']);
+                $content .= sprintf($this->templateSimpleFormTitle, $this->_builderOptions['className']);
+                $content .= sprintf($this->templateSimpleFormContainerModel, $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$this->_builderOptions['className']);
+                $content .= $templateInitFields;
+                break;
+            case self::TYPE_DATATABLE:
+                $content .= sprintf($this->templateDataTableFormKey, Inflector::underscore($this->_builderOptions['className']));
+                $content .= $this->templateDataTableFormModulePrefix;
+                $content .= sprintf($this->templateDataTableFormModuleName, $this->_builderOptions['moduleName']);
                 $content .= sprintf($this->templateSimpleFormTitle, $this->_builderOptions['className']);
                 $content .= sprintf($this->templateSimpleFormContainerModel, $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$this->_builderOptions['className']);
                 $content .= $templateInitFields;

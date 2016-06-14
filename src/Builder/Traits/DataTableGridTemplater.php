@@ -5,19 +5,19 @@
 namespace Vein\Core\Builder\Traits;
 
 
-trait ExtJsGridTemplater {
+trait DataTableGridTemplater {
 
-    public $templateExtJsGridExtends = 'Grid';
+    public $templateDataTableGridExtends = 'Grid';
 
-    public $templateSimpleUseGridExtjs = [
-        'Grid' => 'Vein\Core\Crud\Grid\Extjs',
+    public $templateSimpleUseGridDataTable = [
+        'Grid' => 'Vein\Core\Crud\Grid\DataTable',
         'Vein\Core\Crud\Grid\Column',
-        'Filter' => 'Vein\Core\Crud\Grid\Filter\Extjs',
+        'Filter' => 'Vein\Core\Crud\Grid\Filter',
         'Vein\Core\Crud\Grid\Filter\Field',
         'Criteria' => 'Vein\Core\Filter\SearchFilterInterface'
     ];
 
-    public $templateExtJsGridModulePrefix = "
+    public $templateDataTableGridModulePrefix = "
     /**
      * Content managment system module router prefix
      * @var string
@@ -25,17 +25,17 @@ trait ExtJsGridTemplater {
     protected \$_modulePrefix = ADMIN_PREFIX;
 ";
 
-    public $templateExtJsGridModuleName = "
+    public $templateDataTableGridModuleName = "
     /**
-     * Extjs module name
+     * DataTable module name
      * @var string
      */
     protected \$_module = '%s';
 ";
 
-    public $templateExtJsGridKey = "
+    public $templateDataTableGridKey = "
     /**
-     * Extjs form key
+     * DataTable form key
      * @var string
      */
     protected \$_key = '%s';

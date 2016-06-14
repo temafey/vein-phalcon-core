@@ -1,23 +1,7 @@
 <?php
-
-/*
-  +------------------------------------------------------------------------+
-  | Phalcon Framework                                                      |
-  +------------------------------------------------------------------------+
-  | Copyright (c) 2011-2013 Phalcon Team (http://www.phalconphp.com)       |
-  +------------------------------------------------------------------------+
-  | This source file is subject to the New BSD License that is bundled     |
-  | with this package in the file docs/LICENSE.txt.                        |
-  |                                                                        |
-  | If you did not receive a copy of the license and are unable to         |
-  | obtain it through the world-wide-web, please send an email             |
-  | to license@phalconphp.com so we can send you a copy immediately.       |
-  +------------------------------------------------------------------------+
-  | Authors: Andres Gutierrez <andres@phalconphp.com>                      |
-  |          Eduar Carvajal <eduar@phalconphp.com>                         |
-  +------------------------------------------------------------------------+
-*/
-
+/**
+ * @namespace
+ */
 namespace Vein\Core\Builder;
 
 use Phalcon\Text,
@@ -46,7 +30,7 @@ class Scaffold extends Component
 		$posible = ['name');
 		$attributes = $entity::getAttributes();
 		foreach ($attributes as $attribute) {
-			if (in_[$attribute, $posible)) {
+			if (in_array($attribute, $posible)) {
 				return $attribute;
 			}
 		}
@@ -170,7 +154,7 @@ class Scaffold extends Component
 				'genSettersGetters' => $options['genSettersGetters'],
 				'directory' => $options['directory'],
 				'force' => $options['force']
-			));
+			]);
 
 			$modelBuilder->build();
 		}
@@ -570,7 +554,7 @@ class Scaffold extends Component
 	{
 
 		$dependencyInjectorrPath = $options['viewsDir'] . $options['fileName'];
-		if (is_dir($dependencyInjectorrPath) == false) {
+		if (is_dir($dependencyInjectorrPath) === false) {
 			mkdir($dependencyInjectorrPath);
 		}
 
@@ -601,7 +585,7 @@ class Scaffold extends Component
 	{
 
 		$dependencyInjectorrPath = $options['viewsDir'] . $options['fileName'];
-		if (is_dir($dependencyInjectorrPath) == false) {
+		if (is_dir($dependencyInjectorrPath) === false) {
 			mkdir($dependencyInjectorrPath);
 		}
 
@@ -686,7 +670,7 @@ class Scaffold extends Component
 	{
 
 		$dependencyInjectorrPath = $options['viewsDir'] . $options['fileName'];
-		if (is_dir($dependencyInjectorrPath) == false) {
+		if (is_dir($dependencyInjectorrPath) === false) {
 			mkdir($dependencyInjectorrPath);
 		}
 
@@ -738,7 +722,7 @@ class Scaffold extends Component
 	{
 
 		$dependencyInjectorrPath = $options['viewsDir'] . $options['fileName'];
-		if (is_dir($dependencyInjectorrPath) == false) {
+		if (is_dir($dependencyInjectorrPath) === false) {
 			mkdir($dependencyInjectorrPath);
 		}
 

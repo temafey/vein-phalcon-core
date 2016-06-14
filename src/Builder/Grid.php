@@ -5,13 +5,14 @@ namespace Vein\Core\Builder;
 use Vein\Core\Builder\Traits\BasicTemplater as TBasicTemplater,
     Vein\Core\Builder\Traits\SimpleGridTemplater as TSimpleGridTemplater,
     Vein\Core\Builder\Traits\ExtJsGridTemplater as TExtJsGridTemplater,
+    Vein\Core\Builder\Traits\DataTableGridTemplater as TDataTableGridTemplater,
     Vein\Core\Tools\Inflector,
     Phalcon\Db\Column,
     Vein\Core\Builder\Script\Color;
 
 class Grid extends Component
 {
-    use TBasicTemplater, TSimpleGridTemplater, TExtJsGridTemplater;
+    use TBasicTemplater, TSimpleGridTemplater, TExtJsGridTemplater, TDataTableGridTemplater;
 
     protected $type = self::TYPE_SIMPLE;
 
@@ -126,12 +127,13 @@ class Grid extends Component
         // Set container model template
         $templateContainerModel = sprintf($this->templateSimpleGridContainerModel, $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$this->_builderOptions['className']);
 
-
         // Set extender class template
         switch($this->type) {
             case self::TYPE_SIMPLE: $extends = $this->templateSimpleGridExtends;
                 break;
             case self::TYPE_EXTJS: $extends = $this->templateExtJsGridExtends;
+                break;
+            case self::TYPE_DATATABLE: $extends = $this->templateDataTableGridExtends;
                 break;
             default: $extends = $this->templateSimpleGridExtends;
             break;
@@ -148,7 +150,10 @@ class Grid extends Component
         $nameSpace = implode('-', $pieces);
 
         $templateAction = '';
-        if ($this->type !== self::TYPE_EXTJS) {
+        if (
+            $this->type !== self::TYPE_EXTJS &&
+            $this->type !== self::TYPE_DATATABLE
+        ) {
             $action = $this->_builderOptions['moduleName'].'/grid/'.Inflector::slug($nameSpace.'-'.$this->_builderOptions['className']);
             $templateAction = "
     protected \$_action = '/".$action."';
@@ -166,10 +171,12 @@ class Grid extends Component
 
                 $refColumns = $reference->getReferencedColumns();
                 $columns = $reference->getColumns();
-
+                if (strpos('_', $tableName) === false) {
+                    $tableName .= '_'.$tableName;
+                }
                 $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));                
                 $fieldName = $columns[0];
-                
+
                 $joinColumns[$fieldName] = sprintf(
                     $this->templateSimpleGridColumn,
                     $fieldName,
@@ -180,7 +187,7 @@ class Grid extends Component
                 $joinFilters[$fieldName] = sprintf(
                     $this->templateSimpleGridFilterColumn,
                     $fieldName,
-                    'Join',
+                    'JoinOne',
                     \Vein\Core\Tools\Inflector::humanize($fieldName),
                     $classTableName
                 );
@@ -192,20 +199,23 @@ class Grid extends Component
             $columns = $reference->getColumns();
 
             $tableName = $reference->getReferencedTable();
+            if (strpos('_', $tableName) === false) {
+                $tableName .= '_'.$tableName;
+            }
             $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
 
             $fieldName = $columns[0];
             $joinColumns[$fieldName] = sprintf(
                 $this->templateSimpleGridColumn,
                 $fieldName,
-                'Join',
+                'JoinOne',
                 \Vein\Core\Tools\Inflector::humanize($fieldName),
                 $classTableName
             );
             $joinFilters[$fieldName] = sprintf(
                 $this->templateSimpleGridFilterColumn,
                 $fieldName,
-                'Join',
+                'JoinOne',
                 \Vein\Core\Tools\Inflector::humanize($fieldName),
                 $classTableName
             );
@@ -281,7 +291,6 @@ class Grid extends Component
         $templateInitColumns = sprintf($templateInitColumns, $initColumns);
         $templateInitFilters = sprintf($templateInitFilters, $initFilters);
 
-
         // Prepare class content
         $content = '';
         switch($this->type) {
@@ -296,6 +305,16 @@ class Grid extends Component
                 $content .= sprintf($this->templateExtJsGridKey, Inflector::underscore($this->_builderOptions['className']));
                 $content .= $this->templateExtJsGridModulePrefix;
                 $content .= sprintf($this->templateExtJsGridModuleName, $this->_builderOptions['moduleName']);
+                $content .= $templateTitle;
+                $content .= $templateContainerModel;
+                $content .= $templateAction;
+                $content .= $templateInitColumns;
+                $content .= $templateInitFilters;
+                break;
+            case self::TYPE_DATATABLE:
+                $content .= sprintf($this->templateDataTableGridKey, Inflector::underscore($this->_builderOptions['className']));
+                $content .= $this->templateDataTableGridModulePrefix;
+                $content .= sprintf($this->templateDataTableGridModuleName, $this->_builderOptions['moduleName']);
                 $content .= $templateTitle;
                 $content .= $templateContainerModel;
                 $content .= $templateAction;

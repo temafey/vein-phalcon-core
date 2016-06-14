@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @namespace
+ */
 namespace Vein\Core\Builder;
 
 use Phalcon\Db\Column,
@@ -154,8 +156,11 @@ class Model extends Component
 
                 $refColumns = $reference->getReferencedColumns();
                 $columns = $reference->getColumns();
-
-                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+                $tableNameTmp = $tableName;
+                if (strpos('_', $tableNameTmp) === false) {
+                    $tableNameTmp .= '_'.$tableNameTmp;
+                }
+                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableNameTmp, 2))));
                 $initialize[] = sprintf(
                     $this->templateModelRelation,
                     'hasMany',
@@ -168,13 +173,21 @@ class Model extends Component
                 );
             }
         }
-
+        $belongsToTables = [];
         foreach ($this->_db->describeReferences($table) as $reference) {
             $refColumns = $reference->getReferencedColumns();
             $columns = $reference->getColumns();
 
             $tableName = $reference->getReferencedTable();
-            $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+            if (array_key_exists($tableName, $belongsToTables)) {
+                continue;
+            }
+            $belongsToTables[$tableName] = 1;
+            $tableNameTmp = $tableName;
+            if (strpos('_', $tableNameTmp) === false) {
+                $tableNameTmp .= '_'.$tableNameTmp;
+            }
+            $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableNameTmp, 2))));
 
             $initialize[] = sprintf(
                 $this->templateModelRelation,
