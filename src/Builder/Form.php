@@ -57,15 +57,20 @@ class Form extends Component
     {
         switch ($type) {
             case Column::TYPE_INTEGER:
-                return 'Numeric';
-                break;
             case Column::TYPE_DECIMAL:
             case Column::TYPE_FLOAT:
-                return 'Text';
+            case Column::TYPE_DOUBLE:
+                return 'Numeric';
+                break;
+            case Column::TYPE_BOOLEAN:
+                return 'Checkbox';
                 break;
             case Column::TYPE_DATE:
-            case Column::TYPE_VARCHAR:
             case Column::TYPE_DATETIME:
+            case Column::TYPE_TIMESTAMP:
+                return 'Date';
+                break;
+            case Column::TYPE_VARCHAR:
             case Column::TYPE_CHAR:
                 return 'Text';
                 break;
@@ -78,13 +83,16 @@ class Form extends Component
         }
     }
 
+    /**
+     * @throws BuilderException
+     * @throws \Vein\Core\Exception
+     */
     public function build()
     {
         // Check name (table name)
         if (!$this->_options['table_name']) {
             throw new BuilderException("You must specify the table name");
         }
-
 
         // Get config
         $path = '';
@@ -159,17 +167,18 @@ class Form extends Component
 
                 $refColumns = $reference->getReferencedColumns();
                 $columns = $reference->getColumns();
-                if (strpos('_', $tableName) === false) {
+                if (strpos($tableName, '_')  === false) {
                     $tableName .= '_'.$tableName;
                 }
                 $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
                 $fieldName = $columns[0];
+                $normalizeFieldName = str_replace('_id', '', $fieldName);
 
                 $manyToOneFields[$fieldName] = sprintf(
                     $this->templateSimpleFormSimpleField,
-                    $fieldName,
+                    $normalizeFieldName,
                     'ManyToOne',
-                    \Vein\Core\Tools\Inflector::humanize($fieldName),
+                    \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
                     $classTableName
                 );
             }
@@ -180,17 +189,19 @@ class Form extends Component
             $columns = $reference->getColumns();
 
             $tableName = $reference->getReferencedTable();
-            if (strpos('_', $tableName) === false) {
+            if (strpos($tableName, '_') === false) {
                 $tableName .= '_'.$tableName;
             }
             $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
 
             $fieldName = $columns[0];
+            $normalizeFieldName = str_replace('_id', '', $fieldName);
+
             $manyToOneFields[$fieldName] = sprintf(
                 $this->templateSimpleFormSimpleField,
-                $fieldName,
+                $normalizeFieldName,
                 'ManyToOne',
-                \Vein\Core\Tools\Inflector::humanize($fieldName),
+                \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
                 $classTableName
             );
         }
@@ -199,6 +210,7 @@ class Form extends Component
         foreach ($fields as $field) {
             $type = $this->getType($field->getType());
             $fieldName = $field->getName();
+            $normalizeFieldName = str_replace('_id', '', $fieldName);
             if (array_key_exists($fieldName, $manyToOneFields)) {
                 $initFields .= $manyToOneFields[$fieldName];
             } elseif ($fieldName == 'id' || $field->isPrimary()) {
@@ -236,7 +248,13 @@ class Form extends Component
                     };
                     $modelName = implode('\\', $camelize($pieces));
                     $fieldName = implode('_', $pieces);
-                    $initFields .= sprintf($this->templateSimpleFormSimpleField, $fieldName, 'ManyToOne', Inflector::humanize($fieldName), $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$modelName);
+                    $initFields .= sprintf(
+                        $this->templateSimpleFormSimpleField,
+                        $normalizeFieldName,
+                        'ManyToOne',
+                        Inflector::humanize($normalizeFieldName),
+                        $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$modelName
+                    );
                   } else {
                     $fieldComment = $fullFields[$fieldName]['COLUMN_COMMENT'];
                     $options = explode(';', $fieldComment);
@@ -264,9 +282,22 @@ class Form extends Component
                             $valsContent[] = sprintf($templateArrayPair, $key, $value);
                         }
                         $templateArray = sprintf($templateArray, implode(', ', $valsContent));
-                        $initFields .= sprintf($this->templateSimpleFormComplexField, $fieldName, 'ArrayToSelect', Inflector::humanize($fieldName), $fieldName, $templateArray);
+                        $initFields .= sprintf(
+                            $this->templateSimpleFormComplexField,
+                            $normalizeFieldName,
+                            'ArrayToSelect',
+                            Inflector::humanize($normalizeFieldName),
+                            $fieldName,
+                            $templateArray
+                        );
                     } else {
-                        $initFields .= sprintf($this->templateSimpleFormSimpleField, $fieldName, $type, Inflector::humanize($fieldName), $fieldName);
+                        $initFields .= sprintf(
+                            $this->templateSimpleFormSimpleField,
+                            $fieldName,
+                            $type,
+                            Inflector::humanize($fieldName),
+                            $fieldName
+                        );
                     }
                 }
             }

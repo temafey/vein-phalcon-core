@@ -5,7 +5,7 @@
 namespace Vein\Core\Crud\Helper\Form\Field\DataTable;
 
 use Vein\Core\Crud\Form\DataTable as Form,
-    Vein\Core\Crud\Form\Field as Field;
+    Vein\Core\Crud\Form\Field\Checkbox as Field;
 
 /**
  * Class form fields helper
@@ -19,7 +19,7 @@ class Checkbox extends BaseHelper
     /**
      * Render DataTable checkbox form field
      *
-     * @param \Vein\Core\Crud\Form\Field $field
+     * @param \Vein\Core\Crud\Form\Field\Checkbox $field
      * @return string
      */
     public static function _(Field $field)
@@ -45,6 +45,7 @@ class Checkbox extends BaseHelper
             $fieldCode[] = 'fieldInfo: \''.$desc.'\'';
         }
         $fieldCode[] = 'allowBlank: '.(($field->isRequire()) ? 'false' : 'true');
+        $fieldCode[] = 'options: [{label: \'\', value: \''.$field->getCheckedValue().'\'}]';
 
         /*$attribs = [];
         $minValue = $field->getMinValue();

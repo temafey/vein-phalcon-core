@@ -15,10 +15,18 @@ trait SimpleFormTemplater {
     ];
 
     public $templateSimpleFormTitle = "
+    /**
+     * Form title
+     * @var string
+     */
     protected \$_title = '%s';
 ";
 
     public $templateSimpleFormContainerModel = "
+    /**
+	 * Container model
+	 * @var string
+	 */
     protected \$_containerModel = '%s';
 ";
 

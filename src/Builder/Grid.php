@@ -57,20 +57,25 @@ class Grid extends Component
     {
         switch ($type) {
             case Column::TYPE_INTEGER:
-                return 'Numeric';
-                break;
             case Column::TYPE_DECIMAL:
             case Column::TYPE_FLOAT:
+            case Column::TYPE_DOUBLE:
+                return 'Numeric';
+                break;
+            case Column::TYPE_BOOLEAN:
                 return 'Text';
                 break;
             case Column::TYPE_DATE:
-            case Column::TYPE_VARCHAR:
             case Column::TYPE_DATETIME:
+            case Column::TYPE_TIMESTAMP:
+                return 'Date';
+                break;
+            case Column::TYPE_VARCHAR:
             case Column::TYPE_CHAR:
                 return 'Text';
                 break;
             case Column::TYPE_TEXT:
-                return false;
+                return 'Text';
                 break;
             default:
                 return 'Text';
@@ -171,24 +176,25 @@ class Grid extends Component
 
                 $refColumns = $reference->getReferencedColumns();
                 $columns = $reference->getColumns();
-                if (strpos('_', $tableName) === false) {
+                if (strpos($tableName, '_') === false) {
                     $tableName .= '_'.$tableName;
                 }
                 $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));                
                 $fieldName = $columns[0];
+                $normalizeFieldName = str_replace('_id', '', $fieldName);
 
                 $joinColumns[$fieldName] = sprintf(
                     $this->templateSimpleGridColumn,
-                    $fieldName,
+                    $normalizeFieldName,
                     'JoinMany',
-                    \Vein\Core\Tools\Inflector::humanize($fieldName),
+                    \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
                     $classTableName
                 );
                 $joinFilters[$fieldName] = sprintf(
                     $this->templateSimpleGridFilterColumn,
-                    $fieldName,
-                    'JoinOne',
-                    \Vein\Core\Tools\Inflector::humanize($fieldName),
+                    $normalizeFieldName,
+                    'Join',
+                    \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
                     $classTableName
                 );
             }
@@ -199,24 +205,26 @@ class Grid extends Component
             $columns = $reference->getColumns();
 
             $tableName = $reference->getReferencedTable();
-            if (strpos('_', $tableName) === false) {
+            if (strpos($tableName, '_') === false) {
                 $tableName .= '_'.$tableName;
             }
             $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
 
             $fieldName = $columns[0];
+            $normalizeFieldName = str_replace('_id', '', $fieldName);
+
             $joinColumns[$fieldName] = sprintf(
                 $this->templateSimpleGridColumn,
-                $fieldName,
+                $normalizeFieldName,
                 'JoinOne',
-                \Vein\Core\Tools\Inflector::humanize($fieldName),
+                \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
                 $classTableName
             );
             $joinFilters[$fieldName] = sprintf(
                 $this->templateSimpleGridFilterColumn,
-                $fieldName,
-                'JoinOne',
-                \Vein\Core\Tools\Inflector::humanize($fieldName),
+                $normalizeFieldName,
+                'Join',
+                \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
                 $classTableName
             );
         }
@@ -229,12 +237,14 @@ class Grid extends Component
                 continue;
             }
             $fieldName = $field->getName();
+            $normalizeFieldName = str_replace('_id', '', $fieldName);
+            
             if (array_key_exists($fieldName, $joinColumns)) {
                 $initColumns .= $joinColumns[$fieldName];
                 $initFilters .= $joinFilters[$fieldName];
             } elseif ($fieldName == 'id' || $field->isPrimary()) {
-                $initColumns .= sprintf($this->templateShortGridColumn, $fieldName, 'Primary', Inflector::humanize($fieldName));
-                $initFilters .= sprintf($this->templateShortGridFilterColumn, $fieldName, 'Primary', Inflector::humanize($fieldName));
+                $initColumns .= sprintf($this->templateShortGridColumn, $normalizeFieldName, 'Primary', Inflector::humanize($normalizeFieldName));
+                $initFilters .= sprintf($this->templateShortGridFilterColumn, $normalizeFieldName, 'Primary', Inflector::humanize($normalizeFieldName));
             } elseif ($fieldName == 'title' || $fieldName == 'name') {
                 $initColumns .= sprintf($this->templateShortGridColumn, $fieldName, 'Name', Inflector::humanize($fieldName));
                 $initFilters .= sprintf($this->templateShortGridFilterColumn, $fieldName, 'Standart', Inflector::humanize($fieldName));
@@ -278,11 +288,37 @@ class Grid extends Component
                         $valsContent[] = sprintf($templateArrayPair, $key, $value);
                     }
                     $templateArray = sprintf($templateArray, implode(', ', $valsContent));
-                    $initColumns .= sprintf($this->templateSimpleGridComplexColumn, $fieldName, 'Collection', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
-                    $initFilters .= sprintf($this->templateSimpleGridComplexFilterColumn, $fieldName, 'ArrayToSelect', \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName, $templateArray);
+                    $initColumns .= sprintf(
+                        $this->templateSimpleGridComplexColumn,
+                        $normalizeFieldName,
+                        'Collection',
+                        \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
+                        $fieldName,
+                        $templateArray
+                    );
+                    $initFilters .= sprintf(
+                        $this->templateSimpleGridComplexFilterColumn,
+                        $normalizeFieldName,
+                        'ArrayToSelect',
+                        \Vein\Core\Tools\Inflector::humanize($normalizeFieldName),
+                        $fieldName,
+                        $templateArray
+                    );
                 } else {
-                    $initColumns .= sprintf($this->templateSimpleGridColumn, $fieldName, $type, \Vein\Core\Tools\Inflector::humanize($fieldName), $fieldName);
-                    $initFilters .= sprintf($this->templateSimpleGridFilterColumn, $fieldName, 'Standart', \Vein\Core\Tools\Inflector::humanize($fieldName),$fieldName);
+                    $initColumns .= sprintf(
+                        $this->templateSimpleGridColumn,
+                        $fieldName,
+                        $type,
+                        \Vein\Core\Tools\Inflector::humanize($fieldName),
+                        $fieldName
+                    );
+                    $initFilters .= sprintf(
+                        $this->templateSimpleGridFilterColumn,
+                        $fieldName,
+                        $type,
+                        \Vein\Core\Tools\Inflector::humanize($fieldName),
+                        $fieldName
+                    );
                 }
             }
         }

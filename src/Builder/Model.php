@@ -123,15 +123,21 @@ class Model extends Component
 
             // Build belongsTo relations
             preg_match('/^(.*)\_i{1}d{1}$/', $field->getName(), $matches);
+            $tableName = $matches[1];
+            $tableNameTmp = $tableName;
+            if (strpos($tableNameTmp, '_') === false) {
+                $tableNameTmp .= '_'.$tableNameTmp;
+            }
+            $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableNameTmp, 2))));
             if (!empty($matches)) {
                 $belongsTo[] = sprintf(
                     $this->templateModelRelation,
                     'belongsTo',
                     $matches[0],
-                    ucfirst($this->_builderOptions['moduleName']).'\Model\\'.Inflector::modelize($matches[1]),
+                    $classTableName,
                     'id',
                     $this->_buildRelationOptions([
-                        'alias' => $this->getAlias($matches[1])
+                        'alias' => $this->getAlias($tableName)
                     ])
                 );
             }
@@ -157,7 +163,7 @@ class Model extends Component
                 $refColumns = $reference->getReferencedColumns();
                 $columns = $reference->getColumns();
                 $tableNameTmp = $tableName;
-                if (strpos('_', $tableNameTmp) === false) {
+                if (strpos($tableNameTmp, '_') === false) {
                     $tableNameTmp .= '_'.$tableNameTmp;
                 }
                 $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableNameTmp, 2))));
@@ -184,7 +190,7 @@ class Model extends Component
             }
             $belongsToTables[$tableName] = 1;
             $tableNameTmp = $tableName;
-            if (strpos('_', $tableNameTmp) === false) {
+            if (strpos($tableNameTmp, '_') === false) {
                 $tableNameTmp .= '_'.$tableNameTmp;
             }
             $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableNameTmp, 2))));

@@ -35,7 +35,6 @@ class Mysql extends Container implements FormContainer
      * Constructor
      *
      * @param mixed $options
-     * @return void
      */
 	public function __construct(Form $form, $options = [])
 	{
@@ -51,6 +50,7 @@ class Mysql extends Container implements FormContainer
      *
      * @param string $model
      * @throws \Vein\Core\Exception
+     *
      * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setModel($model = null)
@@ -82,6 +82,7 @@ class Mysql extends Container implements FormContainer
      *
      * @param string $model
      * @throws \Exception
+     *
      * @return \Vein\Core\Crud\Container\Form\Mysql
      */
     public function addJoin($model)
@@ -95,7 +96,9 @@ class Mysql extends Container implements FormContainer
     }
 
     /**
-     * @param $model
+     * Initialize container model
+     *
+     * @return void
      */
     public function initialaizeModels()
     {
@@ -124,7 +127,7 @@ class Mysql extends Container implements FormContainer
     }
 
     /**
-     * Set datasource
+     * Initialize data source object
      *
      * @return void
      */
@@ -150,6 +153,7 @@ class Mysql extends Container implements FormContainer
 	 * Return data array
 	 * 
 	 * @param int $id
+     *
 	 * @return array
 	 */
     public function loadData($id)
@@ -167,7 +171,8 @@ class Mysql extends Container implements FormContainer
 	 * Insert new item
 	 * 
 	 * @param array $data
-	 * @return array|integer
+     *
+	 * @return integer
 	 */
 	public function insert(array $data)
 	{
@@ -179,7 +184,7 @@ class Mysql extends Container implements FormContainer
             $record = clone($this->_model);
 			if ($record->create($data)) {
                 $id = $record->{$primary};
-                $joinResult = $this->_insertToJoins($id, $data);
+                $joinResult = $this->_insertToJoins($data, $record);
                 $result = $id;
             } else {
                 $messages = [];
@@ -204,21 +209,61 @@ class Mysql extends Container implements FormContainer
 	
 	/**
 	 * Insert new data to joins by reference id
-	 * 
-	 * @param string $id
+	 *
 	 * @param array $data
+     * @param \Vein\Core\Mvc\Model $parentRecord
+     *
 	 * @return array
 	 */
-	protected function _insertToJoins($id, $data)
+	protected function _insertToJoins(array $data, Model $parentRecord)
 	{
         $result = [];
 	    foreach ($this->_joins as $model) {
-	        $referenceColumn = $model->getReferenceColumn($this->_model);
-	        $data[$referenceColumn] = $id;
+	        $referenceColumn = $model->getReferenceFields($this->_model);
+            if (!$referenceColumn) {
+                continue;
+            }
+            $relationColumn = $model->getRelationFields($this->_model);
+            $referenceValue = $parentRecord->{$relationColumn};
+            $updateParent = false;
+            if ($referenceValue !== null) {
+                $updateParent = true;
+                $data[$referenceColumn] = $referenceValue;
+            }
             $record = clone($model);
-            if ($record->create($data)) {
+            $isCreate = false;
+            $properties = get_object_vars($record);
+            foreach ($data as $key => $value) {
+                if (array_key_exists($key, $properties)) {
+                    $isCreate = true;
+                    $record->$key = $value;
+                }
+            }
+            if (!$isCreate) {
+                continue;
+            }
+
+            if ($record->save()) {
                 $primary = $record->getPrimary();
                 $result[] = $record->{$primary};
+                if ($updateParent) {
+                    $parentRecord->{$relationColumn} = $record->{$referenceColumn};
+                    if (!$parentRecord->save()) {
+                        $messages = [];
+                        foreach ($parentRecord->getMessages() as $message) {
+                            /*$result = [];
+                            $result[] = "Message: ".$message->getMessage();
+                            $result[] = "Field: ".$message->getField();
+                            $result[] = "Type: ".$message->getType();
+                            $messages[] = implode (", ", $result);*/
+                            $messages[] = $message->getMessage();
+                        }
+                        throw new Exception(
+                            'Update in model \''.get_class($parentRecord).'\' faild: '.
+                            implode(', ', $messages)
+                        );
+                    }
+                }
             } else {
                 $messages = [];
                 foreach ($record->getMessages() as $message) {
@@ -229,7 +274,10 @@ class Mysql extends Container implements FormContainer
                     $messages[] = implode (", ", $result);*/
                     $messages[] = $message->getMessage();
                 }
-                throw new Exception(implode(', ', $messages));
+                throw new Exception(
+                    'Insert in model \''.get_class($record).'\' faild: '.
+                    implode(', ', $messages)
+                );
             }
 	    }
 	    
@@ -241,7 +289,8 @@ class Mysql extends Container implements FormContainer
      *
      * @param array $id
      * @param array $data
-     * @return bool|array
+     *
+     * @return bool
      */
     public function update($id, array $data)
     {
@@ -262,7 +311,7 @@ class Mysql extends Container implements FormContainer
                     $record->{$key} = $value;
                 }
             }
-            $result = $this->_updateJoins($id, $data);
+            $result = $this->_updateJoins($data, $record);
             if ($isUpdate && !$record->update()) {
                 $messages = [];
                 foreach ($record->getMessages() as $message)  {
@@ -282,11 +331,12 @@ class Mysql extends Container implements FormContainer
     /**
      * Update data to joins tables by reference ids
      *
-     * @param integer|string $id
      * @param array $data
-     * @return bool|array
+     * @param \Vein\Core\Mvc\Model $parentRecord
+     *
+     * @return bool
      */
-    protected function _updateJoins($id, array $data)
+    protected function _updateJoins(array $data, Model $parentRecord)
     {
         $result = true;
         foreach ($this->_joins as $model) {
@@ -294,22 +344,56 @@ class Mysql extends Container implements FormContainer
             if (!$referenceColumn) {
                 continue;
             }
-            $records = $model->findByColumn($referenceColumn, [$id]);
+            $relationColumn = $model->getRelationFields($this->_model);
+            $referenceValue = $parentRecord->{$relationColumn};
+            if ($referenceValue === null) {
+                continue;
+            }
+
+            $records = $model->findByColumn($referenceColumn, [$referenceValue]);
             foreach ($records as $record) {
                 $isUpdate = false;
                 $properties = get_object_vars($record);
                 foreach ($data as $key => $value) {
-                    if (array_key_exists($key, $properties)) {
+                    if (
+                        array_key_exists($key, $properties) &&
+                        $record->{$key} != $value
+                    ) {
                         $isUpdate = true;
-                        $record->$key = $value;
+                        $record->{$key} = $value;
                     }
                 }
-                if ($isUpdate && !$record->update()) {
-                    $messages = [];
-                    foreach ($record->getMessages() as $message)  {
-                        $messages[] = $message->getMessage();
+                if ($isUpdate) {
+                    if (!$record->update()) {
+                        $messages = [];
+                        foreach ($record->getMessages() as $message) {
+                            $messages[] = $message->getMessage();
+                        }
+                        throw new Exception(
+                            'Update in model \'' . get_class($record) . '\' faild: ' .
+                            implode(', ', $messages)
+                        );
+                    } elseif ($record->isInsertInsteadUpdate()) {
+                        $referenceValue = $record->{$referenceColumn};
+                        if ($referenceValue != $parentRecord->{$relationColumn}) {
+                            $parentRecord->{$relationColumn} = $referenceValue;
+                            if (!$parentRecord->save()) {
+                                $messages = [];
+                                foreach ($parentRecord->getMessages() as $message) {
+                                    /*$result = [];
+                                    $result[] = "Message: ".$message->getMessage();
+                                    $result[] = "Field: ".$message->getField();
+                                    $result[] = "Type: ".$message->getType();
+                                    $messages[] = implode (", ", $result);*/
+                                    $messages[] = $message->getMessage();
+                                }
+                                throw new Exception(
+                                    'Update in model \'' . get_class($parentRecord) . '\' faild: ' .
+                                    implode(', ', $messages)
+                                );
+                            }
+                        }
                     }
-                    throw new Exception(implode(', ', $messages));
                 }
             }
         }
@@ -320,8 +404,9 @@ class Mysql extends Container implements FormContainer
     /**
      * Delete rows by primary value
      *
-     * @param array|string|integer $ids
-     * @return bool|array
+     * @param integer $ids
+     *
+     * @return bool
      */
     public function delete($ids)
     {

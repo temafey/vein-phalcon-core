@@ -14,16 +14,15 @@ use Vein\Core\Crud\Form\DataTable as Form,
  * @package    Crud
  * @subpackage Helper
  */
-class Numeric extends BaseHelper
+class Phone extends BaseHelper
 {
     /**
-     * Render DataTable number form field
+     * Render DataTable text form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
-     * 
      * @return string
      */
-    public static function _(Field\Numeric $field)
+    public static function _(Field $field)
     {
         $fieldCode = [];
 
@@ -47,7 +46,7 @@ class Numeric extends BaseHelper
         }
         $fieldCode[] = 'allowBlank: '.(($field->isRequire()) ? 'false' : 'true');
 
-        $attribs = [];
+        /*$attribs = [];
         $minValue = $field->getMinValue();
         if ($minValue !== null && $minValue !== false) {
             $attribs[] = ' minlength: '.$minValue;
@@ -59,9 +58,8 @@ class Numeric extends BaseHelper
         $fieldCode[] = 'attr:  {
                         '.implode(', ', $attribs).'
                     }
-        ';
+        ';*/
 
         return forward_static_call(['self', '_implode'], $fieldCode);
-
     }
 }

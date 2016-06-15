@@ -72,7 +72,7 @@ class Checkbox extends Field
 
         $this->_checked = $checked;
         $this->_checkedValue = $checkedValue;
-        $this->_uncheckedValue;
+        $this->_uncheckedValue = $uncheckedValue;
     }
 
     /**
@@ -99,11 +99,16 @@ class Checkbox extends Field
      * value, and the checked flag to be set as false.
      *
      *
-     * @param  mixed $value
+     * @param  integer $value
+     *
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setValue($value)
     {
+        if (is_array($value) && count($value) === 1) {
+            $value = array_shift($value);
+        }
+
         if ($value == $this->getCheckedValue()) {
             $this->_checked = true;
         } else {
@@ -119,7 +124,7 @@ class Checkbox extends Field
     /**
      * Get form field value
      *
-     * @return array|string
+     * @return integer
      */
     public function getValue()
 	{
@@ -130,6 +135,7 @@ class Checkbox extends Field
      * Set checked value
      *
      * @param  string $value
+     *
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setCheckedValue($value)
@@ -156,6 +162,7 @@ class Checkbox extends Field
      * Set unchecked value
      *
      * @param  string $value
+     *
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setUncheckedValue($value)
@@ -181,6 +188,7 @@ class Checkbox extends Field
      * Set checked flag
      *
      * @param  bool $flag
+     * 
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
     public function setChecked($flag)

@@ -4,7 +4,8 @@
  */
 namespace Vein\Core\Mvc;
 
-use Vein\Core\Mvc\Model\Query\Builder;
+use Vein\Core\Mvc\Model\Query\Builder,
+    Phalcon\Mvc\Model\Message;
 
 /**
  * Class Model
@@ -22,13 +23,13 @@ class Model extends \Phalcon\Mvc\Model
      * Additional model constant conditions
      * @var null
      */
-    protected static $_conditions = null;
+    protected static $_conditions;
 
     /**
      * Primary model columns
      * @var array|string
      */
-    protected $_primary = null;
+    protected $_primary;
 
     /**
      * Name of column like dafault name column
@@ -40,13 +41,13 @@ class Model extends \Phalcon\Mvc\Model
      * Model attributes (columns)
      * @var array
      */
-    protected $_attributes = null;
+    protected $_attributes;
 
     /**
      * Default order column
      * @var string
      */
-    protected $_orderExpr = null;
+    protected $_orderExpr;
 
     /**
      * Order is asc order direction
@@ -55,12 +56,31 @@ class Model extends \Phalcon\Mvc\Model
     protected $_orderAsc = false;
 
     /**
+     * Is model record can be insert(create)
+     * @var bool
+     */
+    protected $_blockedForInsert = false;
+
+    /**
+     * Is model record can be updated
+     * @var bool
+     */
+    protected $_blockedForUpdate = false;
+
+    /**
+     * Instead of update make insert
+     * @var bool
+     */
+    protected $_insertInsteadUpdate = false;
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param 	array $parameters
+     *
      * @return  \Phalcon\Mvc\Model\ResultsetInterface
      */
-    public static function find($parameters=null)
+    public static function find($parameters = null)
     {
         if (!static::$_conditions) {
             return parent::find($parameters);
@@ -72,12 +92,12 @@ class Model extends \Phalcon\Mvc\Model
         if (!$parameters) {
             $parameters = $conditions;
         } elseif (is_string($parameters)) {
-            $parameters = $conditions." AND ".$parameters;
+            $parameters = $conditions.' AND '.$parameters;
         } else {
             if (isset($parameters['conditions'])) {
-                $parameters['conditions'] = $conditions." AND ".$parameters['conditions'];
+                $parameters['conditions'] = $conditions.' AND '.$parameters['conditions'];
             } elseif (isset($parameters[0])) {
-                $parameters[0] = $conditions." AND ".$parameters[0];
+                $parameters[0] = $conditions.' AND '.$parameters[0];
             }
         }
 
@@ -89,6 +109,7 @@ class Model extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param array $parameters
+     *
      * @return \Vein\Core\Mvc\Model
      */
     /*public static function findFirst($parameters=null)
@@ -103,12 +124,12 @@ class Model extends \Phalcon\Mvc\Model
         if (!$parameters) {
             $parameters = $conditions;
         } elseif (is_string($parameters)) {
-            $parameters = $conditions." AND ".$parameters;
+            $parameters = $conditions.' AND '.$parameters;
         } else {
             if (isset($parameters['conditions'])) {
-                $parameters['conditions'] = $conditions." AND ".$parameters['conditions'];
+                $parameters['conditions'] = $conditions.' AND '.$parameters['conditions'];
             } elseif (isset($parameters[0])) {
-                $parameters[0] = $conditions." AND ".$parameters[0];
+                $parameters[0] = $conditions.' AND '.$parameters[0];
             }
         }
 
@@ -119,6 +140,7 @@ class Model extends \Phalcon\Mvc\Model
      * Find records by array of ids
      *
      * @param string|array $ids
+     *
      * @return  \Phalcon\Mvc\Model\ResultsetInterface
      */
     public static function findByIds($ids)
@@ -128,10 +150,10 @@ class Model extends \Phalcon\Mvc\Model
         $db = $model->getWriteConnection();
         if (is_array($ids)) {
             $ids = \Vein\Core\Tools\Strings::quote($ids);
-            $credential = $primary." IN (:".$primary.":)";
+            $credential = $primary.' IN (:'.$primary.':)';
             return static::find([$credential, 'bind' => [$primary => $ids]]);
         } else {
-            $credential = $primary." = :".$primary.":";
+            $credential = $primary.' = :'.$primary.':';
             return static::findFirst([$credential, 'bind' => [$primary => $ids]]);
         }
     }
@@ -141,6 +163,7 @@ class Model extends \Phalcon\Mvc\Model
      *
      * @param string $column
      * @param string|array $values
+     *
      * @return  \Phalcon\Mvc\Model\ResultsetInterface
      */
     public static function findByColumn($column, $values)
@@ -149,9 +172,9 @@ class Model extends \Phalcon\Mvc\Model
         $db = $model->getWriteConnection();
         if (is_array($values)) {
             $values = \Vein\Core\Tools\Strings::quote($values);
-            $credential = $column." IN (:".$column.":)";
+            $credential = $column.' IN (:'.$column.':)';
         } else {
-            $credential = $column." = :".$column.":";
+            $credential = $column.' = :'.$column.':';
         }
 
         return static::find([$credential, 'bind' => [$column => $values]]);
@@ -161,6 +184,7 @@ class Model extends \Phalcon\Mvc\Model
      * Normalize query conditions
      *
      * @param array|string $conditions
+     *
      * @return string
      */
     public static function normalizeConditions($conditions)
@@ -176,15 +200,15 @@ class Model extends \Phalcon\Mvc\Model
             }
             if (is_array($condition)) {
                 $condition = \Vein\Core\Tools\Strings::quote($condition);
-                $condition = $key." IN (".$condition.")";
+                $condition = $key.' IN ('.$condition.')';
             } else {
                 $condition = \Vein\Core\Tools\Strings::quote($condition);
-                $condition = $key." = ".$condition;
+                $condition = $key.' = '.$condition;
             }
             $normalizeConditions[] = $condition;
         }
 
-        return implode(" AND ", $normalizeConditions);
+        return implode(' AND ', $normalizeConditions);
     }
 
     /**
@@ -195,6 +219,113 @@ class Model extends \Phalcon\Mvc\Model
     public static function getConditions()
     {
        return static::$_conditions;
+    }
+
+    /**
+     * Inserts or updates a model instance. Returning true on success or false otherwise.
+     * <code>
+     * //Creating a new robot
+     * $robot = new Robots();
+     * $robot->type = 'mechanical';
+     * $robot->name = 'Astro Boy';
+     * $robot->year = 1952;
+     * $robot->save();
+     * //Updating a robot name
+     * $robot = Robots::findFirst("id=100");
+     * $robot->name = "Biomass";
+     * $robot->save();
+     * </code>
+     *
+     * @param array $data
+     * @param array $whiteList
+     *
+     * @return boolean
+     */
+    public function save($data = null, $whiteList = null)
+    {
+        $exists = $this->_exists($this->getModelsMetaData(), $this->getReadConnection());
+        if ($exists) {
+            if ($this->_blockedForUpdate) {
+                if ($this->_insertInsteadUpdate) {
+                    $primary = $this->getPrimary();
+                    $this->{$primary} = null;
+                    $data[$primary] = null;
+                    return $this->create($data, $whiteList);
+                }
+                $this->_errorMessages = [new Message('Record cannot be created because it blocked for update')];
+                return false;
+            }
+        } elseif ($this->_blockedForInsert) {
+            $this->_errorMessages = [new Message('Record cannot be created because it blocked for insert')];
+            return false;
+        }
+
+        return parent::save($data, $whiteList);
+    }
+
+    /**
+     * Inserts a model instance. If the instance already exists in the persistance it will throw an exception
+     * Returning true on success or false otherwise.
+     * <code>
+     * //Creating a new robot
+     * $robot = new Robots();
+     * $robot->type = 'mechanical';
+     * $robot->name = 'Astro Boy';
+     * $robot->year = 1952;
+     * $robot->create();
+     * //Passing an array to create
+     * $robot = new Robots();
+     * $robot->create(array(
+     * 'type' => 'mechanical',
+     * 'name' => 'Astroy Boy',
+     * 'year' => 1952
+     * ));
+     * </code>
+     *
+     * @param mixed $data
+     * @param mixed $whiteList
+     *
+     * @return bool
+     */
+    public function create($data = null, $whiteList = null)
+    {
+        if ($this->_blockedForInsert) {
+            $this->_errorMessages = [new Message('Record cannot be created because it blocked for insert')];
+            return false;
+        }
+
+        return parent::create($data, $whiteList);
+    }
+
+    /**
+     * Updates a model instance. If the instance doesn't exist in the persistance it will throw an exception
+     * Returning true on success or false otherwise.
+     * <code>
+     * //Updating a robot name
+     * $robot = Robots::findFirst("id=100");
+     * $robot->name = "Biomass";
+     * $robot->update();
+     * </code>
+     *
+     * @param mixed $data
+     * @param mixed $whiteList
+     *
+     * @return bool
+     */
+    public function update($data = null, $whiteList = null)
+    {
+        if ($this->_blockedForUpdate) {
+            if ($this->_insertInsteadUpdate) {
+                $primary = $this->getPrimary();
+                $this->{$primary} = null;
+                $data[$primary] = null;
+                return $this->create($data, $whiteList);
+            }
+            $this->_errorMessages = [new Message('Record cannot be created because it blocked for update')];
+            return false;
+        }
+
+        return parent::update($data, $whiteList);
     }
 
     /**
@@ -229,8 +360,8 @@ class Model extends \Phalcon\Mvc\Model
             $columns[] = $column;
         }
         $nameExprResult = (array_key_exists('function', $nameExpr) && !empty($nameExpr['function']))
-            ? $nameExpr['function'] ."(" . implode(', ',$columns).")"
-            : implode(', ',$columns);
+            ? $nameExpr['function'] .'(' . implode(', ',$columns).')'
+            : implode(', ', $columns);
 
         return $nameExprResult;
     }
@@ -267,6 +398,7 @@ class Model extends \Phalcon\Mvc\Model
      *</code>
      *
      * @param array $attributes
+     *
      * @return \Vein\Core\Mvc\Model
      */
     public function _skipAttributes(array $attributes)
@@ -299,6 +431,7 @@ class Model extends \Phalcon\Mvc\Model
      * Create a criteria for a especific model
      *
      * @param string $alias
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function queryBuilder($alias = null)
@@ -317,6 +450,7 @@ class Model extends \Phalcon\Mvc\Model
      * Create a criteria for a specific model
      *
      * @param \Phalcon\DiInterface $dependencyInjector
+     *
      * @return \Phalcon\Mvc\Model\Criteria
      */
     public static function query(\Phalcon\DiInterface $dependencyInjector = NULL)
@@ -333,6 +467,7 @@ class Model extends \Phalcon\Mvc\Model
      * Return model relation
      *
      * @param string $refModel
+     *
      * @return \Phalcon\Mvc\Model\Relation
      */
     public function getReferenceRelation($refModel)
@@ -346,18 +481,18 @@ class Model extends \Phalcon\Mvc\Model
             $refName = get_class($refModel);
         }
         if (!$refModel instanceof \Vein\Core\Mvc\Model) {
-            throw new \Vein\Core\Exception("Model class '$refName' does not extend Vein\Core\Mvc\Model");
+            throw new \Vein\Core\Exception('Model class \''.$refName.'\' does not extend Vein\Core\Mvc\Model');
         }
-        $refName = trim($refName, "\\");
+        $refName = trim($refName, '\\');
         $relations = $this->getModelsManager()->getBelongsTo($this);
         foreach ($relations as $relation) {
-            if (trim($relation->getReferencedModel(), "\\") == $refName) {
+            if (trim($relation->getReferencedModel(), '\\') == $refName) {
                 return $relation;
             }
         }
         $relations = $this->getModelsManager()->getHasMany($this);
         foreach ($relations as $relation) {
-            if (trim($relation->getReferencedModel(), "\\") == $refName) {
+            if (trim($relation->getReferencedModel(), '\\') == $refName) {
                 return $relation;
             }
         }
@@ -369,6 +504,7 @@ class Model extends \Phalcon\Mvc\Model
      * Return models relation path
      *
      * @param string|array $path
+     *
      * @return array
      */
     public function getRelationPath($path)
@@ -385,7 +521,7 @@ class Model extends \Phalcon\Mvc\Model
             $rule = get_class($rule);
         }
         if (!$relation = $this->getReferenceRelation($rule)) {
-            throw new \Vein\Core\Exception("Relation between '".get_class($this)."' and '".$rule."' not found!");
+            throw new \Vein\Core\Exception('Relation between \''.get_class($this).'\' and \''.$rule.'\' not found!');
         }
         $relationPath[$rule] = $relation;
         if (!$path) {
@@ -404,6 +540,7 @@ class Model extends \Phalcon\Mvc\Model
      * Find reference rule and return fields.
      *
      * @param string $rule
+     *
      * @return string
      */
     public function getRelationFields($refModel)
@@ -415,11 +552,42 @@ class Model extends \Phalcon\Mvc\Model
      * Find reference rule and return reference fields.
      *
      * @param string $rule
+     *
      * @return string
      */
     public function getReferenceFields($refModel)
     {
         return $this->getReferenceRelation($refModel)->getReferencedFields();
+    }
+
+    /**
+     * Is model blocked for insert new data
+     *
+     * @return bool
+     */
+    public function isBlockedForInsert()
+    {
+        return !$this->_blockedForInsert;
+    }
+
+    /**
+     * Is model blocked for update new data
+     *
+     * @return bool
+     */
+    public function isBlockedForUpdate()
+    {
+        return !$this->_blockedForUpdate;
+    }
+
+    /**
+     * Is model blocked for update and will be insert new data
+     *
+     * @return bool
+     */
+    public function isInsertInsteadUpdate()
+    {
+        return $this->_insertInsteadUpdate;
     }
 
     /**
@@ -429,6 +597,7 @@ class Model extends \Phalcon\Mvc\Model
      * @param \Phalcon\Mvc\Model\MetadataInterface $metaData
      * @param boolean $exists
      * @param string $identityField
+     *
      * @return boolean
      */
     protected function _preSave(\Phalcon\Mvc\Model\MetadataInterface $metaData, $exists, $identityField)

@@ -28,9 +28,9 @@ class Builder extends PhBuilder
     const LIMIT_OFFSET   = 'limitoffset';
     const FOR_UPDATE     = 'forupdate';
 
-    const COUNT = "COUNT(*)";
-    const SEPARATOR = "\n";
-    const ALIAS = "t";
+    const COUNT = 'COUNT(*)';
+    const SEPARATOR = '\n';
+    const ALIAS = 't';
 
     public static $COLUMN_ALIAS_EXCEPTIONS = [
         'order',
@@ -81,6 +81,7 @@ class Builder extends PhBuilder
     {
         $from = $this->getFrom();
         $key = key($from);
+
         return ($key) ? $key : current($from);
     }
 
@@ -88,6 +89,7 @@ class Builder extends PhBuilder
      * Return alias from joined table
      *
      * @param string|\Vein\Core\Mvc\Model $model
+     * 
      * @return string
      */
     public function getJoinAlias($model)
@@ -95,11 +97,11 @@ class Builder extends PhBuilder
         if ($model instanceof \Vein\Core\Mvc\Model) {
             $model = get_class($model);
         } elseif (is_string($model) and !class_exists($model)) {
-            throw new \Vein\Core\Exception("'{$model}' class not exists!");
+            throw new \Vein\Core\Exception('\''.$model.'\' class not exists!');
         }
-        $model = trim($model, "\\");
+        $model = trim($model, '\\');
         foreach ($this->_joins as $join) {
-            $joinModel = trim($join[0], "\\");
+            $joinModel = trim($join[0], '\\');
             if ($model == $joinModel) {
                 return $join[2];
             }
@@ -115,12 +117,13 @@ class Builder extends PhBuilder
      * @param string $alias
      * @param boolean $useTableAlias
      * @param boolean $useCorrelationName
+     * 
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function setColumn($column, $alias = null, $useTableAlias = true, $useCorrelationName = false)
     {
         if (!is_string($column)) {
-            throw new \Vein\Core\Exception("Column value should be only string data type");
+            throw new \Vein\Core\Exception('Column value should be only string data type');
         }
         if ($alias == $column || is_numeric($alias)) {
             $alias = null;
@@ -131,15 +134,15 @@ class Builder extends PhBuilder
 
         if ($useTableAlias) {
             if ($useCorrelationName) {
-                $column = $this->getCorrelationName($column).".".$column;
+                $column = $this->getCorrelationName($column).'.'.$column;
             } else {
-                $column = $this->getAlias().".".$column;
+                $column = $this->getAlias().'.'.$column;
             }
         }
 
         if ($alias) {
             if (in_array($alias, self::$COLUMN_ALIAS_EXCEPTIONS)) {
-                throw new \Vein\Core\Exception("Column alias name '{$alias}'' can not be reserved in SQL, please change the alias for column '{$column}'");
+                throw new \Vein\Core\Exception('Column alias name \''.$alias.'\' can not be reserved in SQL, please change the alias for column \''.$column.'\'');
             }
             $this->_columns[$alias] = $column;
         } else {
@@ -155,7 +158,7 @@ class Builder extends PhBuilder
      * @param string $alias
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
-    public function columnsId($alias = "id")
+    public function columnsId($alias = 'id')
     {
         $primary = $this->_model->getPrimary();
         $this->setColumn($primary, $alias);
@@ -169,7 +172,7 @@ class Builder extends PhBuilder
      * @param string $alias
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
-    public function columnsName($alias = "name")
+    public function columnsName($alias = 'name')
     {
         $name = $this->_model->getNameExpr();
         $this->setColumn($name, $alias);
@@ -189,7 +192,7 @@ class Builder extends PhBuilder
             return $this;
         }
         if (is_string($columns)) {
-            if (strpos(strtolower($columns), "rowcount") !== false) {
+            if (strpos(strtolower($columns), 'rowcount') !== false) {
                 parent::columns([$columns]);
                 return $this;
             }
@@ -214,12 +217,13 @@ class Builder extends PhBuilder
      *
      * @param array|string $path
      * @param array|string $columns
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsJoinOne($path, $columns = null)
     {
         if (!$this->_model) {
-            throw new \Vein\Core\Exception("Model class not set");
+            throw new \Vein\Core\Exception('Model class not set');
         }
         $relationPath = $this->_model->getRelationPath($path);
         if (is_array($relationPath)) {
@@ -237,26 +241,28 @@ class Builder extends PhBuilder
      * @param string $tableField
      * @param string $orderBy
      * @param string $separator
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsJoinMany($path, $fieldAlias = null, $tableField = null, $orderBy = null, $separator = null)
     {
         if (!$path) {
-            throw new \Vein\Core\Exception("Non empty path is required, model '".get_class($this->_model)."'");
+            throw new \Vein\Core\Exception('Non empty path is required, model \''.get_class($this->_model).'\'');
         }
+
         if (!is_array($path)) {
             $path = [$path];
         }
 
         $relationPath = $this->_model->getRelationPath($path);
         $this->joinPath($relationPath);
-        $this->groupBy($this->getAlias().".".$this->_model->getPrimary());
+        $this->groupBy($this->getAlias().'.'.$this->_model->getPrimary());
 
         $prevRef = array_pop($relationPath);
-        $refModel = trim($prevRef->getReferencedModel(). "\\");
+        $refModel = trim($prevRef->getReferencedModel(). '\\');
         $refOptions = $prevRef->getOptions();
         $refAlias = (isset($refOptions['alias'])) ? $refOptions['alias'] : $refModel;
-        if ($fieldAlias == null) {
+        if ($fieldAlias === null) {
             $fieldAlias = $refAlias;
         }
         $refModel = new $refModel;
@@ -268,12 +274,16 @@ class Builder extends PhBuilder
             $separator = self::SEPARATOR;
         }
         if ($tableField == self::COUNT) {
-            $this->setColumn("COUNT({$refAlias}.{$refModel->getPrimary()})", $fieldAlias, false);
+            $this->setColumn('COUNT('.$refAlias.'.'.$refModel->getPrimary().')', $fieldAlias, false);
         } else {
             if (!$orderBy) {
                 $orderBy = $refModel->getOrderExpr();
             }
-            $this->setColumn("(LEFT(GROUP_CONCAT($refAlias.$field ORDER BY $refAlias.$orderBy SEPARATOR '$separator'), 250))", $fieldAlias, false);
+            $this->setColumn(
+                '(LEFT(GROUP_CONCAT('.$refAlias.'.'.$field.' ORDER BY '.$refAlias.'.'.$orderBy.' SEPARATOR \''.$separator.'\'), 250))',
+                $fieldAlias,
+                false
+            );
         }
 
         return $this;
@@ -282,7 +292,7 @@ class Builder extends PhBuilder
     /*public function columnsJoinMany($path, $fieldAlias = null, $tableField = null, $orderBy = null, $separator = null)
     {
         if (!$path) {
-            throw new \Vein\Core\Exception("Non empty path is required, model '".get_class($this->_model)."'");
+            throw new \Vein\Core\Exception('Non empty path is required, model ''.get_class($this->_model).''');
         }
         if (!is_array($path)) {
             $path = [$path];
@@ -294,7 +304,7 @@ class Builder extends PhBuilder
         $refModel = new $refModel;
         $adapter = $this->_model->getReadConnectionService();
         $refModel->setConnectionService($adapter);
-        $query = $refModel->queryBuilder("m");
+        $query = $refModel->queryBuilder('m');
         $field = ($tableField !== null) ? $tableField : $refModel->getNameExpr();
 
         if ($separator === null) {
@@ -302,13 +312,13 @@ class Builder extends PhBuilder
         }
         //$query->reset(self::COLUMNS);
         if ($tableField === self::COUNT) {
-            $query->setColumn("COUNT(*)", 'c', false);
+            $query->setColumn('COUNT(*)', 'c', false);
         } else {
             $alias = $query->getAlias();
             if ($orderBy) {
-                $query->setColumn("LEFT(GROUP_CONCAT($alias.$field ORDER BY $orderBy SEPARATOR '$separator'), 250)", 'c', false);
+                $query->setColumn('LEFT(GROUP_CONCAT($alias.$field ORDER BY $orderBy SEPARATOR '$separator'), 250)', 'c', false);
             } else {
-                $query->setColumn("LEFT(GROUP_CONCAT($alias.$field SEPARATOR '$separator'), 250)", 'c', false);
+                $query->setColumn('LEFT(GROUP_CONCAT($alias.$field SEPARATOR '$separator'), 250)', 'c', false);
             }
         }
 
@@ -320,7 +330,7 @@ class Builder extends PhBuilder
             $prevRef = array_pop($joinPathRev);
             $alias = $prevRef->getReferencedModel();
         }
-        $query->andWhere($alias.".".$prevRef->getReferencedFields()." = ".$this->getAlias().".".$prevRef->getFields());
+        $query->andWhere($alias.'.'.$prevRef->getReferencedFields().' = '.$this->getAlias().'.'.$prevRef->getFields());
 
         if ($fieldAlias == null) {
             $fieldAlias = get_class($refModel);
@@ -335,6 +345,7 @@ class Builder extends PhBuilder
      * Join all models
      *
      * @param  array $joinPath
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function joinPath(array $joinPath, $columns = null)
@@ -349,7 +360,7 @@ class Builder extends PhBuilder
             if (!is_array($fields)) {
                 $fields = [$fields];
             }
-            $refModel = trim($relation->getReferencedModel(), "\\");
+            $refModel = trim($relation->getReferencedModel(), '\\');
             $refFields = $relation->getReferencedFields();
             if (!is_array($refFields)) {
                 $refFields = [$refFields];
@@ -359,6 +370,7 @@ class Builder extends PhBuilder
             if ($this->_joins) {
                 foreach ($this->_joins as $join) {
                     if ($join[2] == $alias) {
+                        $model = $alias;
                         continue 2;
                     }
                 }
@@ -368,15 +380,15 @@ class Builder extends PhBuilder
             $joinConditions = [];
             foreach ($fields as $i => $field) {
                 if (!isset($refFields[$i])) {
-                    throw new \Vein\Core\Exception("Incorect join rules for model '".$model."' and '".$refModel."''");
+                    throw new \Vein\Core\Exception('Incorect join rules for model \''.$model.'\' and \''.$refModel.'\'');
                 }
                 $joinConditions[] = $model.'.'.$field.' = '.$alias.'.'.$refFields[$i];
             }
             if ($refConditions) {
                 $refConditions = $refCondModel->normalizeConditions($refConditions);
-                $this->leftJoin($refModel, $refConditions." AND ".implode(" AND ", $joinConditions), $alias);
+                $this->leftJoin($refModel, $refConditions.' AND '.implode(' AND ', $joinConditions), $alias);
             } else {
-                $this->leftJoin($refModel, implode(" AND ", $joinConditions), $alias);
+                $this->leftJoin($refModel, implode(' AND ', $joinConditions), $alias);
             }
             $model = $alias;
         }
@@ -403,7 +415,7 @@ class Builder extends PhBuilder
         if (!$columns) {
             return;
         }
-        if (is_string($columns) && $columns != '*') {
+        if (is_string($columns) && $columns !== '*') {
             $columns = [$columns => null];
         }
         if (is_array($columns)) {
@@ -413,9 +425,9 @@ class Builder extends PhBuilder
                 } elseif ($column === \Vein\Core\Mvc\Model::ID) {
                     $column = $refModel->getPrimary();
                 }
-                $column = $alias.".".$column;
+                $column = $alias.'.'.$column;
                 if (isset($this->_columns[$name]) && $this->_columns[$name] !== $column) {
-                    throw new \Vein\Core\Exception("Column with alias '".$name."' already exists in column list, exists column '".$this->_columns[$name]."', new column '".$column."'");
+                    throw new \Vein\Core\Exception('Column with alias \''.$name.'\' already exists in column list, exists column \''.$this->_columns[$name].'\', new column \''.$column.'\'');
                 }
                 $this->_columns[$name] = $column;
             }
@@ -426,14 +438,16 @@ class Builder extends PhBuilder
      * Return table name by column name
      *
      * @param $col
+     *
      * @return string
      */
     public function getCorrelationName($col)
     {
         $correlationNameKeys = $this->getFrom();
-        if ($col == '*') {
+        if ($col === '*') {
             return $this->getAlias();
         }
+
         foreach ($correlationNameKeys as $key => $modelName) {
             $model = new $modelName;
             $cols = $model->getAttributes();
@@ -446,6 +460,7 @@ class Builder extends PhBuilder
         if (!$correlationNameKeys) {
             return $this->getAlias();
         }
+
         foreach ($correlationNameKeys as $modelName) {
             $model = new $modelName[0];
             $cols = $model->getAttributes();
@@ -458,9 +473,46 @@ class Builder extends PhBuilder
     }
 
     /**
+     * Return table name by column name
+     *
+     * @param $col
+     *
+     * @return string
+     */
+    public function getCorrelationName2($col)
+    {
+        if ($col === '*') {
+            return $this->getAlias();
+        }
+
+        if ($this->_joins) {
+            $correlationNameKeys = array_reverse($this->_joins);
+            foreach ($correlationNameKeys as $modelName) {
+                $model = new $modelName[0];
+                $cols = $model->getAttributes();
+                if (in_array($col, $cols)) {
+                    return $modelName[2];
+                }
+            }
+        }
+
+        $correlationNameKeys = $this->getFrom();
+        foreach ($correlationNameKeys as $key => $modelName) {
+            $model = new $modelName;
+            $cols = $model->getAttributes();
+            if (in_array($col, $cols)) {
+                return (is_numeric($key) ? $modelName : $key);
+            }
+        }
+
+        return $this->getAlias();
+    }
+
+    /**
      * Set model default order to query
      *
      * @param bool $reverse
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function orderNatural($reverse = false)
@@ -475,11 +527,11 @@ class Builder extends PhBuilder
             }
             $orderPre = [];
             foreach ($order as $i => $key) {
-                $dependencyInjectorrection[$i] = ($dependencyInjectorrection[$i] ^ $reverse) ? "ASC" : "DESC";
+                $dependencyInjectorrection[$i] = ($dependencyInjectorrection[$i] ^ $reverse) ? 'ASC' : 'DESC';
                 $alias = $this->getCorrelationName($key);
-                $orderPre[] = $alias.".".$key." ".$dependencyInjectorrection[$i];
+                $orderPre[] = $alias.'.'.$key.' '.$dependencyInjectorrection[$i];
             }
-            $this->orderBy(implode(",", $orderPre));
+            $this->orderBy(implode(',', $orderPre));
         }
 
         return $this;
@@ -489,11 +541,12 @@ class Builder extends PhBuilder
      * Clear parts of the Query object, or an individual part.
      *
      * @param string $part OPTIONAL
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function reset($part = null)
     {
-        if ($part == null) {
+        if ($part === null) {
             $this->_columns = [];
         } else {
             switch ($part) {
@@ -532,5 +585,10 @@ class Builder extends PhBuilder
         }
         //$query->setType();
         return $query;
+    }
+
+    public function getBindParams()
+    {
+        return $this->_bindParams;
     }
 }

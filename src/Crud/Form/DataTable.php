@@ -202,6 +202,7 @@ abstract class DataTable extends Form
             }
             $form->$key = $value;
         }
+        
         if (!$form->isValid($row)) {
             $messages = [];
             foreach ($form->getForm()->getMessages() as $message) {
