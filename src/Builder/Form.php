@@ -140,7 +140,7 @@ class Form extends Component
             case self::TYPE_DATATABLE: $extends = $this->templateDataTableFormExtends;
                 break;
             default: $extends = $this->templateSimpleFormExtends;
-            break;
+                break;
         }
 
 
@@ -229,76 +229,50 @@ class Form extends Component
                 }
                 $templateArray = sprintf($templateArray, $enumValsContent);
                 $initFields .= sprintf($this->templateSimpleFormComplexField, $fieldName, 'ArrayToSelect', Inflector::humanize($fieldName), $fieldName, $templateArray);
-            }*/ else {
-                preg_match('/^(.*)\_i{1}d{1}$/', $fieldName, $matches);
-                if (!empty($matches)) {
-                    $pieces = explode('_', $fieldName);
-                    if (count($pieces) > 2) {
-                        array_shift($pieces);
-                    }
-                    array_pop($pieces);
-
-                    $camelize = function($pieces) {
-                        $c = [];
-                        foreach ($pieces as $piece) {
-                            $c[] = ucfirst($piece);
+            }*/
+            else {
+                $fieldComment = $fullFields[$fieldName]['COLUMN_COMMENT'];
+                $options = explode(';', $fieldComment);
+                if (count($options) < 2) {
+                    $options = explode(',', $fieldComment);
+                }
+                $vals = [];
+                $colectionType = false;
+                if (count($rows) > 1) {
+                    foreach ($options as $option) {
+                        if (strpos($option, ':') === false) {
+                            $colectionType = false;
+                            break;
                         }
-
-                        return $c;
-                    };
-                    $modelName = implode('\\', $camelize($pieces));
-                    $fieldName = implode('_', $pieces);
+                        list($key, $value) = explode(':', $option);
+                        $vals[$key] = $value;
+                        $colectionType = true;
+                    }
+                }
+                if ($colectionType) {
+                    $templateArray = '[%s]';
+                    $templateArrayPair = "'%s' => '%s'";
+                    $valsContent = [];
+                    foreach ($vals as $key => $value) {
+                        $valsContent[] = sprintf($templateArrayPair, $key, $value);
+                    }
+                    $templateArray = sprintf($templateArray, implode(', ', $valsContent));
+                    $initFields .= sprintf(
+                        $this->templateSimpleFormComplexField,
+                        $normalizeFieldName,
+                        'ArrayToSelect',
+                        Inflector::humanize($normalizeFieldName),
+                        $fieldName,
+                        $templateArray
+                    );
+                } else {
                     $initFields .= sprintf(
                         $this->templateSimpleFormSimpleField,
-                        $normalizeFieldName,
-                        'ManyToOne',
-                        Inflector::humanize($normalizeFieldName),
-                        $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$modelName
+                        $fieldName,
+                        $type,
+                        Inflector::humanize($fieldName),
+                        $fieldName
                     );
-                  } else {
-                    $fieldComment = $fullFields[$fieldName]['COLUMN_COMMENT'];
-                    $options = explode(';', $fieldComment);
-                    if (count($options) < 2) {
-                        $options = explode(',', $fieldComment);
-                    }
-                    $vals = [];
-                    $colectionType = false;
-                    if (count($rows) > 1) {
-                        foreach ($options as $option) {
-                            if (strpos($option, ':') === false) {
-                                $colectionType = false;
-                                break;
-                            }
-                            list($key, $value) = explode(':', $option);
-                            $vals[$key] = $value;
-                            $colectionType = true;
-                        }
-                    }
-                    if ($colectionType) {
-                        $templateArray = '[%s]';
-                        $templateArrayPair = "'%s' => '%s'";
-                        $valsContent = [];
-                        foreach ($vals as $key => $value) {
-                            $valsContent[] = sprintf($templateArrayPair, $key, $value);
-                        }
-                        $templateArray = sprintf($templateArray, implode(', ', $valsContent));
-                        $initFields .= sprintf(
-                            $this->templateSimpleFormComplexField,
-                            $normalizeFieldName,
-                            'ArrayToSelect',
-                            Inflector::humanize($normalizeFieldName),
-                            $fieldName,
-                            $templateArray
-                        );
-                    } else {
-                        $initFields .= sprintf(
-                            $this->templateSimpleFormSimpleField,
-                            $fieldName,
-                            $type,
-                            Inflector::humanize($fieldName),
-                            $fieldName
-                        );
-                    }
                 }
             }
         }
@@ -326,7 +300,11 @@ class Form extends Component
                 $content .= $templateInitFields;
                 break;
             case self::TYPE_DATATABLE:
-                $content .= sprintf($this->templateDataTableFormKey, Inflector::underscore($this->_builderOptions['className']));
+                $pieces = explode('\\', strtolower($this->_builderOptions['namespaceClear'].'\\'.$this->_builderOptions['className']));
+                array_shift($pieces);
+                array_shift($pieces);
+                $formKey = implode($pieces, '-');
+                $content .= sprintf($this->templateDataTableFormKey, $formKey);
                 $content .= $this->templateDataTableFormModulePrefix;
                 $content .= sprintf($this->templateDataTableFormModuleName, $this->_builderOptions['moduleName']);
                 $content .= sprintf($this->templateSimpleFormTitle, $this->_builderOptions['className']);

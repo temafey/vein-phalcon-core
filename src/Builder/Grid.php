@@ -141,7 +141,7 @@ class Grid extends Component
             case self::TYPE_DATATABLE: $extends = $this->templateDataTableGridExtends;
                 break;
             default: $extends = $this->templateSimpleGridExtends;
-            break;
+                break;
         }
 
         $templateInitColumns = $this->templateSimpleGridInitColumns;
@@ -179,7 +179,7 @@ class Grid extends Component
                 if (strpos($tableName, '_') === false) {
                     $tableName .= '_'.$tableName;
                 }
-                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));                
+                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
                 $fieldName = $columns[0];
                 $normalizeFieldName = str_replace('_id', '', $fieldName);
 
@@ -238,7 +238,7 @@ class Grid extends Component
             }
             $fieldName = $field->getName();
             $normalizeFieldName = str_replace('_id', '', $fieldName);
-            
+
             if (array_key_exists($fieldName, $joinColumns)) {
                 $initColumns .= $joinColumns[$fieldName];
                 $initFilters .= $joinFilters[$fieldName];
@@ -348,7 +348,11 @@ class Grid extends Component
                 $content .= $templateInitFilters;
                 break;
             case self::TYPE_DATATABLE:
-                $content .= sprintf($this->templateDataTableGridKey, Inflector::underscore($this->_builderOptions['className']));
+                $pieces = explode('\\', strtolower($this->_builderOptions['namespaceClear'].'\\'.$this->_builderOptions['className']));
+                array_shift($pieces);
+                array_shift($pieces);
+                $gridKey = implode($pieces, '-');
+                $content .= sprintf($this->templateDataTableGridKey, $gridKey);
                 $content .= $this->templateDataTableGridModulePrefix;
                 $content .= sprintf($this->templateDataTableGridModuleName, $this->_builderOptions['moduleName']);
                 $content .= $templateTitle;
@@ -363,7 +367,7 @@ class Grid extends Component
                 $content .= $templateAction;
                 $content .= $templateInitColumns;
                 $content .= $templateInitFilters;
-            break;
+                break;
         }
 
         $code = sprintf(

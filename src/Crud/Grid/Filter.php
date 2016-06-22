@@ -495,7 +495,17 @@ class Filter
     {
         $params = [];
         foreach ($this->_fields as $key => $field) {
+            if ($field instanceof Field\Submit) {
+                continue;
+            }
             $value = $field->getValue();
+            if (
+                $value === false ||
+                $value === null ||
+                $value === ''
+            ) {
+                continue;
+            }
             if (is_array($value)) {
                 if (isset($value[0])) {
                     $params[$key] = $value;
