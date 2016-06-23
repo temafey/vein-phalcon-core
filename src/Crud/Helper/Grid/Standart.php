@@ -21,9 +21,13 @@ class Standart extends \Vein\Core\Crud\Helper
 	 */
 	static public function _(\Vein\Core\Crud\Grid $grid)
 	{
-        $code = '
-        <h1>'.$grid->getTitle().'</h1>
-        <table id="'.$grid->getId().'" autowidth="true" class="'.$grid->getAttrib('class').' table table-bordered table-hover">';
+        $code = '<div class="box">
+	<div class="box-header">
+		<h3 class="box-title">'.$grid->getTitle().'</h3>
+	</div>
+	<div class="box-body">
+		<table id="'.$grid->getId().'" autowidth="true" class="'.$grid->getAttrib('class').' table table-bordered table-hover">
+	';
 
 		return $code;
 	}
@@ -36,6 +40,8 @@ class Standart extends \Vein\Core\Crud\Helper
     static public function endTag()
     {
         return '
-        </table>';
+        </table>
+	</div>
+</div>';
     }
 }

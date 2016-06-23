@@ -274,7 +274,7 @@ class Mysql extends Container implements GridContainer
                     throw new Exception(implode(', ', $messages));
                 }
             }
-        } catch (\Vein\Core\Exception $e) {
+        } catch (Exception$e) {
             $db->rollBack();
             throw $e;
         }

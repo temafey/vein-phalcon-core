@@ -138,7 +138,7 @@ trait Resource
      *
      * @param  string $resource
      * @return void
-     * @throws \Vein\Core\Exception When resource not found
+     * @throws ExceptionWhen resource not found
      */
     protected function _executingResource($resource)
     {

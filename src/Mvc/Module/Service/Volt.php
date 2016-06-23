@@ -5,7 +5,7 @@
 namespace Vein\Core\Mvc\Module\Service;
 
 use Vein\Core\Mvc\Module\Service\AbstractService,
-    Phalcon\Mvc\View\Vein\Core\Volt as ViewEngine;
+    Phalcon\Mvc\View\Engine\Volt as ViewEngine;
 
 /**
  * Class Volt

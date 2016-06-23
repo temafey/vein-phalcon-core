@@ -34,7 +34,7 @@ class View extends AbstractService
             $view->setLayoutsDir('layouts/');
 
             $view->registerEngines([
-                ".volt" => 'viewVein\Core'
+                ".volt" => 'viewEngine'
             ]);
 
             // Attach a listener for type "view"

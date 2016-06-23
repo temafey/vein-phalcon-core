@@ -32,13 +32,14 @@ class DataTable extends BaseHelper
 	{
         $code = '
         $(\'#'.static::getName().'\').DataTable( {
-            dom: \'<"top"Bfrtip<"clear">>rt<"bottom"iflp<"clear">>\',
+            dom: \'<"top"Bfr<"clear">>rt<"bottom"ilp<"clear">>\',
 			lengthChange: true,
 			processing: true,
             serverSide: true,
 			paging: true,
 			searching: true,
 			info: true,
+			scrollX: true,
             ajax: "'.$grid->getAction().'",';
 
 		return $code;

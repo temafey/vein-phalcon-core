@@ -8,7 +8,7 @@ use Phalcon\Mvc\View\Engine,
     Phalcon\Mvc\View\EngineInterface;
 
 /**
- * Jade
+ * Pug
  *
  * Adapter to use Pug library as templating engine
  */

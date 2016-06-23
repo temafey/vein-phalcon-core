@@ -402,7 +402,7 @@ class ManyToMany extends Field
             }
             $db->commit();
 
-        } catch (\Vein\Core\Exception $e) {
+        } catch (Exception$e) {
             $db->rollback();
             echo $e->getMessage();
             die();

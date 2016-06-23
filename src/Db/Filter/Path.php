@@ -121,6 +121,7 @@ class Path extends AbstractFilter
             return false;
         }
         $expr = $relation->getFields();
+        //$exprModel = $relation->getM
         $alias = $dataSource->getCorrelationName($expr);
         $this->setBoundParamKey($alias.'_'.$expr);
         if (count($this->_value) == 1) {

@@ -109,9 +109,9 @@ class DataTable extends Decorator
     public function getDefaultHelpers()
     {
         $helpers = [
-            'pug',
-            'pug\ColumnsHead',
-            'pug\Body',
+            'standart',
+            'standart\ColumnsHead',
+            'standart\Body',
             'dataTable',
             //'dataTable\Filter',
             'dataTable\Columns',

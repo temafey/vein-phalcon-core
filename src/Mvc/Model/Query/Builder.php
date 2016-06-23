@@ -6,6 +6,7 @@ namespace Vein\Core\Mvc\Model\Query;
 
 use Phalcon\Mvc\Model\Query\Builder as PhBuilder,
     Vein\Core\Mvc\Model\Query as EnQuery;
+use Vein\Core\Crud\Container\Grid\Mysql\Exception;
 
 /**
  * Class Builder
@@ -43,6 +44,12 @@ class Builder extends PhBuilder
      * @var \Vein\Core\Mvc\Model
      */
     protected $_model;
+
+    /**
+     * Join models objects
+     * @var array
+     */
+    protected $_joinModels = [];
 
     /**
      * Set model
@@ -102,7 +109,7 @@ class Builder extends PhBuilder
         $model = trim($model, '\\');
         foreach ($this->_joins as $join) {
             $joinModel = trim($join[0], '\\');
-            if ($model == $joinModel) {
+            if ($model === $joinModel) {
                 return $join[2];
             }
         }
@@ -437,21 +444,43 @@ class Builder extends PhBuilder
     /**
      * Return table name by column name
      *
-     * @param $col
+     * @param string $col
+     * @param string $colModel
      *
      * @return string
      */
-    public function getCorrelationName($col)
+    public function getCorrelationName($col, $colModel = null)
     {
-        $correlationNameKeys = $this->getFrom();
         if ($col === '*') {
             return $this->getAlias();
         }
+        if (null !== $colModel) {
+            if (is_object($colModel)) {
+                $colModel = get_class($colModel);
+            }
+            $colModel = trim($colModel, '\\');
+        }
 
+        $correlationNameKeys = $this->getFrom();
+        $model = get_class($this->_model);
         foreach ($correlationNameKeys as $key => $modelName) {
-            $model = new $modelName;
+            if ($model === $modelName) {
+                $model =  $this->_model;
+            } else {
+                if (!array_key_exists($modelName, $this->_joinModels)) {
+                    $this->_joinModels[$modelName] = new $modelName;
+                }
+                $model = $this->_joinModels[$modelName];
+            }
             $cols = $model->getAttributes();
             if (in_array($col, $cols)) {
+                if (
+                    null !== $colModel &&
+                    $colModel !== $modelName &&
+                    $colModel !== $key
+                ) {
+                    continue;
+                }
                 return (is_numeric($key) ? $modelName : $key);
             }
         }
@@ -462,9 +491,19 @@ class Builder extends PhBuilder
         }
 
         foreach ($correlationNameKeys as $modelName) {
-            $model = new $modelName[0];
-            $cols = $model->getAttributes();
+            if (!array_key_exists($modelName[0], $this->_joinModels)) {
+                $this->_joinModels[$modelName[0]] = new $modelName[0];
+            }
+            $joinModel = $this->_joinModels[$modelName[0]];
+            $cols = $joinModel->getAttributes();
             if (in_array($col, $cols)) {
+                if (
+                    null !== $colModel &&
+                    $colModel !== $modelName[0] &&
+                    $colModel !== $modelName[2]
+                ) {
+                    continue;
+                }
                 return $modelName[2];
             }
         }

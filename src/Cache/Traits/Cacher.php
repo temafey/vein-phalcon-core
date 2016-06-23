@@ -344,7 +344,7 @@ trait Cacher
     }
 
     /**
-     * Set article service
+     * Set application service
      *
      * @param CacheService $cacheService
      *
@@ -367,7 +367,7 @@ trait Cacher
     }
 
     /**
-     * Return article service object
+     * Return application service object
      *
      * @return CacheService
      * @throws \Vein\Core\Exception

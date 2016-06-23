@@ -198,7 +198,7 @@ class Mysql extends Container implements FormContainer
                 }
                 throw new Exception(implode(', ', $messages));
             }
-		} catch (\Vein\Core\Exception $e) {
+		} catch (Exception$e) {
             $db->rollBack();
             throw $e;
 		}
@@ -426,7 +426,7 @@ class Mysql extends Container implements FormContainer
                     throw new Exception(implode(', ', $messages));
                 }
             }
-        } catch (\Vein\Core\Exception $e) {
+        } catch (Exception$e) {
             $db->rollBack();
             throw $e;
         }
