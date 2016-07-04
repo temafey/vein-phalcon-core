@@ -238,7 +238,7 @@ abstract class Standart extends Form
                 $resultData['data'][$result] = $form->getData();
             }
         }
-var_dump($row);
+
         return $resultData;
     }
 
