@@ -17,9 +17,10 @@ use Vein\Core\Crud\Grid\Filter as Filter,
 class Mail extends BaseHelper
 {
     /**
-     * Render extjs mail filter field
+     * Render mail filter field
      *
      * @param \Vein\Core\Crud\Grid\Filter\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

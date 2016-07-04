@@ -45,7 +45,8 @@ abstract class Decorator
     /**
      * Constructor
      *
-     * @param  array $options
+     * @param array $options
+     *
      * @return void
      */
     public function __construct($options = null)
@@ -58,7 +59,8 @@ abstract class Decorator
     /**
      * Set options
      *
-     * @param  array $options
+     * @param array $options
+     *
      * @return \Vein\Core\Crud\Decorator
      */
     public function setOptions(array $options)
@@ -70,8 +72,9 @@ abstract class Decorator
     /**
      * Set option
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param string $key
+     * @param mixed $value
+     *
      * @return \Vein\Core\Crud\Decorator
      */
     public function setOption($key, $value)
@@ -83,7 +86,8 @@ abstract class Decorator
     /**
      * Get option
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function getOption($key)
@@ -110,6 +114,7 @@ abstract class Decorator
      * Remove single option
      *
      * @param mixed $key
+     *
      * @return boolean
      */
     public function removeOption($key)
@@ -136,7 +141,8 @@ abstract class Decorator
     /**
      * Set current form element
      *
-     * @param  \Vein\Core\Crud\Form\Field|\Egnine\Crud\Form|\Vein\Core\Crud\Grid $element
+     * @param \Vein\Core\Crud\Form\Field|\Egnine\Crud\Form|\Vein\Core\Crud\Grid $element
+     *
      * @return \Vein\Core\Crud\Decorator\Decorator
      * @throws \InvalidArgumentException on invalid element type
      */
@@ -214,7 +220,8 @@ abstract class Decorator
     /**
      * Decorate content and/or element
      *
-     * @param  string $content
+     * @param string $content
+     *
      * @return string
      * @throws \RunTimeException when unimplemented
      */

@@ -54,6 +54,7 @@ class Cache extends Search
      * Apply filter to query builder
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -100,6 +101,7 @@ class Cache extends Search
      * Return bound params array
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return array
      */
     public function getBoundParams(Builder $dataSource)
@@ -160,6 +162,7 @@ class Cache extends Search
 	 * @param string $needle
 	 * @param array $haystack
 	 * @param bool $type
+     *
      * @return array
 	 */
 	protected function _arraySearch($needle, array $haystack, $type = NULL)

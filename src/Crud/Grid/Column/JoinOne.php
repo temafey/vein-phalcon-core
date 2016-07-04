@@ -103,6 +103,7 @@ class JoinOne extends Collection
      * Update grid container
      *
      * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
@@ -116,7 +117,8 @@ class JoinOne extends Collection
 	 * Update container data source
 	 * 
 	 * @param \Vein\Core\Crud\Container\Grid\Adapter $dataSource
-	 * @return \Vein\Core\Crud\Grid\Column\JoinOne
+     *
+     * @return \Vein\Core\Crud\Grid\Column\JoinOne
 	 */
 	public function updateDataSource($dataSource)
 	{
@@ -147,6 +149,7 @@ class JoinOne extends Collection
      * (non-PHPdoc)
      * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
+     *
      * @return string
      */
     public function render($row)
@@ -170,6 +173,7 @@ class JoinOne extends Collection
      * Return column value by key
      *
      * @param mixed $row
+     *
      * @return string|integer
      */
     public function getValue($row)
@@ -188,6 +192,7 @@ class JoinOne extends Collection
      * Set null value
      *
      * @param string $na
+     *
      * @return \Vein\Core\Crud\Grid\Column\JoinOne
      */
     public function setNullValue($na)
@@ -200,6 +205,7 @@ class JoinOne extends Collection
      * Set null value
      *
      * @param string $na
+     *
      * @return \Vein\Core\Crud\Grid\Column\JoinOne
      */
     public function setNoJoin()
@@ -223,6 +229,7 @@ class JoinOne extends Collection
      * Return values
      *
      * @param array $row
+     *
      * @return array
      */
     protected function _getValue($row)

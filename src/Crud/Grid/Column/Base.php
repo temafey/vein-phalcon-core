@@ -22,6 +22,7 @@ class Base extends Column
      * Update grid container
      *
      * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)

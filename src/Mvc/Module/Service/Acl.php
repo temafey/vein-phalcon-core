@@ -54,6 +54,7 @@ class Acl extends AbstractService
      * Return acl adapter full class name
      *
      * @param string $name
+     *
      * @return string
      */
     protected function _getAclAdapter($name)

@@ -173,6 +173,7 @@ abstract class Cli extends PhApplication
      * Return application service full class name
      *
      * @param string $serviceName
+     *
      * @return string
      */
     private function _getService($serviceName)

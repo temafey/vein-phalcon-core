@@ -32,7 +32,7 @@ class ArrayToSelect extends Standart
 	 * Select options array
 	 * @var array
 	 */
-	protected $_options;
+	protected $_options = [];
 
 	/**
 	 * Null option
@@ -87,11 +87,10 @@ class ArrayToSelect extends Standart
 			$this->_element->setAttribute('onchange', $this->_onChangeAction);
 		}
 
-        if ($this->_loadSelectOptions === false) {
-            return false;
-        }
-
-        $options = $this->getOptions();
+		$options = [];
+		if ($this->_loadSelectOptions !== false) {
+			$options = $this->getOptions();
+		}
         $nullValue = false;
         if ($this->_nullOption) {
             if ($this->_nullOption == -1) {
@@ -128,7 +127,8 @@ class ArrayToSelect extends Standart
 	 * Set filter options array
 	 * 
 	 * @param array $options
-	 * @return \Vein\Core\Crud\Grid\Filter\Field
+     *
+     * @return \Vein\Core\Crud\Grid\Filter\Field
 	 */
 	public function setOptions(array $options)
 	{
@@ -140,7 +140,8 @@ class ArrayToSelect extends Standart
 	 * Set nulled select option
 	 * 
 	 * @param string|array $option
-	 * @return \Vein\Core\Crud\Grid\Filter\Field
+     *
+     * @return \Vein\Core\Crud\Grid\Filter\Field
 	 */
 	public function setNullOption($option)
 	{
@@ -152,7 +153,8 @@ class ArrayToSelect extends Standart
 	 * Set onchange action
 	 * 
 	 * @param string $onchange
-	 * @return \Vein\Core\Crud\Grid\Filter\Field
+     *
+     * @return \Vein\Core\Crud\Grid\Filter\Field
 	 */
 	public function setOnchangeAction($onchange)
 	{
@@ -164,12 +166,13 @@ class ArrayToSelect extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)
     {
         $values = $this->getValue();
-        if ($values === null || $values === false || (is_string($values) && $values == "")) {
+        if ($values === null || $values === false || (is_string($values) && $values == '')) {
             return false;
         }
 
@@ -183,7 +186,7 @@ class ArrayToSelect extends Standart
         }
 
         foreach ($values as $val) {
-            if (trim($val) == "" || $val == -1 || array_search($val, $this->_exceptionsValues)) {
+            if (trim($val) == '' || $val == -1 || array_search($val, $this->_exceptionsValues)) {
                 continue;
             }
             $filter = $container->getFilter('search', [$this->_name => $this->_criteria], $val);

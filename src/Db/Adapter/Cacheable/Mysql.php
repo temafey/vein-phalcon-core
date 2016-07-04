@@ -51,7 +51,8 @@ class Mysql extends \Phalcon\Db\Adapter\Pdo\Mysql
 	 * @param string $sqlStatement
 	 * @param array $bindParams
 	 * @param array $bindTypes
-	 * @return \Vein\Core\Db\Result\Serializable
+     *
+     * @return \Vein\Core\Db\Result\Serializable
 	 */
 	public function query($sqlStatement, $bindParams=null, $bindTypes=null)
 	{
@@ -98,7 +99,8 @@ class Mysql extends \Phalcon\Db\Adapter\Pdo\Mysql
 	 * @param string $sqlStatement
 	 * @param array $bindParams
 	 * @param array $bindTypes
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function execute($sqlStatement, $bindParams=null, $bindTypes=null)
 	{
@@ -111,7 +113,8 @@ class Mysql extends \Phalcon\Db\Adapter\Pdo\Mysql
 	 *
 	 * @param string $tableName
 	 * @param string $schemaName
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function tableExists($tableName, $schemaName=null)
 	{

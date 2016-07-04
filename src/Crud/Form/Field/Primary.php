@@ -37,7 +37,7 @@ class Primary extends Field
 	public function __construct($label = null, $desc = null, $width = 280)
     {
 		parent::__construct($label, false, $desc, false, $width, null);
-        $this->setAttrib('readonly');
+        $this->setAttrib('readonly', true);
 	}
 
     /**

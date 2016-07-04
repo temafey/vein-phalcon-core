@@ -54,6 +54,8 @@ abstract class Component
 
     const TYPE_DATATABLE = 6;
 
+    const TYPE_STANDART = 8;
+
     /**
      * @var \Phalcon\Db\Adapter\Pdo
      */
@@ -72,6 +74,7 @@ abstract class Component
      * Tries to find the current configuration in the application
      *
      * @param $configPath
+     *
      * @return mixed|\Phalcon\Config\Adapter\Ini
      * @throws BuilderException
      */
@@ -207,6 +210,7 @@ abstract class Component
      * Check if a path is absolute
      *
      * @param $path
+     *
      * @return bool
      */
     public function isAbsolutePath($path)
@@ -345,6 +349,7 @@ abstract class Component
      * </code>
      *
      * @param $table
+     *
      * @return mixed
      */
     protected function getModuleNameByTableName($table)
@@ -362,6 +367,7 @@ abstract class Component
      * Return class name
      *
      * @param $table
+     *
      * @return null|string
      */
     protected function getClassName($table)
@@ -375,6 +381,7 @@ abstract class Component
      * Return alias by table name without module name
      *
      * @param $str
+     *
      * @return string
      */
     protected function getAlias($str)
@@ -429,6 +436,7 @@ abstract class Component
      * @param string $table
      * @param string $type
      * @param int $builderType
+     *
      * @return array
      * @throws \InvalidArgumentException
      */
@@ -481,6 +489,7 @@ abstract class Component
      * @param string $table
      * @param string $type
      * @param int $builderType
+     *
      * @return string
      * @throws \InvalidArgumentException
      */
@@ -534,6 +543,7 @@ abstract class Component
      *
      * @param $type
      * @param int $builderType
+     *
      * @return string
      */
     protected function getUseComponennts($type, $builderType = self::TYPE_SIMPLE)

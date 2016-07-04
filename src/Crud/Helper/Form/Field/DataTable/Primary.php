@@ -20,6 +20,7 @@ class Primary extends BaseHelper
      * Render DataTable primary form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

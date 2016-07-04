@@ -20,8 +20,9 @@ class Decorator
     /**
      * Factory for \Vein\Core\Crud\Decorator classes.
      *
-     * @param  \Vein\Core\Crud\Form\Field|\Vein\Core\Crud\Form|\Vein\Core\Crud\Grid $element
-     * @param  mixed $config
+     * @param \Vein\Core\Crud\Form\Field|\Vein\Core\Crud\Form|\Vein\Core\Crud\Grid $element
+     * @param mixed $config
+     *
      * @return \Vein\Core\Crud\Decorator
      */
     public static function factory($element, array $config = [])
@@ -83,6 +84,7 @@ class Decorator
      * Return decorator namespace
      * 
      * @param mixed $object
+     *
      * @return string
      */
     static function getDecoratorNamespace($object)

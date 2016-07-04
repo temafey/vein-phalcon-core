@@ -33,6 +33,7 @@ abstract class Mysql extends AbstractContainer
      * Set model adapter
      *
      * @param string $adapter
+     *
      * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setAdapter($adapter = null)
@@ -137,6 +138,7 @@ abstract class Mysql extends AbstractContainer
      * Set join models
      *
      * @param array $models
+     *
      * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setJoinModels($models)
@@ -200,6 +202,7 @@ abstract class Mysql extends AbstractContainer
      * @param string $name
      * @param boolean $useTableAlias
      * @param boolean $useCorrelationTableName
+     *
      * @return \Vein\Core\Crud\Container\Mysql
      */
     public function setColumn($key, $name, $useTableAlias = true, $useCorrelationTableName = false)

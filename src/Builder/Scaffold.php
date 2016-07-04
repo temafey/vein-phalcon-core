@@ -389,7 +389,8 @@ class Scaffold extends Component
 	 * @param string $path
 	 * @param array $options
 	 * @param string $action
-	 * @return string $code
+     *
+     * @return string $code
 	 */
 	private function _makeFields($path, $options, $action)
 	{

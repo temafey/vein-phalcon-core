@@ -117,11 +117,12 @@ class Date extends Field
      * Set form field value
      *
      * @param array|int|string $value
+     *
      * @return \Vein\Core\Crud\Tools\FormElements
      */
     public function setValue($value)
     {
-		//$value = str_replace ( "-", "/", $value );
+		//$value = str_replace ( '-', '/', $value );
 		//$value = date ( 'm-d-Y', strtotime ( $value ) );
 		$date = new \DateTime($value);
         $value = $date->format($this->_format);
@@ -133,6 +134,7 @@ class Date extends Field
      * Set date format string
      *
      * @param string $format
+     *
      * @return \Vein\Core\Crud\Grid\Column\Date
      */
     public function setFormat($format)

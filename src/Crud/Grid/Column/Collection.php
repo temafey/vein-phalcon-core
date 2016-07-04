@@ -32,7 +32,7 @@ class Collection extends Base
 	 * Empty value
 	 * @var string
 	 */
-	protected $_na = "-";
+	protected $_na = '-';
 
     /**
      * Constructor
@@ -65,6 +65,7 @@ class Collection extends Base
      * (non-PHPdoc)
      * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
+     *
      * @return string
      */
 	public function render($row)
@@ -85,7 +86,8 @@ class Collection extends Base
 	 * Set empty value
 	 * 
 	 * @param string $na
-	 * @return \Vein\Core\Crud\Grid\Column\Collection
+     *
+     * @return \Vein\Core\Crud\Grid\Column\Collection
 	 */
 	public function setEmptyValue($na)
 	{
@@ -97,7 +99,8 @@ class Collection extends Base
 	 * Set column options array
 	 * 
 	 * @param array $options
-	 * @return \Vein\Core\Crud\Grid\Column\Collection
+     *
+     * @return \Vein\Core\Crud\Grid\Column\Collection
 	 */
 	public function setOptions(array $options)
 	{

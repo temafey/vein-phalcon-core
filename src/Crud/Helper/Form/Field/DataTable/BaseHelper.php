@@ -20,6 +20,7 @@ class BaseHelper extends Base
      * Implode field components to formated string
      *
      * @param array $components
+     *
      * @return string
      */
     public static function _implode(array $components)

@@ -79,6 +79,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set the current page number
      *
      * @param int $page
+     *
      * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setCurrentPage($page)
@@ -114,6 +115,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set the current page limit
      *
      * @param int $limit
+     *
      * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setLimit($limit)
@@ -146,6 +148,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set extrapage limit
      *
      * @param int $limit
+     *
      * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setExtraLimit($limit)
@@ -261,6 +264,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Return extrapage number
      *
      * @param integer $page
+     *
      * @return int
      */
     protected function _getExtraPage($page)
@@ -272,6 +276,7 @@ class Grid implements \Phalcon\Paginator\AdapterInterface
      * Set total items
      *
      * @param int $total
+     *
      * @return \Vein\Core\Paginator\Adapter\Grid
      */
     public function setTotal($total)

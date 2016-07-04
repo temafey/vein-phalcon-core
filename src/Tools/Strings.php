@@ -19,7 +19,7 @@ class Strings
 	 *
 	 * @return bool
 	 */
-	static function isInt($value)
+	public static function isInt($value)
 	{
 		if (!is_numeric($value)) {
 			return false;
@@ -34,7 +34,7 @@ class Strings
 	 *
 	 * @return bool
 	 */
-	static function isFloat($value)
+	public static function isFloat($value)
 	{
 		if (!is_numeric($value)) {
 			return false;
@@ -48,9 +48,10 @@ class Strings
 	 * @param $i_html
 	 * @param array $i_allowedtags
 	 * @param bool $i_trimtext
-	 * @returnstring
+     *
+     * @returnstring
 	 */
-	static function realStripTags($i_html, $i_allowedtags = [], $i_trimtext = FALSE)
+	public static function realStripTags($i_html, $i_allowedtags = [], $i_trimtext = FALSE)
 	{
 		if (!is_array($i_allowedtags)) {
 			$i_allowedtags = !empty($i_allowedtags) ? [$i_allowedtags] : [];
@@ -82,13 +83,14 @@ class Strings
 	 * Convert string value to utf-8.
 	 *
 	 * @param string $str
-	 * @return string
+     *
+     * @return string
 	 */
-	static function convToUtf8($str)
+	public static function convToUtf8($str)
 	{
 		$encoding = self::detect_encoding($str);
-		if ($encoding != "UTF-8") {
-			return iconv($encoding, "UTF-8", $str);
+		if ($encoding != 'UTF-8') {
+			return iconv($encoding, 'UTF-8', $str);
 		} else {
 			return $str;
 		}
@@ -98,13 +100,14 @@ class Strings
 	 * Convert string value to cp1251.
 	 *
 	 * @param string $str
-	 * @return string
+     *
+     * @return string
 	 */
-	static function convToWin($str)
+	public static function convToWin($str)
 	{
 		$encoding = self::detect_encoding($str);
-		if ($encoding != "cp1251") {
-			return iconv($encoding, "cp1251", $str);
+		if ($encoding != 'cp1251') {
+			return iconv($encoding, 'cp1251', $str);
 		} else {
 			return $str;
 		}
@@ -114,15 +117,16 @@ class Strings
 	 * Convert string to url.
 	 *
 	 * @param string $string
-	 * @return string
+     *
+     * @return string
 	 */
-	static function stringToUrl($string)
+	public static function stringToUrl($string)
 	{
 		$pattern = '[^\w\s]+';
 		$replacement = '';
 		$url = mb_ereg_replace($pattern, $replacement, $string);
-		$not_allowed = array(" ");
-		$url = strtolower(str_replace($not_allowed, "-", $url));
+		$not_allowed = array(' ');
+		$url = strtolower(str_replace($not_allowed, '-', $url));
 
 		return $url;
 	}
@@ -133,12 +137,13 @@ class Strings
 	 * @param string $str
 	 * @param encoding type $encoding
 	 * @param bool $lower_str_end
-	 * @return string
+     *
+     * @return string
 	 */
-	static function mb_ucfirst($str, $encoding = "UTF-8", $lower_str_end = false)
+	public static function mb_ucfirst($str, $encoding = "UTF-8", $lower_str_end = false)
 	{
 		$first_letter = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding);
-		$str_end = "";
+		$str_end = '';
 		if ($lower_str_end) {
 			$str_end = mb_strtolower(mb_substr($str, 1, mb_strlen($str, $encoding), $encoding), $encoding);
 		} else {
@@ -153,15 +158,16 @@ class Strings
 	 * Detect string encoding format.
 	 *
 	 * @param string $string
-	 * @return string
+     *
+     * @return string
 	 */
-	static function detect_encoding($string)
+	public static function detect_encoding($string)
 	{
 		static $list = ['Windows-1251', 'UTF-8', 'ISO-8859-1', 'GBK', 'cp1251'];
 
 		foreach ($list as $item) {
 			$sample = iconv($item, $item, $string);
-			if (md5($sample) == md5($string)) {
+			if (md5($sample) === md5($string)) {
 				return $item;
 			}
 		}
@@ -178,18 +184,19 @@ class Strings
 	 * @param string $condition
 	 * @param string $conditionIn
 	 * @param integer $valueType
-	 * @return bool|string
+     *
+     * @return bool|string
 	 * @throws \Vein\Core\Exception
 	 *
 	 * @return string
 	 */
-	static function processWhereParam($params, $paramName, $condition = "=", $alias = null, $conditionForArray = "IN", $valueType = null)
+	public static function processWhereParam($params, $paramName, $condition = '=', $alias = null, $conditionForArray = "IN", $valueType = null)
 	{
 		$where = false;
 		$condition = trim($condition);
-		if ($condition == "!=") {
-			$conditionIn = "NOT IN";
-		} elseif ($condition != "=") {
+		if ($condition === '!=') {
+			$conditionIn = 'NOT IN';
+		} elseif ($condition !== '=') {
 			$conditionForArray = false;
 		}
 		if (is_array($params)) {
@@ -202,14 +209,14 @@ class Strings
 						$where[] = static::processWhereParam($param, $paramName, $condition, $alias, $conditionForArray, $valueType);
 					}
 					if (!empty($param)) {
-						$where = "(".implode(" OR ", $where).")";
+						$where = '('.implode(' OR ', $where).')';
 					}
 				} else {
-					$where = "`".$alias."`.`".$paramName."` ".$conditionForArray." (" . static::quote($params, $valueType).")";
+					$where = '`'.$alias.'`.`'.$paramName.'` '.$conditionForArray.' ('.static::quote($params, $valueType).')';
 				}
 			}
 		} else {
-			$where = "`".$alias."`.`".$paramName."` ".$condition." ".static::quote($params, $valueType);
+			$where = '`'.$alias.'`.`'.$paramName.'` '.$condition.' '.static::quote($params, $valueType);
 		}
 
 		return $where;
@@ -224,9 +231,10 @@ class Strings
 	 *
 	 * @param string $value
 	 * @param int $type
-	 * @return string
+     *
+     * @return string
 	 */
-	static function quote($value, $type = null)
+	public static function quote($value, $type = null)
 	{
 		if (is_array($value)) {
 			foreach ($value as &$val) {
@@ -276,7 +284,7 @@ class Strings
 			return $value;
 		}
 
-		return "'" . addcslashes($value, "\000\n\r\\'\"\032")."'";
+		return "'".addcslashes($value, "\000\n\r\\'\"\032")."'";
 	}
 
 	/**
@@ -284,108 +292,109 @@ class Strings
 	 *
 	 * @param string $str
 	 * @param int $length
-	 * @return string
+     *
+     * @return string
 	 */
-	static function convertString($str, $length = 256)
+	public static function convertString($str, $length = 256)
 	{
 		$Letters = [];
-		$Letters ["а"] = "a";
-		$Letters ["б"] = "b";
-		$Letters ["в"] = "v";
-		$Letters ["г"] = "g";
-		$Letters ["д"] = "d";
-		$Letters ["е"] = "e";
-		$Letters ["ё"] = "e";
-		$Letters ["ж"] = "zh";
-		$Letters ["з"] = "z";
-		$Letters ["и"] = "i";
-		$Letters ["й"] = "y";
-		$Letters ["к"] = "k";
-		$Letters ["л"] = "l";
-		$Letters ["м"] = "m";
-		$Letters ["н"] = "n";
-		$Letters ["о"] = "o";
-		$Letters ["п"] = "p";
-		$Letters ["р"] = "r";
-		$Letters ["с"] = "s";
-		$Letters ["т"] = "t";
-		$Letters ["у"] = "u";
-		$Letters ["ф"] = "f";
-		$Letters ["х"] = "h";
-		$Letters ["ц"] = "c";
-		$Letters ["ч"] = "ch";
-		$Letters ["ш"] = "sh";
-		$Letters ["щ"] = "sch";
-		$Letters ["ъ"] = "";
-		$Letters ["ы"] = "y";
-		$Letters ["ь"] = "";
-		$Letters ["э"] = "e";
-		$Letters ["ю"] = "yu";
-		$Letters ["я"] = "ya";
-		$Letters ["А"] = "a";
-		$Letters ["Б"] = "b";
-		$Letters ["В"] = "v";
-		$Letters ["Г"] = "g";
-		$Letters ["Д"] = "d";
-		$Letters ["Е"] = "e";
-		$Letters ["Ё"] = "e";
-		$Letters ["Ж"] = "zh";
-		$Letters ["З"] = "z";
-		$Letters ["И"] = "i";
-		$Letters ["Й"] = "y";
-		$Letters ["К"] = "k";
-		$Letters ["Л"] = "l";
-		$Letters ["М"] = "m";
-		$Letters ["Н"] = "n";
-		$Letters ["О"] = "o";
-		$Letters ["П"] = "p";
-		$Letters ["Р"] = "r";
-		$Letters ["С"] = "s";
-		$Letters ["Т"] = "t";
-		$Letters ["У"] = "u";
-		$Letters ["Ф"] = "f";
-		$Letters ["Х"] = "h";
-		$Letters ["Ц"] = "c";
-		$Letters ["Ч"] = "ch";
-		$Letters ["Ш"] = "sh";
-		$Letters ["Щ"] = "sch";
-		$Letters ["Ъ"] = "";
-		$Letters ["Ы"] = "y";
-		$Letters ["Ь"] = "";
-		$Letters ["Э"] = "e";
-		$Letters ["Ю"] = "yu";
-		$Letters ["Я"] = "ya";
-		//$Letters[" "] = "_";
-		$Letters [" "] = "-";
+		$Letters ['а'] = 'a';
+		$Letters ['б'] = 'b';
+		$Letters ['в'] = 'v';
+		$Letters ['г'] = 'g';
+		$Letters ['д'] = 'd';
+		$Letters ['е'] = 'e';
+		$Letters ['ё'] = 'e';
+		$Letters ['ж'] = 'zh';
+		$Letters ['з'] = 'z';
+		$Letters ['и'] = 'i';
+		$Letters ['й'] = 'y';
+		$Letters ['к'] = 'k';
+		$Letters ['л'] = 'l';
+		$Letters ['м'] = 'm';
+		$Letters ['н'] = 'n';
+		$Letters ['о'] = 'o';
+		$Letters ['п'] = 'p';
+		$Letters ['р'] = 'r';
+		$Letters ['с'] = 's';
+		$Letters ['т'] = 't';
+		$Letters ['у'] = 'u';
+		$Letters ['ф'] = 'f';
+		$Letters ['х'] = 'h';
+		$Letters ['ц'] = 'c';
+		$Letters ['ч'] = 'ch';
+		$Letters ['ш'] = 'sh';
+		$Letters ['щ'] = 'sch';
+		$Letters ['ъ'] = '';
+		$Letters ['ы'] = 'y';
+		$Letters ['ь'] = '';
+		$Letters ['э'] = 'e';
+		$Letters ['ю'] = 'yu';
+		$Letters ['я'] = 'ya';
+		$Letters ['А'] = 'a';
+		$Letters ['Б'] = 'b';
+		$Letters ['В'] = 'v';
+		$Letters ['Г'] = 'g';
+		$Letters ['Д'] = 'd';
+		$Letters ['Е'] = 'e';
+		$Letters ['Ё'] = 'e';
+		$Letters ['Ж'] = 'zh';
+		$Letters ['З'] = 'z';
+		$Letters ['И'] = 'i';
+		$Letters ['Й'] = 'y';
+		$Letters ['К'] = 'k';
+		$Letters ['Л'] = 'l';
+		$Letters ['М'] = 'm';
+		$Letters ['Н'] = 'n';
+		$Letters ['О'] = 'o';
+		$Letters ['П'] = 'p';
+		$Letters ['Р'] = 'r';
+		$Letters ['С'] = 's';
+		$Letters ['Т'] = 't';
+		$Letters ['У'] = 'u';
+		$Letters ['Ф'] = 'f';
+		$Letters ['Х'] = 'h';
+		$Letters ['Ц'] = 'c';
+		$Letters ['Ч'] = 'ch';
+		$Letters ['Ш'] = 'sh';
+		$Letters ['Щ'] = 'sch';
+		$Letters ['Ъ'] = '';
+		$Letters ['Ы'] = 'y';
+		$Letters ['Ь'] = '';
+		$Letters ['Э'] = 'e';
+		$Letters ['Ю'] = 'yu';
+		$Letters ['Я'] = 'ya';
+		//$Letters[' '] = '_';
+		$Letters [' '] = '-';
 
 		/* знаки припенания */
-		$Letters [","] = "";
-		$Letters [";"] = "";
-		$Letters [":"] = "";
-		$Letters ["."] = "";
-		$Letters ["!"] = "";
-		$Letters ["?"] = "";
-		//$Letters["-"] = "_";
+		$Letters [','] = '';
+		$Letters [';'] = '';
+		$Letters [':'] = '';
+		$Letters ['.'] = '';
+		$Letters ['!'] = '';
+		$Letters ['?'] = '';
+		//$Letters["-'] = '_';
 
 
 		/* спецсимволы */
-		$Letters ["`"] = "";
-		$Letters ["\""] = "";
-		$Letters ["'"] = "";
-		$Letters ["%"] = "";
-		$Letters ["&"] = "";
-		$Letters ["$"] = "";
-		$Letters ["#"] = "";
-		$Letters ["/"] = "";
-		$Letters ["\\"] = "";
+		$Letters ['`'] = '';
+		$Letters ['"'] = '';
+		$Letters ['\''] = '';
+		$Letters ['%'] = '';
+		$Letters ['&'] = '';
+		$Letters ['$'] = '';
+		$Letters ['#'] = '';
+		$Letters ['/'] = '';
+		$Letters ['\\'] = '';
 
 		/* немецкий */
-		$Letters ["a"] = "a";
-		$Letters ["o"] = "o";
-		$Letters ["?"] = "b";
-		$Letters ["u"] = "u";
+		$Letters ['a'] = 'a';
+		$Letters ['o'] = 'o';
+		$Letters ['?'] = 'b';
+		$Letters ['u'] = 'u';
 
-		$new_str = "";
+		$new_str = '';
 		//$str = @mb_strtolower($str,"UTF8");
 		$str = @strtolower($str);
 
@@ -400,9 +409,10 @@ class Strings
 	 * Convert latin string to translit.
 	 *
 	 * @param string $string
-	 * @return string
+     *
+     * @return string
 	 */
-	static function rus2translit($string)
+	public static function rus2translit($string)
 	{
 		$converter = [
 				'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd',
@@ -429,11 +439,12 @@ class Strings
 	 * Convert translit string to latin.
 	 *
 	 * @param string $string
-	 * @return string
+     *
+     * @return string
 	 */
-	static function translit2rus($text,$type='de')
+	public static function translit2rus($text,$type='de')
 	{
-		$data=explode(" ",$text);
+		$data=explode(' ',$text);
 		if (count($data)=='') {
 			return '';
 		}
@@ -457,22 +468,22 @@ class Strings
 		foreach ($data as $k => $v) {
 			if (preg_match("/^[a-zA-Z]*/",$v)) {
 				foreach ($alphas as $id=>$value) {
-					if ($type=='de') {
-						if (strcasecmp($v,$id) AND !eregi("->",$v)) {
-							$v=str_replace($id,$value,$v);
-						} elseif (eregi("->",$v)) {
-							$v=str_replace("->","",$v);
+					if ($type === 'de') {
+						if (strcasecmp($v,$id) AND !preg_match("/->/", $v)) {
+							$v = str_replace($id,$value,$v);
+						} elseif (preg_match("/->/", $v)) {
+							$v = str_replace("->", '', $v);
 						}
-					} elseif ($type='translit') {
-						if (strcasecmp($v,$value) AND !eregi("->",$v)) {
-							$v=str_replace($value,$id,$v);
-						} elseif (eregi("->",$v)) {
-							$v=str_replace("->","",$v);
+					} elseif ($type === 'translit') {
+						if (strcasecmp($v,$value) AND !preg_match("/->/", $v)) {
+							$v = str_replace($value,$id,$v);
+						} elseif (preg_match("/->/",$v)) {
+							$v = str_replace("->",'',$v);
 						}
 					}
 				}
 			}
-			$total.=$v." ";
+			$total .= $v.' ';
 		}
 
 		return $total;
@@ -485,7 +496,8 @@ class Strings
 	 * @param array  $values
 	 * @param string $startDelimeter
 	 * @param string $endDelimeter
-	 * @return string
+     *
+     * @return string
 	 */
 	public static function generateStringTemplate($template , $values, $startDelimeter = '{{', $endDelimeter = '}}')
 	{
@@ -520,9 +532,10 @@ class Strings
 	 * @param string $templateHrefTitle
 	 * @param string $target
 	 * @param string|array $attribs
-	 * @return string
+     *
+     * @return string
 	 */
-	static function generateLink(
+	public static function generateLink(
 			$host,
 			$data,
 			$templateHref,
@@ -536,12 +549,12 @@ class Strings
 	) {
 		$link = '<a href="';
 		$p = strlen($host)-1;
-		if ($host[$p] == '/') {
+		if ($host[$p] === '/') {
 			$host = substr($host, 0, $p);
 		}
-		$link .= $host."/";
+		$link .= $host.'/';
 
-		if ($templateHref[0] == '/') {
+		if ($templateHref[0] === '/') {
 			$templateHref = substr($templateHref, 1);
 		}
 		$link .= self::generateStringTemplate($templateHref, $data, '{', '}');
@@ -605,21 +618,21 @@ class Strings
 
 	public static function parseWord($userDocPath)
 	{
-		$fileHandle = fopen($userDocPath, "r");
+		$fileHandle = fopen($userDocPath, 'r');
 		$line = @fread($fileHandle, filesize($userDocPath));
 		fclose($fileHandle);
 
 		$lines = explode(chr(0x0D),$line);
-		$outtext = "";
+		$outtext = '';
 		foreach ($lines as $thisline) {
 			$pos = strpos($thisline, chr(0x00));
 			if (($pos !== FALSE)||(strlen($thisline)==0)) {
 
 			} else {
-				$outtext .= $thisline." ";
+				$outtext .= $thisline.' ';
 			}
 		}
-		$outtext = preg_replace("/[^а-яА-Яa-zA-Z0-9\s\,\.\-\n\r\t@\/\_\(\)]/","",$outtext);
+		$outtext = preg_replace("/[^а-яА-Яa-zA-Z0-9\s\,\.\-\n\r\t@\/\_\(\)]/",'',$outtext);
 
 		return $outtext;
 	}
@@ -628,7 +641,8 @@ class Strings
 	 * Remove special chars in string
 	 *
 	 * @param array|string $var
-	 * @return array|string
+     *
+     * @return array|string
 	 */
 	public static function formSpecialChars($var)
 	{
@@ -646,7 +660,7 @@ class Strings
 			if (preg_match($pattern, $out) > 0) {
 				$out = htmlspecialchars_decode($out, ENT_COMPAT);
 			}
-			$out = htmlspecialchars(stripslashes(trim($out)), ENT_COMPAT,'UTF-8', true);     // Trim the variable, strip all slashes, and encode it
+			$out = htmlspecialchars(stripslashes(trim($out)), ENT_COMPAT, 'UTF-8', true);     // Trim the variable, strip all slashes, and encode it
 		}
 
 		return $out;
@@ -656,7 +670,8 @@ class Strings
 	 * Validate json string
 	 *
 	 * @param $string
-	 * @return bool
+     *
+     * @return bool
 	 */
 	public static function isJson($string)
 	{
@@ -687,7 +702,7 @@ class Strings
 				break;
 		}
 
-		return ($error == JSON_ERROR_NONE);
+		return ($error === JSON_ERROR_NONE);
 	}
 
 	/**
@@ -702,7 +717,7 @@ class Strings
 	 * <li>boolean: <code>b:1;</code></li>
 	 * <li>integer: <code>i:1;</code></li>
 	 * <li>double: <code>d:0.2;</code></li>
-	 * <li>string: <code>s:4:"test";</code></li>
+	 * <li>string: <code>s:4:"test';</code></li>
 	 * <li>array: <code>a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}</code></li>
 	 * <li>object: <code>O:8:"stdClass":0:{}</code></li>
 	 * <li>null: <code>N;</code></li>
@@ -713,7 +728,8 @@ class Strings
 	 * @license		http://sam.zoy.org/wtfpl/ WTFPL
 	 * @param		string	$value	Value to test for serialized form
 	 * @param		mixed	$result	Result of unserialize() of the $value
-	 * @return		boolean			True if $value is serialized data, otherwise false
+     *
+     * @return		boolean			True if $value is serialized data, otherwise false
 	 */
 	public static function isSerialized($value, &$result = null)
 	{
@@ -798,12 +814,13 @@ class Strings
 	 * Remove all non utf-8 chars from string
 	 *
 	 * @param string $str
-	 * @return string
+     *
+     * @return string
 	 */
 	public static function replaceInvalidByteSequence5($str)
 	{
 		// REPLACEMENT CHARACTER (U+FFFD)
-		$substitute = "\xEF\xBF\xBD";
+		$substitute = '\xEF\xBF\xBD';
 		$regex = '/
       ([\x00-\x7F]                       #   U+0000 -   U+007F
       |[\xC2-\xDF][\x80-\xBF]            #   U+0080 -   U+07FF

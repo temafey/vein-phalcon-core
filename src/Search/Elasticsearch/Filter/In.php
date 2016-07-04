@@ -34,6 +34,7 @@ class In extends Standart
      * Apply filter to query builder
      *
      * @param \Vein\Core\Search\Elasticsearch\Query\Builder $dataSource
+     *
      * @return string
      */
     public function filter(Builder $dataSource)
@@ -44,7 +45,7 @@ class In extends Standart
         }
 
         if (count($values) == 0) {
-            return "";
+            return '';
         }
 
         $filter	= new \Elastica\Query\Terms($this->_field, $values);

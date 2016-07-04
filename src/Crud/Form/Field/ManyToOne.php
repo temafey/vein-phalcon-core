@@ -104,12 +104,14 @@ class ManyToOne extends ArrayToSelect
         $desc = null,
         $required = true,
         $width = 280,
-        $default = null
+        $default = null,
+        $loadSelectOptions = false
     ) {
 		parent::__construct($label, $name, [], $desc, $required, $width, $default);
 
         $this->_model = $model;
         $this->_optionName = $optionName;
+        $this->_loadSelectOptions = $loadSelectOptions;
 	}
 
     /**

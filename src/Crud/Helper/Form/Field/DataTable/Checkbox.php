@@ -20,6 +20,7 @@ class Checkbox extends BaseHelper
      * Render DataTable checkbox form field
      *
      * @param \Vein\Core\Crud\Form\Field\Checkbox $field
+     *
      * @return string
      */
     public static function _(Field $field)

@@ -51,6 +51,7 @@ class Compound extends Column
      *
      * @param \Vein\Core\Crud\Grid $grid
      * @param string $key
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function init(Grid $grid, $key)
@@ -70,6 +71,7 @@ class Compound extends Column
      * (non-PHPdoc)
      * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
+     *
      * @return string
      */
     public function render($row)
@@ -86,6 +88,7 @@ class Compound extends Column
      * Return column value by key
      *
      * @param mixed $row
+     *
      * @return string|integer
      */
     public function getValue($row)
@@ -102,6 +105,7 @@ class Compound extends Column
      * Update grid container
      *
      * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
@@ -126,6 +130,7 @@ class Compound extends Column
      * Return column by key
      *
      * @param string$key
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function getColumn($key)

@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Checkbox extends BaseHelper
 {
     /**
-     * Render extjs checkbox form field
+     * Render checkbox form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

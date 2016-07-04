@@ -70,7 +70,7 @@ abstract class DataTable extends Grid
     }
 
     /**
-     * Return extjs module name
+     * Return module name
      *
      * @return string
      */
@@ -80,7 +80,7 @@ abstract class DataTable extends Grid
     }
 
     /**
-     * Return extjs grid key
+     * Return grid key
      *
      * @return string
      */

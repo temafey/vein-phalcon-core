@@ -33,6 +33,7 @@ trait Attributes
      * Return element attribute
      *
      * @param string $name
+     *
      * @return string
      */
     public function getAttrib($name)
@@ -47,6 +48,7 @@ trait Attributes
      * Set element attributes
      *
      * @param array $attribs
+     *
      * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function setAttribs(array $attribs)
@@ -63,6 +65,7 @@ trait Attributes
      * Set element attributes
      *
      * @param array $attribs
+     *
      * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function addAttribs(array $attribs)
@@ -79,6 +82,7 @@ trait Attributes
      *
      * @param string $key
      * @param string $value
+     *
      * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function setAttrib($key, $value = null)
@@ -91,6 +95,7 @@ trait Attributes
      * Remove element attribute
      *
      * @param string $key
+     *
      * @return \Vein\Core\Crud\Tools\Attributes
      */
     public function removeAttrib($key)

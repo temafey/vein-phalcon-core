@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Helper\Form\Field\Standart;
 use Vein\Core\Crud\Form\Field;
 
 /**
- * Class grid Form field helper
+ * Class grid form field helper
  *
  * @category   Vein\Core
  * @package    Crud
@@ -16,19 +16,24 @@ use Vein\Core\Crud\Form\Field;
 class Description extends \Vein\Core\Crud\Helper
 {
 	/**
-	 * Generates a widget to show a html grid Form
+	 * Generates a widget to show a html grid form
 	 *
-	 * @param \Vein\Core\Crud\Form\Field $Form
-	 * @return string
+	 * @param \Vein\Core\Crud\Form\Field $form
+     *
+     * @return string
 	 */
 	static public function _(Field $field)
 	{
+		$code = '';
+		if ($field instanceof Field\Submit) {
+			return $code;
+		}
+		
         $desc = $field->getDesc();
-        $code = '';
         if ($desc) {
-            $code = '<span>'.$field->getDesc().'</span>';
+            $code = '
+					<span class="help-block">'.$field->getDesc().'</span>';
         }
-
 		return $code;
 	}
 }

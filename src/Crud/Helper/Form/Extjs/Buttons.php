@@ -19,7 +19,8 @@ class Buttons extends BaseHelper
 	 * Generates form buttons objects
 	 *
 	 * @param \Vein\Core\Crud\Form\Extjs $form
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Form $form)
 	{

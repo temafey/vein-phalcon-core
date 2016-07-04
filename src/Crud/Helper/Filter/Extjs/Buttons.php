@@ -19,7 +19,8 @@ class Buttons extends BaseHelper
 	 * Generates form buttons objects
 	 *
 	 * @param \Vein\Core\Crud\Grid\Filter $filter
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Filter $filter)
 	{

@@ -190,6 +190,7 @@ class Image
      * @param $src
      * @param $mask
      * @param int $quality
+     *
      * @return bool
      */
     static function layer($src, $mask, $quality = 100)
@@ -232,7 +233,7 @@ class Image
 
 }
 
-function imagebmp(&$img, $filename = "")
+function imagebmp(&$img, $filename = '')
 {
     $widthOrig = imagesx($img);
     // width = 16*x
@@ -299,7 +300,7 @@ function imagebmp(&$img, $filename = "")
     }
 
     // see imagegif
-    if ($filename == "") {
+    if ($filename == '') {
         echo $result;
     } else {
         $file = fopen($filename, "wb");
@@ -427,7 +428,7 @@ function imagecreatefrombmp($file)
                 for($x = 0; $x < strlen($Data); $x ++) {
                     imagesetpixel($img, $x, $y, $Palette [ord($Data [$x])]);
                 }
-                $Data = "";
+                $Data = '';
 
             }
 
@@ -439,7 +440,7 @@ function imagecreatefrombmp($file)
             $pocetb = 0;
 
             /*while (!feof($f))
-             echo freadbyte($f)."_".freadbyte($f)."<BR>";*/
+             echo freadbyte($f).'_'.freadbyte($f)."<BR>";*/
             while (true) {
                 //break;
                 $y --;
@@ -500,7 +501,7 @@ function imagecreatefrombmp($file)
                 for($x = 0; $x < strlen($Data); $x ++) {
                     imagesetpixel($img, $x, $y, $Palette [ord($Data [$x])]);
                 }
-                $Data = "";
+                $Data = '';
 
             }
 

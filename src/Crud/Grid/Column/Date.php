@@ -65,6 +65,7 @@ class Date extends Base
      * Set date format string
      *
      * @param string $format
+     *
      * @return \Vein\Core\Crud\Grid\Column\Date
      */
     public function setFormat($format)
@@ -87,6 +88,7 @@ class Date extends Base
      * Return render value
      *
      * @param mixed $row
+     *
      * @return string
      */
 	public function render($row)

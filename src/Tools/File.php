@@ -21,7 +21,7 @@ class File
     static function sarmdir($root, array $dependencyInjectorrs, $mode = 0755, $recursive = false)
     {
         $result = true;
-        $root = str_replace("\\","/",$root);
+        $root = str_replace("\\','/",$root);
         $root = (substr($root, -1 , 1) == '/') ? substr($root, 0, -1) : $root;
         foreach ($dependencyInjectorrs as $dependencyInjectorr) {
             $path = $root.'/'.$dependencyInjectorr;
@@ -43,7 +43,7 @@ class File
     static function rarmdir($root, array $dependencyInjectorrs, $mode = 0755, $recursive = true)
     {
         $result = true;
-        $root = str_replace("\\","/",$root);
+        $root = str_replace("\\','/",$root);
         $root = (substr($root, -1 , 1) == '/') ? substr($root, 0, -1) : $root;
         foreach ($dependencyInjectorrs as $dependencyInjectorr) {
             $path = $root.'/'.$dependencyInjectorr;
@@ -63,6 +63,7 @@ class File
      * @param array $paths
      * @param int $mode
      * @param bool $recursive
+     *
      * @return bool
      */
     static function armdir(array $paths, $mode = 0755, $recursive = false) 
@@ -85,14 +86,15 @@ class File
      * @param $path
      * @param int $mode
      * @param bool $recursive
+     *
      * @return bool
      */
     static function rmkdir($path, $mode = 0755, $recursive = false) 
     {
-        $path = rtrim(preg_replace(array("/\\\\/", "/\/{2,}/"), "/", $path), "/");
-        $e = explode("/", ltrim($path, "/"));
-        if (substr($path, 0, 1) == "/") {
-            $e[0] = "/".$e[0];
+        $path = rtrim(preg_replace(array("/\\\\/", "/\/{2,}/"), '/', $path), '/');
+        $e = explode('/', ltrim($path, '/'));
+        if (substr($path, 0, 1) == '/') {
+            $e[0] = '/'.$e[0];
         }
         $c = count($e);
         $cp = $e[0];
@@ -100,7 +102,7 @@ class File
             if (!is_dir($cp) && !mkdir($cp, $mode, $recursive)) {
                 return false;
             }
-            $cp.= "/".$e[$i];
+            $cp.= '/'.$e[$i];
         }
 
         return mkdir($path, $mode, $recursive);
@@ -110,6 +112,7 @@ class File
      * Remove dirs recursively
      *
      * @param string $dependencyInjectorr
+     *
      * @return @void
      */
     static function rrmdir($dependencyInjectorr)
@@ -118,13 +121,13 @@ class File
         if (is_dir($dependencyInjectorr)) {
             $objects = scandir($dependencyInjectorr);
             foreach ($objects as $object) {
-                if ($object != "." && $object != "..") {
-                    if (filetype($dependencyInjectorr."/".$object) == "dir") {
-                        if (!self::rrmdir($dependencyInjectorr."/".$object)) {
+                if ($object != '.' && $object != '..') {
+                    if (filetype($dependencyInjectorr.'/'.$object) == "dir") {
+                        if (!self::rrmdir($dependencyInjectorr.'/'.$object)) {
                             $result = false;
                         }
                     } else {
-                        if (!unlink($dependencyInjectorr."/".$object)) {
+                        if (!unlink($dependencyInjectorr.'/'.$object)) {
                             $result = false;
                         }
                     }
@@ -143,6 +146,7 @@ class File
      * Check directory have permission
      *
      * @param $dependencyInjectorr
+     *
      * @return bool
      */
     static function isDirMine($dependencyInjectorr)
@@ -176,12 +180,12 @@ class File
             $str = $string."[".self::_quote($ind)."]";
             if (is_array($val)) {
                 if (self::_hasNoSubArrays($val)) {
-                    fwrite($file, $str."=".self::_compressArray($val).";\r\n");
+                    fwrite($file, $str.'='.self::_compressArray($val).";\r\n");
                 } else {
                     self::setArrayToFile($file, $val, $str, false, false);
                 }
             } else {
-                fwrite($file, $str."=".self::_quote($val).";\r\n");
+                fwrite($file, $str.'='.self::_quote($val).";\r\n");
             }
         }
 
@@ -193,7 +197,8 @@ class File
 
     /**
      * Checks if an array contains no arrays
-     * @param  arary $array : The array to be checked
+     * @param arary $array : The array to be checked
+     *
      * @return boolean      : true if $array contains no sub arrays
      *                        false if it does
      */
@@ -218,6 +223,7 @@ class File
      * $array["one"]="one";
      * compress_array($array) will return 'array(0=>0,"one"=>"one")'
      * @param array $array : the array to be compressed
+     *
      * @return string      : the "compressed" string representation of $array
      * @note               : works recursively, so $array can contain arrays
      */
@@ -232,7 +238,7 @@ class File
             $strings[] = self::_quote($ind)."=>".
                 (is_array($val) ? self::_compressArray($val) : self::_quote($val));
         }
-        return "array(".implode(",", $strings).")";
+        return "array(".implode(',', $strings).")";
     }
     /**
      * Adds quotes to $val if its not an integer
@@ -240,7 +246,7 @@ class File
      */
     static protected function _quote($val)
     {
-        return is_int($val) ? $val : "\"".$val."\"";
+        return is_int($val) ? $val : "\''.$val."\'';
     }
 
     /**
@@ -254,7 +260,7 @@ class File
         if (false !== strpos($include_path, PATH_SEPARATOR)) {
             if (false !== ($temp = explode(PATH_SEPARATOR, $include_path)) && count($temp) > 0) {
                 for($n = 0; $n < count($temp); $n++) {
-                    if (false !== file_exists($temp[$n]."/". $filename)) {
+                    if (false !== file_exists($temp[$n].'/'. $filename)) {
                         return true;
                     }
                 }
@@ -263,7 +269,7 @@ class File
                 return false;
             }
         } elseif (!empty($include_path)) {
-            if (false !== file_exists($include_path."/". $filename)) {
+            if (false !== file_exists($include_path.'/'. $filename)) {
                 return true;
             }
         }
@@ -278,6 +284,7 @@ class File
      * @param string $dest
      * @param bool $overwrite
      * @param null|string $funcloc
+     *
      * @return void
      */
     static function dirmv($source, $dest, $overwrite = false, $funcloc = NULL, $permission = 0777) {

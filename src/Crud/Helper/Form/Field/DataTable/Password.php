@@ -20,6 +20,7 @@ class Password extends BaseHelper
      * Render DataTable password form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field\Password $field)

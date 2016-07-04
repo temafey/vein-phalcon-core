@@ -47,6 +47,7 @@ trait Validators
      * Create validator
      *
      * @param $validator
+     *
      * @return \Phalcon\Validation\ValidatorInterface
      * @throws \Vein\Core\Exception
      */
@@ -83,7 +84,8 @@ trait Validators
     /**
      * Add a filter to the element
      *
-     * @param  string|\Vein\Core\Filter\FilterInterface|array
+     * @param string|\Vein\Core\Filter\FilterInterface|array
+     *
      * @return \Vein\Core\Crud\Tools\Validators
      */
     public function addValidator($validator)
@@ -96,7 +98,8 @@ trait Validators
     /**
      * Add Validators to element
      *
-     * @param  array $validators
+     * @param array $validators
+     *
      * @return \Vein\Core\Crud\Tools\Validators
      */
     public function addValidators(array $validators)
@@ -111,7 +114,8 @@ trait Validators
     /**
      * Add Validators to element, overwriting any already existing
      *
-     * @param  array $validators
+     * @param array $validators
+     *
      * @return \Vein\Core\Crud\Tools\Validators
      */
     public function setValidators(array $validators)

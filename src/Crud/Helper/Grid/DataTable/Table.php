@@ -22,7 +22,8 @@ class Columns extends BaseHelper
 	 * Generates grid columns object
 	 *
 	 * @param \Vein\Core\Crud\Grid\DataTable $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{
@@ -36,6 +37,7 @@ class Columns extends BaseHelper
      * Implode column components to formated string
      *
      * @param array $components
+     *
      * @return string
      */
     public static function _implode(array $components)

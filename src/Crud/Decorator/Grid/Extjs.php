@@ -20,7 +20,8 @@ class Extjs extends Decorator
     /**
      * Render an element
      *
-     * @param  string $content
+     * @param string $content
+     *
      * @return string
      * @throws \UnexpectedValueException if element or view are not registered
      */
@@ -79,7 +80,7 @@ class Extjs extends Decorator
         }
 
         foreach ($sections as $key => $fileSections) {
-            $elementContent = implode("", $fileSections);
+            $elementContent = implode('', $fileSections);
             $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag']);
             if (empty($elementContent) || !file_put_contents($helpers[$key]['createFile'], $elementContent)) {
                 throw new \Vein\Core\Exception("File '".$helpers[$key]['createFile']."' not save");
@@ -127,6 +128,7 @@ class Extjs extends Decorator
      * Check file by path
      *
      * @param string $path
+     *
      * @return bool
      */
     protected function _checkFile($path)

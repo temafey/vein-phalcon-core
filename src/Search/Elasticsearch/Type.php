@@ -69,6 +69,7 @@ class Type extends ElType implements
      * Set elastic adapter name
      *
      * @param string $adapter
+     *
      * @return \Vein\Core\Search\Elasticsearch\Type
      */
     public function setAdapter($adapter)
@@ -81,6 +82,7 @@ class Type extends ElType implements
      * Set elastic type name
      *
      * @param string $source
+     *
      * @return \Vein\Core\Search\Elasticsearch\Type
      */
     public function setSource()

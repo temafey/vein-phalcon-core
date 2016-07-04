@@ -47,6 +47,7 @@ class Redis extends Backend implements BackendInterface
      *
      * @param string $keyName
      * @param int $lifetime
+     *
      * @return mixed|null
      */
 	public function get($keyName, $lifetime=null)
@@ -120,7 +121,8 @@ class Redis extends Backend implements BackendInterface
 	 * Deletes a value from the cache by its key
 	 *
 	 * @param string $keyName
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function delete($keyName)
     {
@@ -132,7 +134,8 @@ class Redis extends Backend implements BackendInterface
 	 * Query the existing cached keys
 	 *
 	 * @param string $prefix
-	 * @return array
+     *
+     * @return array
 	 */
 	public function queryKeys($prefix=null)
     {
@@ -149,7 +152,8 @@ class Redis extends Backend implements BackendInterface
 	 *
 	 * @param string $keyName
 	 * @param string $lifetime
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function exists($keyName=null, $lifetime=null)
     {

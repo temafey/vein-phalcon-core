@@ -97,12 +97,13 @@ class Standart extends Field
 	 * Return datasource filters
 	 *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
-	 * @return \Vein\Core\Filter\SearchFilterInterface
+     *
+     * @return \Vein\Core\Filter\SearchFilterInterface
 	 */
     public function getFilter(Container $container)
     {
         $values = $this->getValue();
-        if ($values === false || (is_string($values) && trim($values) == "")) {
+        if ($values === false || (is_string($values) && trim($values) == '')) {
             return false;
         }
         if (!$this->checkHashValue($values)) {
@@ -118,7 +119,7 @@ class Standart extends Field
                 $filter->setFilterField($this);
             } else {
                 foreach ($values as $val) {
-                    if (null !== $val && (trim($val) == "" || array_search($val, $this->_exceptionsValues))) {
+                    if (null !== $val && (trim($val) == '' || array_search($val, $this->_exceptionsValues))) {
                         continue;
                     }
                     $filter = $container->getFilter('search', [$this->_name => $this->_criteria], $val);
@@ -140,6 +141,7 @@ class Standart extends Field
      * Set filter value delimeter
      *
      * @param string  $delimeter
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field\Standart
      */
     public function setDelimeter($delimeter)
@@ -163,6 +165,7 @@ class Standart extends Field
      * Set filter field value data type
      *
      * @param string $type
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field\Standart
      */
     public function setValueType($type)

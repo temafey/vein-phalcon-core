@@ -40,6 +40,7 @@ class Registry extends AbstractService
      *
      * @param string $key
      * @param mixed $item
+     *
      * @return void
      */
     public function __set($key, $item)
@@ -53,6 +54,7 @@ class Registry extends AbstractService
      * Get item by key
      *
      * @param string $key
+     *
      * @return false|mixed
      */
     public function __get($key)
@@ -68,6 +70,7 @@ class Registry extends AbstractService
      * Remove item from the regisry
      *
      * @param string $key
+     *
      * @return void
      */
     public function __unset($key)
@@ -81,6 +84,7 @@ class Registry extends AbstractService
      * Remove item from the regisry
      *
      * @param string $key
+     *
      * @return void
      */
     public function __isset($key)

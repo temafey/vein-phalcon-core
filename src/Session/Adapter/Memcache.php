@@ -56,7 +56,7 @@ class Memcache extends Adapter implements AdapterInterface
     /**
      * Constructor
      *
-     * @param  null|array                $options
+     * @param null|array                $options
      * @throws Phalcon\Session\Exception
      */
     public function __construct($options = null)
@@ -125,7 +125,8 @@ class Memcache extends Adapter implements AdapterInterface
     /**
      * Reads data from session object
      *
-     * @param  string $sessionId
+     * @param string $sessionId
+     *
      * @return mixed
      */
     public function read($sessionId)
@@ -174,7 +175,8 @@ class Memcache extends Adapter implements AdapterInterface
     /**
      * Returns option value by key
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return null
      */
     public function getOption($key)
@@ -211,6 +213,7 @@ class Memcache extends Adapter implements AdapterInterface
      * Returns the sessionId with prefix
      *
      * @param $sessionId
+     *
      * @return string
      */
     private function _getSessionId($sessionId)

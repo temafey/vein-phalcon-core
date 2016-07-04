@@ -36,7 +36,7 @@ class TestVendorModule extends TestClass
         $this->_generateBase($this->_sourcePath);
         $this->_scanSources($this->_sourcePath);
 
-        $path = explode('\\', trim(str_replace("/", "\\", $this->_sourcePath), "/"));
+        $path = explode('\\', trim(str_replace('/', "\\", $this->_sourcePath), '/'));
         $namespace = end($path);
         $modules[$namespace] = $this->_localTestsPath;
         $this->_generateRegular($this->_sourcePath, 'bootstrap.php', $modules);
@@ -47,6 +47,7 @@ class TestVendorModule extends TestClass
      * Scan all subfolders in the source project directory and generate test for all classes
      *
      * @param string $directory
+     *
      * @return void
      */
     protected function _scanSources($sourcePath)
@@ -67,12 +68,13 @@ class TestVendorModule extends TestClass
      * Generate skeleton for base class
      *
      * @param string $sourcePath
+     *
      * @return boolean
      * @throws \Exception
      */
     protected function _generateBase($sourcePath)
     {
-        $tmpPath = explode('\\', trim(str_replace("/", "\\", $sourcePath), "/"));
+        $tmpPath = explode('\\', trim(str_replace('/', "\\", $sourcePath), '/'));
         $namespace = end($tmpPath);
         list($testPath, $localTestPath) = $this->_getTestPathFromSource($sourcePath, $namespace);
         if (!file_exists($testPath)) {
@@ -108,7 +110,7 @@ class TestVendorModule extends TestClass
      */
     protected function _generateRegular($sourcePath, $filename, array $modules)
     {
-        $tmpPath = explode('\\', trim(str_replace("/", "\\", $sourcePath), "/"));
+        $tmpPath = explode('\\', trim(str_replace('/', "\\", $sourcePath), '/'));
         $namespace = array_pop($tmpPath);
         if (end($tmpPath) == 'lib') {
             array_pop($tmpPath);

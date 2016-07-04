@@ -47,7 +47,8 @@ class Blameable extends Behavior implements BehaviorInterface
 	 *
 	 * @param string $type
 	 * @param \Phalcon\Mvc\ModelInterface $model
-	 * @return Audit
+     *
+     * @return Audit
 	 */
 	public function createAudit($type, ModelInterface $model)
 	{
@@ -81,7 +82,8 @@ class Blameable extends Behavior implements BehaviorInterface
 	 * Audits an DELETE operation
 	 *
 	 * @param \Phalcon\Mvc\ModelInterface $model
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function auditAfterCreate(ModelInterface $model)
 	{
@@ -113,7 +115,8 @@ class Blameable extends Behavior implements BehaviorInterface
 	 * Audits an UPDATE operation
 	 *
 	 * @param \Phalcon\Mvc\ModelInterface $model
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function auditAfterUpdate(ModelInterface $model)
 	{

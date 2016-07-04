@@ -35,7 +35,7 @@ class Query extends PhQuery
             }
         }
 
-        return $this->_phql."_".join(',', $uniqueKey);
+        return $this->_phql.'_'.join(',', $uniqueKey);
     }
 
     /**
@@ -43,6 +43,7 @@ class Query extends PhQuery
      *
      * @param array $bindParams
      * @param array $bindTypes
+     *
      * @return mixed
      */
     public function execute($bindParams = null, $bindTypes = null)

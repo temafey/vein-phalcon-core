@@ -90,7 +90,7 @@ class Router extends AbstractService
                 }
                 $files = scandir($this->_config->application->modulesDir.ucfirst($module).'/Controller'); // get all file names
                 foreach ($files as $file) { // iterate files
-                    if ($file == "." || $file == "..") {
+                    if ($file == '.' || $file == '..') {
                         continue;
                     }
                     $controller = ucfirst($module).'\Controller\\'.str_replace('Controller.php', '', $file);

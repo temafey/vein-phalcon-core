@@ -46,12 +46,19 @@ abstract class AbstractContainer implements
 	 * @var array
 	 */
 	protected $_conditions = [];
-	
+
+	/**
+	 * Errors after failed action
+	 * @var array
+	 */
+	protected $_errors = [];
+
 	/**
 	 * Set container options
 	 * 
 	 * @param array $options
-	 * @return \Vein\Core\Crud\Container\AbstractContainer
+     *
+     * @return \Vein\Core\Crud\Container\AbstractContainer
 	 */
 	public function setOptions(array $options)
 	{
@@ -98,7 +105,8 @@ abstract class AbstractContainer implements
 	 * Set container conditions
 	 * 
 	 * @param array|string $conditions
-	 * @return \Vein\Core\Crud\Container\AbstractContainer
+     *
+     * @return \Vein\Core\Crud\Container\AbstractContainer
 	 */
 	public function setConditions($conditions)
 	{
@@ -109,7 +117,7 @@ abstract class AbstractContainer implements
 			$conditions = array($conditions);
 		}
 		foreach ($conditions as $cond) {
-			if ($cond == "") {
+			if ($cond == '') {
 				continue;
 			}
 			$this->_conditions[] = $cond;
@@ -117,12 +125,23 @@ abstract class AbstractContainer implements
 		
 		return $this;
 	}
+
+	/**
+	 * Return action errors
+	 *
+	 * @return array
+	 */
+	public function getErrors()
+	{
+		return $this->_errors;
+	}
 	
 	/**
 	 * Set primary model
 	 * 
 	 * @param string|array $model
-	 * @return void
+     *
+     * @return void
 	 */
 	abstract public function setModel($model = null);
 
@@ -130,6 +149,7 @@ abstract class AbstractContainer implements
      * Set model adapter
      *
      * @param string|object $model
+     *
      * @return void
      */
     abstract public function setAdapter($adapder = null);
@@ -138,7 +158,8 @@ abstract class AbstractContainer implements
 	 * Set join models
 	 * 
 	 * @param array|string $models
-	 * @return void
+     *
+     * @return void
 	 */
 	abstract public function setJoinModels($models);
 }

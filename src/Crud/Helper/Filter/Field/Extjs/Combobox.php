@@ -17,9 +17,10 @@ use Vein\Core\Crud\Grid\Filter as Filter,
 class Combobox extends BaseHelper
 {
     /**
-     * Render extjs combobox filter field
+     * Render combobox filter field
      *
      * @param \Vein\Core\Crud\Grid\Filter\Field $field
+     *
      * @return string
      */
     public static function _(Field\ArrayToSelect $field)
@@ -62,6 +63,7 @@ class Combobox extends BaseHelper
      * Return combobox datastore code
      *
      * @param Field\ArrayToSelect $field
+     *
      * @return string
      */
     protected static function _getStore(Field\ArrayToSelect $field)
@@ -69,7 +71,7 @@ class Combobox extends BaseHelper
         $key = $field->getKey();
         $grid = $field->getGridFilter()->getGrid();
         $gridKey = $grid->getKey();
-        $url = $grid->getAction()."/".$key."/filter-options";
+        $url = $grid->getAction().'/'.$key."/filter-options";
 
 
         $store = "new Ext.data.Store({

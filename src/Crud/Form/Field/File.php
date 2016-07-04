@@ -127,7 +127,7 @@ class File extends Field
 		
         $key = $this->getKey();
 	    if (empty($_FILES) || !isset($_FILES[$key])) {				
-			$_FILES[$key] = ["name" => "", "type" => "", "tmp_name" => "", "error" => 4, "size" => 0];
+			$_FILES[$key] = ["name" => '', "type" => '', "tmp_name" => '', "error" => 4, "size" => 0];
 		}
 	}
 
@@ -144,7 +144,7 @@ class File extends Field
 		}
 		$fullName = $this->_template;
 		if (!$fullName) {
-			$file = explode(".", $_FILES[$key]['name']);
+			$file = explode('.', $_FILES[$key]['name']);
 			$fullName = $file[0];
 		}
 		
@@ -155,7 +155,7 @@ class File extends Field
         $uploadDirectory = rtrim(\Vein\Core\Tools\Strings::generateStringTemplate($this->_uploadDirectory, $data, '{', '}'), "/)");
 		$fullName = \Vein\Core\Tools\Strings::generateStringTemplate($fullName, $data, '{', '}');
 
-		$fileType = strtolower(end(explode(".", $_FILES[$key]['name'])));
+		$fileType = strtolower(end(explode('.', $_FILES[$key]['name'])));
 		$fullName = $fullName.'.'.$fileType;
 		$zend_upload_dir = $uploadDirectory;
 		$fullName = $uploadDirectory.'/'.$fullName;

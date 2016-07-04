@@ -49,7 +49,8 @@ trait Filters
     /**
      * Returns the result of filtering $value
      *
-     * @param  mixed $value
+     * @param mixed $value
+     *
      * @return mixed
      */
     public function filter($value)
@@ -77,7 +78,8 @@ trait Filters
     /**
      * Add a filter to the element
      *
-     * @param  string|\Vein\Core\Filter\FilterInterface|array
+     * @param string|\Vein\Core\Filter\FilterInterface|array
+     *
      * @return \Vein\Core\Crud\Tools\Filters
      */
     public function addFilter($filter)
@@ -119,7 +121,8 @@ trait Filters
     /**
      * Add filters to element
      *
-     * @param  array $filters
+     * @param array $filters
+     *
      * @return \Vein\Core\Crud\Tools\Filters
      */
     public function addFilters(array $filters)
@@ -134,7 +137,8 @@ trait Filters
     /**
      * Add filters to element, overwriting any already existing
      *
-     * @param  array $filters
+     * @param array $filters
+     *
      * @return \Vein\Core\Crud\Tools\Filters
      */
     public function setFilters(array $filters)
@@ -156,7 +160,8 @@ trait Filters
     /**
      * Remove a filter by name
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return \Vein\Core\Crud\Tools\Filters
      */
     public function removeFilter($name)
@@ -194,6 +199,7 @@ trait Filters
      * Return filter class name
      *
      * @param string $name
+     *
      * @return string
      */
     public function getFilterClassName($name)

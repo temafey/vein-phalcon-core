@@ -70,6 +70,7 @@ class Authorizer extends Component
      * Checks the user credentials
      *
      * @param array $credentials
+     *
      * @return bool
      */
     public function check($credentials)
@@ -103,6 +104,7 @@ class Authorizer extends Component
      * Check remember me value
      *
      * @param $value
+     *
      * @return boolean
      */
     public function checkRememberMe($crypt)
@@ -202,6 +204,7 @@ class Authorizer extends Component
      * Auths the user by his/her id
      *
      * @param int $id
+     *
      * @return boolean
      */
     public function authUserById($userId)

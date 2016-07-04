@@ -64,6 +64,7 @@ class Primary extends Standart
      *
      * @param mixed $dataSource
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function applyFilter($dataSource, Container $container)

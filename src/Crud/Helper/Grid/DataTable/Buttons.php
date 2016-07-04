@@ -19,7 +19,8 @@ class Buttons extends BaseHelper
 	 * Generates grid buttons objects
 	 *
 	 * @param \Vein\Core\Crud\Grid\DataTable $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{
@@ -28,9 +29,6 @@ class Buttons extends BaseHelper
 
         $code = '
             buttons: [
-				{ extend: \'create\', editor: '.$formId.' },
-				{ extend: \'edit\',   editor: '.$formId.' },
-				{ extend: \'remove\', editor: '.$formId.' }
         	]';
 
         return $code;

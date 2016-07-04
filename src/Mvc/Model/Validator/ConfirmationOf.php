@@ -18,6 +18,7 @@ class ConfirmationOf extends \Phalcon\Mvc\Model\Validator
      * Executes the validator
      *
      * @param \Phalcon\Mvc\ModelInterface $record
+     *
      * @return boolean
      */
     public function validate($record)

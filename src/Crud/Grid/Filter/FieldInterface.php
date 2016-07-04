@@ -18,6 +18,7 @@ interface FieldInterface
 	 * 
 	 * @param mixed $dataSource
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Crud\Grid\Filter\FieldInterface
 	 */
 	public function applyFilter($dataSource, \Vein\Core\Crud\Container\AbstractContainer $container);

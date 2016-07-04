@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class ManyToMany extends BaseHelper
 {
     /**
-     * Render extjs combobox form field
+     * Render combobox form field
      *
      * @param \Vein\Core\Crud\Form\Field\ManyToMany $field
+     *
      * @return string
      */
     public static function _(Field\ManyToMany $field)
@@ -95,6 +96,7 @@ class ManyToMany extends BaseHelper
      * Return combobox datastore code
      *
      * @param Field\ArrayToSelect $field
+     *
      * @return string
      */
     protected static function _getStore(Field\ManyToMany $field)
@@ -102,7 +104,7 @@ class ManyToMany extends BaseHelper
         $key = $field->getKey();
         $form = $field->getForm();
         $formKey = $form->getKey();
-        $url = $form->getAction()."/".$key."/multi-options";
+        $url = $form->getAction().'/'.$key."/multi-options";
 
         $autoLoad = ($field->getAttrib('autoLoad')) ? true : false;
         $isLoaded = ($field->getAttrib('isLoaded')) ? true : false;
@@ -111,7 +113,7 @@ class ManyToMany extends BaseHelper
                         autoLoad: ".($autoLoad ? "true" : "false").",
                         pageSize: 10,"
             .($isLoaded ? "
-                        isLoaded: false," : "")."
+                        isLoaded: false," : '')."
                         fields: [{name: 'id'}, {name: 'name'}],
                         proxy: {
                             type: 'ajax',
@@ -131,6 +133,7 @@ class ManyToMany extends BaseHelper
      * Return combobox listeners code
      *
      * @param Field\ArrayToSelect $field
+     *
      * @return string
      */
     protected static function _getListeners(Field\ManyToMany $field)

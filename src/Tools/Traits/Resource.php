@@ -87,6 +87,7 @@ trait Resource
      * Set $_autoloadMethodPrefix
      *
      * @param string $prefix
+     *
      * @return \Vein\Core\Tools\Traits\Resource
      */
     public function setAutoloadMethodPrefix($prefix)
@@ -98,6 +99,7 @@ trait Resource
      * Set $_autoloadMethodPrefixException
      *
      * @param array $prefixes
+     *
      * @return \Vein\Core\Tools\Traits\Resource
      */
     public function setAutoloadMethodPrefixException($prefixes)
@@ -115,6 +117,7 @@ trait Resource
      * Add prefix exception.
      *
      * @param string $prefix
+     *
      * @return \Vein\Core\Tools\Traits\Resource
      */
     public function addAutoloadMethodPrefixException($prefix)
@@ -136,7 +139,8 @@ trait Resource
      *
      * Finally, if not found, it throws an exception.
      *
-     * @param  string $resource
+     * @param string $resource
+     *
      * @return void
      * @throws ExceptionWhen resource not found
      */
@@ -204,6 +208,7 @@ trait Resource
      * Check is method name is exception
      *
      * @param string $method
+     *
      * @return bool
      */
     public function isException($method)
@@ -235,7 +240,8 @@ trait Resource
     /**
      * Mark a resource as having run
      *
-     * @param  string $resource
+     * @param string $resource
+     *
      * @return void
      */
     protected function _markRun($resource)

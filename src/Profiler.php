@@ -32,8 +32,8 @@ class Profiler
     /**
      * Stop profiling and collect data.
      *
-     * @param      $class
-     * @param      $objectType
+     * @param     $class
+     * @param     $objectType
      */
     public function stop($class, $objectType)
     {

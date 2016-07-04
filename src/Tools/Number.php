@@ -76,6 +76,7 @@ class Number {
      *
      * @param float $value A floating point number.
      * @param integer $precision The precision of the returned number.
+     *
      * @return float Formatted float.
      */
     public static function precision($value, $precision = 3) {
@@ -86,6 +87,7 @@ class Number {
      * Returns a formatted-for-humans file size.
      *
      * @param integer $size Size in bytes
+     *
      * @return string Human readable size
      */
     public static function toReadableSize($size)
@@ -113,6 +115,7 @@ class Number {
      *
      * @param string $size Size in human readable string like '5MB', '5M', '500B', '50kb' etc.
      * @param mixed $default Value to be returned when invalid size was used, for example 'Unknown type'
+     *
      * @return mixed Number of bytes as integer on success, `$default` on failure if not false
      * @throws Exception On invalid Unit type.
      */
@@ -155,6 +158,7 @@ class Number {
      * @param float $value A floating point number
      * @param integer $precision The precision of the returned number
      * @param array $options Options
+     *
      * @return string Percentage string
      */
     public static function toPercentage($value, $precision = 2, $options = array())
@@ -234,6 +238,7 @@ class Number {
      *
      * @param float $value A floating point number
      * @param array $options
+     *
      * @return string formatted delta
      */
     public static function formatDelta($value, $options = array())
@@ -252,6 +257,7 @@ class Number {
      * @param integer $places
      * @param string $decimals
      * @param string $thousands
+     *
      * @return string
      */
     protected static function _numberFormat($value, $places = 0, $decimals = '.', $thousands = ',')
@@ -310,6 +316,7 @@ class Number {
      * @param string $currency Shortcut to default options. Valid values are
      * 'USD', 'EUR', 'GBP', otherwise set at least 'before' and 'after' options.
      * @param array $options
+     *
      * @return string Number formatted as a currency.
      */
     public static function currency($value, $currency = null, $options = array())
@@ -382,6 +389,7 @@ class Number {
      *
      * @param string $formatName The format name to be used in the future.
      * @param array $options The array of options for this format.
+     *
      * @return void
      * @see NumberHelper::currency()
      */
@@ -394,6 +402,7 @@ class Number {
      * Getter/setter for default currency
      *
      * @param string $currency Default currency string used by currency() if $currency argument is not provided
+     *
      * @return string Currency
      */
     public static function defaultCurrency($currency = null)

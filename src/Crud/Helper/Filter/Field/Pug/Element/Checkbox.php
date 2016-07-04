@@ -17,9 +17,10 @@ use Vein\Core\Crud\Grid\Filter as Filter,
 class Checkbox extends BaseHelper
 {
     /**
-     * Render extjs checkbox filter field
+     * Render checkbox filter field
      *
      * @param \Vein\Core\Crud\Grid\Filter\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

@@ -88,6 +88,7 @@ class RegularTestGenerator extends AbstractGenerator
      * Genereate testsuites
      *
      * @param array $modules
+     *
      * @return string
      */
     public function getTestsuites(array $modules)
@@ -112,6 +113,7 @@ class RegularTestGenerator extends AbstractGenerator
      * Genereate modules array
      *
      * @param array $modules
+     *
      * @return string
      */
     public function getModules(array $modules)

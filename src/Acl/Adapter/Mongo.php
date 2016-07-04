@@ -76,7 +76,8 @@ class Mongo extends Adapter implements AdapterInterface
 	 * Returns a mongo collection
 	 *
 	 * @param string $name
-	 * @return \MongoCollection
+     *
+     * @return \MongoCollection
 	 */
 	protected function _getCollection($name)
 	{
@@ -90,9 +91,10 @@ class Mongo extends Adapter implements AdapterInterface
 	 * <code>$acl->addRole(new Phalcon\Acl\Role('administrator'), 'consultor');</code>
 	 * <code>$acl->addRole('administrator', 'consultor');</code>
 	 *
-	 * @param  string $role
-	 * @param  array $accessInherits
-	 * @return boolean
+	 * @param string $role
+	 * @param array $accessInherits
+     *
+     * @return boolean
 	 */
 	public function addRole($role, $accessInherits=null)
 	{
@@ -150,8 +152,9 @@ class Mongo extends Adapter implements AdapterInterface
 	/**
 	 * Check whether role exist in the roles list
 	 *
-	 * @param  string $roleName
-	 * @return boolean
+	 * @param string $roleName
+     *
+     * @return boolean
 	 */
 	public function isRole($roleName)
 	{
@@ -162,8 +165,9 @@ class Mongo extends Adapter implements AdapterInterface
 	/**
 	 * Check whether resource exist in the resources list
 	 *
-	 * @param  string $resourceName
-	 * @return boolean
+	 * @param string $resourceName
+     *
+     * @return boolean
 	 */
 	public function isResource($resourceName)
 	{
@@ -188,8 +192,9 @@ class Mongo extends Adapter implements AdapterInterface
 	 * $acl->addResource('customers', array('create', 'search'));
 	 * </code>
 	 *
-	 * @param   Phalcon\Acl\Resource $resource
-	 * @return  boolean
+	 * @param  Phalcon\Acl\Resource $resource
+     *
+     * @return  boolean
 	 */
 	public function addResource($resource, $accessList=null)
 	{
@@ -305,7 +310,8 @@ class Mongo extends Adapter implements AdapterInterface
 	 * @param string $resourceName
 	 * @param string $access
 	 * @param int $access
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	protected function _insertOrUpdateAccess($roleName, $resourceName, $accessName, $action)
 	{
@@ -367,7 +373,8 @@ class Mongo extends Adapter implements AdapterInterface
 	 * @param string $resourceName
 	 * @param string $access
 	 * @param int $access
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	protected function _allowOrDeny($roleName, $resourceName, $access, $action)
 	{
@@ -437,7 +444,8 @@ class Mongo extends Adapter implements AdapterInterface
 	 * @param string $roleName
 	 * @param string $resourceName
 	 * @param mixed $access
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function deny($roleName, $resourceName, $access)
 	{
@@ -455,10 +463,11 @@ class Mongo extends Adapter implements AdapterInterface
 	 * $acl->isAllowed('guests', '*', 'edit');
 	 * </code>
 	 *
-	 * @param  string $role
-	 * @param  string $resource
-	 * @param  mixed $accessList
-	 * @return boolean
+	 * @param string $role
+	 * @param string $resource
+	 * @param mixed $accessList
+     *
+     * @return boolean
 	 */
 	public function isAllowed($role, $resource, $access)
 	{

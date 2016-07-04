@@ -51,7 +51,7 @@ abstract class Extjs extends Grid
     protected $_editType = 'row';
 
     /**
-     * Build store in extjs grid
+     * Build store in grid
      * @var boolean
      */
     protected $_buildStore = false;
@@ -67,7 +67,7 @@ abstract class Extjs extends Grid
     }
 
     /**
-     * Return extjs module name
+     * Return module name
      *
      * @return string
      */
@@ -77,7 +77,7 @@ abstract class Extjs extends Grid
     }
 
     /**
-     * Return extjs grid key
+     * Return grid key
      *
      * @return string
      */
@@ -96,7 +96,7 @@ abstract class Extjs extends Grid
         if (!empty($this->_action)) {
             return $this->_action;
         }
-        return "/".$this->_modulePrefix."/".$this->getModuleName()."/".$this->getKey();
+        return '/'.$this->_modulePrefix.'/'.$this->getModuleName().'/'.$this->getKey();
     }
 
     /**
@@ -165,6 +165,7 @@ abstract class Extjs extends Grid
      * Set grid params
      *
      * @param array $params
+     *
      * @return \Vein\Core\Crud\Grid
      */
     public function setParams(array $params)
@@ -199,6 +200,7 @@ abstract class Extjs extends Grid
      * Return current sort params
      *
      * @param bool $withFilterParams
+     *
      * @return array
      */
     public function getSortParams($withFilterParams = true)
@@ -216,6 +218,7 @@ abstract class Extjs extends Grid
      * Paginate data array
      *
      * @param array $data
+     *
      * @return void
      */
     protected function _paginate(array $data)
@@ -282,7 +285,7 @@ abstract class Extjs extends Grid
     }
 
     /**
-     * Is build store in extjs grid
+     * Is build store in grid
      *
      * @return boolean
      */

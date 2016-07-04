@@ -25,7 +25,8 @@ class Window extends BaseHelper
 	 * Generates grid functions object
 	 *
 	 * @param \Vein\Core\Crud\Grid\Extjs $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{

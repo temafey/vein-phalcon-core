@@ -30,7 +30,6 @@ class Mysql extends Container implements FormContainer
      * @var array
      */
     protected $_fields = [];
-	
 	/**
      * Constructor
      *
@@ -65,6 +64,7 @@ class Mysql extends Container implements FormContainer
      * Set join models
      *
      * @param array|string $models
+     *
      * @return \Vein\Core\Crud\Container\Form\Mysql
      */
     public function setJoinModels($models)
@@ -120,10 +120,10 @@ class Mysql extends Container implements FormContainer
             }
         }
 
-        /*$this->_model->_skipAttributes(array_intersect($this->_fields[get_class($this->_model)], $notRequeired));
+        $this->_model->_skipAttributes(array_intersect($this->_fields[get_class($this->_model)], $notRequeired));
         foreach ($this->_joins as $key => $model) {
             $model->_skipAttributes(array_intersect($this->_fields[$key], $notRequeired));
-        }*/
+        }
     }
 
     /**
@@ -161,7 +161,7 @@ class Mysql extends Container implements FormContainer
         $dataSource = $this->getDataSource();
         $primary = $this->_model->getPrimary();
         $alias = $dataSource->getCorrelationName($primary);
-        $dataSource->where($alias.".".$primary." = :id:", ['id' => $id]);
+        $dataSource->where($alias.'.'.$primary." = :id:", ['id' => $id]);
         $result = $dataSource->getQuery()->execute()->toArray();
 
         return ($result ? $result[0] : false);
@@ -182,21 +182,26 @@ class Mysql extends Container implements FormContainer
 		try {
             $primary = $this->_model->getPrimary();
             $record = clone($this->_model);
+
 			if ($record->create($data)) {
                 $id = $record->{$primary};
                 $joinResult = $this->_insertToJoins($data, $record);
                 $result = $id;
             } else {
                 $messages = [];
+                $this->_errors = [];
                 foreach ($record->getMessages() as $message) {
-                    /*$result = [];
-                    $result[] = "Message: ".$message->getMessage();
-                    $result[] = "Field: ".$message->getField();
+                    $result = [];
+                    $field = $message->getField();
+                    $result[] = "Field: ".$field;
                     $result[] = "Type: ".$message->getType();
-                    $messages[] = implode (", ", $result);*/
-                    $messages[] = $message->getMessage();
+                    $errorMessage = $message->getMessage();
+                    $result[] = "Message: ".$errorMessage;
+                    $messages[] = implode (", ", $result);
+                    //$messages[] = $message->getMessage();
+                    $this->_errors[$field] = $errorMessage;
                 }
-                throw new Exception(implode(', ', $messages));
+                throw new Exception(implode('; ', $messages));
             }
 		} catch (Exception$e) {
             $db->rollBack();
@@ -224,11 +229,14 @@ class Mysql extends Container implements FormContainer
                 continue;
             }
             $relationColumn = $model->getRelationFields($this->_model);
-            $referenceValue = $parentRecord->{$relationColumn};
+            $properties = get_object_vars($parentRecord);
             $updateParent = false;
-            if ($referenceValue !== null) {
+            if (array_key_exists($relationColumn, $properties)) {
                 $updateParent = true;
-                $data[$referenceColumn] = $referenceValue;
+                $referenceValue = $parentRecord->{$relationColumn};
+                if ($referenceValue !== null) {
+                    $data[$referenceColumn] = $referenceValue;
+                }
             }
             $record = clone($model);
             $isCreate = false;
@@ -250,37 +258,45 @@ class Mysql extends Container implements FormContainer
                     $parentRecord->{$relationColumn} = $record->{$referenceColumn};
                     if (!$parentRecord->save()) {
                         $messages = [];
+                        $this->_errors = [];
                         foreach ($parentRecord->getMessages() as $message) {
-                            /*$result = [];
-                            $result[] = "Message: ".$message->getMessage();
-                            $result[] = "Field: ".$message->getField();
+                            $result = [];
+                            $field = $message->getField();
+                            $result[] = "Field: ".$field;
                             $result[] = "Type: ".$message->getType();
-                            $messages[] = implode (", ", $result);*/
-                            $messages[] = $message->getMessage();
+                            $errorMessage = $message->getMessage();
+                            $result[] = "Message: ".$errorMessage;
+                            $messages[] = implode (", ", $result);
+                            //$messages[] = $message->getMessage();
+                            $this->_errors[$field] = $errorMessage;
                         }
                         throw new Exception(
-                            'Update in model \''.get_class($parentRecord).'\' faild: '.
-                            implode(', ', $messages)
+                            'Update in model \''.get_class($parentRecord).'\' failed: '.
+                            implode('; ', $messages)
                         );
                     }
                 }
             } else {
                 $messages = [];
+                $this->_errors = [];
                 foreach ($record->getMessages() as $message) {
-                    /*$result = [];
-                    $result[] = "Message: ".$message->getMessage();
-                    $result[] = "Field: ".$message->getField();
+                    $result = [];
+                    $field = $message->getField();
+                    $result[] = "Field: ".$field;
                     $result[] = "Type: ".$message->getType();
-                    $messages[] = implode (", ", $result);*/
-                    $messages[] = $message->getMessage();
+                    $errorMessage = $message->getMessage();
+                    $result[] = "Message: ".$errorMessage;
+                    $messages[] = implode (", ", $result);
+                    //$messages[] = $message->getMessage();
+                    $this->_errors[$field] = $errorMessage;
                 }
                 throw new Exception(
-                    'Insert in model \''.get_class($record).'\' faild: '.
-                    implode(', ', $messages)
+                    'Insert in model \''.get_class($record).'\' failed: '.
+                    implode('; ', $messages)
                 );
             }
 	    }
-	    
+        
 	    return $result;
 	}
 
@@ -370,7 +386,7 @@ class Mysql extends Container implements FormContainer
                             $messages[] = $message->getMessage();
                         }
                         throw new Exception(
-                            'Update in model \'' . get_class($record) . '\' faild: ' .
+                            'Update in model \'' . get_class($record) . '\' failed: ' .
                             implode(', ', $messages)
                         );
                     } elseif ($record->isInsertInsteadUpdate()) {
@@ -379,17 +395,21 @@ class Mysql extends Container implements FormContainer
                             $parentRecord->{$relationColumn} = $referenceValue;
                             if (!$parentRecord->save()) {
                                 $messages = [];
+                                $this->_errors = [];
                                 foreach ($parentRecord->getMessages() as $message) {
-                                    /*$result = [];
-                                    $result[] = "Message: ".$message->getMessage();
-                                    $result[] = "Field: ".$message->getField();
+                                    $result = [];
+                                    $field = $message->getField();
+                                    $result[] = "Field: ".$field;
                                     $result[] = "Type: ".$message->getType();
-                                    $messages[] = implode (", ", $result);*/
-                                    $messages[] = $message->getMessage();
+                                    $errorMessage = $message->getMessage();
+                                    $result[] = "Message: ".$errorMessage;
+                                    $messages[] = implode (", ", $result);
+                                    //$messages[] = $message->getMessage();
+                                    $this->_errors[$field] = $errorMessage;
                                 }
                                 throw new Exception(
-                                    'Update in model \'' . get_class($parentRecord) . '\' faild: ' .
-                                    implode(', ', $messages)
+                                    'Update in model \'' . get_class($parentRecord) . '\' failed: ' .
+                                    implode('; ', $messages)
                                 );
                             }
                         }
@@ -426,7 +446,7 @@ class Mysql extends Container implements FormContainer
                     throw new Exception(implode(', ', $messages));
                 }
             }
-        } catch (Exception$e) {
+        } catch (Exception $e) {
             $db->rollBack();
             throw $e;
         }

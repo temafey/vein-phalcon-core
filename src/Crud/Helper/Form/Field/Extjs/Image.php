@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Image extends BaseHelper
 {
     /**
-     * Render extjs image file uplaod form field
+     * Render image file uplaod form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field\Image $field)

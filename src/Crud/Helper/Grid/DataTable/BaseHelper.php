@@ -40,6 +40,7 @@ class BaseHelper extends \Vein\Core\Crud\Helper
      * Init helper
      *
      * @param \Vein\Core\Crud\Grid\DataTable|\Vein\Core\Crud\Form\DataTable $element
+     *
      * @return string
      */
     public static function init($element)

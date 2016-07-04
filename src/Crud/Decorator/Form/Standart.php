@@ -21,7 +21,8 @@ class Standart extends Decorator
 	/**
      * Render an element
      *
-     * @param  string $content
+     * @param string $content
+     *
      * @return string
      * @throws \UnexpectedValueException if element or view are not registered
      */
@@ -45,20 +46,9 @@ class Standart extends Decorator
             $sections[] = call_user_func_array([$helper['helper'], '_'], [$helper['element']]);
         }
 
-        $create = false;
-        if ($element->getId() === null) {
-            $create = true;
-        }
-        foreach ($element->getFields() as $field) {
-            if ($create && $field instanceof Field\Primary) {
-                continue;
-            }
-            $sections[] = $this->renderField($field);
-        }
-
         $elementContent = implode($separator, $sections);
         foreach (array_reverse($helpers) as $helper) {
-            $elementContent .= $sections[] = call_user_func([$helper['helper'], 'endTag']);
+            $elementContent .= call_user_func_array([$helper['helper'], 'endTag'], [$helper['element']]);
         }
 
         switch ($this->getPlacement()) {
@@ -75,6 +65,7 @@ class Standart extends Decorator
      * Render filter form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public function renderField(Field $field)
@@ -93,7 +84,7 @@ class Standart extends Decorator
         $elementContent = implode($separator, $sections);
 
         foreach (array_reverse($helpers) as $helper) {
-            $elementContent .= $sections[] = call_user_func([$helper['helper'], 'endTag']);
+            $elementContent .= $sections[] = call_user_func([$helper['helper'], 'endTag', $helper['element']]);
         }
 
         return $elementContent;
@@ -107,7 +98,10 @@ class Standart extends Decorator
 	public function getDefaultHelpers()
 	{
 		$helpers = [
-            'standart'
+            'standart',
+            'standart\FormHead',
+            'standart\Body',
+            'standart\FormFoot',
 		];
 
 		return $helpers;

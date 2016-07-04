@@ -36,7 +36,7 @@ class Template
     /**
      * Constructor.
      *
-     * @param  string $file
+     * @param string $file
      * @throws \Exception
      */
     public function __construct($file = '', $openDelimiter = '{', $closeDelimiter = '}')
@@ -49,7 +49,7 @@ class Template
     /**
      * Sets the template file.
      *
-     * @param  string $file
+     * @param string $file
      * @throws \Exception
      */
     public function setFile($file)
@@ -70,8 +70,8 @@ class Template
     /**
      * Sets one or more template variables.
      *
-     * @param  array   $values
-     * @param  boolean $merge
+     * @param array   $values
+     * @param boolean $merge
      */
     public function setVar(array $values, $merge = TRUE)
     {

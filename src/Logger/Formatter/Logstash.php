@@ -81,6 +81,7 @@ class Logstash implements FormatterInterface
      * @param int $type
      * @param int $timestamp
      * @param null $context
+     *
      * @return array|mixed|string
      */
     public function format($message, $type, $timestamp, $context = NULL)
@@ -348,8 +349,8 @@ class Logstash implements FormatterInterface
     /**
      * Return the JSON representation of a value
      *
-     * @param  mixed             $data
-     * @param  bool              $ignoreErrors
+     * @param mixed             $data
+     * @param bool              $ignoreErrors
      * @throws \RuntimeException if encoding fails and errors are not ignored
      *
      * @return string
@@ -371,7 +372,7 @@ class Logstash implements FormatterInterface
     }
 
     /**
-     * @param  mixed  $data
+     * @param mixed  $data
      *
      * @return string JSON encoded data or null on failure
      */
@@ -392,8 +393,8 @@ class Logstash implements FormatterInterface
      * inital error is not encoding related or the input can't be cleaned then
      * raise a descriptive exception.
      *
-     * @param  int               $code return code of json_last_error function
-     * @param  mixed             $data data that was meant to be encoded
+     * @param int               $code return code of json_last_error function
+     * @param mixed             $data data that was meant to be encoded
      * @throws \RuntimeException if failure can't be corrected
      *
      * @return string            JSON encoded data after error correction
@@ -424,8 +425,8 @@ class Logstash implements FormatterInterface
     /**
      * Throws an exception according to a given code with a customized message
      *
-     * @param  int               $code return code of json_last_error function
-     * @param  mixed             $data data that was meant to be encoded
+     * @param int               $code return code of json_last_error function
+     * @param mixed             $data data that was meant to be encoded
      * @throws \RuntimeException
      */
     private function _throwEncodeError($code, $data)

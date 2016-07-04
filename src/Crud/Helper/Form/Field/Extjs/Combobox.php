@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Combobox extends BaseHelper
 {
     /**
-     * Render extjs combobox form field
+     * Render combobox form field
      *
      * @param \Vein\Core\Crud\Form\Field\ArrayToSelect $field
+     *
      * @return string
      */
     public static function _(Field\ArrayToSelect $field)
@@ -75,6 +76,7 @@ class Combobox extends BaseHelper
      * Return combobox datastore code
      *
      * @param Field\ArrayToSelect $field
+     *
      * @return string
      */
     protected static function _getStore(Field\ArrayToSelect $field)
@@ -82,15 +84,15 @@ class Combobox extends BaseHelper
         $key = $field->getKey();
         $form = $field->getForm();
         $formKey = $form->getKey();
-        $url = $form->getAction()."/".$key."/options";
+        $url = $form->getAction().'/'.$key."/options";
 
         $autoLoad = ($field->getAttrib('autoLoad')) ? true : false;
         $isLoaded = ($field->getAttrib('isLoaded')) ? true : false;
 
         $store = "new Ext.data.Store({
-                        autoLoad: ".($autoLoad ? "true" : "false").","
+                        autoLoad: ".($autoLoad ? "true" : "false").','
                         .($isLoaded ? "
-                        isLoaded: false," : "")."
+                        isLoaded: false," : '')."
                         fields: [{name: 'id'}, {name: 'name'}],
                         proxy: {
                             type: 'ajax',
@@ -109,6 +111,7 @@ class Combobox extends BaseHelper
      * Return combobox listeners code
      *
      * @param Field\ArrayToSelect $field
+     *
      * @return string
      */
     protected static function _getListeners(Field\ArrayToSelect $field)

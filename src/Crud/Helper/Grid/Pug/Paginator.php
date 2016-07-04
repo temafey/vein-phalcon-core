@@ -19,6 +19,7 @@ class Paginator extends BaseHelper
      * Generates grid paginate code
      *
      * @param \Vein\Core\Crud\Grid $grid
+     *
      * @return string
      */
     static public function _(Grid $grid)
@@ -180,6 +181,7 @@ class Paginator extends BaseHelper
      *
      * @param $url
      * @param $clearArray
+     *
      * @return string
      */
     static function clearUrlParam($url, $clearArray)
@@ -200,6 +202,7 @@ class Paginator extends BaseHelper
 
     /**
      * @param $urlParamStr
+     *
      * @return array
      */
     static function parseStr($urlParamStr)

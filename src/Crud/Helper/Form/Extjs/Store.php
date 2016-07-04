@@ -25,6 +25,7 @@ class Store extends BaseHelper
      * Generates a widget to show a html form
      *
      * @param \Vein\Core\Crud\Form\Extjs $form
+     *
      * @return string
      */
     static public function _(Form $form)

@@ -38,6 +38,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
      * Apply filter to query builder
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return string
      */
 	abstract public function filterWhere(Builder $dataSource);
@@ -46,6 +47,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
      * Apply filter to query builder
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return string
      */
     abstract public function getBoundParams(Builder $dataSource);
@@ -73,6 +75,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
      * Set key for bound param value
      *
      * @param string $key
+     *
      * @return \Vein\Core\Db\Filter\AbstractFilter
      */
     public function setBoundParamKey($key)
@@ -96,6 +99,7 @@ abstract class AbstractFilter implements SearchFilterInterface, EventsAwareInter
      *
      * @param string $criteria
      * @param mixed $value
+     *
      * @return string
      */
     public function getCompareCriteria($criteria, $value)

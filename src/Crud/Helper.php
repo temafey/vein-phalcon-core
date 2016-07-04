@@ -17,6 +17,7 @@ abstract class Helper extends \Phalcon\Tag
      * Helper initialize method
      *
      * @param mixed rendered object
+     * 
      * @return void
      */
     static public function init($element)
@@ -27,9 +28,11 @@ abstract class Helper extends \Phalcon\Tag
     /**
      * Crud helper end tag
      *
+     * @param mixed rendered object
+     *
      * @return string
      */
-    static public function endTag()
+    static public function endTag($element)
     {
         return '';
     }

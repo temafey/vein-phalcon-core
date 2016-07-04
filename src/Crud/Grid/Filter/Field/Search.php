@@ -58,12 +58,13 @@ class Search extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
 	public function getFilter(Container $container)
 	{
 		$values = $this->getValue();
-		if ($values === null || $values === false || (is_string($values) && trim($values) == "")) {
+		if ($values === null || $values === false || (is_string($values) && trim($values) == '')) {
 		    return false;
 		}
 		if (!is_array($values)) {
@@ -116,6 +117,7 @@ class Search extends Standart
      * @param array $fields
      * @param Container $container
      * @param string|integer $value
+     *
      * @return array
      */
     protected function _analyzing(array $fields, Container $container, $value)
@@ -146,7 +148,8 @@ class Search extends Standart
 	 * Parse value string
 	 * 
 	 * @param string $value
-	 * @return array
+     *
+     * @return array
 	 */
 	protected function _parseValue($value)
 	{		
@@ -166,7 +169,8 @@ class Search extends Standart
 	 * Parse value string
 	 * 
 	 * @param string $value
-	 * @return array
+     *
+     * @return array
 	 */
 	protected function _subParseValue($value)
 	{

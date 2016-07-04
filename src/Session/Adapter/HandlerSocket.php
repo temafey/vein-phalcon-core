@@ -82,6 +82,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * Constructor
      *
      * @param array $options associative array of options
+     *
      * @return void
      */
     public function __construct($options = [])
@@ -149,6 +150,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * Initialize HandlerSocket.
      *
      * @param array $options associative array of options
+     *
      * @return void
      */
     private function _init($options)
@@ -197,6 +199,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * Start the session.
      *
      * @param array $options associative array of options
+     *
      * @return void
      */
     public function start($options = [])
@@ -212,6 +215,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      *
      * @param string $save_path
      * @param string $name
+     *
      * @return true
      */
     public function open($save_path, $name)
@@ -233,6 +237,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * Read session data
      *
      * @param string $id
+     *
      * @return string
      */
     public function read($id)
@@ -259,6 +264,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      *
      * @param string $id
      * @param string $data
+     *
      * @return true
      */
     public function write($id, $data)
@@ -287,6 +293,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * Destroy session
      *
      * @param string $id
+     *
      * @return true
      */
     public function destroy($removeData = NULL)
@@ -300,6 +307,7 @@ class HandlerSocket extends Adapter implements AdapterInterface
      * Garbage Collection
      *
      * @param int $maxlifetime
+     *
      * @return true
      */
     public function gc($maxlifetime)

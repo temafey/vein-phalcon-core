@@ -22,7 +22,8 @@ trait EventsAware
 	 * Sets the events manager
 	 * 
 	 * @param \Phalcon\Events\ManagerInterface $eventsManager
-	 * @return void
+     *
+     * @return void
 	 */
     public function setEventsManager(\Phalcon\Events\ManagerInterface $eventsManager = null)
     {

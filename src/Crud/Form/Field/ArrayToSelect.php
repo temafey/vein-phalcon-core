@@ -31,7 +31,7 @@ class ArrayToSelect extends Field
 	 * Select options array
 	 * @var array
 	 */
-	protected $_options;
+	protected $_options = [];
 
     /**
      * Null option
@@ -93,11 +93,10 @@ class ArrayToSelect extends Field
             $this->_element->setAttribute('onchange', $this->_onChangeAction);
         }
 
-        if ($this->_loadSelectOptions === false) {
-            return false;
+        $options = [];
+        if ($this->_loadSelectOptions !== false) {
+            $options = $this->getOptions();
         }
-
-        $options = $this->getOptions();
         $this->_element->setOptions($options);
 
         $values = $this->getValue();
@@ -150,6 +149,7 @@ class ArrayToSelect extends Field
      * Set nulled select option
      *
      * @param string|array $option
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function setNullOption($option)
@@ -162,6 +162,7 @@ class ArrayToSelect extends Field
      * Set onchange action
      *
      * @param string $onchange
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function setOnchangeAction($onchange)
@@ -185,7 +186,8 @@ class ArrayToSelect extends Field
 	 * Set options
 	 * 
 	 * @param array $options
-	 * @return \Vein\Core\Crud\Form\Field\ArrayToSelect
+     *
+     * @return \Vein\Core\Crud\Form\Field\ArrayToSelect
 	 */
 	public function setOptions(array $options)
 	{

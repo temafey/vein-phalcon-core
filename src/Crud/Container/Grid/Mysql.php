@@ -157,7 +157,8 @@ class Mysql extends Container implements GridContainer
 	 * Return filter class name
 	 * 
 	 * @param string $type
-	 * @return string
+     *
+     * @return string
 	 */
 	public function getFilterClass($type)
 	{
@@ -172,6 +173,7 @@ class Mysql extends Container implements GridContainer
      * @param integer $limit
      * @param integer $page
      * @param integer $total
+     *
      * @return array
      */
 	protected function _getPaginator($queryBuilder, $extraLimit, $limit, $page, $total = false)
@@ -195,7 +197,8 @@ class Mysql extends Container implements GridContainer
 	 * 
 	 * @param array $id
 	 * @param array $data
-	 * @return bool|array
+     *
+     * @return bool|array
 	 */
 	public function update(array $ids, array $data)
 	{
@@ -229,6 +232,7 @@ class Mysql extends Container implements GridContainer
 	 * 
 	 * @param array $ids
 	 * @param array $data
+     *
      * @return bool|array
 	 */
 	protected function _updateJoins(array $ids, array $data)
@@ -257,7 +261,8 @@ class Mysql extends Container implements GridContainer
 	 * Delete rows by primary value
 	 * 
 	 * @param array $ids
-	 * @return bool|array
+     *
+     * @return bool|array
 	 */
 	public function delete(array $ids)
 	{
@@ -289,6 +294,7 @@ class Mysql extends Container implements GridContainer
      * second execute query to get all needed data using primary index with filter IN
      *
      * @param bool $flag
+     *
      * @return \Vein\Core\Crud\Container\Grid\Mysql
      */
     public function separateQuery($flag = true)

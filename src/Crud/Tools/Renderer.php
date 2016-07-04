@@ -48,7 +48,8 @@ trait Renderer
 	 * Set helpers
 	 *
 	 * @param array $helpers
-	 * @return \Vein\Core\Crud\Tools\Renderer
+     *
+     * @return \Vein\Core\Crud\Tools\Renderer
 	 */
 	public function setHelpers(array $helpers)
 	{
@@ -61,7 +62,8 @@ trait Renderer
 	 * Add helpers
 	 *
 	 * @param array $helpers
-	 * @return \Vein\Core\Crud\Tools\Renderer
+     *
+     * @return \Vein\Core\Crud\Tools\Renderer
 	 */
 	public function addHelpers(array $helpers)
 	{
@@ -76,7 +78,8 @@ trait Renderer
 	 * Add helper
 	 *
 	 * @param string $helper
-	 * @return \Vein\Core\Crud\Tools\Renderer
+     *
+     * @return \Vein\Core\Crud\Tools\Renderer
 	 */
 	public function addHelper($helper)
 	{
@@ -102,7 +105,8 @@ trait Renderer
 	 * Normalize helper name
 	 *
 	 * @param string $helper
-	 * @return string
+     *
+     * @return string
 	 */
 	public function _normalizeHelper($helper)
 	{

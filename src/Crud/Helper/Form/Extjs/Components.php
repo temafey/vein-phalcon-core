@@ -19,7 +19,8 @@ class Components extends BaseHelper
 	 * Generates form component object
 	 *
 	 * @param \Vein\Core\Crud\Form\Extjs $form
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Form $form)
 	{

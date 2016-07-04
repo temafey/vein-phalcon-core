@@ -170,6 +170,12 @@ abstract class Form implements
      */
     protected $_notRemove = false;
 
+	/**
+	 * Errors after failed action
+	 * @var array
+	 */
+	protected $_errors = [];
+
     /**
      * Constructor
      *
@@ -277,6 +283,9 @@ abstract class Form implements
             if (!$field->isAddToContainer()) {
                 continue;
             }
+			if ($field instanceof Field\Submit) {
+				continue;
+			}
             $this->_fieldNames[$key] = $field->getName();
         }
         if (null !== $this->_id) {
@@ -371,7 +380,8 @@ abstract class Form implements
 	 * 
 	 * @param array $data
 	 * @param bool $useFormFieldName
-	 * @return \Vein\Core\Crud\Form
+     *
+     * @return \Vein\Core\Crud\Form
 	 */
 	public function setData(array $data, $useFormFieldName = false)
 	{
@@ -382,6 +392,10 @@ abstract class Form implements
 		foreach ($this->_fields as $field) {			
 			if (null !== $this->_id) {
 				$field->setId($this->_id);
+			}
+
+			if ($field instanceof Field\Submit) {
+				continue;
 			}
 			
 			/*if ($field instanceof Field\TranslationText) {
@@ -421,7 +435,8 @@ abstract class Form implements
 	 * Load data from container
 	 * 
 	 * @param integer|string $id
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function loadData($id)
     {
@@ -506,6 +521,9 @@ abstract class Form implements
 			return $this;
 		}
 		foreach ($this->_fields as $field) {
+			if ($field instanceof Field\Submit) {
+				continue;
+			}
 			$field->setValue(null);
 		}
 		$this->_id = null;
@@ -519,7 +537,8 @@ abstract class Form implements
 	 * 
 	 * @param string $key
 	 * @param string $value
-	 * @return \Vein\Core\Crud\Form
+     *
+     * @return \Vein\Core\Crud\Form
 	 */
 	public function addAdditionalValue($key, $value) 
 	{
@@ -532,7 +551,8 @@ abstract class Form implements
 	 * Set additional data array
 	 * 
 	 * @param array $data
-	 * @return \Vein\Core\Crud\Form
+     *
+     * @return \Vein\Core\Crud\Form
 	 */
 	public function setAdditionalData(array $data) 
 	{
@@ -545,7 +565,8 @@ abstract class Form implements
 	 * Fix data array
 	 * 
 	 * @param array $data
-	 * @return array
+     *
+     * @return array
 	 */
 	public function fixData($data)
 	{
@@ -565,7 +586,8 @@ abstract class Form implements
 	/**
      * Validate the form
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return boolean
      */
 	public function isValid($data)
@@ -576,7 +598,10 @@ abstract class Form implements
         $this->beforeValidate($data);
 
 		foreach ($this->_fields as $field) {
-			if ($field instanceof Field\Security) {
+
+			if ($field instanceof Field\Submit) {
+				continue;
+			} elseif ($field instanceof Field\Security) {
 				if (!$field->isValid($data)) {
 					throw new Exception('Form security invalid');
 				}
@@ -605,6 +630,7 @@ abstract class Form implements
      * Check and filtering data before validation
      *
      * @param array $data
+     *
      * @return mixed
      */
     protected function beforeValidate(&$data) { }
@@ -635,7 +661,7 @@ abstract class Form implements
     /**
     * Retrieve form messages from elements failing validations
     *
-    * @param  string $name
+    * @param string $name
     * @return array
     */
     public function getMessages($name = null)
@@ -699,13 +725,17 @@ abstract class Form implements
         if ($validate) {
             if (!$this->isValid($data)) {
                 $messages = [];
+				$this->_errors = [];
                 foreach ($this->_form->getMessages() as $message) {
-                    /*$result = [];
-                    $result[] = "Message: ".$message->getMessage();
-                    $result[] = "Field: ".$message->getField();
-                    $result[] = "Type: ".$message->getType();
-                    $messages[] = implode (", ", $result);*/
-                    $messages[] = $message->getMessage();
+					$result = [];
+					$field = $message->getField();
+					$result[] = "Field: ".$field;
+					$result[] = "Type: ".$message->getType();
+					$errorMessage = $message->getMessage();
+					$result[] = "Message: ".$errorMessage;
+					$messages[] = implode (", ", $result);
+					//$messages[] = $message->getMessage();
+					$this->_errors[$field] = $errorMessage;
                 }
                 throw new Exception(implode('; ', $messages));
             }
@@ -756,7 +786,8 @@ abstract class Form implements
 	 * Insert new row in form model.
 	 * 
 	 * @param array $data
-	 * @return bool|array
+     *
+     * @return bool|array
 	 */
 	protected function _insert(array $data)
 	{
@@ -768,7 +799,8 @@ abstract class Form implements
 	 * 
 	 * @param string $id
 	 * @param array $data
-	 * @return bool|array
+     *
+     * @return bool|array
 	 */
 	protected function _update($id, $data)
 	{  
@@ -816,13 +848,14 @@ abstract class Form implements
      * 
      * @param int $id
      * @param array $data
+     *
      * @return array|bool
      */
 	public function update($id, array $data) 
 	{
-		$valid = true;
-		$errors = [];
         $this->_container->initialaizeModels();
+		$messages = [];
+		$this->_errors = [];
 		foreach ($data as $name => $value) {
 			$element = $this->getElement($name);
 			if (! $element) {
@@ -830,17 +863,18 @@ abstract class Form implements
 				continue;
 			}
 			if ($element->isValid($value) !== true) {
-				$valid = false;
                 $messages = [];
                 foreach ($element->getMessages() as $message) {
-                    /*$result = [];
-                    $result[] = "Message: ".$message->getMessage();
-                    $result[] = "Field: ".$message->getField();
-                    $result[] = "Type: ".$message->getType();
-                    $messages[] = implode (", ", $result);*/
-                    $messages[] = $message->getMessage();
+					$result = [];
+					$field = $message->getField();
+					$result[] = "Field: ".$field;
+					$result[] = "Type: ".$message->getType();
+					$errorMessage = $message->getMessage();
+					$result[] = "Message: ".$errorMessage;
+					$messages[] = implode (", ", $result);
+					//$messages[] = $message->getMessage();
+					$this->_errors[$field] = $errorMessage;
                 }
-				$errors[$name] = implode ("; ", $messages);
 			} else {
 				$field = $this->getName($name);
 				$field->setValue($value);
@@ -854,13 +888,15 @@ abstract class Form implements
 				}
 			}
 		}
-		if ($valid) {
-			$data = array_merge($this->_addData, $data);
-			$result = $this->_update($id, $data);			
-			return ($result === 0) ? true : $result;
-		} else {
-			return ['error' => $errors];
+
+		if ($messages) {
+			throw new Exception(implode('; ', $messages));
 		}
+
+		$data = array_merge($this->_addData, $data);
+		$result = $this->_update($id, $data);
+
+		return ($result === 0) ? true : $result;
 
 	}
 
@@ -868,7 +904,8 @@ abstract class Form implements
 	 * Remove rows by id values.
 	 * 
 	 * @param string|array $ids
-	 * @return string
+     *
+     * @return string
 	 */
 	public function delete($id = null)
 	{
@@ -883,7 +920,7 @@ abstract class Form implements
             $id = $this->_id;
         }
         if (!is_string($id)) {
-            throw new \Vein\Core\Exception("Data type incorrect");
+            throw new Exception("Data type incorrect");
         }
 
 	    return $this->_container->delete($id);
@@ -893,7 +930,8 @@ abstract class Form implements
 	 * Dublicate items
 	 * 
 	 * @param array|integer $ids
-	 * @return array
+     *
+     * @return array
 	 */
 	public function duplicate($ids) 
 	{
@@ -933,7 +971,8 @@ abstract class Form implements
 	 * Fix duplicate data
 	 * 
 	 * @param array $data
-	 * @return void
+     *
+     * @return void
 	 */
 	public function fixDuplicateRowData(&$data)
 	{	
@@ -974,6 +1013,7 @@ abstract class Form implements
      * Return if exists Field by form field key
      *
      * @param string $name
+     *
      * @return \Vein\Core\Crud\Form\Field
      */
     public function getFieldByKey($key)
@@ -989,7 +1029,8 @@ abstract class Form implements
 	 * Return if exists form field by field name
 	 * 
 	 * @param string $name
-	 * @return \Vein\Core\Crud\Form\Field
+     *
+     * @return \Vein\Core\Crud\Form\Field
 	 */
 	public function getFieldByName($name) 
 	{
@@ -1007,7 +1048,8 @@ abstract class Form implements
 	 * Return if exists field key by name
 	 * 
 	 * @param string $name
-	 * @return string
+     *
+     * @return string
 	 */
 	public function getFieldKeyByName($name) 
 	{
@@ -1022,7 +1064,8 @@ abstract class Form implements
 	 * Return if exists field name by key
 	 * 
 	 * @param string $key
-	 * @return string
+     *
+     * @return string
 	 */
 	public function getFieldNameByKey($key)
 	{
@@ -1066,7 +1109,8 @@ abstract class Form implements
     /**
      * Add multiple elements at once
      *
-     * @param  array $elements
+     * @param array $elements
+     *
      * @return \Vein\Core\Crud\Grid\Filter
      */
     public function addFields(array $fields)
@@ -1126,8 +1170,9 @@ abstract class Form implements
    /**
      * Create an field
      *
-     * @param  string $type
-     * @param  array $options
+     * @param string $type
+     * @param array $options
+     *
      * @return \Vein\Core\Crud\Form\Field
      */
     public function createField($type, array $options = null)
@@ -1147,7 +1192,8 @@ abstract class Form implements
 	 * Return filter field class name
 	 * 
 	 * @param string $type
-	 * @return string
+     *
+     * @return string
 	 */
 	public function getFieldClass($type)
 	{
@@ -1187,14 +1233,24 @@ abstract class Form implements
      */
     public function getAction()
     {
-        /*$action = rtrim($this->_action, "/");
+        /*$action = rtrim($this->_action, '/');
         $id = $this->getId();
         if ($id !== null) {
-            $action .= "/".$id;
+            $action .= '/'.$id;
         }*/
 
         return $this->_action;
     }
+
+	/**
+	 * Return action errors
+	 *
+	 * @return array
+	 */
+	public function getErrors()
+	{
+		return $this->_errors;
+	}
 
     /**
      * Return form method
@@ -1264,6 +1320,7 @@ abstract class Form implements
      * Whether a field exists in the form
      *
      * @param string $offset
+     *
      * @return bool
      */
     public function __isset($key)
@@ -1286,7 +1343,7 @@ abstract class Form implements
     /**
      * Return form field value
      *
-     * @param  string $key
+     * @param string $key
 	 *
      * @return mixed
      * @throws \Exception if the $key is not a field in the form.
@@ -1330,6 +1387,7 @@ abstract class Form implements
      * Whether a field exists in the form
      *
      * @param string $offset
+     *
      * @return bool
      */
     public function offsetExists($key)
@@ -1341,7 +1399,8 @@ abstract class Form implements
      * $key to unset, this function depricated!
      *
      * @param string $offset
-	 * @return void
+     *
+     * @return void
      */
     public function offsetUnset($key)
     {
@@ -1351,7 +1410,7 @@ abstract class Form implements
     /**
      * Return form field value
      *
-     * @param  string $key
+     * @param string $key
 	 *
      * @return mixed
      * @throws \Exception if the $key is not a field in the form.

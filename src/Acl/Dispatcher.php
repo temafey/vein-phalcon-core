@@ -32,6 +32,7 @@ class Dispatcher
      *
      * @param \Phalcon\Events\Event $event
      * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     *
      * @return boolean
      */
     public function beforeDispatch(\Phalcon\Events\Event $event, \Phalcon\Mvc\Dispatcher $dispatcher)

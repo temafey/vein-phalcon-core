@@ -97,14 +97,17 @@ class Join extends ArrayToSelect
     /**
      * Constructor
      *
-     * @param string $title
+     * @param string $label
      * @param string|\Vein\Core\Mvc\Model $model
-     * @param string|array $path
+     * @param string $name
      * @param string $optionName
+     * @param string|array $path
      * @param string $desc
      * @param string $criteria
+     * @param integer $width
      * @param bool $loadSelectOptions
      * @param bool $separatedQueries
+     * @param string $default
      */
     public function __construct(
         $label = null,
@@ -115,7 +118,7 @@ class Join extends ArrayToSelect
         $desc = null,
         $criteria = Criteria::CRITERIA_EQ,
         $width = 280,
-        $loadSelectOptions = true,
+        $loadSelectOptions = false,
         $separatedQueries = false,
         $default = false
     ) {
@@ -147,7 +150,7 @@ class Join extends ArrayToSelect
             $mainModel = $this->_gridFilter->getContainer()->getModel();
             $relations = $mainModel->getRelationPath($this->_path);
             if (!$relations) {
-                throw new \Vein\Core\Exception("Relations for model '".get_class($mainModel)."' by path '".implode(", ", $this->_path)."' not valid");
+                throw new \Vein\Core\Exception("Relations for model '".get_class($mainModel)."' by path '".implode(', ', $this->_path)."' not valid");
             }
             $relation = array_pop($relations);
             $this->_name = $relation->getFields();
@@ -160,13 +163,14 @@ class Join extends ArrayToSelect
      *
      * @param mixed $dataSource
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field\Join
      */
     public function applyFilter($dataSource, Container $container)
     {
         if ($filters = $this->getFilter($container)) {
             if ($this->_separatedQueries === false) {
-                $filterPath = $container->getFilter('path', $this->_path, $this, $filters, $this->category);
+                $filterPath = $container->getFilter('path', $this->_path, $this, $filters, $this->category)->setFilterField($this);
                 $filterPath->applyFilter($dataSource);
             } else {
                 $filters = $this->_getSeparateFilters($filters, $dataSource->getModel(), $container);
@@ -181,6 +185,7 @@ class Join extends ArrayToSelect
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)
@@ -189,7 +194,7 @@ class Join extends ArrayToSelect
 
         if ($values === false) {
             if ($this->_enableDefaultValue) {
-                return $container->getFilter('standart', $this->_name, $this->_default, $this->_criteria);
+                return $container->getFilter('standart', $this->_name, $this->_default, $this->_criteria)->setFilterField($this);
             }
             return false;
         }
@@ -203,22 +208,23 @@ class Join extends ArrayToSelect
         }
 
         return (is_array($values) ?
-            $container->getFilter('in', $this->_name, $values, $this->_criteria) :
-            $container->getFilter('standart', $this->_name, $values, $this->_criteria));
+            $container->getFilter('in', $this->_name, $values, $this->_criteria)->setFilterField($this) :
+            $container->getFilter('standart', $this->_name, $values, $this->_criteria)->setFilterField($this));
     }
 
     /**
      * Normalize array of values
      *
      * @param array|string $values
+     *
      * @return array|bool
      */
     public function normalizeValues($values)
     {
         if ($values === null ||
             $values === false ||
-            (is_string($values) && trim($values) == '') ||
-            (is_array($values) && count($values) == 0)
+            (is_string($values) && trim($values) === '') ||
+            (is_array($values) && count($values) === 0)
         ) {
             return false;
         }
@@ -228,10 +234,10 @@ class Join extends ArrayToSelect
         }
         $normalizeValues = [];
         foreach ($values as $val) {
-            if (trim($val) == '' || $val == -1 || $val === false  || array_search($val, $this->_exceptionValues, empty($val) && $val !== '0')) {
+            if (trim($val) === '' || $val == -1 || $val === false  || array_search($val, $this->_exceptionValues, empty($val) && $val !== '0')) {
                 continue;
             }
-            if ($val == '{{empty}}') {
+            if ($val === '{{empty}}') {
                 $val = '';
             }
             if ((int) $val == $val) {
@@ -251,6 +257,7 @@ class Join extends ArrayToSelect
      * @param \Vein\Core\Filter\SearchFilterInterface $filter
      * @param \Vein\Core\Mvc\Model $model
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     protected function _getSeparateFilters($filter, \Vein\Core\Mvc\Model $model, Container $container)
@@ -259,7 +266,7 @@ class Join extends ArrayToSelect
 
         if ($values === false) {
             if ($this->_enableDefaultValue) {
-                return $container->getFilter('standart', $this->_name, $this->_default, $this->_criteria);
+                return $container->getFilter('standart', $this->_name, $this->_default, $this->_criteria)->setFilterField($this);
             }
             return false;
         }
@@ -284,7 +291,7 @@ class Join extends ArrayToSelect
 
         if (count($path) > 0) {
             //$queryBuilder->columnsJoinOne($path, null);
-            $filterPath = $container->getFilter('path', $path, $this, $filter);
+            $filterPath = $container->getFilter('path', $path, $this, $filter)->setFilterField($this);
             $filterPath->applyFilter($queryBuilder);
         } else {
             $filter->applyFilter($queryBuilder);
@@ -296,7 +303,7 @@ class Join extends ArrayToSelect
             $values[] = $val[$refFields];
         }
 
-        return $container->getFilter('in', $fields, $values, Criteria::CRITERIA_IN);
+        return $container->getFilter('in', $fields, $values, Criteria::CRITERIA_IN)->setFilterField($this);
     }
 
     /**
@@ -345,6 +352,7 @@ class Join extends ArrayToSelect
      * Set flag for exclude joins from query builder
      *
      * @param bool $flag
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field\Join
      */
     public function setSeparatedQueriesFlag($flag = true)

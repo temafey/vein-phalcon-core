@@ -132,30 +132,30 @@ class ImageAdmin extends Image
 	            $this->_fileFullName = str_replace('{sha}', $file_hash_name, $this->_fileFullName);
             }
            	if (strpos($this->_fileFullName, '{name}') !== false) {
-                $file = explode(".", $_FILES [$key] ['name']);
-                $this->_fileFullName = str_replace('{name}', str_replace(" ", "_", trim($file [0])), $this->_fileFullName);
+                $file = explode('.', $_FILES [$key] ['name']);
+                $this->_fileFullName = str_replace('{name}', str_replace(' ', '_', trim($file [0])), $this->_fileFullName);
             }
 			if (strpos($this->_fileFullName, '{id}') !== false) {
-                $file = explode(".", $_FILES [$key] ['name']);
+                $file = explode('.', $_FILES [$key] ['name']);
                 $this->_fileFullName = str_replace('{id}', $this->getId(), $this->_fileFullName);
             }
             if (strpos($this->_fileFullName, '{file_name}') !== false) {
-                $file = explode (".", $_FILES [$key] ['name']);
-                $this->_fileFullName = str_replace('{file_name}', str_replace(" ", "_", trim($file [0])), $this->_fileFullName);
+                $file = explode ('.', $_FILES [$key] ['name']);
+                $this->_fileFullName = str_replace('{file_name}', str_replace(' ', '_', trim($file [0])), $this->_fileFullName);
             }
             $this->_fileFullName = \Vein\Core\Tools\Strings::generateStringTemplate($this->_fileFullName, $data);
 
             if ($this->_fileFullName === false) {
-                $file = explode(".", $_FILES [$key] ['name']);
-                $this->_fileFullName = str_replace(" ", "_", trim($file [0]))."_".$this->getId();
+                $file = explode('.', $_FILES [$key] ['name']);
+                $this->_fileFullName = str_replace(' ', '_', trim($file [0])).'_'.$this->getId();
             }
 
-			$file_type = strtolower(end(explode(".", $_FILES [$key] ['name'])));
+			$file_type = strtolower(end(explode('.', $_FILES [$key] ['name'])));
 
 			if ($this->_saveFilename) {
-				$file = explode(".", $_FILES [$key] ['name']);
+				$file = explode('.', $_FILES [$key] ['name']);
 				$pathinfo = pathinfo($this->_fileFullName);
-				$this->_fileName = $pathinfo['dirname']."/" . str_replace(" ", "_", trim($file [0]))."_".$this->getId().'.'.$file_type;
+				$this->_fileName = $pathinfo['dirname'].'/' . str_replace(' ', '_', trim($file [0])).'_'.$this->getId().'.'.$file_type;
 			} else {
 				$this->_fileName = $this->_fileFullName.'.'.$file_type;
 			}
@@ -221,8 +221,7 @@ class ImageAdmin extends Image
 			            $watermark['big'] = $this->_watermark;
 			        }
 			    }
-
-
+				
 			    \Vein\Core\Tools\Image::resize($this->_fileFullName, $file_resize_big, $this->_resizeSizes['big']['width'], $this->_resizeSizes['big']['height'], false, $watermark['big'], $this->_watermarkPosition);
 			    \Vein\Core\Tools\Image::resize($this->_fileFullName, $file_resize_middle, $this->_resizeSizes['middle']['width'], $this->_resizeSizes['middle']['height'], true, $watermark['middle'], $this->_watermarkPosition);
 			    \Vein\Core\Tools\Image::resize($this->_fileFullName, $file_resize_small, $this->_resizeSizes['small']['width'], $this->_resizeSizes['small']['height'], true, $watermark['small'], $this->_watermarkPosition);
@@ -234,11 +233,11 @@ class ImageAdmin extends Image
 			$def_data = [$this->_name => $this->_fileName];
 			$status = $this->_form->getFieldByName('status');
 			if ($status !== false) {
-			    $statusColumn\Name = $status->getName();
-			    $def_data[$statusColumn\Name] = 1;
+			    $statusColumnName = $status->getName();
+			    $def_data[$statusColumnName] = 1;
 			}
             $model = $container->getModel();
-            $model->update($def_data, $model->getPrimary()." = ?", $this->getId());
+            $model->update($def_data, $model->getPrimary().' = ?', $this->getId());
 		}
 	}
 

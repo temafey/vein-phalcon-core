@@ -20,6 +20,7 @@ class Mail extends BaseHelper
      * Render DataTable mail form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

@@ -163,7 +163,8 @@ abstract class Column implements ColumnInterface
 	 * Render column
 	 * 
 	 * @param mixed $row
-	 * @return string
+     *
+     * @return string
 	 */
 	abstract public function render($row);
     
@@ -171,7 +172,8 @@ abstract class Column implements ColumnInterface
 	 * Update grid container
 	 * 
 	 * @param \Vein\Core\Crud\Container\Grid\Adapter $container
-	 * @return \Vein\Core\Crud\Grid\Column
+     *
+     * @return \Vein\Core\Crud\Grid\Column
 	 */
 	abstract public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container);
 	
@@ -180,7 +182,8 @@ abstract class Column implements ColumnInterface
 	 * 
 	 * @param \Vein\Core\Crud\Grid $grid
 	 * @param string $key
-	 * @return \Vein\Core\Crud\Grid\Column
+     *
+     * @return \Vein\Core\Crud\Grid\Column
 	 */
 	public function init(Grid $grid, $key)
 	{
@@ -199,7 +202,8 @@ abstract class Column implements ColumnInterface
 	 * Update container data source
 	 * 
 	 * @param mixed $dataSource
-	 * @return void
+     *
+     * @return void
 	 */
 	public function updateDataSource($dataSource)
 	{
@@ -218,6 +222,7 @@ abstract class Column implements ColumnInterface
      * Set strict mode
      *
      * @param bool $strict
+     *
      * @return \Vein\Core\Crud\Grid\Column\Base
      */
     public function setStrictMode($strict = true)
@@ -305,6 +310,7 @@ abstract class Column implements ColumnInterface
      * Set if data can be sort by column
      *
      * @param bool $sortable
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function setSortable($sortable)
@@ -327,6 +333,7 @@ abstract class Column implements ColumnInterface
      * Set if data by column is hidden
      *
      * @param bool $hidden
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function setHidden($hidden)
@@ -349,6 +356,7 @@ abstract class Column implements ColumnInterface
      * Set if data by column can be edit
      *
      * @param bool $editable
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function setEditable($editable)
@@ -401,6 +409,7 @@ abstract class Column implements ColumnInterface
      * Return column sort params
      *
      * @param bool $withFilterParams
+     *
      * @return array
      */
     public function getSortParams($withFilterParams = true)
@@ -454,7 +463,8 @@ abstract class Column implements ColumnInterface
 	 * Return column value by key
 	 * 
 	 * @param mixed $row
-	 * @return string|integer
+     *
+     * @return string|integer
 	 */
 	public function getValue($row)
 	{
@@ -494,11 +504,12 @@ abstract class Column implements ColumnInterface
 	}
 
 	/**
-	 * Set action to grid column, with post param key name. Set param key name without "=".
+	 * Set action to grid column, with post param key name. Set param key name without '='.
 	 * 
 	 * @param string $action
 	 * @param string $actionParam
-	 * @return \Vein\Core\Crud\Grid\Column
+     *
+     * @return \Vein\Core\Crud\Grid\Column
 	 */
 	public function setAction($action, $actionParam = false) 
 	{
@@ -512,6 +523,7 @@ abstract class Column implements ColumnInterface
      * Set flag to add table alias
      *
      * @param boolean $useTableAlias
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function useTableAlias($useTableAlias = true)
@@ -524,6 +536,7 @@ abstract class Column implements ColumnInterface
      * Set flag to add correlation table alias
      *
      * @param boolean $useCorrelationTableName
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function useCorrelationTableName($useCorrelationTableName = true)
@@ -536,7 +549,8 @@ abstract class Column implements ColumnInterface
 	 * Set flag to use column name for getting value from data
 	 *
 	 * @param boolean $useColumNameForKey
-	 * @return \Vein\Core\Crud\Grid\Column
+     *
+     * @return \Vein\Core\Crud\Grid\Column
 	 */
 	public function useColumNameForKey($useColumNameForKey = true)
 	{

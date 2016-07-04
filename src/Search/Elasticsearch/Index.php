@@ -52,7 +52,8 @@ class Index extends ElIndex implements
     /**
      * Returns a type object for the current index with the given name
      *
-     * @param  string $type Type name
+     * @param string $type Type name
+     *
      * @return \Elastica\Type Type object
      */
     public function getType($type)
@@ -85,6 +86,7 @@ class Index extends ElIndex implements
      * Set elastic adapter name
      *
      * @param string $adapter
+     *
      * @return \Vein\Core\Search\Elasticsearch\Index
      */
     public function setAdapter($adapter)

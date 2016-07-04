@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Mail extends BaseHelper
 {
     /**
-     * Render extjs mail form field
+     * Render mail form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

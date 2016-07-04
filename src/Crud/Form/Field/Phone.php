@@ -25,7 +25,7 @@ class Phone extends Field
      * Error message
      * @var string
      */
-	protected $_errorMessage = 'Invalid phone number';
+	//protected $_errorMessage = 'Invalid phone number';
 
     /**
      * Initialize field (used by extending classes)

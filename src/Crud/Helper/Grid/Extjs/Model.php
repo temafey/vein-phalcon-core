@@ -8,7 +8,7 @@ use Vein\Core\Crud\Grid\Extjs as Grid,
     Vein\Core\Crud\Grid\Column;
 
 /**
- * Class extjs grid model helper
+ * Class grid model helper
  *
  * @category   Vein\Core
  * @package    Crud
@@ -26,6 +26,7 @@ class Model extends BaseHelper
      * Generates a widget to show a html grid
      *
      * @param \Vein\Core\Crud\Grid\Extjs $grid
+     *
      * @return string
      */
     static public function _(Grid $grid)
@@ -65,11 +66,11 @@ class Model extends BaseHelper
                 }
             }
             $code .= "
-            fields: [".implode(",", $columns)."
+            fields: [".implode(',', $columns)."
             ],";
 
             $code .= "
-            validations: [".implode(",", $validations)."]";
+            validations: [".implode(',', $validations)."]";
 
             if ($primary !== false) {
                 $code .= ",
@@ -105,6 +106,7 @@ class Model extends BaseHelper
      * Render string model column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _string(Column $column)
@@ -124,6 +126,7 @@ class Model extends BaseHelper
      * Render date model column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _date(Column\Date $column)
@@ -144,6 +147,7 @@ class Model extends BaseHelper
      * Render collection column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _collection(Column\Collection $column)
@@ -155,6 +159,7 @@ class Model extends BaseHelper
      * Render checkbox column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _check(Column\Status $column)
@@ -166,6 +171,7 @@ class Model extends BaseHelper
      * Render numeric column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _int(Column\Numeric $column)
@@ -177,6 +183,7 @@ class Model extends BaseHelper
      * Render image column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _image(Column\Image $column)
@@ -188,6 +195,7 @@ class Model extends BaseHelper
      * Render file column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _file(Column\Numeric $column)
@@ -201,6 +209,7 @@ class Model extends BaseHelper
      * Render collection column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _action(Column\Action $column)

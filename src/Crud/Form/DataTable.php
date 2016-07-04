@@ -19,7 +19,7 @@ abstract class DataTable extends Form
     /**
      * Default decorator
      */
-    const DEFAULT_DECORATOR = 'DataTable';
+    const DEFAULT_DECORATOR = 'Standart';
 
     /**
      * Content managment system module router prefix
@@ -50,7 +50,7 @@ abstract class DataTable extends Form
     }
     
     /**
-     * Return extjs module name
+     * Return module name
      *
      * @return string
      */
@@ -60,7 +60,7 @@ abstract class DataTable extends Form
     }
 
     /**
-     * Return extjs form key
+     * Return form key
      *
      * @return string
      */
@@ -202,7 +202,7 @@ abstract class DataTable extends Form
             }
             $form->$key = $value;
         }
-        
+
         if (!$form->isValid($row)) {
             $messages = [];
             foreach ($form->getForm()->getMessages() as $message) {

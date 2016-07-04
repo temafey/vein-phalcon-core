@@ -32,6 +32,7 @@ class Form extends Component
      * Setup builder type
      *
      * @param int $type
+     *
      * @return $this
      */
     public function setType($type = self::TYPE_SIMPLE)
@@ -75,7 +76,7 @@ class Form extends Component
         $belongsTo = [];
 
         // Model::initialize() code
-        $initializeCode = "";
+        $initializeCode = '';
         if (count($belongsTo) > 0) {
             foreach ($belongsTo as $rel) {
                 $initializeCode .= $rel."\n";

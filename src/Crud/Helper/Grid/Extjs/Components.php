@@ -19,7 +19,8 @@ class Components extends BaseHelper
 	 * Generates grid component object
 	 *
 	 * @param \Vein\Core\Crud\Grid\Extjs $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{

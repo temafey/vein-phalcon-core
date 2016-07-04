@@ -24,6 +24,7 @@ trait Requires
      * Set list of classes that have to be loaded before instantiating this class
      *
      * @param array|string $requires
+     *
      * @return void
      */
     public static function setRequires($requires)
@@ -38,6 +39,7 @@ trait Requires
      * Add list of classes that have to be loaded before instantiating this class
      *
      * @param array|string $requires
+     *
      * @return void
      */
     public static function addRequires($requires)
@@ -66,10 +68,10 @@ trait Requires
 
         $requires = [];
         foreach (static::$_requires as $require) {
-            $requires[] = "'".str_replace("'", "", $require)."'";
+            $requires[] = "'".str_replace("'", '', $require)."'";
         }
 
-        return implode(",", $requires);
+        return implode(',', $requires);
     }
 
 }

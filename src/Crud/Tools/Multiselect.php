@@ -27,6 +27,7 @@ class Multiselect
      * @param bool $multiselect
      * @param bool $fields
      * @param null $category_order
+     *
      * @return array
      */
     static function prepareOptions(
@@ -231,12 +232,12 @@ class Multiselect
         return $default;
     }
 
-    static function selectCase($field, $options, $table_name = "") {
+    static function selectCase($field, $options, $table_name = '') {
 
         if (null !== $table_name) {
-            $field = $table_name.".".$field;
+            $field = $table_name.'.'.$field;
         }
-        $select = "(CASE ".$field." ";
+        $select = "(CASE ".$field.' ';
         foreach ($options as $key => $value) {
             $select .= "WHEN '".$key."' THEN '".$value."' ";
         }

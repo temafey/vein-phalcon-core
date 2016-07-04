@@ -25,6 +25,7 @@ class Store extends BaseHelper
      * Generates a widget to show a html grid
      *
      * @param \Vein\Core\Crud\Grid\Extjs $grid
+     *
      * @return string
      */
     static public function _(Grid $grid)

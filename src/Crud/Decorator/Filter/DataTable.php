@@ -20,7 +20,8 @@ class DataTable extends Decorator
     /**
      * Render an element
      *
-     * @param  string $content
+     * @param string $content
+     *
      * @return string
      * @throws \UnexpectedValueException if element or view are not registered
      */
@@ -119,6 +120,7 @@ class DataTable extends Decorator
      * Check file by path
      *
      * @param string $path
+     *
      * @return bool
      */
     protected function _checkFile($path)

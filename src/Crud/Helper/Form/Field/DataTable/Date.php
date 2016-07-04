@@ -20,6 +20,7 @@ class Date extends BaseHelper
      * Render DataTable date form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field\Date $field)

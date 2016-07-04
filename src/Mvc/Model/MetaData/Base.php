@@ -45,7 +45,7 @@ abstract class Base extends MetaData implements InjectionAwareInterface, MetaDat
     /**
      * Class constructor.
      *
-     * @param  null|array                   $options
+     * @param null|array                   $options
      * @throws \Phalcon\Mvc\Model\Exception
      */
     public function __construct($options = null)
@@ -66,7 +66,8 @@ abstract class Base extends MetaData implements InjectionAwareInterface, MetaDat
     /**
      * {@inheritdoc}
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return array
      */
     public function read($key)
@@ -88,7 +89,8 @@ abstract class Base extends MetaData implements InjectionAwareInterface, MetaDat
     /**
      * Returns the sessionId with prefix
      *
-     * @param  string $id
+     * @param string $id
+     *
      * @return string
      */
     protected function getId($id)

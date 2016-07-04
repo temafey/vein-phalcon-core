@@ -51,6 +51,7 @@ class Check extends \Phalcon\Forms\Element\Check implements \Vein\Core\Forms\Ele
      * Sets the element description
      *
      * @param string $desc
+     *
      * @return \Vein\Core\Forms\ElementInterface
      */
     public function setDesc($desc)

@@ -25,6 +25,7 @@ class Elasticsearch extends Filter
      * Apply filters to grid data source object.
      *
      * @param $dataSource
+     *
      * @return \Vein\Core\Crud\Grid\Filter
      */
     public function applyFilters($dataSource)

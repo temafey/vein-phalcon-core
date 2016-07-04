@@ -207,7 +207,8 @@ final class Color
 	 *
 	 * @static
 	 * @param $msg
-	 * @return string
+     *
+     * @return string
 	 */
 	public static function error($msg)
 	{
@@ -224,7 +225,8 @@ final class Color
 	 *
 	 * @static
 	 * @param $msg
-	 * @return string
+     *
+     * @return string
 	 */
 	public static function success($msg)
 	{

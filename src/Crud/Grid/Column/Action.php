@@ -61,6 +61,7 @@ class Action extends Column
      * Update grid container
      *
      * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
@@ -72,6 +73,7 @@ class Action extends Column
      * Return render value
      *
      * @param array $row
+     *
      * @return string
      */
     public function render($row)
@@ -80,7 +82,7 @@ class Action extends Column
         foreach ($this->_items as $item) {
             $items[] = $this->renderItem($row, $item);
         }
-        $code = implode(" ", $items);
+        $code = implode(' ', $items);
 
         return $code;
     }
@@ -90,6 +92,7 @@ class Action extends Column
      *
      * @param array $row
      * @param array $item
+     *
      * @return string
      */
     public function renderItem(array $row, array $item)

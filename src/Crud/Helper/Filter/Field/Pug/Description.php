@@ -19,13 +19,14 @@ class Description extends \Vein\Core\Crud\Helper
 	 * Generates a widget to show a html grid filter
 	 *
 	 * @param \Vein\Core\Crud\Grid\Filter\Field $filter
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Field $field)
 	{
         $code = '';
         $desc = $field->getDesc();
-        if (!$desc) {
+        if ($desc) {
             $code = 'span.help-block '.$field->getDesc();
         }
 		

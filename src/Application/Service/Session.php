@@ -45,6 +45,7 @@ class Session extends AbstractService
      * Return session adapter full class name
      *
      * @param string $name
+     *
      * @return string
      */
     private function _getSessioneAdapter($name)

@@ -40,6 +40,7 @@ class BaseHelper extends \Vein\Core\Crud\Helper
      * Init helper
      *
      * @param \Vein\Core\Crud\Grid\Extjs|\Vein\Core\Crud\Form\Extjs $element
+     *
      * @return string
      */
     public static function init($element)
@@ -175,6 +176,6 @@ class BaseHelper extends \Vein\Core\Crud\Helper
      */
     public static function getJsFilePath($name)
     {
-        return str_replace(".", "/", $name).".js";
+        return str_replace('.', '/', $name).".js";
     }
 }

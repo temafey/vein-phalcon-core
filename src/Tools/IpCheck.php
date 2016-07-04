@@ -53,7 +53,8 @@ class IpCheck
 	 * 
 	 * @param string $ip
 	 * @param string $namespace
-	 * @return bool
+     *
+     * @return bool
 	 */
 	public function allow($ip, $namespace = 0)
 	{
@@ -72,7 +73,8 @@ class IpCheck
 	 * Add file with allow ips
 	 * 
 	 * @param string $filepath
-	 * @return Vein\Core_Crud_Tools_IpCheck
+     *
+     * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addFileAllow($filepath, $namespace = 0)
 	{
@@ -90,7 +92,8 @@ class IpCheck
 	 * Add file with deny ips
 	 * 
 	 * @param string $filepath
-	 * @return Vein\Core_Crud_Tools_IpCheck
+     *
+     * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addFileDeny($filepath, $namespace = 0)
 	{
@@ -108,7 +111,8 @@ class IpCheck
 	 * Add line with allow ip rule
 	 * 
 	 * @param string $ip
-	 * @return Vein\Core_Crud_Tools_IpCheck
+     *
+     * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addIpAllow($ip, $namespace = 0)
 	{
@@ -124,7 +128,8 @@ class IpCheck
 	 * Add line with deny ip rule
 	 * 
 	 * @param string $ip
-	 * @return Vein\Core_Crud_Tools_IpCheck
+     *
+     * @return Vein\Core_Crud_Tools_IpCheck
 	 */
 	public function addIpDeny($ip, $namespace = 0)
 	{
@@ -225,16 +230,17 @@ class IpCheck
 	 * Process line from data and generate ip options array.
 	 * 
 	 * @param unknown_type $line
-	 * @return array
+     *
+     * @return array
 	 */
 	protected function _processItem($line)
 	{
 	    $item = array( 'eq' => false, 'from' => false , 'to' => false);
 		$line = trim($line);
-		$line = str_replace(" ", "", $line);
+		$line = str_replace(' ', '', $line);
 		
-		if (strpos($line, "-") !== false) {
-			$interval = explode("-",$line);
+		if (strpos($line, '-') !== false) {
+			$interval = explode('-',$line);
 			if (!$this->_checkIpAddr($interval[0]) || !$this->_checkIpAddr($interval[1])) {
 				return $item;
 			}
@@ -254,7 +260,8 @@ class IpCheck
 	 * Check ip in list
 	 * 
 	 * @param string $namespace
-	 * @return bool
+     *
+     * @return bool
 	 */
 	protected function _checkIpInList($namespace)
 	{
@@ -285,7 +292,8 @@ class IpCheck
 	 * Check ip
 	 * 
 	 * @param array $item
-	 * @return bool
+     *
+     * @return bool
 	 */
 	private function _checkIp($item)
 	{
@@ -336,7 +344,7 @@ class IpCheck
 		  if (preg_match("/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/", $ip))
 		  {
 		    //now all the intger values are separated
-		    $parts=explode(".",$ip);
+		    $parts=explode('.',$ip);
 		    //now we need to check each part can range from 0-255
 		    foreach ($parts as $ip_parts)
 		    {
@@ -419,6 +427,7 @@ class IpCheck
      * Return client ip adress
      * 
      * @param array $server
+     *
      * @return string
      */
 	public static function getClientIp2(array $server = null)

@@ -36,7 +36,7 @@ class Extjs extends Filter
     }
 
     /**
-     * Return extjs module name
+     * Return module name
      *
      * @return string
      */
@@ -46,7 +46,7 @@ class Extjs extends Filter
     }
 
     /**
-     * Return extjs grid key
+     * Return grid key
      *
      * @return string
      */

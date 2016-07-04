@@ -25,9 +25,16 @@ class Form extends \Phalcon\Forms\Form
     protected $_method = self::METHOD_GET;
 
     /**
+     * Errors after failed action
+     * @var array
+     */
+    protected $_errors = [];
+
+    /**
      * Set from action method
      *
      * @param string $method
+     *
      * @return $this
      */
     public function setMethod($method)
@@ -58,7 +65,20 @@ class Form extends \Phalcon\Forms\Form
     public function setData(array $data, $validate = true)
     {
         if ($validate && !$this->isValid($data)) {
-            throw new \Vein\Core\Exception('Data invalid');
+            $messages = [];
+            $this->_errors = [];
+            foreach ($this->getMessages() as $message) {
+                $result = [];
+                $field = $message->getField();
+                $result[] = "Field: ".$field;
+                $result[] = "Type: ".$message->getType();
+                $errorMessage = $message->getMessage();
+                $result[] = "Message: ".$errorMessage;
+                $messages[] = implode (", ", $result);
+                //$messages[] = $message->getMessage();
+                $this->_errors[$field] = $errorMessage;
+            }
+            throw new Exception(implode('; ', $messages));
         }
         $this->_data = $data;
 
@@ -84,5 +104,15 @@ class Form extends \Phalcon\Forms\Form
         }
         return null;
     }*/
+
+    /**
+     * Return action errors
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
+    }
 
 }

@@ -119,6 +119,7 @@ class Filter
      * Registers filter form
      *
      * @param array $fieds
+     *
      * @return void
      */
     public function __construct(array $fields = [], $prefix = null, $method = 'post')
@@ -135,6 +136,7 @@ class Filter
      * Initialaize filter
      *
      * @param \Vein\Core\Crud\Grid $grid
+     *
      * @return void
      */
     public function init(\Vein\Core\Crud\Grid $grid)
@@ -183,7 +185,8 @@ class Filter
     /**
      * Add multiple elements at once
      *
-     * @param  array $elements
+     * @param array $elements
+     *
      * @return \Vein\Core\Crud\Grid\Filter
      */
     public function addFields(array $fields)
@@ -243,9 +246,10 @@ class Filter
    /**
      * Create an field
      *
-     * @param  string $type
-     * @param  string $key
-     * @param  array $options
+     * @param string $type
+     * @param string $key
+     * @param array $options
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function createField($type, $key, $options = null)
@@ -268,7 +272,8 @@ class Filter
 	 * Return filter field class name
 	 * 
 	 * @param string $type
-	 * @return string
+     *
+     * @return string
 	 */
 	public function getFieldClass($type)
 	{
@@ -320,6 +325,7 @@ class Filter
      * Return if exists Field by form field key
      *
      * @param string $name
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function getFieldByKey($key)
@@ -335,6 +341,7 @@ class Filter
      * Return if exists form field by field name
      *
      * @param string $name
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function getFieldByName($name)
@@ -353,6 +360,7 @@ class Filter
      * Return if exists field key by name
      *
      * @param string $name
+     *
      * @return string
      */
     public function getFieldKeyByName($name)
@@ -368,6 +376,7 @@ class Filter
      * Return if exists field name by key
      *
      * @param string $key
+     *
      * @return string
      */
     public function getFieldNameByKey($key)
@@ -403,6 +412,7 @@ class Filter
      * Set grid container adapter
      * 
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Crud\Grid\Filter
      */
     public function setContainer(\Vein\Core\Crud\Container\AbstractContainer $container)
@@ -425,6 +435,7 @@ class Filter
      * Set params
      * 
      * @param array $params
+     *
      * @return \Vein\Core\Crud\Grid\Filter
      */
     public function setParams(array $params) 
@@ -468,6 +479,7 @@ class Filter
      * Check if params was already set
      *
      * @param array $params
+     *
      * @return bool
      */
     public function checkHashParams(array $params)
@@ -495,17 +507,7 @@ class Filter
     {
         $params = [];
         foreach ($this->_fields as $key => $field) {
-            if ($field instanceof Field\Submit) {
-                continue;
-            }
             $value = $field->getValue();
-            if (
-                $value === false ||
-                $value === null ||
-                $value === ''
-            ) {
-                continue;
-            }
             if (is_array($value)) {
                 if (isset($value[0])) {
                     $params[$key] = $value;
@@ -525,6 +527,7 @@ class Filter
      *
      * @param string $key
      * @param mixed $value
+     *
      * @return $this
      */
     public function setParam($key, $value)
@@ -546,6 +549,7 @@ class Filter
      *
      * @param string $key
      * @param mixed $value
+     *
      * @return bool
      */
     public function checkHashParam($key, $value)
@@ -563,7 +567,8 @@ class Filter
 	 * Apply filters to grid data source object.
 	 * 
 	 * @param object $dataSource
-	 * @return \Vein\Core\Crud\Grid\Filter
+     *
+     * @return \Vein\Core\Crud\Grid\Filter
 	 */
 	public function applyFilters($dataSource)
 	{
@@ -635,6 +640,7 @@ class Filter
      * Set filter title
      *
      * @param string $title
+     *
      * @return string
      */
     public function setTitle($title)
@@ -661,6 +667,10 @@ class Filter
      */
     public function getAction()
     {
+        if (!$this->_action) {
+            return $this->_grid->getAction();
+        }
+
         return $this->_action;
     }
 
@@ -688,6 +698,7 @@ class Filter
      * Validate the form
      *
      * @param array $params
+     *
      * @return boolean
      */
 	public function isValid($params)
@@ -716,7 +727,8 @@ class Filter
     /**
      * Return filter field
      *
-     * @param  string $key The filter field key.
+     * @param string $key The filter field key.
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      * @throws \Exception if the $key is not a field in the filter.
      */

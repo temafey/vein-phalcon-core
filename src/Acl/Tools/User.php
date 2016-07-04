@@ -11,6 +11,7 @@ trait User
      * Return user by auth credentials
      *
      * @param array $credentials
+     *
      * @return \Vein\Core\Mvc\Model
      */
     public static function findByCredentials(array $credentials)
@@ -52,6 +53,7 @@ trait User
      * Return user by id
      *
      * @param integer $id
+     *
      * @return \Vein\Core\Mvc\Model
      */
     public static function findUserById($id)

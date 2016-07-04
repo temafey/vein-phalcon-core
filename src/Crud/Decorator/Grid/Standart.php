@@ -20,7 +20,8 @@ class Standart extends Decorator
 	/**
      * Render an element
      *
-     * @param  string $content
+     * @param string $content
+     *
      * @return string
      * @throws \UnexpectedValueException if element or view are not registered
      */

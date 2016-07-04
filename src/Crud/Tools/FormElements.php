@@ -99,6 +99,7 @@ trait FormElements
      * Set field value
      *
      * @param string|integer|array $value
+     *
      * @return \Vein\Core\Crud\Tools\FormElements
      */
     public function setValue($value)
@@ -115,6 +116,7 @@ trait FormElements
      * Set default field value
      *
      * @param string|integer|array $value
+     *
      * @return \Vein\Core\Crud\Tools\FormElements
      */
     public function setDefault($value)
@@ -127,6 +129,7 @@ trait FormElements
      * Set exception values
      *
      * @param array $value
+     *
      * @return \Vein\Core\Crud\Tools\FormElements
      */
     public function setExceptions(array $values)
@@ -220,6 +223,7 @@ trait FormElements
      * Normalize form field value
      *
      * @param string|array $value
+     *
      * @return mixed
      */
     public function normalizeValue($value)
@@ -261,6 +265,7 @@ trait FormElements
      * set field label
      *
      * @param string $label
+     *
      * @return \Vein\Core\Crud\Form\Field
      */
     public function setLabel($label)
@@ -273,6 +278,7 @@ trait FormElements
      * Set field description
      *
      * @param string $desc
+     *
      * @return \Vein\Core\Crud\Form\Field
      */
     public function setDesc($desc)
@@ -285,6 +291,7 @@ trait FormElements
      * Set field width
      *
      * @param int $width
+     *
      * @return \Vein\Core\Crud\Form\Field
      */
     public function setWidth($width)
@@ -312,7 +319,8 @@ trait FormElements
     /**
      * Set error message
      *
-     * @param  string $message
+     * @param string $message
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function setErrorMessage($message)
@@ -376,6 +384,7 @@ trait FormElements
      * Return form element class name
      *
      * @param string $element
+     *
      * @return string
      */
     public function getFormElementClassName($name)

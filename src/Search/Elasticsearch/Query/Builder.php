@@ -71,6 +71,7 @@ class Builder
      *
      * @param \Vein\Core\Mvc\Model $model
      * @param string $alias
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function setModel(\Vein\Core\Mvc\Model $model)

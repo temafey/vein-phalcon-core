@@ -104,7 +104,8 @@ class JoinMany extends Column
 	 * Update container data source
 	 * 
 	 * @param \Vein\Core\Crud\Container\Grid\Adapter $dataSource
-	 * @return \Vein\Core\Crud\Grid\Column\JoinMany
+     *
+     * @return \Vein\Core\Crud\Grid\Column\JoinMany
 	 */
 	public function updateDataSource($dataSource)
 	{
@@ -119,6 +120,7 @@ class JoinMany extends Column
      * Update grid container
      *
      * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
@@ -132,6 +134,7 @@ class JoinMany extends Column
      * (non-PHPdoc)
      * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
+     *
      * @return string
      */
 	public function render($row)
@@ -184,6 +187,7 @@ class JoinMany extends Column
      * Return values
      *
      * @param string $id
+     *
      * @return array
      */
     protected function _getManyValues($id)
@@ -230,6 +234,7 @@ class JoinMany extends Column
      * Return column value by key
      *
      * @param mixed $row
+     *
      * @return string|integer
      */
 	public function getValue($row) 
@@ -241,7 +246,8 @@ class JoinMany extends Column
 	 * Set tag for value.
 	 * 
 	 * @param string $tag
-	 * @return void
+     *
+     * @return void
 	 */
 	public function setTag($tag) 
 	{
@@ -253,7 +259,8 @@ class JoinMany extends Column
 	 * 
 	 * @param string $left
 	 * @param string $right
-	 * @return \Vein\Core\Crud\Grid\Column\JoinMany
+     *
+     * @return \Vein\Core\Crud\Grid\Column\JoinMany
 	 */
 	public function setLeftRightTag($left, $right) 
 	{
@@ -266,7 +273,8 @@ class JoinMany extends Column
 	 * Set empty value
 	 * 
 	 * @param string $na
-	 * @return \Vein\Core\Crud\Grid\Column\JoinMany
+     *
+     * @return \Vein\Core\Crud\Grid\Column\JoinMany
 	 */
 	public function setEmptyValue($na)
 	{

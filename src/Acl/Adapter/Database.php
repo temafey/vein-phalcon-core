@@ -88,9 +88,10 @@ class Database extends Adapter implements AdapterInterface
 	 * <code>$acl->addRole(new Phalcon\Acl\Role('administrator'), 'consultor');</code>
 	 * <code>$acl->addRole('administrator', 'consultor');</code>
 	 *
-	 * @param  string $role
-	 * @param  array $accessInherits
-	 * @return boolean
+	 * @param string $role
+	 * @param array $accessInherits
+     *
+     * @return boolean
 	 */
 	public function addRole($role, $accessInherits = null)
 	{
@@ -140,6 +141,8 @@ class Database extends Adapter implements AdapterInterface
 	 *
 	 * @param string $roleName
 	 * @param string $roleToInherit
+	 *
+	 * @return void
 	 */
 	public function addInherit($roleName, $roleToInherit)
 	{
@@ -164,8 +167,9 @@ class Database extends Adapter implements AdapterInterface
 	/**
 	 * Check whether role exist in the roles list
 	 *
-	 * @param  string $roleName
-	 * @return boolean
+	 * @param string $roleName
+     *
+     * @return boolean
 	 */
 	public function isRole($roleName)
 	{
@@ -176,8 +180,9 @@ class Database extends Adapter implements AdapterInterface
 	/**
 	 * Check whether resource exist in the resources list
 	 *
-	 * @param  string $resourceName
-	 * @return boolean
+	 * @param string $resourceName
+     *
+     * @return boolean
 	 */
 	public function isResource($resourceName)
 	{
@@ -203,8 +208,9 @@ class Database extends Adapter implements AdapterInterface
 	 * </code>
 	 *
 	 *
-	 * @param   \Phalcon\Acl\Resource $resource
-	 * @return  boolean
+	 * @param  \Phalcon\Acl\Resource $resource
+     *
+     * @return  boolean
 	 */
 	public function addResource($resource, $accessList = null)
 	{
@@ -281,7 +287,8 @@ class Database extends Adapter implements AdapterInterface
 	 * Returns all resources in the access list
 	 *
      * @param \Phalcon\Acl\Resource $resource
-	 * @return array
+     *
+     * @return array
 	 */
 	public function getResources()
 	{
@@ -354,7 +361,8 @@ class Database extends Adapter implements AdapterInterface
 	 * @param string $resourceName
 	 * @param string $access
 	 * @param int $access
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	protected function _insertOrUpdateAccess($roleName, $resourceName, $accessName, $action)
 	{
@@ -430,7 +438,8 @@ class Database extends Adapter implements AdapterInterface
 	 * @param string $access
 	 * @param int $access
 	 * @param mixed $func
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	protected function _allowOrDeny($roleName, $resourceName, $access, $action, $func = null)
 	{
@@ -502,7 +511,8 @@ class Database extends Adapter implements AdapterInterface
 	 * @param string $resourceName
 	 * @param mixed $access
 	 * @param mixed $func
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function deny($roleName, $resourceName, $access, $func = NULL)
 	{
@@ -524,7 +534,8 @@ class Database extends Adapter implements AdapterInterface
 	 * @param string $resourceName
 	 * @param mixed $access
 	 * @param array $parameters
-	 * @return boolean
+     *
+     * @return boolean
 	 */
 	public function isAllowed($roleName, $resourceName, $access, array $parameters = NULL)
 	{

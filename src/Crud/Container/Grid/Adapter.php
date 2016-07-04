@@ -32,7 +32,8 @@ interface Adapter
 	 * Return data array
 	 * 
 	 * @param mixed $dataSource
-	 * @return array
+     *
+     * @return array
 	 */
 	public function getData($dataSource);
 	
@@ -62,7 +63,8 @@ interface Adapter
 	 * 
 	 * @param string $key
 	 * @param string $name
-	 * @return \Vein\Core\Crud\Container\Grid\Adapter
+     *
+     * @return \Vein\Core\Crud\Container\Grid\Adapter
 	 */
 	public function setColumn($key, $name);
 	
@@ -71,7 +73,8 @@ interface Adapter
 	 * 
 	 * @param array $id
 	 * @param array $data
-	 * @return bool|array
+     *
+     * @return bool|array
 	 */
 	public function update(array $ids, array $data);
 	
@@ -79,7 +82,8 @@ interface Adapter
 	 * Delete rows by primary value
 	 * 
 	 * @param array $ids
-	 * @return bool
+     *
+     * @return bool
 	 */
 	public function delete(array $ids);
 }

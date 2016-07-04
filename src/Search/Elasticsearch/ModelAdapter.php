@@ -17,6 +17,7 @@ interface ModelAdapter
      * Set search index prefix
      *
      * @param string $prefix
+     *
      * @return mixed
      */
     public function setSearchSourcePrefixKey($prefix);

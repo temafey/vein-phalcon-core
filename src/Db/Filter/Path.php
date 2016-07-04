@@ -98,6 +98,7 @@ class Path extends AbstractFilter
      * Apply filter to query builder
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return string
      */
     public function filterWhere(\Vein\Core\Mvc\Model\Query\Builder $dataSource)
@@ -136,6 +137,7 @@ class Path extends AbstractFilter
      * Return bound params array
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return array
      */
     public function getBoundParams(\Vein\Core\Mvc\Model\Query\Builder $dataSource)
@@ -159,6 +161,7 @@ class Path extends AbstractFilter
      * Set key for bound param value
      *
      * @param string $key
+     *
      * @return \Vein\Core\Db\Filter\AbstractFilter
      */
     public function setBoundParamKey($key)
@@ -187,6 +190,7 @@ class Path extends AbstractFilter
      *
      * @param \Phalcon\Mvc\Model\Relation $relation
      * @param array $joinPath
+     *
      * @return array|bool
      */
     protected function _processJoins(\Phalcon\Mvc\Model\Relation $relation, array $joinPath)

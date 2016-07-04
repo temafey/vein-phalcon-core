@@ -17,9 +17,10 @@ use Vein\Core\Crud\Grid\Filter as Filter,
 class Combobox extends BaseHelper
 {
     /**
-     * Render extjs combobox filter field
+     * Render combobox filter field
      *
      * @param \Vein\Core\Crud\Grid\Filter\Field $field
+     *
      * @return string
      */
     public static function _(Field\ArrayToSelect $field)

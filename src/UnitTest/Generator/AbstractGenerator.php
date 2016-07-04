@@ -96,6 +96,7 @@ abstract class AbstractGenerator
      * Generates the code and writes it to a source file.
      *
      * @param string $file
+     *
      * @return boolean
      */
     public function write($file = '')
@@ -117,7 +118,8 @@ abstract class AbstractGenerator
     }
 
     /**
-     * @param  string $className
+     * @param string $className
+     *
      * @return array
      */
     protected function _parseFullyQualifiedClassName($className)
@@ -146,7 +148,8 @@ abstract class AbstractGenerator
     }
 
     /**
-     * @param  array $parts
+     * @param array $parts
+     *
      * @return string
      */
     protected function _arrayToName(array $parts)

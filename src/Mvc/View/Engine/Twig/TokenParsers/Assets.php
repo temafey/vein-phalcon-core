@@ -31,7 +31,8 @@ class Assets extends \Twig_TokenParser
     /**
      * {@inheritdoc}
      *
-     * @param  \Twig_Token         $token
+     * @param \Twig_Token         $token
+     *
      * @return \Twig_NodeInterface
      */
     public function parse(\Twig_Token $token)

@@ -20,7 +20,8 @@ class ColumnsHead extends BaseHelper
 	 * Generates grid table colums head
 	 *
 	 * @param \Vein\Core\Crud\Grid $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{

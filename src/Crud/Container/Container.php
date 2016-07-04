@@ -18,8 +18,9 @@ class Container
     /**
      * Factory for \Vein\Core\Crud\Container classes.
      *
-     * @param  .
-     * @param  mixed $config  OPTIONAL; an array or \Zend\Config\Config object with adapter parameters.
+     * @param .
+     * @param mixed $config  OPTIONAL; an array or \Zend\Config\Config object with adapter parameters.
+     *
      * @return \Vein\Core\Crud\Container\Grid\Adapter || \Vein\Core\Crud\Container\Form\Adapter
      */
     public static function factory($object, $config = [])
@@ -97,6 +98,7 @@ class Container
      * Return conatiner namespace
      * 
      * @param mixed $object
+     *
      * @return string
      */
     static function getContainerNamespace($object)

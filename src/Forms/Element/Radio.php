@@ -72,6 +72,7 @@ class Radio extends \Phalcon\Forms\Element\Radio implements \Vein\Core\Forms\Ele
      * Render form element
      *
      * @param array|string $attributes
+     *
      * @return string
      * @throws \Vein\Core\Exception
      * @return string

@@ -19,6 +19,7 @@ class Arrays
      * @param string $display
      * @param string $key
      * @param string $empty
+     *
      * @return array
      */
     static function arrayToAssoc($array, $display = 'name', $key = 'id', $empty = '')
@@ -49,6 +50,7 @@ class Arrays
      * @param array $array
      * @param string $key
      * @param string $value
+     *
      * @return array
      */
     static function assocToArray($array, $key = false, $value = false)
@@ -68,6 +70,7 @@ class Arrays
      * @param array $array
      * @param string $key
      * @param string $value
+     *
      * @return array
      */
     static function resultArrayToJsonType($array, $key = 'id', $value = 'name')
@@ -86,6 +89,7 @@ class Arrays
      *
      * @param array $array
      * @param string $key
+     *
      * @return array
      */
     static function assocToLinearArray(array $array, $key = 'id')
@@ -108,9 +112,10 @@ class Arrays
      *
      * @param array $array входной масив
      * @param string $prefix префикс для ключей
+     *
      * @return array
      */
-    static function arrayToLinearArray(array $array, $prefix = "")
+    static function arrayToLinearArray(array $array, $prefix = '')
     {
         $res =[];
         foreach ($array as $k => &$v) {
@@ -130,6 +135,7 @@ class Arrays
      * @param array $array
      * @param string $key
      * @param string $name
+     *
      * @return array
      */
     static function accessArrayToLinearArray(array $array, $key = "key", $name = "name")
@@ -152,6 +158,7 @@ class Arrays
      * @param $post
      * @param $array
      * @param string $key
+     *
      * @return array
      */
     static function setAccessArrayFromTree($post, $array, $key = "key")
@@ -175,6 +182,7 @@ class Arrays
     /**
      * @param $tree
      * @param $access
+     *
      * @return array
      */
     static function filterAccessTree($tree, $access)
@@ -204,6 +212,7 @@ class Arrays
 
     /**
      * @param $tree
+     *
      * @return array
      */
     static function filterInheritedAccessTree($tree)
@@ -231,6 +240,7 @@ class Arrays
 
     /**
      * @param $multiarray
+     *
      * @return bool
      */
     static function isMultiArray($multiarray)
@@ -253,6 +263,7 @@ class Arrays
      * @param array $path
      * @param bool $key_search
      * @param bool $new_value
+     *
      * @return array|bool
      */
     static function arraySearchRecursive($needle, &$haystack, $strict = false, $path = [] , $key_search = false, $new_value = false)
@@ -305,7 +316,7 @@ class Arrays
             $res[] = $value;
         }
 
-        return join(isset($join[$lvl])?$join[$lvl]:"", $res);
+        return join(isset($join[$lvl])?$join[$lvl]:'', $res);
     }
 
     static function mt_implode($char,$array,$fix='',$addslashes=false)
@@ -398,6 +409,7 @@ class Arrays
      * Check array rank.
      *
      * @param array $arrays
+     *
      * @return bool
      */
     static function fixVariantArray(array $arrays)
@@ -414,6 +426,7 @@ class Arrays
     /**
      * @param array $array1
      * @param bool $array2
+     *
      * @return array
      */
     static function getValuesVariantsFrom2Array(array $array1, $array2 = false)
@@ -453,11 +466,12 @@ class Arrays
      * @param array $inputArray, arrays to be marged into a single dimensional array
      * @param string $path, Default Initial path
      * @param string $separator, array key path separator
+     *
      * @return array, single dimensional array with key and value pair
      * @access public
      * @static
      */
-    static public function shorten(array $inputArray, $path = null, $separator = "_")
+    static public function shorten(array $inputArray, $path = null, $separator = '_')
     {
         $data = [];
         if (!is_null($path)) {
@@ -485,6 +499,7 @@ class Arrays
      *
      * @param array $data data to be converted into multidimensional array
      * @param string $separator key path separator
+     *
      * @return array multi dimensional array
      * @access public
      * @static
@@ -523,6 +538,7 @@ class Arrays
      * @param string $path
      * @param array $data
      * @param string $separator path separator default '.'
+     *
      * @return mixed and return NULL if not found.
      * @access public
      * @static
@@ -547,6 +563,7 @@ class Arrays
      * @param array $rows
      * @param string $parent
      * @param string $id
+     *
      * @return array
      */
     static function createTree($rows, $parent = 'parent_id', $id = 'id')
@@ -564,6 +581,7 @@ class Arrays
      * @param array $rs
      * @param int $parent
      * @param string $id
+     *
      * @return array
      */
     static protected function recursiveTree(&$rs, $parent = 0, $id = 'id')
@@ -585,6 +603,7 @@ class Arrays
      * Parse query string by cgi standarts
      *
      * @param string $str
+     *
      * @return array
      */
     static function parse_str($str)

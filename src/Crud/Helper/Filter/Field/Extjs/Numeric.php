@@ -17,9 +17,10 @@ use Vein\Core\Crud\Grid\Filter as Filter,
 class Numeric extends BaseHelper
 {
     /**
-     * Render extjs number filter field
+     * Render number filter field
      *
      * @param \Vein\Core\Crud\Grid\Filter\Field $field
+     *
      * @return string
      */
     public static function _(Field\Numeric $field)

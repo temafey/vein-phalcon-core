@@ -104,6 +104,7 @@ class Elasticsearch extends Container implements GridContainer
      * Return filter class name
      *
      * @param string $type
+     *
      * @return string
      */
     public function getFilterClass($type)
@@ -115,6 +116,7 @@ class Elasticsearch extends Container implements GridContainer
      * Setup paginator.
      *
      * @param \Vein\Core\Search\Elasticsearch\Query\Builder $queryBuilder
+     *
      * @return \ArrayObject
      */
     protected function _getPaginator($queryBuilder, $extraLimit, $limit, $page, $total = false)
@@ -206,6 +208,7 @@ class Elasticsearch extends Container implements GridContainer
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $datasource
      * @param array $ids
+     *
      * @return array
      */
     protected function _getData($datasource, array $ids)
@@ -219,7 +222,7 @@ class Elasticsearch extends Container implements GridContainer
         $source = $datasource->getModel()->getSource();
         $primayField = $datasource->getModel()->getPrimary();
 
-        return $datasource->andWhere($source.".".$primayField." IN (".implode(", ", $ids).")")->orderBy("FIELD (".$source.".".$primayField." ,".implode(", ", $ids).")")->getQuery()->execute();
+        return $datasource->andWhere($source.'.'.$primayField." IN (".implode(", ", $ids).")")->orderBy("FIELD (".$source.'.'.$primayField." ,".implode(", ", $ids).")")->getQuery()->execute();
     }
 
     /**

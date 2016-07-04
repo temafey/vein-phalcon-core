@@ -87,12 +87,13 @@ class Geo extends Compound
 	 * Return datasource filters
 	 *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
-	 * @return \Vein\Core\Filter\SearchFilterInterface
+     *
+     * @return \Vein\Core\Filter\SearchFilterInterface
 	 */
     public function getFilter(Container $container)
     {
 		$values = $this->getValue();
-		if ($values === null || $values === false || (is_string($values) && $values == "")) {
+		if ($values === null || $values === false || (is_string($values) && $values == '')) {
 		    return false;
 		}
 		$filters = [];
@@ -105,7 +106,7 @@ class Geo extends Compound
         }
 
 		foreach ($values as $val) {
-			if (trim($val) == "" || array_search($val, $this->_exceptionsValues)) {
+			if (trim($val) == '' || array_search($val, $this->_exceptionsValues)) {
 				continue;
 			}
 			$filter = $container->getFilter('search', [$this->_name => $this->_criteria], $val);
@@ -122,6 +123,7 @@ class Geo extends Compound
      * Set filter value delimeter
      *
      * @param string  $delimeter
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field\Standart
      */
     public function setDelimeter($delimeter)

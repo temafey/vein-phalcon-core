@@ -52,6 +52,7 @@ class Standart extends AbstractFilter
      * Apply filter to query builder
      *
      * @param \Vein\Core\Search\Elasticsearch\Query\Builder $dataSource
+     *
      * @return string
      */
     public function filter(Builder $dataSource)

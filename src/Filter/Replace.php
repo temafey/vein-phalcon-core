@@ -37,6 +37,7 @@ class Replace implements FilterInterface
      * Filter value
      *
      * @param $value
+     *
      * @return mixed
      */
     public function filter($value)

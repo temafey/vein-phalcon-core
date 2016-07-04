@@ -17,6 +17,7 @@ class Datastore extends \Vein\Core\Crud\Helper
      * Generates a widget to show a dojo grid datastore
      *
      * @param \Vein\Core\Crud\Grid $grid
+     *
      * @return string
      */
     static public function _(\Vein\Core\Crud\Grid $grid)

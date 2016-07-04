@@ -38,6 +38,7 @@ class Checkbox extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)

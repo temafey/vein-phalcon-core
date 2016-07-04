@@ -37,6 +37,7 @@ class Match extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
 	public function getFilter(Container $container)
@@ -88,6 +89,7 @@ class Match extends Standart
      * Parse filter value
      *
      * @param string $value
+     *
      * @return array
      */
     protected function _parseValue($value)
@@ -108,11 +110,12 @@ class Match extends Standart
      * Normalize filter value
      *
      * @param $value
+     *
      * @return mixed
      */
     protected function _normalizeValue($value)
     {
-		return str_replace(","," ",$value);
+		return str_replace(',',' ',$value);
 	}
 	
 }

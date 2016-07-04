@@ -149,6 +149,7 @@ class Cache extends AbstractService
      * Return backend cache adapter full class name
      *
      * @param string $name
+     *
      * @return string
      */
     protected function _getBackendCacheAdapter($name)

@@ -32,6 +32,7 @@ interface ElementInterface
      * Sets the element description
      *
      * @param string $desc
+     *
      * @return \Vein\Core\Forms\ElementInterface
      */
     public function setDesc($desc);
@@ -49,6 +50,7 @@ interface ElementInterface
      * Sets the parent form to the element
      *
      * @param \Phalcon\Forms\Form $form
+     *
      * @return \Phalcon\Forms\Form
      */
     public function setForm(\Phalcon\Forms\Form $form);
@@ -66,6 +68,7 @@ interface ElementInterface
      * Sets the element's name
      *
      * @param string $name
+     *
      * @return \Phalcon\Forms\Form
      */
     public function setName($name);
@@ -84,6 +87,7 @@ interface ElementInterface
      *
      * @param array $validators
      * @param $merge
+     *
      * @return \Phalcon\Forms\Form
      */
     public function addValidators(array $validators, $merge=null);
@@ -93,6 +97,7 @@ interface ElementInterface
      * Adds a validator to the element
      *
      * @param \Phalcon\Validation\ValidatorInterface
+     *
      * @return \Phalcon\Forms\Form
      */
     public function addValidator(\Phalcon\Validation\ValidatorInterface $validator);
@@ -111,6 +116,7 @@ interface ElementInterface
      * according to the element's parameters
      *
      * @param array $attributes
+     *
      * @return array
      */
     public function prepareAttributes($attributes);
@@ -121,6 +127,7 @@ interface ElementInterface
      *
      * @param string $attribute
      * @param mixed $value
+     *
      * @return \Phalcon\Forms\Form
      */
     public function setAttribute($attribute, $value);
@@ -130,6 +137,7 @@ interface ElementInterface
      * Sets default attributes for the element
      *
      * @param array $attributes
+     *
      * @return \Phalcon\Forms\Form
      */
     public function setAttributes(array $attributes);
@@ -147,6 +155,7 @@ interface ElementInterface
      * Sets the element label
      *
      * @param string $label
+     *
      * @return \Phalcon\Forms\Form
      */
     public function setLabel($label);

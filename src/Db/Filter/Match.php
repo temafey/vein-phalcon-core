@@ -41,6 +41,7 @@ class Match extends AbstractFilter
      * Apply filter to query builder
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return string
      */
     public function filterWhere(Builder $dataSource)
@@ -60,6 +61,7 @@ class Match extends AbstractFilter
      * Return bound params array
      *
      * @param \Vein\Core\Mvc\Model\Query\Builder $dataSource
+     *
      * @return array
      */
     public function getBoundParams(Builder $dataSource)

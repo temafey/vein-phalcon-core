@@ -293,6 +293,7 @@ class ManyToMany extends Field
      * Return linear array
      *
      * @param array $selected
+     *
      * @return array
      */
     protected function selectedArray(array $selected)
@@ -314,6 +315,7 @@ class ManyToMany extends Field
      * Save data in many to many field.
      *
      * @param array $data
+     *
      * @return void
      */
     public function postSaveAction(array $data)
@@ -391,14 +393,14 @@ class ManyToMany extends Field
                 $manager->executeQuery("DELETE FROM ".$source." WHERE ".$delete);
             }
             foreach ($data['insert'] as $insert) {
-                $manager->executeQuery("INSERT INTO ".$source." (".implode(",", array_keys($insert).") VALUES (".implode(",", $insert)));
+                $manager->executeQuery("INSERT INTO ".$source." (".implode(',', array_keys($insert).") VALUES (".implode(',', $insert)));
             }
             foreach ($data['update'] as $update) {
                 $update = [];
                 foreach ($update['data'] as $key => $value) {
                     $update[] = $key." = '".$value."'";
                 }
-                $manager->executeQuery("UPDATE ".$source." SET ".implode(",", $update)." WHERE ".$update['where']);
+                $manager->executeQuery("UPDATE ".$source." SET ".implode(',', $update)." WHERE ".$update['where']);
             }
             $db->commit();
 
@@ -415,6 +417,7 @@ class ManyToMany extends Field
      * Find all category parent ids for all save values
      *
      * @param array $ids
+     *
      * @return array
      */
     protected function _findAllParents(array $ids)
@@ -464,6 +467,7 @@ class ManyToMany extends Field
      * Generate and return array of saved options rows.
      *
      * @param array $data
+     *
      * @return array
      */
     public function getOptionIds(array $data)
@@ -478,6 +482,7 @@ class ManyToMany extends Field
 
     /**
      * @param array $names
+     *
      * @return array
      */
     public function getOptionIdsByNames(array $names)
@@ -522,6 +527,7 @@ class ManyToMany extends Field
      * Set onchange action
      *
      * @param string $onchange
+     *
      * @return @return \Vein\Core\Crud\Form\Field\ManyToMany
      */
     public function setOnchangeAction($onchange)
@@ -534,6 +540,7 @@ class ManyToMany extends Field
      * Return options array
      *
      * @params array $params
+     *
      * @return array
      */
     public function getOptions(array $params)
@@ -596,6 +603,7 @@ class ManyToMany extends Field
      * Return options array
      *
      * @params array $params
+     *
      * @return array
      */
     public function getCount(array $params)

@@ -87,7 +87,7 @@ class Service implements \Phalcon\DI\InjectionAwareInterface
                     if (file_exists($controllerPath)) {
                         $files = scandir($controllerPath); // get all file names
                         foreach ($files as $file) { // iterate files
-                            if ($file == "." || $file == "..") {
+                            if ($file == '.' || $file == '..') {
                                 continue;
                             }
                             $controllerClass = ucfirst(str_replace('.php', '', $file));
@@ -135,6 +135,7 @@ class Service implements \Phalcon\DI\InjectionAwareInterface
      * Parse object annotations for find acl rules
      *
      * @param $objectName
+     *
      * @return null|\stdClass
      */
     public function getObjectAcl($objectName)
@@ -167,11 +168,12 @@ class Service implements \Phalcon\DI\InjectionAwareInterface
      *
      * @param string $moduleName
      * @param string $controllerName
+     *
      * @return string
      */
     public function getResource($moduleName, $controllerName)
     {
-        return strtolower(trim($moduleName, " /\\")."_".trim($controllerName, " /\\"));
+        return strtolower(trim($moduleName, " /\\").'_'.trim($controllerName, " /\\"));
     }
 
     /**
@@ -182,6 +184,7 @@ class Service implements \Phalcon\DI\InjectionAwareInterface
      * @param string $controllerName
      * @param string $actionName
      * @param bool $checkResource
+     *
      * @return bool
      */
     public function isAllowed($role, $moduleName, $controllerName, $actionName, $checkResource = false)

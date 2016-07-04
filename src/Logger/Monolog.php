@@ -58,6 +58,7 @@ class Monolog extends PAdapter implements PAdapterInterface
      * @param int|mixed|string $type
      * @param null $message
      * @param array $context
+     *
      * @return Boolean Whether the record has been processed
      */
     public function log($type, $message = NULL, array $context = NULL)
@@ -111,6 +112,7 @@ class Monolog extends PAdapter implements PAdapterInterface
      *
      * @param string $name
      * @param array $arguments
+     *
      * @return mixed
      * @throws \Vein\Core\Exception
      */

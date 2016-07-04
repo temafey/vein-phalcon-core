@@ -19,7 +19,8 @@ class Functions extends BaseHelper
 	 * Generates form functions object
 	 *
 	 * @param \Vein\Core\Crud\Form\Extjs $form
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Form $form)
 	{

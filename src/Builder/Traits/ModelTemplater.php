@@ -20,6 +20,7 @@ trait ModelTemplater {
      * Method to set the value of field %s
      *
      * @param %s \$%s
+     *
      * @return \$this
      */
     public function set%s(\$%s)

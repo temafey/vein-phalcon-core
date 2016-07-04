@@ -20,6 +20,7 @@ class Text extends BaseHelper
      * Render DataTable text form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

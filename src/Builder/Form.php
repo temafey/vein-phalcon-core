@@ -6,13 +6,18 @@ use Vein\Core\Builder\Traits\BasicTemplater as TBasicTemplater,
     Vein\Core\Builder\Traits\SimpleFormTemplater as TSimpleFormTemplater,
     Vein\Core\Builder\Traits\ExtJsFormTemplater as TExtJsFormTemplater,
     Vein\Core\Builder\Traits\DataTableFormTemplater as TDataTableFormTemplater,
+    Vein\Core\Builder\Traits\StandartFormTemplater as TStandartFormTemplater,
     Vein\Core\Tools\Inflector,
     Phalcon\Db\Column,
     Vein\Core\Builder\Script\Color;
 
 class Form extends Component
 {
-    use TBasicTemplater, TSimpleFormTemplater, TExtJsFormTemplater, TDataTableFormTemplater;
+    use TBasicTemplater,
+        TSimpleFormTemplater,
+        TExtJsFormTemplater,
+        TDataTableFormTemplater,
+        TStandartFormTemplater;
 
     protected $type = self::TYPE_SIMPLE;
 
@@ -34,6 +39,7 @@ class Form extends Component
      * Setup builder type
      *
      * @param int $type
+     *
      * @return $this
      */
     public function setType($type = self::TYPE_SIMPLE)
@@ -51,6 +57,7 @@ class Form extends Component
      * Returns the associated PHP type
      *
      * @param string $type
+     *
      * @return string
      */
     public function getType($type)
@@ -139,15 +146,18 @@ class Form extends Component
                 break;
             case self::TYPE_DATATABLE: $extends = $this->templateDataTableFormExtends;
                 break;
-            default: $extends = $this->templateSimpleFormExtends;
+            case self::TYPE_STANDART: $extends = $this->templateStandartFormExtends;
                 break;
+            default: $extends = $this->templateSimpleFormExtends;
+            break;
         }
 
 
         // Set action template
         if (
             $this->type !== self::TYPE_EXTJS &&
-            $this->type !== self::TYPE_DATATABLE
+            $this->type !== self::TYPE_DATATABLE &&
+            $this->type !== self::TYPE_STANDART
         ) {
             $nameSpace = $this->_builderOptions['namespaceClear'];
             $pieces = explode('\\', $nameSpace);
@@ -307,6 +317,18 @@ class Form extends Component
                 $content .= sprintf($this->templateDataTableFormKey, $formKey);
                 $content .= $this->templateDataTableFormModulePrefix;
                 $content .= sprintf($this->templateDataTableFormModuleName, $this->_builderOptions['moduleName']);
+                $content .= sprintf($this->templateSimpleFormTitle, $this->_builderOptions['className']);
+                $content .= sprintf($this->templateSimpleFormContainerModel, $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$this->_builderOptions['className']);
+                $content .= $templateInitFields;
+                break;
+            case self::TYPE_STANDART:
+                $pieces = explode('\\', strtolower($this->_builderOptions['namespaceClear'].'\\'.$this->_builderOptions['className']));
+                array_shift($pieces);
+                array_shift($pieces);
+                $formKey = implode($pieces, '-');
+                $content .= sprintf($this->templateStandartFormKey, $formKey);
+                $content .= $this->templateStandartFormModulePrefix;
+                $content .= sprintf($this->templateStandartFormModuleName, $this->_builderOptions['moduleName']);
                 $content .= sprintf($this->templateSimpleFormTitle, $this->_builderOptions['className']);
                 $content .= sprintf($this->templateSimpleFormContainerModel, $this->getNameSpace($table, self::OPTION_MODEL)[1].'\\'.$this->_builderOptions['className']);
                 $content .= $templateInitFields;

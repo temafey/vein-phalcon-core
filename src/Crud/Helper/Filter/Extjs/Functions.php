@@ -19,7 +19,8 @@ class Functions extends BaseHelper
 	 * Generates form functions object
 	 *
 	 * @param \Vein\Core\Crud\Grid\Filter $filter
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Filter $filter)
 	{

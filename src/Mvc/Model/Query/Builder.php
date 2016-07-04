@@ -56,6 +56,7 @@ class Builder extends PhBuilder
      *
      * @param \Vein\Core\Mvc\Model $model
      * @param string $alias
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function setModel(\Vein\Core\Mvc\Model $model, $alias = null)
@@ -163,6 +164,7 @@ class Builder extends PhBuilder
      * Include primary key to Query condition.
      *
      * @param string $alias
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsId($alias = 'id')
@@ -177,6 +179,7 @@ class Builder extends PhBuilder
      * Include column with name alias to Query condition.
      *
      * @param string $alias
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columnsName($alias = 'name')
@@ -191,6 +194,7 @@ class Builder extends PhBuilder
      * Sets the columns to be queried
      *
      * @param string|array $columns
+     *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */
     public function columns($columns)
@@ -351,7 +355,7 @@ class Builder extends PhBuilder
     /**
      * Join all models
      *
-     * @param  array $joinPath
+     * @param array $joinPath
      *
      * @return \Vein\Core\Mvc\Model\Query\Builder
      */

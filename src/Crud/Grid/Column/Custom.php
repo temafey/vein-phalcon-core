@@ -52,6 +52,7 @@ class Custom extends Base
      * Update grid container
      *
      * @param \Vein\Core\Crud\Container\Grid\Adapter $container
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function updateContainer(\Vein\Core\Crud\Container\Grid\Adapter $container)
@@ -63,6 +64,7 @@ class Custom extends Base
      * Render column
      *
      * @param mixed $row
+     *
      * @return string
      */
     public function render($row)

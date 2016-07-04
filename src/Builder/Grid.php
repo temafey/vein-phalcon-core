@@ -34,6 +34,7 @@ class Grid extends Component
      * Setup builder type
      *
      * @param int $type
+     *
      * @return $this
      */
     public function setType($type = self::TYPE_SIMPLE)
@@ -51,6 +52,7 @@ class Grid extends Component
      * Returns the associated PHP type
      *
      * @param string $type
+     *
      * @return string
      */
     public function getType($type)
@@ -141,7 +143,7 @@ class Grid extends Component
             case self::TYPE_DATATABLE: $extends = $this->templateDataTableGridExtends;
                 break;
             default: $extends = $this->templateSimpleGridExtends;
-                break;
+            break;
         }
 
         $templateInitColumns = $this->templateSimpleGridInitColumns;
@@ -179,7 +181,7 @@ class Grid extends Component
                 if (strpos($tableName, '_') === false) {
                     $tableName .= '_'.$tableName;
                 }
-                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));
+                $classTableName = str_replace(' ', '\\', Inflector::humanize(implode('_model_', explode('_', $tableName, 2))));                
                 $fieldName = $columns[0];
                 $normalizeFieldName = str_replace('_id', '', $fieldName);
 
@@ -238,7 +240,7 @@ class Grid extends Component
             }
             $fieldName = $field->getName();
             $normalizeFieldName = str_replace('_id', '', $fieldName);
-
+            
             if (array_key_exists($fieldName, $joinColumns)) {
                 $initColumns .= $joinColumns[$fieldName];
                 $initFilters .= $joinFilters[$fieldName];
@@ -367,7 +369,7 @@ class Grid extends Component
                 $content .= $templateAction;
                 $content .= $templateInitColumns;
                 $content .= $templateInitFilters;
-                break;
+            break;
         }
 
         $code = sprintf(

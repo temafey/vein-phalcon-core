@@ -62,7 +62,7 @@ class Service extends Component
         $belongsTo = [];
 
         // Model::initialize() code
-        $initializeCode = "";
+        $initializeCode = '';
         if (count($belongsTo) > 0) {
             foreach ($belongsTo as $rel) {
                 $initializeCode .= $rel."\n";

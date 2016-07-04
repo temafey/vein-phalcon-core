@@ -50,7 +50,7 @@ abstract class Extjs extends Form
     }
     
     /**
-     * Return extjs module name
+     * Return module name
      *
      * @return string
      */
@@ -60,7 +60,7 @@ abstract class Extjs extends Form
     }
 
     /**
-     * Return extjs form key
+     * Return form key
      *
      * @return string
      */

@@ -55,6 +55,7 @@ class Path extends AbstractFilter
      * Apply filter to query builder
      *
      * @param \Vein\Core\Search\Elasticsearch\Query\Builder $dataSource
+     *
      * @return string
      */
     public function filter(Builder $dataSource)
@@ -91,7 +92,7 @@ class Path extends AbstractFilter
             if ($this->_category) {
                 $temp = explode("\\", $this->_category);
                 $subKey = array_pop($temp);
-                $name = $refKey."_".strtolower($subKey);
+                $name = $refKey.'_'.strtolower($subKey);
 
                 $model = new $this->_category;
                 $primary = $model->getPrimary();
@@ -101,12 +102,12 @@ class Path extends AbstractFilter
 
                 $queryBuilder->columnsJoinOne($refModel, [$categoryKey => $categoryKey]);
                 $queryBuilder->orderBy($categoryKey.', name');
-                $queryBuilder->andWhere($refKey." IN (".implode(",", $values).")");
+                $queryBuilder->andWhere($refKey." IN (".implode(',', $values).")");
                 $filterData = (($result = $queryBuilder->getQuery()->execute()) === null) ? [] : $result->toArray();
 
                 $acceptedFilters = [];
                 foreach ($filterData as $filter) {
-                    $newKey = $name."_".$filter[$categoryKey];
+                    $newKey = $name.'_'.$filter[$categoryKey];
                     if (!isset($item[$newKey])) {
                         $item[$newKey] = [];
                     }

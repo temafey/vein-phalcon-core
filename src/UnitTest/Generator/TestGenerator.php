@@ -276,6 +276,7 @@ class TestGenerator extends AbstractGenerator
      *
      * @param \ReflectionClass $class
      * @param \ReflectionMethod $method
+     *
      * @return string
      */
     protected function _renderMethod(\ReflectionClass $class, \ReflectionMethod $method)
@@ -413,6 +414,7 @@ class TestGenerator extends AbstractGenerator
      *
      * @param \ReflectionClass $class
      * @param \ReflectionMethod $method
+     *
      * @return array
      */
     protected function _processMethodDocComment(\ReflectionClass $class, \ReflectionMethod $method)
@@ -604,7 +606,7 @@ class TestGenerator extends AbstractGenerator
             $mocks[] = $mockTemplate->render();
         }
 
-        return implode("", $mocks);
+        return implode('', $mocks);
     }
 
     /**
@@ -615,6 +617,7 @@ class TestGenerator extends AbstractGenerator
      * @param \ReflectionMethod $parentMethod
      * @param array $parentNamespaces
      * @param integer $level
+     *
      * @return array
      */
     public function getMock(
@@ -864,7 +867,8 @@ class TestGenerator extends AbstractGenerator
     /**
      * Return all namespaces source
      *
-     * @param  string $sourceName
+     * @param string $sourceName
+     *
      * @return array
      */
     public function getNamespacesFromSource($sourceName)
@@ -965,6 +969,7 @@ class TestGenerator extends AbstractGenerator
      * Parse and find all parent classes and traits
      *
      * @param \ReflectionClass $reflection
+     *
      * @return array
      */
     public function getParentClassesAndTraits(\ReflectionClass $reflection)

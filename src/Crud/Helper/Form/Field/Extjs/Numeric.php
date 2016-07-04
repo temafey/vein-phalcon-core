@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Numeric extends BaseHelper
 {
     /**
-     * Render extjs number form field
+     * Render number form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field\Numeric $field)

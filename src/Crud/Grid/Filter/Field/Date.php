@@ -48,6 +48,7 @@ class Date extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)
@@ -56,7 +57,7 @@ class Date extends Standart
         if (!$value) {
             return false;
         }
-        $value = str_replace("-", "/", $value);
+        $value = str_replace('-', '/', $value);
         $value = date('Y-m-d H:i:s', strtotime($value));
 
         if (!$this->checkHashValue($value)) {

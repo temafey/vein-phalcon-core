@@ -20,7 +20,8 @@ interface ColumnInterface
 	 * Render column
 	 * 
 	 * @param mixed $row
-	 * @return string
+     *
+     * @return string
 	 */
 	public function render($row);
 	
@@ -28,7 +29,8 @@ interface ColumnInterface
 	 * Update grid container
 	 * 
 	 * @param \Vein\Core\Crud\Container\Grid\Adapter $container
-	 * @return \Vein\Core\Crud\Grid\ColumnInterface
+     *
+     * @return \Vein\Core\Crud\Grid\ColumnInterface
 	 */
 	public function updateContainer(GridContainer\Adapter $container);
 	
@@ -36,7 +38,8 @@ interface ColumnInterface
 	 * Update container data source
 	 * 
 	 * @param mixed $dataSource
-	 * @return \Vein\Core\Crud\Grid\ColumnInterface
+     *
+     * @return \Vein\Core\Crud\Grid\ColumnInterface
 	 */
 	public function updateDataSource($dataSource);
 }

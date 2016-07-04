@@ -20,7 +20,8 @@ class Pug extends BaseHelper
 	 * Generates a widget to show a html grid
 	 *
 	 * @param \Vein\Core\Crud\Grid\DataTable $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{

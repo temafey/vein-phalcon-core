@@ -9,7 +9,7 @@ use Vein\Core\Crud\Form\Extjs as Form,
     Vein\Core\Crud\Helper\Form\Extjs;
 
 /**
- * Class extjs grid model helper
+ * Class grid model helper
  *
  * @category   Vein\Core
  * @package    Crud
@@ -27,6 +27,7 @@ class Model extends BaseHelper
      * Generates a widget to show a html grid
      *
      * @param \Vein\Core\Crud\Form\Extjs $form
+     *
      * @return string
      */
     static public function _(Form $form)
@@ -63,11 +64,11 @@ class Model extends BaseHelper
                 }
             }
             $code .= "
-            fields: [".implode(",", $fields)."
+            fields: [".implode(',', $fields)."
             ],";
 
             $code .= "
-            validations: [".implode(",", $validations)."]";
+            validations: [".implode(',', $validations)."]";
 
             if ($primary !== false) {
                 $code .= ",
@@ -103,6 +104,7 @@ class Model extends BaseHelper
      * Render string model field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _string(Field $field)
@@ -121,6 +123,7 @@ class Model extends BaseHelper
      * Render date model field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _date(Field\Date $field)
@@ -141,6 +144,7 @@ class Model extends BaseHelper
      * Render collection field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _collection(Field\ArrayToSelect $field)
@@ -152,6 +156,7 @@ class Model extends BaseHelper
      * Render checkbox field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _check(Field\Checkbox $field)
@@ -163,6 +168,7 @@ class Model extends BaseHelper
      * Render numeric field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _int(Field $field)
@@ -181,6 +187,7 @@ class Model extends BaseHelper
      * Render image field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _image(Field\Image $field)
@@ -192,6 +199,7 @@ class Model extends BaseHelper
      * Render file field type
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _file(Field\File $field)

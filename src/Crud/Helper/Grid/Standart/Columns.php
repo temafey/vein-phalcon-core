@@ -20,7 +20,8 @@ class Columns extends \Vein\Core\Crud\Helper
 	 * Generates grid table colums head
 	 *
 	 * @param \Vein\Core\Crud\Grid $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{
@@ -59,6 +60,7 @@ class Columns extends \Vein\Core\Crud\Helper
      * Create column sortable link
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     static public function sortLink(Column $column)
@@ -79,7 +81,7 @@ class Columns extends \Vein\Core\Crud\Helper
             $link .= '<b>';
             $sortIcon = ($sortDirection == "asc") ? "/\\" : "\\/";
         }
-        $link .= '<a href="'.$action.'">'.$column->getTitle()." ".$sortIcon."</a>";
+        $link .= '<a href="'.$action.'">'.$column->getTitle().' '.$sortIcon."</a>";
         if ($sorted) {
             $link .= '</b>';
         }

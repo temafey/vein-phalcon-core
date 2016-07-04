@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Primary extends BaseHelper
 {
     /**
-     * Render extjs primary form field
+     * Render primary form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

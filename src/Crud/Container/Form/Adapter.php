@@ -25,7 +25,8 @@ interface Adapter
 	 * Return data array
 	 * 
 	 * @param int $id
-	 * @return array
+     *
+     * @return array
 	 */
 	public function loadData($id);
 	
@@ -33,7 +34,8 @@ interface Adapter
 	 * Insert new item
 	 * 
 	 * @param array $data
-	 * @return integer
+     *
+     * @return integer
 	 */
 	public function insert(array $data);
 	
@@ -42,7 +44,8 @@ interface Adapter
 	 * 
 	 * @param array $data
 	 * @param int $id
-	 * @return bool
+     *
+     * @return bool
 	 */
 	public function update($id, array $data);
 	
@@ -50,7 +53,8 @@ interface Adapter
 	 * Delete items
 	 * 
 	 * @param array|string|integer $id
-	 * @return bool
+     *
+     * @return bool
 	 */
 	public function delete($ids);
 }

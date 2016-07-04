@@ -20,6 +20,7 @@ class BaseHelper extends Base
      * Render filter form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function renderField(\Vein\Core\Crud\Form\Field $field)
@@ -28,15 +29,16 @@ class BaseHelper extends Base
         $helper = \Vein\Core\Crud\Decorator\Helper::factory($helperName, $field);
 
         $elementContent = call_user_func_array([$helper['helper'], '_'], [$helper['element']]);
-        $elementContent .= call_user_func([$helper['helper'], 'endTag']);
+        $elementContent .= call_user_func([$helper['helper'], 'endTag'], [$helper['element']]);
 
         return $elementContent;
     }
 
     /**
-     * Return extjs form field helper name
+     * Return form field helper name
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function getFieldHelper(\Vein\Core\Crud\Form\Field $field)

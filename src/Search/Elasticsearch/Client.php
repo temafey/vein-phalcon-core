@@ -23,7 +23,8 @@ class Client extends ElCient implements
     /**
      * Returns the index for the given connection
      *
-     * @param  \Vein\Core\Search\Elasticsearch\ModelAdapter $model
+     * @param \Vein\Core\Search\Elasticsearch\ModelAdapter $model
+     *
      * @return \Vein\Core\Search\Elasticsearch\Index Index for the given name
      */
     public function getIndex(\Vein\Core\Search\Elasticsearch\ModelAdapter $model)

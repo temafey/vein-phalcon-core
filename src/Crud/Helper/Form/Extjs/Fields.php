@@ -20,7 +20,8 @@ class Fields extends BaseHelper
 	 * Generates form fields object
 	 *
 	 * @param \Vein\Core\Crud\Form\Extjs $form
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Form $form)
 	{
@@ -41,7 +42,7 @@ class Fields extends BaseHelper
             }
         }
 
-        $code .= implode(",", $fields);
+        $code .= implode(',', $fields);
 
         $code .= "
                 ]

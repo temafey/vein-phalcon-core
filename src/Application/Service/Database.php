@@ -116,6 +116,7 @@ class Database extends AbstractService
      * Return metadata adapter full class name
      *
      * @param string $name
+     *
      * @return string
      */
     protected function _getMetaDataAdapter($name)
@@ -135,6 +136,7 @@ class Database extends AbstractService
      * Return database adapter full class name
      *
      * @param string $name
+     *
      * @return string
      */
     protected function _getDatabaseAdapter($name)

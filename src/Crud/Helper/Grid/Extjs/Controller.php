@@ -7,7 +7,7 @@ namespace Vein\Core\Crud\Helper\Grid\Extjs;
 use Vein\Core\Crud\Grid\Extjs as Grid;
 
 /**
- * Class extjs grid controller helper
+ * Class grid controller helper
  *
  * @category   Vein\Core
  * @package    Crud
@@ -25,6 +25,7 @@ class Controller extends BaseHelper
      * Generates a widget to show a html grid
      *
      * @param \Vein\Core\Crud\Grid\Extjs $grid
+     *
      * @return string
      */
     static public function _(Grid $grid)
@@ -69,7 +70,7 @@ class Controller extends BaseHelper
         }
 
         $code .= "
-            additionals: [".implode(",", $additionals)."
+            additionals: [".implode(',', $additionals)."
             ],
         ";
 

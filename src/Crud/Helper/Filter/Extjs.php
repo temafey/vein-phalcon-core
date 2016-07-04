@@ -26,6 +26,7 @@ class Extjs extends BaseHelper
      * Generates a widget to show a html grid filter
      *
      * @param \Vein\Core\Crud\Grid\Filter $filter
+     *
      * @return string
      */
     static public function _(Filter $filter)

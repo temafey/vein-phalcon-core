@@ -48,6 +48,7 @@ class Primary extends Base
      * Primary column can't be editable
      *
      * @param bool $editable
+     *
      * @return \Vein\Core\Crud\Grid\Column
      */
     public function setEditable($editable)

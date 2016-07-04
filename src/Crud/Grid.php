@@ -492,6 +492,7 @@ abstract class Grid implements
      * Set strict mode
      *
      * @param bool $strict
+     *
      * @return \Vein\Core\Crud\Grid\Column\Base
      */
     public function setStrictMode($strict = true)
@@ -789,6 +790,7 @@ abstract class Grid implements
      * @param string $module
      * @param string $key
      * @param string $param
+     *
      * @return \Vein\Core\Crud\Grid
      */
     public function addAdditional($type, $module, $key, $param)
@@ -1227,7 +1229,8 @@ abstract class Grid implements
 	 * Set page param
 	 * 
 	 * @param int $page
-	 * @return \Vein\Core\Crud\Grid
+     *
+     * @return \Vein\Core\Crud\Grid
 	 */
 	public function setPage($page) 
 	{
@@ -1389,7 +1392,7 @@ abstract class Grid implements
 	{
 	    if (!is_array($ids)) {
 	        $ids = trim($ids);
-	        if ($ids === "") {
+	        if ($ids === '') {
 	            return false;
 	        }	            
 	        $ids = [$ids];
@@ -1414,7 +1417,7 @@ abstract class Grid implements
 	{
 		if (!is_array($ids)) {
 	        $ids = trim($ids);
-	        if ($ids === "") {
+	        if ($ids === '') {
 	            return false;
 	        }	            
 	        $ids = [$ids];

@@ -43,7 +43,7 @@ class Database extends Adapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @param  array                      $options
+     * @param array                      $options
      * @throws \Phalcon\Session\Exception
      */
     public function __construct($options = null)
@@ -100,7 +100,8 @@ class Database extends Adapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @param  string $sessionId
+     * @param string $sessionId
+     *
      * @return string
      */
     public function read($sessionId)
@@ -127,8 +128,9 @@ class Database extends Adapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @param  string  $sessionId
-     * @param  string  $data
+     * @param string  $sessionId
+     * @param string  $data
+     *
      * @return boolean
      */
     public function write($sessionId, $data)
@@ -197,7 +199,8 @@ class Database extends Adapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @param  integer $maxlifetime
+     * @param integer $maxlifetime
+     *
      * @return boolean
      */
     public function gc($maxlifetime)

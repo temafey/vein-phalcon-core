@@ -19,16 +19,19 @@ class Standart extends \Vein\Core\Crud\Helper
 	 * Generates a widget to show a html grid filter
 	 *
 	 * @param \Vein\Core\Crud\Grid\Filter $filter
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Filter $filter)
 	{
-        $filter->initForm();
-        $form = $filter->getForm();
-        $code = '<form method="'.$filter->getMethod().'" action="'.$filter->getAction().'" class="form-inline">';
-        $code .= "
-            <legend>".$filter->getTitle()."</legend>
-            <table>";
+		$filter->initForm();
+		$form = $filter->getForm();
+		$code = '         <div class="box box-info">
+			';
+
+		$code .= '
+		<!-- grid filter form -->
+		<form method="'.$filter->getMethod().'" action="'.$filter->getAction().'" class="form-horizontal">';
 
 		return $code;
 	}
@@ -36,11 +39,15 @@ class Standart extends \Vein\Core\Crud\Helper
     /**
      * Crud helper end tag
      *
+	 * @param \Vein\Core\Crud\Grid\Filter\Field $filter
+	 *
      * @return string
      */
-    static public function endTag()
+    static public function endTag(Filter $filter)
     {
-        return '
-        </table></form>';
+		return '
+		</form>
+		<!-- /. grid filter form -->
+	</div>';
     }
 }

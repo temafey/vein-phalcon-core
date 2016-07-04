@@ -99,6 +99,7 @@ class Compound extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getFilter(Container $container)
@@ -123,6 +124,7 @@ class Compound extends Standart
      * Return datasource filters
      *
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Filter\SearchFilterInterface
      */
     public function getValue()
@@ -144,6 +146,7 @@ class Compound extends Standart
      * Set params to compound fields
      *
      * @param mixed $value
+     *
      * @return void
      */
     public function setValue($params)

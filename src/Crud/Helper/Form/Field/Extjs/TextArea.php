@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class TextArea extends BaseHelper
 {
     /**
-     * Render extjs text form field
+     * Render text form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field $field)

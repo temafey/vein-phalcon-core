@@ -22,6 +22,7 @@ class Crypt
     /**
      *  The constructor initializes the cryptography library
      * @param $salt string The encryption key
+     *
      * @return void
      */
     public function __construct($key, $saltWord)
@@ -34,6 +35,7 @@ class Crypt
      * Set salt word code for crypt.
      *
      * @param string $saltWord
+     *
      * @return void
      */
     protected function _setSaltWord($saltWord)
@@ -45,6 +47,7 @@ class Crypt
      * Generates a hex string of $src
      *
      * @param string $source
+     *
      * @return string
      */
     public function encrypt($source)
@@ -59,6 +62,7 @@ class Crypt
      * Return decrypted data
      *
      * @param string $source
+     *
      * @return string
      */
     public function decrypt($source)
@@ -70,23 +74,25 @@ class Crypt
      * Generate source message.
      *
      * @param string $source
+     *
      * @return string
      */
     protected function _getMessage($source)
     {
-        return $source."_".sha1($source);
+        return $source.'_'.sha1($source);
     }
 
     /**
      * Chrecking encrypt data.
      *
      * @param string $source
+     *
      * @return bool
      */
     public function check($code)
     {
         $decrypt = static::decryptData($code, $this->_key, $this->_salt);
-        $m_a = explode( "_", $decrypt);
+        $m_a = explode( '_', $decrypt);
         if (is_array($m_a) && !empty($m_a[0]) && !empty($m_a[1]) && sha1($m_a[0] ) == $m_a[1]) {
             $this->_message = explode('|', $m_a[0]);
             $this->_source = $this->_message[0];
@@ -124,6 +130,7 @@ class Crypt
      * @param string $data
      * @param string $key
      * @param string $iv
+     *
      * @return string
      */
     static function encryptData($data, $key, $iv)
@@ -137,6 +144,7 @@ class Crypt
      * @param string $data
      * @param string $key
      * @param string $iv
+     *
      * @return string
      */
     static function decryptData($data, $key, $iv)

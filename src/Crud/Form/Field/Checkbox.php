@@ -99,7 +99,7 @@ class Checkbox extends Field
      * value, and the checked flag to be set as false.
      *
      *
-     * @param  integer $value
+     * @param integer $value
      *
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
@@ -134,7 +134,7 @@ class Checkbox extends Field
     /**
      * Set checked value
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
@@ -161,7 +161,7 @@ class Checkbox extends Field
     /**
      * Set unchecked value
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */
@@ -187,7 +187,7 @@ class Checkbox extends Field
     /**
      * Set checked flag
      *
-     * @param  bool $flag
+     * @param bool $flag
      * 
      * @return \Vein\Core\Crud\Form\Field\Checkbox
      */

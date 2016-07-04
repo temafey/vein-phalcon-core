@@ -25,7 +25,7 @@ class Submit extends Field
 	 */
 	public function __construct($label = null, $width = 60)
 	{
-        $this->_label = $label;
+        $this->_value = $label;
         $this->_width = intval($width);
 	}
 
@@ -36,5 +36,15 @@ class Submit extends Field
      */
 	protected function _init()
 	{
+	}
+
+	/**
+	 * Return field save data
+	 *
+	 * @return bool
+	 */
+	public function getSaveData()
+	{
+		return false;
 	}
 }

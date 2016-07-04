@@ -93,6 +93,7 @@ class ImageJoinOne extends JoinOne
      * (non-PHPdoc)
      * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
+     *
      * @return string
      */
 	public function render($row)
@@ -110,7 +111,8 @@ class ImageJoinOne extends JoinOne
 	 * Create image html code
 	 * 
 	 * @param string $image
-	 * @return string
+     *
+     * @return string
 	 */
 	public function createImage($image)
 	{
@@ -118,7 +120,7 @@ class ImageJoinOne extends JoinOne
         $fullPath = realpath(DOCUMENT_ROOT.$image);
         if (file_exists($fullPath)) {
             $src = ' src="'.$image.'"';
-			$alt = ($alt) ? ' alt="'.$alt.'"' : "";
+			$alt = ($alt) ? ' alt="'.$alt.'"' : '';
             $width = 'width: '.$this->width .'px;';
             if ($this->height) $height = 'height: '.$this->height .'px;'; else $height = '';
 

@@ -17,9 +17,10 @@ use Vein\Core\Crud\Form\Extjs as Form,
 class Date extends BaseHelper
 {
     /**
-     * Render extjs date form field
+     * Render date form field
      *
      * @param \Vein\Core\Crud\Form\Field $field
+     *
      * @return string
      */
     public static function _(Field\Date $field)

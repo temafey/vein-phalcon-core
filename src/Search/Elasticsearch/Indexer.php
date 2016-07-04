@@ -190,6 +190,7 @@ class Indexer
      * @param bool $store
      * @param bool $joinType
      * @param bool|string $type
+     *
      * @return array
      */
     public function getFieldMap(Field $field, $sortable = false, $store = false, $joinType = false, $type = false)
@@ -234,11 +235,11 @@ class Indexer
                 if ($field->category) {
                     $property = [];
                     $model = $field->category;
-                    //$name = str_replace(["\\model", "\\"], ["", "_"], strtolower(trim($model, "\\")));
+                    //$name = str_replace(["\\model", "\\"], ['', '_'], strtolower(trim($model, "\\")));
                     $name = $key;
                     $temp = explode("\\", $model);
                     $subKey = array_pop($temp);
-                    $name .= "_".strtolower($subKey);
+                    $name .= '_'.strtolower($subKey);
                     $model = new $model;
                     $filters = $model->find()->toArray();
                     $primary = $model->getPrimary();
@@ -306,6 +307,7 @@ class Indexer
      * @param bool $include
      * @param float $boost
      * @param string $format
+     *
      * @return array
      */
     public function getFieldProperty(
@@ -389,6 +391,7 @@ class Indexer
      * @param integer $page
      * @param integer $pages
      * @param integer $breakPage
+     *
      * @return array
      */
     public function setData($page = 0, $pages = false, $breakPage = 0)
@@ -568,6 +571,7 @@ class Indexer
      *
      * @param array $data
      * @param \Vein\Core\Crud\Grid $grid
+     *
      * @return \Elastica\Document
      * @throws \Vein\Core\Exception
      */
@@ -609,6 +613,7 @@ class Indexer
      * Normalize item data before put it on elasticsearch
      *
      * @param array $item
+     *
      * @return void
      */
     protected function _normalizeItem(array &$item)
@@ -751,7 +756,7 @@ class Indexer
 
                 $temp = explode("\\", $category);
                 $subKey = array_pop($temp);
-                $name .= "_".strtolower($subKey);
+                $name .= '_'.strtolower($subKey);
 
                 $model = new $category;
                 $primary = $model->getPrimary();
@@ -764,7 +769,7 @@ class Indexer
                 $sql = $queryBuilder->getPhql();
                 $sql = str_replace(
                     [trim($workingModelClass, "\\"), trim($refModelClass, "\\"), "[", "]"],
-                    [$workingModel->getSource(), $refModel->getSource(), "", ""],
+                    [$workingModel->getSource(), $refModel->getSource(), '', ''],
                     $sql
                 );
                 $db = $workingModel->getReadConnection();
@@ -772,7 +777,7 @@ class Indexer
                 //$filterData = (($result = $queryBuilder->getQuery()->execute()) === null) ? [] : $result->toArray();
 
                 foreach ($filterData as $filter) {
-                    $newName = $name."_".$filter[$categoryKey];
+                    $newName = $name.'_'.$filter[$categoryKey];
                     if (!isset($item[$newName])) {
                         $item[$newName] = [];
                     }
@@ -808,7 +813,7 @@ class Indexer
                     if (null !== $data[$key]) {
                         $item[$key] = [];
                         $item[$key] = $data[$key];
-                        $item[$key . "_id"] = $data[$key . "_" . \Vein\Core\Mvc\Model::JOIN_PRIMARY_KEY_PREFIX];
+                        $item[$key . "_id"] = $data[$key . '_' . \Vein\Core\Mvc\Model::JOIN_PRIMARY_KEY_PREFIX];
                     }
                 } else {
                     $item[$key] = $column->getValue((object) $data);

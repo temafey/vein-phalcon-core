@@ -20,6 +20,7 @@ class Combobox extends BaseHelper
      * Render DataTable combobox form field
      *
      * @param \Vein\Core\Crud\Form\Field\ArrayToSelect $field
+     *
      * @return string
      */
     public static function _(Field\ArrayToSelect $field)
@@ -68,6 +69,7 @@ class Combobox extends BaseHelper
      * Return combobox datastore code
      *
      * @param Field\ArrayToSelect $field
+     *
      * @return string
      */
     protected static function _getOptions(Field\ArrayToSelect $field)

@@ -270,6 +270,7 @@ class Inflector {
      * @param $type
      * @param $key
      * @param bool $value
+     *
      * @return bool
      */
     protected static function _cache($type, $key, $value = false) {
@@ -367,6 +368,7 @@ class Inflector {
      * Return $word in plural form.
      *
      * @param string $word Word in singular
+     *
      * @return string Word in plural
      */
     public static function pluralize($word) {
@@ -409,6 +411,7 @@ class Inflector {
      * Return $word in singular form.
      *
      * @param string $word Word in plural
+     *
      * @return string Word in singular
      */
     public static function singularize($word) {
@@ -459,6 +462,7 @@ class Inflector {
      * Returns the given lower_case_and_underscored_word as a CamelCased word.
      *
      * @param string $lowerCaseAndUnderscoredWord Word to camelize
+     *
      * @return string Camelized word. LikeThis.
      */
     public static function camelize($lowerCaseAndUnderscoredWord) {
@@ -474,6 +478,7 @@ class Inflector {
      *
      * @param string $lowerCaseAndUnderscoredWord Word to camelize
      * @param boolean $global Return namespace with global \Like\This
+     *
      * @return string namespace. Like\This.
      */
     public static function namespaceze($lowerCaseAndUnderscoredWord, $global = false) {
@@ -491,6 +496,7 @@ class Inflector {
      * Returns the given front_camel_cased as model CamelCase.
      *
      * @param string $lowerCaseAndUnderscoredWord Word to CamelCase model
+     *
      * @return string namespace. Like\This.
      */
     public static function modelize($lowerCaseAndUnderscoredWord) {
@@ -507,6 +513,7 @@ class Inflector {
      * Returns the given camelCasedWord as an underscored_word.
      *
      * @param string $camelCasedWord Camel-cased word to be "underscorized"
+     *
      * @return string Underscore-syntaxed version of the $camelCasedWord
      */
     public static function underscore($camelCasedWord) {
@@ -522,6 +529,7 @@ class Inflector {
      * (Underscores are replaced by spaces and capitalized following words.)
      *
      * @param string $lowerCaseAndUnderscoredWord String to be made more readable
+     *
      * @return string Human-readable string
      */
     public static function humanize($lowerCaseAndUnderscoredWord) {

@@ -50,7 +50,7 @@ class Memcache extends Base
     /**
      * {@inheritdoc}
      *
-     * @param  null|array                   $options
+     * @param null|array                   $options
      * @throws \Phalcon\Mvc\Model\Exception
      */
     public function __construct($options = null)

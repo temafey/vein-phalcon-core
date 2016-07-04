@@ -22,7 +22,8 @@ class Columns extends BaseHelper
 	 * Generates grid columns object
 	 *
 	 * @param \Vein\Core\Crud\Grid\Extjs $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{
@@ -51,7 +52,7 @@ class Columns extends BaseHelper
             }
         }
 
-        $code .= implode(",", $columns);
+        $code .= implode(',', $columns);
 
         $code .= "
                 ]
@@ -65,6 +66,7 @@ class Columns extends BaseHelper
      * Render grid colum
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _column(Column $column)
@@ -101,6 +103,7 @@ class Columns extends BaseHelper
      * Render grid colum
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _image(Column $column)
@@ -131,6 +134,7 @@ class Columns extends BaseHelper
      * Render string model column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _string(Column $column)
@@ -156,6 +160,7 @@ class Columns extends BaseHelper
      * Render date column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _date(Column\Date $column)
@@ -210,6 +215,7 @@ class Columns extends BaseHelper
      * Render collection column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _collection(Column\Collection $column)
@@ -245,6 +251,7 @@ class Columns extends BaseHelper
      * Render collection column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _check(Column\Status $column)
@@ -266,6 +273,7 @@ class Columns extends BaseHelper
      * Render date column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _int(Column\Numeric $column)
@@ -310,6 +318,7 @@ class Columns extends BaseHelper
      * Render collection column type
      *
      * @param \Vein\Core\Crud\Grid\Column $column
+     *
      * @return string
      */
     public static function _action(Column\Action $column)
@@ -359,6 +368,7 @@ class Columns extends BaseHelper
      * Implode column components to formated string
      *
      * @param array $components
+     *
      * @return string
      */
     public static function _implode(array $components)

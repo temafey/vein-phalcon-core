@@ -27,7 +27,7 @@ class Submit extends Field
 	 */
 	public function __construct($label = null, $width = 280)
 	{
-        $this->_label = $label;
+        $this->_value = $label;
         $this->_width = intval($width);
 	}
 
@@ -54,6 +54,7 @@ class Submit extends Field
      *
      * @param mixed $dataSource
      * @param \Vein\Core\Crud\Container\AbstractContainer $container
+     *
      * @return \Vein\Core\Crud\Grid\Filter\Field
      */
     public function applyFilter($dataSource, Container $container)

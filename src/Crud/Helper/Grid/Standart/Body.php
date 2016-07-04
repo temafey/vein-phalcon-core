@@ -19,7 +19,8 @@ class Body extends BaseHelper
 	 * Generates grid table rows
 	 *
 	 * @param \Vein\Core\Crud\Grid $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{

@@ -21,7 +21,8 @@ class Query extends ElQuery
     /**
      * Sets the query
      *
-     * @param  \Elastica\Query\AbstractQuery $query Query object
+     * @param \Elastica\Query\AbstractQuery $query Query object
+     *
      * @return \Elastica\Query               Query object
      */
     public function setQuery(AbstractQuery $query)
@@ -63,6 +64,7 @@ class Query extends ElQuery
      * Normalize filter array, remove all epmty values
      *
      * @param array $filters
+     *
      * @return array
      */
     public function normalizeParams(array $params)
@@ -79,7 +81,7 @@ class Query extends ElQuery
             if (is_array(($value))) {
                 $value = $this->normalizeParams($value);
             }
-            if ($value === false || $value === "" || (is_array($value) && count($value) == 0)) {
+            if ($value === false || $value === '' || (is_array($value) && count($value) == 0)) {
                 unset($params[$key]);
             } else {
                 $params[$key] = $value;

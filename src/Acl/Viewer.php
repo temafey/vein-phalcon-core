@@ -41,6 +41,7 @@ class Viewer extends \Phalcon\Session\Bag
      * Set acl role name
      *
      * @param string $role
+     *
      * @return
      */
     public function setRole($role)
@@ -67,6 +68,7 @@ class Viewer extends \Phalcon\Session\Bag
      * Set viewer id
      *
      * @param int $id
+     *
      * @return
      */
     public function setId($id)

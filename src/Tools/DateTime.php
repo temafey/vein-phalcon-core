@@ -74,6 +74,7 @@ class DateTime {
      *
      * @param string $name Variable name
      * @param mixes
+     *
      * @return void
      */
     public function __set($name, $value) {
@@ -89,6 +90,7 @@ class DateTime {
      * Used by helpers to get static variables in DateTime
      *
      * @param string $name Variable name
+     *
      * @return mixed
      */
     public function __get($name) {
@@ -107,6 +109,7 @@ class DateTime {
      * @param string $format Format with specifiers for strftime function.
      * Accepts the special specifier %S which mimics the modifier S for date()
      * @param string $time UNIX timestamp
+     *
      * @return string windows safe and date() function compatible format for strftime
      */
     public static function convertSpecifiers($format, $time = null) {
@@ -122,6 +125,7 @@ class DateTime {
      * a windows safe and i18n aware specifier
      *
      * @param array $specifier match from regular expression
+     *
      * @return string converted element
      */
     protected static function _translateSpecifier($specifier) {
@@ -219,6 +223,7 @@ class DateTime {
      *
      * @param string $serverTime UNIX timestamp
      * @param string|\DateTimeZone $timezone User's timezone string or \DateTimeZone object
+     *
      * @return integer UNIX timestamp
      */
     public static function convert($serverTime, $timezone) {
@@ -282,6 +287,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return string Parsed timestamp
      */
     public static function fromString($dateString, $timezone = null) {
@@ -332,6 +338,7 @@ class DateTime {
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
      * @param string $format The format to use. If null, `TimeHelper::$niceFormat` is used
+     *
      * @return string Formatted date string
      */
     public static function nice($dateString = null, $timezone = null, $format = null) {
@@ -358,6 +365,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return string Described, relative date string
      */
     public static function niceShort($dateString = null, $timezone = null) {
@@ -405,6 +413,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string is today
      */
     public static function isToday($dateString, $timezone = null) {
@@ -418,6 +427,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string is in the future
      */
     public static function isFuture($dateString, $timezone = null) {
@@ -430,6 +440,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string is in the past
      */
     public static function isPast($dateString, $timezone = null) {
@@ -442,6 +453,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string is within current week
      */
     public static function isThisWeek($dateString, $timezone = null) {
@@ -455,6 +467,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string is within current month
      */
     public static function isThisMonth($dateString, $timezone = null) {
@@ -468,6 +481,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string is within current year
      */
     public static function isThisYear($dateString, $timezone = null) {
@@ -481,6 +495,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string was yesterday
      */
     public static function wasYesterday($dateString, $timezone = null) {
@@ -494,6 +509,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean True if datetime string was yesterday
      */
     public static function isTomorrow($dateString, $timezone = null) {
@@ -507,6 +523,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param boolean $range if true returns a range in Y-m-d format
+     *
      * @return mixed 1, 2, 3, or 4 quarter of year or array if $range true
      */
     public static function toQuarter($dateString, $range = false) {
@@ -534,6 +551,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return integer Unix timestamp
      */
     public static function toUnix($dateString, $timezone = null) {
@@ -552,6 +570,7 @@ class DateTime {
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
      * @param string $format date format string
+     *
      * @return mixed Formatted date
      */
     public static function toServer($dateString, $timezone = null, $format = 'Y-m-d H:i:s') {
@@ -583,6 +602,7 @@ class DateTime {
      *
      * @param string $dateString Datetime string or Unix timestamp
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return string Formatted date string
      */
     public static function toAtom($dateString, $timezone = null) {
@@ -594,6 +614,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return string Formatted date string
      */
     public static function toRSS($dateString, $timezone = null) {
@@ -658,6 +679,7 @@ class DateTime {
      *
      * @param integer|string|DateTime $dateTime Datetime UNIX timestamp, strtotime() valid string or DateTime object
      * @param array $options Default format if timestamp is used in $dateString
+     *
      * @return string Relative time string.
      */
     public static function timeAgoInWords($dateTime, $options = array()) {
@@ -868,6 +890,7 @@ class DateTime {
      * Example of valid types: 6 hours, 2 days, 1 minute.
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean
      */
     public static function wasWithinLast($timeInterval, $dateString, $timezone = null) {
@@ -890,6 +913,7 @@ class DateTime {
      * Example of valid types: 6 hours, 2 days, 1 minute.
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return boolean
      */
     public static function isWithinNext($timeInterval, $dateString, $timezone = null) {
@@ -909,6 +933,7 @@ class DateTime {
      * Returns gmt as a UNIX timestamp.
      *
      * @param integer|string|DateTime $dateString UNIX timestamp, strtotime() valid string or DateTime object
+     *
      * @return integer UNIX timestamp
      */
     public static function gmt($dateString = null) {
@@ -946,6 +971,7 @@ class DateTime {
      * @param integer|string|DateTime $format date format string (or UNIX timestamp, strtotime() valid string or DateTime object)
      * @param boolean|string $default if an invalid date is passed it will output supplied default value. Pass false if you want raw conversion value
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return string Formatted date string
      * @see DateTime::i18nFormat()
      */
@@ -967,6 +993,7 @@ class DateTime {
      * @param string $format strftime format string.
      * @param boolean|string $default if an invalid date is passed it will output supplied default value. Pass false if you want raw conversion value
      * @param string|\DateTimeZone $timezone Timezone string or \DateTimeZone object
+     *
      * @return string Formatted and translated date string
      */
     public static function i18nFormat($date, $format = null, $default = false, $timezone = null) {
@@ -988,6 +1015,7 @@ class DateTime {
      * @param string $country A two-letter ISO 3166-1 compatible country code.
      * This option is only used when $filter is set to \DateTimeZone::PER_COUNTRY (available only in PHP 5.3 and above)
      * @param boolean $group If true (default value) groups the identifiers list by primary region
+     *
      * @return array List of timezone identifiers
      * @since 2.2
      */
@@ -1039,6 +1067,7 @@ class DateTime {
      *
      * @param string $format Format string.
      * @param integer $date Timestamp to format.
+     *
      * @return string formatted string with correct encoding.
      */
     protected static function _strftime($format, $date) {

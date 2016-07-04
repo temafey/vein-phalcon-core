@@ -24,6 +24,7 @@ class Helper
      *
      * @param string|array $helper
      * @param mixed $element
+     *
      * @return \Vein\Core\Crud\Helper\AbstactHelper
      */
     public static function factory($helper, $element)
@@ -86,6 +87,7 @@ class Helper
      * Return helper namespace
      *
      * @param mixed $object
+     *
      * @return string
      */
     static function getHelperNamespace($object)

@@ -27,7 +27,8 @@ class Dummy extends \Phalcon\Cache\Backend
      * Starts a cache. The $keyname allows to identify the created fragment
      *
      * @param int|string $keyName
-     * @param   long $lifetime
+     * @param  long $lifetime
+     *
      * @return  mixed
      */
     public function start($keyName, $lifetime=null)
@@ -106,7 +107,8 @@ class Dummy extends \Phalcon\Cache\Backend
      * Returns a cached content
      *
      * @param int|string $keyName
-     * @param   long $lifetime
+     * @param  long $lifetime
+     *
      * @return  mixed
      */
     public function get($keyName, $lifetime=null)
@@ -131,6 +133,7 @@ class Dummy extends \Phalcon\Cache\Backend
      * Deletes a value from the cache by its key
      *
      * @param int|string $keyName
+     *
      * @return boolean
      */
     public function delete($keyName)
@@ -142,6 +145,7 @@ class Dummy extends \Phalcon\Cache\Backend
      * Query the existing cached keys
      *
      * @param string $prefix
+     *
      * @return array
      */
     public function queryKeys($prefix=null)
@@ -152,8 +156,9 @@ class Dummy extends \Phalcon\Cache\Backend
     /**
      * Checks if cache exists and it hasn't expired
      *
-     * @param  string $keyName
-     * @param  long $lifetime
+     * @param string $keyName
+     * @param long $lifetime
+     *
      * @return boolean
      */
     public function exists($keyName=null, $lifetime=null)

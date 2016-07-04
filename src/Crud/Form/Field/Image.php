@@ -96,7 +96,8 @@ class Image extends File
 	 * 
 	 * @param string $image
 	 * @param string $label
-	 * @return string
+     *
+     * @return string
 	 */
 	public function createImage($image, $label = null, $class = null)
 	{

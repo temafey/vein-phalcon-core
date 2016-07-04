@@ -20,7 +20,8 @@ class Fields extends BaseHelper
 	 * Generates form fields object
 	 *
 	 * @param \Vein\Core\Crud\Grid\Filter $filter
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Filter $filter)
 	{
@@ -44,7 +45,7 @@ class Fields extends BaseHelper
             }
         }
 
-        $code .= implode(",", $fields);
+        $code .= implode(',', $fields);
 
         $code .= "
                 ]

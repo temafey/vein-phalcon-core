@@ -20,7 +20,7 @@ class DataTable extends Decorator
     /**
      * Render an element
      *
-     * @param  string $content
+     * @param string $content
      * 
      * @return string
      * @throws \UnexpectedValueException if element or view are not registered
@@ -81,7 +81,7 @@ class DataTable extends Decorator
 
         foreach ($sections as $key => $fileSections) {
             $elementContent = implode('', $fileSections);
-            $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag']);
+            $elementContent .= call_user_func([$helpers[$key]['helper'], 'endTag', $helpers[$key]['element']]);
             /*if (!file_put_contents($helpers[$key]['createFile'], $elementContent)) {
                 throw new \Vein\Core\Exception("File '".$helpers[$key]['createFile']."' not save");
             }*/

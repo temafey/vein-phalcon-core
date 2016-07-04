@@ -66,7 +66,8 @@ class Mongo extends Adapter implements AdapterInterface
 	 * Reads the data from the table
 	 *
 	 * @param string $sessionId
-	 * @return string
+     *
+     * @return string
 	 */
 	public function read($sessionId)
 	{

@@ -19,7 +19,8 @@ class Functions extends BaseHelper
 	 * Generates grid functions object
 	 *
 	 * @param \Vein\Core\Crud\Grid\DataTable $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Grid $grid)
 	{

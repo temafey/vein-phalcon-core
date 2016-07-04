@@ -36,6 +36,7 @@ class Model extends Component
      * Returns the associated PHP type
      *
      * @param string $type
+     *
      * @return string
      */
     public function getPHPType($type)
@@ -291,6 +292,7 @@ class Model extends Component
     /**
      * Builds a PHP syntax with all the options in the array
      * @param array $options
+     *
      * @return string PHP syntax
      */
     private function _buildRelationOptions($options)

@@ -17,7 +17,8 @@ class Filter extends BaseHelper
 	 * Generates a widget to show a html grid
 	 *
 	 * @param \Vein\Core\Crud\Grid $grid
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(\Vein\Core\Crud\Grid $grid)
 	{

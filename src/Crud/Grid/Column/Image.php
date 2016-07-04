@@ -88,6 +88,7 @@ class Image extends Base
      * (non-PHPdoc)
      * @see \Vein\Core\Crud\Grid\Column::render()
      * @param mixed $row
+     *
      * @return string
      */
 	public function render($row)
@@ -105,7 +106,8 @@ class Image extends Base
 	 * Create image html code
 	 * 
 	 * @param string $image
-	 * @return string
+     *
+     * @return string
 	 */
 	public function createImage($image)
 	{        
@@ -116,7 +118,7 @@ class Image extends Base
             return 'Image not exists';
         }*/
         $src = ' src="'.$image.'"';
-        $alt = ($alt) ? ' alt="'.$alt.'"' : "";
+        $alt = ($alt) ? ' alt="'.$alt.'"' : '';
         $width = 'width: '.$this->width .'px;';
         if ($this->height) {
             $height = 'height: '.$this->height .'px;';

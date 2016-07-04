@@ -17,6 +17,7 @@ class Tag extends \Phalcon\Tag
      * Generates a widget to show a HTML5 audio tag
      *
      * @param array
+     *
      * @return string
      */
     static public function multiCheckField($parameters, $data = null)

@@ -54,7 +54,8 @@ class CoreExtension extends \Twig_Extension
     /**
      * Returns string with CSS.
      *
-     * @param  \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     * @param \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     *
      * @return string
      */
     public function functionAssetsOutputCss(Environment $env)
@@ -65,7 +66,8 @@ class CoreExtension extends \Twig_Extension
     /**
      * Returns string with JS.
      *
-     * @param  \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     * @param \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     *
      * @return string
      */
     public function functionAssetsOutputJs(Environment $env)
@@ -88,8 +90,9 @@ class CoreExtension extends \Twig_Extension
     /**
      * Proxy method that handles return of assets instead of instant output.
      *
-     * @param  \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
-     * @param  string                                    $method
+     * @param \Phalcon\Mvc\View\Vein\Core\Twig\Environment $env
+     * @param string                                    $method
+     *
      * @return string
      */
     protected function getAssetsOutput(Environment $env, $method)

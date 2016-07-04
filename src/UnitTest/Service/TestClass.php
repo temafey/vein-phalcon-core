@@ -60,6 +60,7 @@ class TestClass
      * Generate skeleton for source class
      *
      * @param \FilesystemIterator $item
+     *
      * @return boolean
      * @throws \Exception
      */
@@ -129,6 +130,7 @@ class TestClass
      *
      * @param string $sourcePath
      * @param string $namespace
+     *
      * @return string
      */
     protected function _getTestPathFromSource($sourcePath, $namespace = '')
@@ -194,6 +196,7 @@ class TestClass
      * Analaze source path and return namespace and origin class name
      *
      * @param string $sourceFilePath
+     *
      * @return array
      * @throws \Exception
      */

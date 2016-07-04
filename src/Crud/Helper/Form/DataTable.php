@@ -26,7 +26,8 @@ class DataTable extends BaseHelper
 	 * Generates a widget to show a html form
 	 *
 	 * @param \Vein\Core\Crud\Form\DataTable $form
-	 * @return string
+     *
+     * @return string
 	 */
 	static public function _(Form $form)
 	{
